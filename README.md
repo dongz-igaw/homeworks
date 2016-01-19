@@ -24,6 +24,12 @@
   | ObjectData | 프레임워크 컴포넌트 내부 지역데이터와 전역 공통데이터를 제공합니다. 기본 제공 데이터는 기술문서를 참고하세요.  |
   | ObjectMethod | 프레임워크 컴포넌트 OOP 표준 구조를 설계하도록 도와줍니다. 컴포넌트 생성방법은 기술문서를 참고하세요.  |
 
+ **공통변수**
+ 
+ | 변수 명    | 설명 |
+ |------------|------|
+ | `_ws`      | _ws는 프레임워크의 최상위 공용변수입니다. 해당 변수에는 각 컴포넌트의 `ObjectMethod`를 관리합니다. |
+
  **Component**
  
   - DOM 엘리먼트와 연동하여 프레임워크에서 제공하는 엘리먼트를 제공할 수 있습니다.
@@ -93,5 +99,24 @@
   | init     | function | `{element}.modal() 혹은 {element}.modal(setting) 형태의 호출에 대한 콜백함수 |
   | method   | object(function) | method 내에 자식요소로 key:function타입 선언 시 {element}.{key}() 호출 시 {function}이 호출 |
   | template | object{string} | key:value 타입이며 init, 혹은 method에서 해당 템플릿을 파서를 통해 참조 가능 |
+
+ - 컴포넌트를 정의하기 위해 사용한 `ObjectMethod`의 표준규격은 아래와 같습니다.
+
+  | 프로퍼티 | 타입 | 설명 |
+  |----------|------|------|
+  | route   | function | {element}.{component_name}을 호출 시 route를 통해 `init`과 `method` 분기합니다. |
+ 
+ - 컴포넌트 데이터를 관리하는 `ObjectData`의 기본 공통데이터는 아래와 같습니다.
+ 
+  | 키 | 타입 | 설명 |
+  |----|------|------|
+  | $super | prototype | `ObjectData` 자신을 가리키고 있는 변수입니다. |
+  | $helper | prototype | `ObjectHelper`를 가리키고 있는 변수입니다. |
+  | _bind | boolean | 컴포넌트 등록단계인 $.fn이 등록되었는지 체크하는 상태변수 입니다. |
+  | _debug | boolean | 프레임워크가 디버그 상태인지 체크할 수 있는 상태변수 입니다. |
+  | _init | boolean | 컴포넌트를 한번이상 실행 시켰는지 체크하는 상태변수 입니다. |
+  | framework | string | 프레임워크의 identity를 가지는 문자열입니다. |
+  | id | string | 컴포넌트를 구분 지을 수 있는 컴포넌트 identity 문자열입니다. |
+  | o | object | 전역 DOM을 빠르게 접근하기 위한 정의입니다. |
 
 ----
