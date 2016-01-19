@@ -72,4 +72,9 @@
  
  - 위 로직은 지금 당장은 이해하시기 난해할 것입니다.
  - 하지만 {element}.modal() 형태를 사용하는 것 자체가 `컴포넌트`입니다.
+ - 컴포넌트를 정의하기 위해서는 `ObjectMethod()`를 사용합니다.
+
+ ```javascript
+ _ws.modal = new ObjectMethod({element name}, {element setting})
+ ```
 ----
