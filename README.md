@@ -75,6 +75,15 @@
  - 컴포넌트를 정의하기 위해서는 `ObjectMethod()`를 사용합니다.
 
  ```javascript
- _ws.modal = new ObjectMethod({element name}, {element setting})
+ _ws.modal = new ObjectMethod({element_name}, {element_setting})
  ```
+ 
+ - 위 코드에서 {element_name}에 해당하는 부분이 `컴포넌트 명`입니다.
+ - 두번째 인수로 제공하는 {element_setting}은 `컴포넌트 구조`를 정의할 수 있습니다.
+
+ | 인수 명         | 타입   | 설명                       |
+ |-----------------|--------|----------------------------|
+ | element_name    | string | 컴포넌트의 이름을 작성합니다. ex) modal |
+ | element_setting | object | 컴포넌트의 구조를 작성합니다. |
+
 ----
