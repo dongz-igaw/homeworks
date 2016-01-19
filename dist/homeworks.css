@@ -301,16 +301,45 @@ a:active {
     border-bottom: 1px solid #d8d8d8;
 }
 
+.works-sider .works-sider-title i {
+    color: #666666;
+}
+
+.works-sider .works-sider-title:hover {
+    background-color: #f4f4f4;
+    color: #666666;
+}
+
+.works-sider .works-sider-title:hover i {
+    color: #777777;
+}
+
 .works-sider .works-sider-group {
     background-color: #dfdfdf;
     border-top: 1px solid #bcbcbc;
     border-bottom: 1px solid #d8d8d8;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
+    -o-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
+    -moz-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
+    -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
 }
 
 .works-sider .works-sider-group > a {
     border-bottom: 1px solid #cacaca;
     color: #777777;
+}
+
+.works-sider .works-sider-group > a:hover {
+    color: #666666;
+    background-color: #d6d6d6;
+}
+
+.works-sider .works-sider-group > a:hover i {
+    color: #777777;
+}
+
+.works-sider .works-sider-group i {
+    color: #909090;
 }
 
 .works-sider .works-sider-group > a:last-child {
@@ -326,6 +355,19 @@ a:active {
     line-height: 3.2em;
     text-align: left;
     text-decoration: none;
+}
+
+.works-sider .works-sider-title i,
+.works-sider .works-sider-group i {
+    vertical-align: middle;
+    font-size: 115%;
+    margin-top: -.125em;
+    margin-right: .4em;
+}
+
+.works-sider .works-sider-title span ,
+.works-sider .works-sider-group > a {
+    vertical-align: middle;
 }
 
 .works-content {

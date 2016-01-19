@@ -9,6 +9,7 @@
 
 !(function () {
     var _ws = {};
+    var _ps = {};
     /*******************************
      * NOTE - 스트링 내부 포매터 지시자 교체
      * DATE - 2016-01-19
@@ -57,26 +58,33 @@
      * DATE - 2016-01-19
      *******************************/
     (function ($) {
-        function ObjectData(id) {
+        function ObjectData(t, id) {
             /*******************************
              * NOTE - OOP 플러그인 자료부
              *******************************/
 
             this.preference = {
-                $super: this,
+                $self: this,
+                $super: t,
                 $helper: null,
-                _bind: true,
+                _anim: false,
+                _bind: false,
                 _debug: false,
                 _init: false,
+                anim: {
+                    time: 300,
+                    effect: 'swing'
+                },
                 framework: 'homeworks',
+                prefix: 'works',
                 id: '',
                 o: {
-                    w: $(window),
-                    d: $(document)
+                    $w: $(window),
+                    $d: $(document)
                 }
             };
             this.preference.id = id;
-            this.preference.$helper = new ObjectHelper(this);
+            this.preference.$helper = new ObjectHelper(t);
         }
 
         function ObjectHelper(t) {
@@ -85,13 +93,38 @@
              *******************************/
             var _this = t;
 
+            this.promise = function (n, c, t) {
+                return _ps[_this.data.framework + '.' + n] = setTimeout(function () {
+                    try {
+                        delete _ps[_this.data.framework + '.' + n];
+                    } catch (e) {
+                        _this.data.$helper.log(e);
+                    }
+                    if (typeof c === 'function') {
+                        c();
+                    }
+                }, t);
+            }
+
+            this.invoke = function (n) {
+                if (typeof _ps[_this.data.framework + '.' + n] !== 'undefined') {
+                    try {
+                        clearTimeout(_ps[_this.data.framework + '.' + n]);
+                        delete _ps[_this.data.framework + '.' + n];
+                    } catch (e) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
             this.log = function (m, c) {
                 if (_this.data._debug == true) {
                     var t = m;
                     if (typeof c !== 'undefined' && c !== null) {
                         t = '[' + c + '] ' + t;
                     }
-                    console.warn(t);
+                    _this.data.$helper.log(e);
                 }
             }
 
@@ -106,7 +139,7 @@
                         this.triggerHandler(e, t);
                     }
                 } catch (e) {
-                    console.warn(e);
+                    _this.data.$helper.log(e);
                 }
             }
 
@@ -153,15 +186,12 @@
                 }
             }
 
-            this.regist = function () {
-                $.fn[p] = this.route;
-            }
-
             if(typeof this.data === 'undefined') {
-                this.data = (new ObjectData(p)).preference;
+                this.data = (new ObjectData(this, p)).preference;
             }
 
             if (this.data._bind == false) {
+                this.data._bind = true;
                 $.fn[this.data.id] = this.route;
             }
         }
@@ -172,13 +202,20 @@
 
         // HomeWorks - Modal Component
         _ws.modal = new ObjectMethod('modal', {
-            init: function (e) {
+            init: function (e, o) {
+                var _this = this;
                 this.data._visible = false;
-                this.data.$helper.bind(this.data.o.w, 'resize', function () {
+                this.data.$helper.bind(this.data.o.$w, 'resize', function () {
                     e.css({
-                        left: (this.data.o.w.width() - e.width()) / 2,
-                        top: (this.data.o.w.height() - e.height()) / 2
+                        left: (_this.data.o.$w.width() - e.width()) / 2,
+                        top: (_this.data.o.$w.height() - e.height()) / 2
                     });
+                }, true);
+
+                this.data.$helper.bind(e.find('.' + this.data.prefix + '-close'), 'click', function (event) {
+                    event.preventDefault();
+                    var $this = $(this);
+                    e[_this.data.id]('close');
                 });
             },
             method: {
@@ -189,6 +226,10 @@
                         e.show();
                     }
                     this.data._visible = !this.data._visible;
+                },
+                close: function (e) {
+                    e.hide();
+                    this.data._visible = false;
                 }
             },
             template: {
