@@ -45,9 +45,9 @@
   }).bind('modal');
   ```
  
- - 이는 [data-modal] 을 속성으로 갖는 엘리먼트 중 data-modal="false" 인 것을 제외하여,
- - 필터에 부합하는 엘리먼트를 클릭 시 클릭 한 엘리먼트의 data-pen에서 정의된 셀렉터를 모달로 띄웁니다.
- - 이 때 모달을 띄우는 함수는 {element}.modal이며 이는 아래와 같이 정의됩니다.
+- 이는 [data-modal] 을 속성으로 갖는 엘리먼트 중 data-modal="false" 인 것을 제외하여,
+- 필터에 부합하는 엘리먼트를 클릭 시 클릭 한 엘리먼트의 data-pen에서 정의된 셀렉터를 모달로 띄웁니다.
+- 이 때 모달을 띄우는 함수는 {element}.modal이며 이는 아래와 같이 정의됩니다.
  
  ```javascript
  _ws.modal = new ObjectMethod('modal', {
@@ -76,23 +76,23 @@
   });
  ```
  
- - 위 로직은 지금 당장은 이해하시기 난해할 것입니다.
- - 하지만 {element}.modal() 형태를 사용하는 것 자체가 `컴포넌트`입니다.
- - 컴포넌트를 정의하기 위해서는 `ObjectMethod()`를 사용합니다.
+- 위 로직은 지금 당장은 이해하시기 난해할 것입니다.
+- 하지만 {element}.modal() 형태를 사용하는 것 자체가 `컴포넌트`입니다.
+- 컴포넌트를 정의하기 위해서는 `ObjectMethod()`를 사용합니다.
 
  ```javascript
  _ws.modal = new ObjectMethod({element_name}, {element_setting})
  ```
  
- - 위 코드에서 {element_name}에 해당하는 부분이 `컴포넌트 명`입니다.
- - 두번째 인수로 제공하는 {element_setting}은 `컴포넌트 구조`를 정의할 수 있습니다.
+- 위 코드에서 {element_name}에 해당하는 부분이 `컴포넌트 명`입니다.
+- 두번째 인수로 제공하는 {element_setting}은 `컴포넌트 구조`를 정의할 수 있습니다.
 
   | 인수 명         | 타입   | 설명                       |
   |-----------------|--------|----------------------------|
   | element_name    | string | 컴포넌트의 이름을 작성합니다. ex) modal |
   | element_setting | object | 컴포넌트의 구조를 작성합니다. |
   
- - {element_setting}은 프레임워크에서 정의한 표준형태를 따라야 합니다.
+- {element_setting}은 프레임워크에서 정의한 표준형태를 따라야 합니다.
  
   | 프로퍼티 | 타입 | 설명 |
   |----------|------|------|
@@ -100,13 +100,13 @@
   | method   | object(function) | method 내에 자식요소로 key:function타입 선언 시 {element}.{key}() 호출 시 {function}이 호출 |
   | template | object{string} | key:value 타입이며 init, 혹은 method에서 해당 템플릿을 파서를 통해 참조 가능 |
 
- - 컴포넌트를 정의하기 위해 사용한 `ObjectMethod`의 표준규격은 아래와 같습니다.
+- 컴포넌트를 정의하기 위해 사용한 `ObjectMethod`의 표준규격은 아래와 같습니다.
 
   | 프로퍼티 | 타입 | 설명 |
   |----------|------|------|
   | route   | function | {element}.{component_name}을 호출 시 route를 통해 `init`과 `method` 분기합니다. |
  
- - 컴포넌트 데이터를 관리하는 `ObjectData`의 기본 공통데이터는 아래와 같습니다.
+- 컴포넌트 데이터를 관리하는 `ObjectData`의 기본 공통데이터는 아래와 같습니다.
  
   | 키 | 타입 | 설명 |
   |----|------|------|
@@ -119,7 +119,7 @@
   | id | string | 컴포넌트를 구분 지을 수 있는 컴포넌트 identity 문자열입니다. |
   | o | object | 전역 DOM을 빠르게 접근하기 위한 정의입니다. |
 
- - `ObjectData`에 정의하는 `Key`는 작성규약이 있습니다.
+- `ObjectData`에 정의하는 `Key`는 작성규약이 있습니다.
 
   | prefix | 타입 | 설명 |
   |--------|------|------|
