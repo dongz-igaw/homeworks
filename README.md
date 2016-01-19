@@ -85,5 +85,13 @@
   |-----------------|--------|----------------------------|
   | element_name    | string | 컴포넌트의 이름을 작성합니다. ex) modal |
   | element_setting | object | 컴포넌트의 구조를 작성합니다. |
+  
+ - {element_setting}은 프레임워크에서 정의한 표준형태를 따라야 합니다.
+ 
+  | 프로퍼티 | 타입 | 설명 |
+  |----------|------|------|
+  | init     | function | `{element}.modal() 혹은 {element}.modal(setting) 형태의 호출에 대한 콜백함수 |
+  | method   | object(function) | method 내에 자식요소로 key:function타입 선언 시 {element}.{key}() 호출 시 {function}이 호출 |
+  | template | object{string} | key:value 타입이며 init, 혹은 method에서 해당 템플릿을 파서를 통해 참조 가능 |
 
 ----
