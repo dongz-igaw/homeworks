@@ -128,7 +128,7 @@
   | _      | boolean | 상태를 확인하기 위한 boolean 타입의 상태변수 입니다. |
   |        | all types | 프리픽스 지정이 없는 것은 위의 항목에 해당하지 않는 모든 변수에 해당합니다.
   
- - 아래는 버튼에 적용되는 Wave이벤트 `ripple`의 적용로직이다.
+- 아래는 버튼에 적용되는 Wave이벤트 `ripple`의 적용로직이다.
   
  ```javascript
  // 버튼 Material Ripple 설정
