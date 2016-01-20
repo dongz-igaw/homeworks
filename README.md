@@ -126,7 +126,90 @@
   |--------|------|------|
   | $      | 참조 | prototype, function 타입을 참고하기 위한 참조변수 입니다. |
   | _      | boolean | 상태를 확인하기 위한 boolean 타입의 상태변수 입니다. |
-  | .      | number | 컴포넌트의 각종 수치를 관리하는 number 타입의 수치변수 입니다. |
   |        | all types | 프리픽스 지정이 없는 것은 위의 항목에 해당하지 않는 모든 변수에 해당합니다.
+  
+ - 아래는 버튼에 적용되는 Wave이벤트 `ripple`의 적용로직이다.
+  
+ ```javascript
+ // 버튼 Material Ripple 설정
+ (function () {
+     this.addClass('btn-ripple');
+     this.bind('click', function (event) {
+         var $this = $(this);
+         var $ripple = $('<div class="btn-ripple-effect"></div>');
+         var size = Math.min($this.width(), $this.height());
+         var scale = Math.max($this.width(), $this.height()) / size * 2;
+         var point = {
+             x: event.clientX - $this.offset().left - size / 2,
+             y: event.clientY - $this.offset().top - size / 2
+         };
+         $ripple.css({ width: size, height: size, left: point.x, top: point.y });
+         $ripple.appendTo($this);
+         setTimeout(function () {
+             setTimeout(function () {
+                 $ripple.css({ opacity: 0 });
+                 setTimeout(function () {
+                     $ripple.remove();
+                 }, 500);
+             }, 150);
+             $ripple.css({ transform: 'scale(' + scale + ')' });
+         }, 50);
+     });
+     this.ripple();
+ }).bind('ripple');
+ ```
+ 
+ - 위와 같이 적용하면 `[data-ripple]`을 가지고 있는 모든 엘리먼트에 wave 효과가 적용된다.
+ - 다만, 처음 시작 시에만 엘리먼트에 바인딩 하기 때문에, 새로운 엘리먼트가 생길 때 적용할 수 가 없다.
+ - 이를 위해서는 위와 같은 단발성 엘리먼트를 `컴포넌트화` 하여야 한다.
+ 
+ - 아래는 위의 로직을 컴포넌트로 대체한 로직이다.
+ 
+ ```javascript
+ _ws.ripple = new ObjectMethod('ripple', {
+  init: function (e, o) {
+      var _this = this;
+      e.addClass('btn-ripple');
+      this.data.$helper.bind(e, 'click', function (event) {
+          var $this = $(this);
+          var $ripple = $(_this.data.$helper.parseTemplate('effect'));
+          var size = Math.min($this.width(), $this.height());
+          var scale = Math.max($this.width(), $this.height()) / size * 2;
+          var point = {
+              x: event.clientX - $this.offset().left - size / 2,
+              y: event.clientY - $this.offset().top - size / 2
+          };
+          $ripple.css({ width: size, height: size, left: point.x, top: point.y });
+          $ripple.appendTo($this);
+          _this.data.$helper.promise(function () {
+              _this.data.$helper.promise(function () {
+                  $ripple.css({ opacity: 0 });
+                  _this.data.$helper.promise(function () {
+                      $ripple.remove();
+                  }, 500);
+              }, 150);
+              $ripple.css({ transform: 'scale(' + scale + ')' });
+          }, 50);
+      });
+  },
+  method: {
+  },
+  template: {
+      effect: '<div class="btn-ripple-effect"></div>'
+  }
+});
+ ```
+ 
+ - 위와 같이 구성을 한다면 `{element}.ripple();` 형태로 초기화가 가능하다.
+ - 실제로 `[data-ripple]`에 적용하기 위해서는 아래 라인을 추가하면 된다.
+ 
+ ```javascript
+ // 버튼 Material Ripple 설정
+ (function () {
+     this.ripple();
+ }).bind('ripple');
+ ```
+ 
+ - 이렇게 `[data-{binder_name}] ` 형태로 사용하는 것과 컴포넌트로 제공하는 것은 해당 프레임워크에서 단발성, 재활용의 여부에 따라 결정하면 된다.
 
 ----
