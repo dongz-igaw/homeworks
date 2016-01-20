@@ -7,7 +7,7 @@
  * @ Note    [HomeWorks Frameworks Helper]
  ----------------------------------------------------------*/
 
-!(function () {
+(function () {
     var _ws = {};
     var _ps = {};
     /*******************************
@@ -23,7 +23,7 @@
             var reg = new RegExp("{" + i + "}", "gi");
             s = s.replace(reg, v);
         }
-        return s;
+        return s.toString();
     };
 
     /*******************************
@@ -39,12 +39,13 @@
             })).each(function () {
                 var $this = $(this);
                 var t = $this.data('pen');
-                if (!!$this.data(n) == false) return true;
-                if (typeof t === 'undefined') return true;
-                var $t = $(t);
-                if ($t.length <= 0) return false;
+                if ($this.data(n) === false) return true;
                 if (typeof _this == 'function') {
-                    _this.call($this, $t, args);
+                    if (typeof t === 'undefined') {
+                        _this.call($this, args);
+                    } else {
+                        _this.call($this, $(t), args);
+                    }
                 }
             });
         } catch (e) {
@@ -94,7 +95,12 @@
             var _this = t;
 
             this.promise = function (n, c, t) {
-                return _ps[_this.data.framework + '.' + n] = setTimeout(function () {
+                if (typeof n === 'function' && typeof c === 'number') {
+                    t = c;
+                    c = n;
+                    n = _this.data.id;
+                }
+                _ps[_this.data.framework + '.' + n] = setTimeout(function () {
                     try {
                         delete _ps[_this.data.framework + '.' + n];
                     } catch (e) {
@@ -104,7 +110,8 @@
                         c();
                     }
                 }, t);
-            }
+                return _ps;
+            };
 
             this.invoke = function (n) {
                 if (typeof _ps[_this.data.framework + '.' + n] !== 'undefined') {
@@ -116,44 +123,45 @@
                     }
                 }
                 return true;
-            }
+            };
 
             this.log = function (m, c) {
-                if (_this.data._debug == true) {
+                if (_this.data._debug === true) {
                     var t = m;
                     if (typeof c !== 'undefined' && c !== null) {
                         t = '[' + c + '] ' + t;
                     }
                     _this.data.$helper.log(e);
                 }
-            }
+            };
 
-            this.parseTemplate = function (data, map) {
+            this.parseTemplate = function (n, map) {
+                var data = _this.template[n];
                 return data.getFormat(map);
-            }
+            };
 
             this.bind = function (e, t, c, i) {
                 try {
                     e.bind(t + '.' + _this.data.framework + '.' + _this.data.id, c);
-                    if (typeof i !== 'undefined' && i == true) {
+                    if (typeof i !== 'undefined' && i === true) {
                         this.triggerHandler(e, t);
                     }
-                } catch (e) {
+                } catch (exception) {
                     _this.data.$helper.log(e);
                 }
-            }
+            };
 
             this.unbind = function (e, t) {
                 e.unbind(t + '.' + _this.data.framework + '.' + _this.data.id);
-            }
+            };
 
             this.trigger = function (e, t) {
                 e.trigger(t + '.' + _this.data.framework + '.' + _this.data.id);
-            }
+            };
 
             this.triggerHandler = function (e, t) {
                 e.triggerHandler(t + '.' + _this.data.framework + '.' + _this.data.id);
-            }
+            };
         }
 
         function ObjectMethod(p, s) {
@@ -165,15 +173,18 @@
             this.method = {
                 init: this.init
             };
+            this.template = {
+            };
             $.extend(this.method, s.method);
+            $.extend(this.template, s.template);
 
             this.route = function () {
-                if (arguments.length == 0 || typeof arguments[0] === 'object') {
+                if (arguments.length === 0 || typeof arguments[0] === 'object') {
                     _this.data._init = true;
                     _this.init.call(_this, this, arguments);
                 } else if (typeof arguments[0] === 'string') {
                     try {
-                        if (_this.data._init == false) {
+                        if (_this.data._init === false) {
                             _this.data._init = true;
                             _this.method.init.call(_this, this, Array.prototype.slice.call(arguments, 1));
                         }
@@ -184,13 +195,13 @@
                 } else {
                     console.warn('파라미터 유효성 경고');
                 }
-            }
+            };
 
             if(typeof this.data === 'undefined') {
                 this.data = (new ObjectData(this, p)).preference;
             }
 
-            if (this.data._bind == false) {
+            if (this.data._bind === false) {
                 this.data._bind = true;
                 $.fn[this.data.id] = this.route;
             }
@@ -220,7 +231,7 @@
             },
             method: {
                 toggle: function (e) {
-                    if (this.data._visible == true) {
+                    if (this.data._visible === true) {
                         e.hide();
                     } else {
                         e.show();
@@ -236,6 +247,39 @@
                 overlay: '<div class="{framework}-{id}"></div>'
             }
         });
+
+        _ws.ripple = new ObjectMethod('ripple', {
+            init: function (e, o) {
+                var _this = this;
+                e.addClass('btn-ripple');
+                this.data.$helper.bind(e, 'click', function (event) {
+                    var $this = $(this);
+                    var $ripple = $(_this.data.$helper.parseTemplate('effect'));
+                    var size = Math.min($this.width(), $this.height());
+                    var scale = Math.max($this.width(), $this.height()) / size * 2;
+                    var point = {
+                        x: event.clientX - $this.offset().left - size / 2,
+                        y: event.clientY - $this.offset().top - size / 2
+                    };
+                    $ripple.css({ width: size, height: size, left: point.x, top: point.y });
+                    $ripple.appendTo($this);
+                    _this.data.$helper.promise(function () {
+                        _this.data.$helper.promise(function () {
+                            _this.data.$helper.promise(function () {
+                                $ripple.remove();
+                            }, 500);
+                            $ripple.addClass('anim-end').css({ opacity: 0 });
+                        }, 150);
+                        $ripple.css({ transform: 'scale(' + scale + ')', opacity: 1 });
+                    }, 50);
+                });
+            },
+            method: {
+            },
+            template: {
+                effect: '<div class="btn-ripple-effect"></div>'
+            }
+        });
     }(jQuery));
 
 
@@ -244,6 +288,11 @@
      * DATE - 2016-01-19
      *******************************/
     $(function () {
+        // 버튼 Material Ripple 설정
+        (function () {
+            this.ripple();
+        }).bind('ripple');
+
         // 프로필 관련 설정
         (function ($e) {
             this.bind('click', function (event) {
@@ -262,4 +311,4 @@
             });
         }).bind('modal');
     });
-}());
+} ());

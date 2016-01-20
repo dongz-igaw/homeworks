@@ -1,4 +1,10 @@
-﻿h1 {
+﻿html, body {
+    position: relative;
+    font-size: 13px;
+    color: #333333;
+}
+
+h1 {
     font-size: 220%;
     color: #222222;
 }
@@ -300,7 +306,6 @@ a:active {
     color: #555555;
     border-bottom: 1px solid #d8d8d8;
 }
-
 .works-sider .works-sider-title i {
     color: #666666;
 }
@@ -318,10 +323,6 @@ a:active {
     background-color: #dfdfdf;
     border-top: 1px solid #bcbcbc;
     border-bottom: 1px solid #d8d8d8;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
-    -o-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
-    -moz-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
-    -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
 }
 
 .works-sider .works-sider-group > a {
@@ -329,13 +330,27 @@ a:active {
     color: #777777;
 }
 
+.works-sider .works-sider-group > a:first-child {
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
+    -o-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
+    -moz-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
+    -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .125) inset;
+}
+
+.works-sider .works-sider-group > a.active:first-child {
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .25) inset;
+    -o-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .25) inset;
+    -moz-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .25) inset;
+    -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .25) inset;
+}
+
 .works-sider .works-sider-group > a:hover {
     color: #666666;
     background-color: #d6d6d6;
 }
 
-.works-sider .works-sider-group > a:hover i {
-    color: #777777;
+.works-sider .works-sider-group i {
+    color: #ffffff;
 }
 
 .works-sider .works-sider-group i {
@@ -370,6 +385,31 @@ a:active {
     vertical-align: middle;
 }
 
+.works-sider .works-sider-title.active {
+    background-color: #444444;
+    border-bottom: none;
+}
+
+.works-sider .works-sider-title.active,
+.works-sider .works-sider-title.active i {
+    color: #ffffff;
+}
+
+.works-sider .works-sider-title.active + .works-sider-group {
+    border-top-color: #3a3a3a;
+}
+
+
+.works-sider .works-sider-group > a.active {
+    background-color: #666666;
+    border-top: none;
+    color: #ffffff;
+}
+
+.works-sider .works-sider-group> a.active:hover i {
+    color: #777777;
+}
+
 .works-content {
     position: absolute;
     top: 80px;
@@ -379,6 +419,108 @@ a:active {
     height:auto;
     padding: 20px 30px 20px 270px;
     overflow: auto;
+}
+
+.works-section {
+    font-size: 105%;
+}
+
+.works-login {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+.works-login .works-login-inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.works-login .works-login-title {
+    font-size: 115%;
+}
+
+.works-login .works-login-form {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    min-width: 300px;
+    width: 80%;
+    max-width: 400px;
+    margin: 20px;
+    border-radius: 2px;
+    background-color: #fcfcfc;
+    border: 1px solid #cccccc;
+    box-shadow: 0 0 12px 3px rgba(0, 0, 0, .125);
+}
+
+.works-login .works-login-form .works-login-form-inner {
+    border-top: 3px solid #649bff;
+    padding: 40px 50px;
+}
+
+.works-login .works-login-form h1,
+.works-login .works-login-form h2,
+.works-login .works-login-form h3 {
+    margin-bottom: .8em;
+    padding-bottom: .6em;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.works-login .works-login-form label {
+    display: block;
+    width: 100%;
+    text-align: left;
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.works-login .works-login-form label span {
+    display: block;
+    padding-left: .6em;
+    padding-bottom: .4em;
+    font-weight: 600;
+    font-size: 105%;
+}
+
+.works-login .works-login-credential {
+    margin-bottom: 1.6em;
+}
+
+.works-login .works-login-footer {
+    text-align: center;
+}
+
+.works-login .works-login-footer a {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    height: 1.2em;
+    line-height: 1em;
+    padding-right: .8em;
+    border-right: 1px solid #dfdfdf;
+    margin-right: .8em;
+    color: #b2b2b2;
+    text-align: center;
+}
+
+.works-login .works-login-footer a:last-child {
+    border: none;
+    margin: 0;
+    padding-right: 0;
+}
+
+.works-login .works-login-footer a:hover {
+    color: #a1a1a1;
 }
 
 .works-modal {
@@ -453,16 +595,76 @@ a:active {
     text-align: center;
 }
 
+.input {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    height: 2.4em;
+    margin: .2em 0;
+    padding: 0 1.2em;
+    line-height: 2.2em;
+    border-radius: 2px;
+    border: 1px solid #d8d8d8;
+    color: #555555;
+    box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, .075) inset, 1px 1px 0 rgba(255, 255, 255, .85);
+    -o-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, .075) inset, 1px 1px 0 rgba(255, 255, 255, .85);
+    -moz-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, .075) inset, 1px 1px 0 rgba(255, 255, 255, .85);
+    -webkit-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, .075) inset, 1px 1px 0 rgba(255, 255, 255, .85);
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    transition: border-color .3s ease, box-shadow .3s ease, -webkit-box-shadow .3s ease;
+    -o-transition: border-color .3s ease, box-shadow .3s ease, -webkit-box-shadow .3s ease;
+    -moz-transition: border-color .3s ease, box-shadow .3s ease, -webkit-box-shadow .3s ease;
+    -webkit-transition: border-color .3s ease, box-shadow .3s ease, -webkit-box-shadow .3s ease;
+}
+
+.input:focus {
+    border-color: #6092fe;
+    box-shadow: 0 0 5px rgba(96, 146, 254, .75);
+    outline: none;
+}
+
+.input.input-lg {
+    height: 3em;
+    font-size: 105%;
+    line-height: 2.8em;
+}
+
+.input.input-xg {
+    height: 3.6em;
+    line-height: 3.4em;
+}
+
+.input.input-sm {
+}
+
+.input.input-xm {
+}
+
+.input.input-block {
+    display: block;
+    width: 100%;
+}
+
 .btn {
     display: inline-block;
     *display: inline;
     *zoom: 1;
     min-width: 3em;
+    border: none;
     vertical-align: middle;
     padding: .8em 1.2em;
-    margin: 0 .4em;
+    margin: .2em 0;
+    cursor: pointer;
     border-radius: 2px;
     text-align: center;
+}
+
+.btn.btn-block {
+    display: block;
+    width: 100%;
 }
 
 .btn-sm {
@@ -548,6 +750,33 @@ a:active {
     color: #ffffff;
 }
 
+.btn-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-ripple .btn-ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, .1);
+    opacity: .2;
+    transform: scale(.4);
+    -o-transform: scale(.4);
+    -moz-transform: scale(.4);
+    -webkit-transform: scale(.4);
+    transition: transform .3s ease, -webkit-transform .3s ease, opacity .075s ease;
+    -o-transition: transform .3s ease, -webkit-transform .3s ease, opacity .075s ease;
+    -moz-transition: transform .3s ease, -webkit-transform .3s ease, opacity .075s ease;
+    -webkit-transition: transform .3s ease, -webkit-transform .3s ease, opacity .075s ease;
+}
+
+.btn-ripple .btn-ripple-effect.anim-end {
+    transition: transform .3s ease, -webkit-transform .3s ease, opacity .5s ease;
+    -o-transition: transform .3s ease, -webkit-transform .3s ease, opacity .5s ease;
+    -moz-transition: transform .3s ease, -webkit-transform .3s ease, opacity .5s ease;
+    -webkit-transition: transform .3s ease, -webkit-transform .3s ease, opacity .5s ease;
+}
+
 .label {
     display: inline-block;
     *display: inline;
@@ -578,6 +807,70 @@ a:active {
 
 .label-force {
     background-color: #4e4e4e;
+}
+
+.table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 2.8em;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table .left {
+    text-align: left;
+}
+
+.table .right {
+    text-align: right;
+}
+
+.table .center {
+    text-align: center;
+}
+
+.table th,
+.table td {
+    height: 2.8em;
+    padding: 0 1.6em;
+    border-right: 1px solid #eaeaea;
+    border-bottom: 1px solid #e2e2e2;
+    vertical-align: middle;
+}
+
+.table th:last-child,
+.table td:last-child {
+    border-right: none;
+}
+
+.table tr:last-child th,
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table thead {
+    border-bottom: 1px solid #d8d8d8;
+    font-weight: 600;
+}
+
+.table thead th,
+.table thead td {
+    height: 3.6em;
+}
+
+.table-bordered {
+    border: 1px solid #d8d8d8
+}
+
+.table-striped tbody tr th,
+.table-striped tbody tr td {
+    background-color: rgba(255, 255, 255, .05);
+}
+
+.table-striped tbody tr:nth-child(2n+1) th,
+.table-striped tbody tr:nth-child(2n+1) td {
+    background-color: rgba(0, 0, 0, .05);
 }
 
 @media screen and (max-width: 1000px) {

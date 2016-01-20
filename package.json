@@ -1,0 +1,42 @@
+{
+  "name": "homeworks-framework",
+  "version": "0.0.1",
+  "description": "> IGAWorks 프론트엔드 공통 프레임워크",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IGAWorksDev/HomeWorksFramework.git"
+  },
+  "keywords": [
+    "Frontend-Framework",
+    "Material",
+    "IGAWorks"
+  ],
+  "author": "PIGNOSE",
+  "license": "SEE LICENSE IN License",
+  "bugs": {
+    "url": "https://github.com/IGAWorksDev/HomeWorksFramework/issues"
+  },
+  "homepage": "https://github.com/IGAWorksDev/HomeWorksFramework#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-compass": "^1.0.4",
+    "grunt-contrib-compress": "^0.14.0",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-contrib-csslint": "^0.5.0",
+    "grunt-contrib-cssmin": "^0.14.0",
+    "grunt-contrib-handlebars": "^0.11.0",
+    "grunt-contrib-htmlmin": "^0.6.0",
+    "grunt-contrib-imagemin": "^1.0.0",
+    "grunt-contrib-jshint": "^0.12.0",
+    "grunt-contrib-less": "^1.1.0",
+    "grunt-contrib-qunit": "^0.7.0",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
