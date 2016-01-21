@@ -1,5 +1,7 @@
 # HomeWorksFramework
 
+[![Build Status](https://travis-ci.com/IGAWorksDev/HomeWorksFramework.svg?token=rwDRrKxKFoGg8k5wwUnr&branch=master)](https://travis-ci.com/IGAWorksDev/HomeWorksFramework)
+
 > IGAWorks 프론트엔드 공통 프레임워크
 
 ### 시작하며
@@ -77,8 +79,9 @@
   });
  ```
  
-- 위 로직은 지금 당장은 이해하시기 난해할 것입니다.
-- 하지만 {element}.modal() 형태를 사용하는 것 자체가 `컴포넌트`입니다.
+- 위 로직은 지금 당장 이해하시기 난해할 수도 있습니다.
+- 아래 내용을 따라가시면 더 자세한 설명이 있습니다.
+- {element}.{compoent_name}() 형태가 `컴포넌트`입니다.
 - 컴포넌트를 정의하기 위해서는 `ObjectMethod()`를 사용합니다.
 
  ```javascript
