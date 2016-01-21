@@ -197,7 +197,7 @@
                 }
             };
 
-            if(typeof this.data === 'undefined') {
+            if (typeof this.data === 'undefined') {
                 this.data = (new ObjectData(this, p)).preference;
             }
 
@@ -215,6 +215,7 @@
         _ws.modal = new ObjectMethod('modal', {
             init: function (e, o) {
                 var _this = this;
+                var $c = e.find('.' + this.data.prefix + '-close');
                 this.data._visible = false;
                 this.data.$helper.bind(this.data.o.$w, 'resize', function () {
                     e.css({
@@ -223,11 +224,13 @@
                     });
                 }, true);
 
-                this.data.$helper.bind(e.find('.' + this.data.prefix + '-close'), 'click', function (event) {
+                this.data.$helper.bind($c, 'click', function (event) {
                     event.preventDefault();
                     var $this = $(this);
                     e[_this.data.id]('close');
                 });
+
+                $c.ripple();
             },
             method: {
                 toggle: function (e) {
@@ -311,4 +314,4 @@
             });
         }).bind('modal');
     });
-} ());
+}());
