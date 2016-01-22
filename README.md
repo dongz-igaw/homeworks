@@ -225,15 +225,15 @@
 
  1. 초전역변수: Homeworks에서 관리 제공하는 전역변수.
  2. 전역변수: Homeworks플러그인 마다 하나씩 가지고 있는 전역변수.
- 3. 멤버변수: {element_name}.{plugin_name}(); 형태로 초기화를 할 때 각 {HTML element} 객체마다 가지고 있는 엘리먼트 독립적 변수.
+ 3. 멤버변수: `{element_name}.{plugin_name}();` 형태로 초기화를 할 때 각 `{HTML element}` 객체마다 가지고 있는 엘리먼트 독립적 변수.
  
 - `ObjectMethod`를 정의시 진행되는 플러그인 내부 사이클은 아래와 같습니다.
 
  1. 은닉화 된 method, template 적재
  2. route 정의
  3. data 정의 및 ObjectData 적재
- 4. {plugin_name}으로 정의된 부분으로 ${element_name}.{plugin_name}형태로 정의 후 route 바인딩.
- 5. {plugin_option}으로 정의된 부분을 전역객체 `_os`를 통해 저장 ({plugin_name}을 매개로 함).
+ 4. `{plugin_name}`으로 정의된 부분으로 `${element_name}.{plugin_name}`형태로 정의 후 route 바인딩.
+ 5. `{plugin_option}`으로 정의된 부분을 전역객체 `_os`를 통해 저장 (`{plugin_name}`을 매개로 함).
 
 - 아래 형태로 정의하면 `$('.btn').sample();` 형태로 사용이 가능합니다.
 
