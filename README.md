@@ -244,8 +244,8 @@ _ws.sample = new ObjectMethod('sample', {
  // e는 $('.btn').sample();에서 .btn의 jQuery 객체를 나타냅니다.
  // o는 $('.btn').sample({options}); 에서 {options} 객체를 나타냅니다.
  // {options}는 init이 끝나면 메모리에서 제거됩니다.
- // {options}를 $.extends를 이용하여 this.data.i 멤버변수에 저장하시기를 권장합니다.
- $.extends(this.data.i, o);
+ // o는 init시 정의되어 지역변수로 사용되지만, 자동으로 this.data.i 멤버변수에 적재됩니다.
+ // o를 사용 할 수 없는 method에서도 this.data.i로 접근이 가능합니다. 이 변수는 {HTML element}마다 별도로 관리되는 변수입니다.
  },
  method: {
   say: function(e) {
