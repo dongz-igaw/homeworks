@@ -8,8 +8,9 @@
  ----------------------------------------------------------*/
 
 (function () {
-    var _ws = {};
-    var _ps = {};
+    var _ws = {}; // Works standard global variables.
+    var _ps = {}; // Promise standard global variables.
+    var _os = {}; // Plugin option standard global variables.
     /*******************************
      * NOTE - 스트링 내부 포매터 지시자 교체
      * DATE - 2016-01-19
@@ -39,12 +40,13 @@
             })).each(function () {
                 var $this = $(this);
                 var t = $this.data('pen');
-                if ($this.data(n) === false) return true;
-                if (typeof _this == 'function') {
+                var p = $this.data(n);
+                if (p === false) return true;
+                if (typeof _this === 'function') {
                     if (typeof t === 'undefined') {
-                        _this.call($this, args);
+                        _this.call($this, null,  p, args);
                     } else {
-                        _this.call($this, $(t), args);
+                        _this.call($this, $(t), p, args);
                     }
                 }
             });
@@ -70,7 +72,7 @@
                 $helper: null,
                 _anim: false,
                 _bind: false,
-                _debug: false,
+                _debug: true,
                 _init: false,
                 anim: {
                     time: 300,
@@ -82,9 +84,13 @@
                 o: {
                     $w: $(window),
                     $d: $(document)
-                }
+                },
+                p: {},
+                i: {},
+                g: {}
             };
             this.preference.id = id;
+            this.preference.g = _os[id];
             this.preference.$helper = new ObjectHelper(t);
         }
 
@@ -131,7 +137,7 @@
                     if (typeof c !== 'undefined' && c !== null) {
                         t = '[' + c + '] ' + t;
                     }
-                    _this.data.$helper.log(e);
+                    console.warn(t);
                 }
             };
 
@@ -180,22 +186,31 @@
 
             this.route = function () {
                 if (arguments.length === 0 || typeof arguments[0] === 'object') {
+                    if (typeof arguments[0] === 'object') {
+                        $.extend(_this.data.i, arguments[0]);
+                    }
                     _this.data._init = true;
-                    _this.init.call(_this, this, arguments);
+                    _this.init.apply(_this, [this].concat(Array.prototype.slice.call(arguments)));
                 } else if (typeof arguments[0] === 'string') {
                     try {
                         if (_this.data._init === false) {
                             _this.data._init = true;
-                            _this.method.init.call(_this, this, Array.prototype.slice.call(arguments, 1));
+                            _this.method.init.apply(_this, [this].concat(Array.prototype.slice.call(arguments)));
                         }
-                        _this.method[arguments[0]].call(_this, this, Array.prototype.slice.call(arguments, 1));
+                        _this.method[arguments[0]].apply(_this, [this].concat(Array.prototype.slice.call(arguments, 1)));
                     } catch (e) {
                         console.warn(e);
                     }
                 } else {
-                    console.warn('파라미터 유효성 경고');
+                    _this.data.$helper.log('파라미터 유효성 경고');
                 }
             };
+
+            if (typeof s.options !== 'undefined' && s.options !== null) {
+                if (typeof _os[p] === 'undefined') {
+                    _os[p] = s.options;
+                }
+            }
 
             if (typeof this.data === 'undefined') {
                 this.data = (new ObjectData(this, p)).preference;
@@ -235,11 +250,14 @@
             method: {
                 toggle: function (e) {
                     if (this.data._visible === true) {
-                        e.hide();
+                        e[this.data.id]('close');
                     } else {
-                        e.show();
+                        e[this.data.id]('open');
                     }
-                    this.data._visible = !this.data._visible;
+                },
+                open: function (e) {
+                    e.show();
+                    this.data._visible = true;
                 },
                 close: function (e) {
                     e.hide();
@@ -255,6 +273,11 @@
             init: function (e, o) {
                 var _this = this;
                 e.addClass('btn-ripple');
+                
+                if ($.inArray(this.data.i.theme, this.data.g.supportThemes) != -1) {
+                    e.addClass('btn-ripple-' + this.data.i.theme);
+                }
+
                 this.data.$helper.bind(e, 'click', function (event) {
                     var $this = $(this);
                     var $ripple = $(_this.data.$helper.parseTemplate('effect'));
@@ -281,6 +304,9 @@
             },
             template: {
                 effect: '<div class="btn-ripple-effect"></div>'
+            },
+            options: {
+                supportThemes: ['light', 'dark']
             }
         });
     }(jQuery));
@@ -292,8 +318,10 @@
      *******************************/
     $(function () {
         // 버튼 Material Ripple 설정
-        (function () {
-            this.ripple();
+        (function ($e, f) {
+            this.ripple({
+                theme: f
+            });
         }).bind('ripple');
 
         // 프로필 관련 설정

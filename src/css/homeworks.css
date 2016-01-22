@@ -835,6 +835,10 @@ a:active {
     -webkit-transition: transform .3s ease, -webkit-transform .3s ease, opacity .075s ease;
 }
 
+.btn-ripple.btn-ripple-dark .btn-ripple-effect {
+    background-color: rgba(0, 0, 0, .1);
+}
+
 .btn-ripple .btn-ripple-effect.anim-end {
     transition: transform .3s ease, -webkit-transform .3s ease, opacity .5s ease;
     -o-transition: transform .3s ease, -webkit-transform .3s ease, opacity .5s ease;
@@ -852,6 +856,7 @@ a:active {
     border-radius: 2px;
     background-color: #a1a1a1;
     color: #ffffff;
+    line-height: 1em;
 }
 
 .label-primary {
