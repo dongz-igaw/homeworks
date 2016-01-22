@@ -8,8 +8,9 @@
 
 ##### Spec
 
-- IE9+, FF, Chrome, Safari(Mac Platform), Opera
-- 반응형 지원(320 ~ 1600)
+- IE9+, FF, Chrome, Safari(Mac Platform), Opera.
+- 반응형 지원(320 ~ 1600).
+- Material Deisgn 채택.
 
 ### 기술문서
 
@@ -31,6 +32,8 @@
  | 변수 명    | 설명 |
  |------------|------|
  | `_ws`      | _ws는 프레임워크의 최상위 공용변수입니다. 해당 변수에는 각 컴포넌트의 `ObjectMethod`를 관리합니다. |
+ | `_ps`      | _ps는 프레임워크의 최상위 공용변수입니다. 해당 변수에는 각 `Promise`를 관리합니다. |
+ | `_os`      | _os는 프레임워크의 최상위 공용변수입니다. 해당 변수에는 각 컴포넌트의 `Global Option`을 관리합니다. |
 
  **Component**
  
@@ -53,7 +56,7 @@
 - 이 때 모달을 띄우는 함수는 {element}.modal이며 이는 아래와 같이 정의됩니다.
  
  ```javascript
- _ws.modal = new ObjectMethod('modal', {
+ new ObjectMethod('modal', {
       init: function (e) {
           this.data._visible = false;
           this.data.$helper.bind(this.data.o.w, 'resize', function () {
@@ -85,7 +88,7 @@
 - 컴포넌트를 정의하기 위해서는 `ObjectMethod()`를 사용합니다.
 
  ```javascript
- _ws.modal = new ObjectMethod({element_name}, {element_setting})
+ modal = new ObjectMethod({element_name}, {element_setting})
  ```
  
 - 위 코드에서 {element_name}에 해당하는 부분이 `컴포넌트 명`입니다.
@@ -169,7 +172,7 @@
 - 아래는 위의 로직을 컴포넌트로 대체한 로직입니다.
  
  ```javascript
- _ws.ripple = new ObjectMethod('ripple', {
+ ripple = new ObjectMethod('ripple', {
   init: function (e, o) {
       var _this = this;
       e.addClass('btn-ripple');
@@ -215,4 +218,62 @@
  
 - 이렇게 `[data-{binder_name}] ` 형태로 사용하는 것과 컴포넌트로 제공하는 것은 해당 프레임워크에서 단발성, 재활용의 여부에 따라 결정하면 됩니다.
 
+**Life Cycle**
+
+- Framework와 그 하위 컴포넌트들은 각각의 라이프 사이클을 가지고 있습니다.
+
+- 그 중에서도 관리되는 변수공간의 라이프사이클이 가장 중요합니다.
+- 크게 나눌 수 있는 변수의 종류는 3가지로 아래와 같습니다.
+
+ 1. 초전역변수: Homeworks에서 관리 제공하는 전역변수.
+ 2. 전역변수: Homeworks컴포넌트 마다 하나씩 가지고 있는 전역변수.
+ 3. 멤버변수: `{element_name}.{plugin_name}();` 형태로 초기화를 할 때 각 `{HTML element}` 객체마다 가지고 있는 엘리먼트 독립적 변수.
+ 
+- `ObjectMethod`를 정의시 진행되는 컴포넌트 내부 사이클은 아래와 같습니다.
+
+ 1. 은닉화 된 method, template 적재
+ 2. route 정의
+ 3. data 정의 및 ObjectData 적재
+ 4. `{plugin_name}`으로 정의된 부분으로 `${element_name}.{plugin_name}`형태로 정의 후 route 바인딩.
+ 5. `{plugin_option}`으로 정의된 부분을 전역객체 `_os`를 통해 저장 (`{plugin_name}`을 매개로 함).
+
+- 아래 형태로 정의하면 `$('.btn').sample();` 형태로 사용이 가능합니다.
+
+```javascript
+sample = new ObjectMethod('sample', {
+ init: function(e, o) {
+ // 이 함수는 초기화 시 단 한번만 호출됩니다.
+ // e는 $('.btn').sample();에서 .btn의 jQuery 객체를 나타냅니다.
+ // o는 $('.btn').sample({options}); 에서 {options} 객체를 나타냅니다.
+ // {options}는 init이 끝나면 메모리에서 제거됩니다.
+ // o는 init시 정의되어 지역변수로 사용되지만, 자동으로 this.data.i 멤버변수에 적재됩니다.
+ // o를 사용 할 수 없는 method에서도 this.data.i로 접근이 가능합니다. 이 변수는 {HTML element}마다 별도로 관리되는 변수입니다.
+ },
+ method: {
+  say: function(e) {
+  // e는 $('.btn').sample('say');에서 .btn의 jQuery 객체를 나타냅니다.
+  // init에서 저장했던 데이터는 이곳에서 불러 올 수 있습니다.
+  var o = this.data.i;
+  // $('.btn').sample('say');를 하면 콘솔을 통해 "Hello Homeworks!."가 출력되는 것을 볼 수 있습니다.
+  console.log('Hello Homeworks!.');
+  }
+ },
+ template: {
+  // 이 곳에 프로퍼티 키는 템플릿의 접근 키, 값은 템플릿의 HTML을 입력하시면 됩니다.
+  // 파싱을 통해 key, value 매핑을 적용하고 싶을 때에는 {key} 형태로 정의하시면 됩니다.
+  // init이나 method에서,
+  // this.data.$helper.parseTemplate({template_name}, {
+  //  template_map_key: template_map_val
+  // });
+  // 위 형태로 불러 오실 수 있습니다.
+ },
+ options: {
+ // 이 곳에 저장하는 프로퍼티 키와 값은 컴포넌트에 속하는 전역변수입니다.
+ // 따라서 "sample"이라는 컴포넌트에서 사용하는 공통 속성들을 정의합니다.
+ // 이 값은 init 혹은 method에서 this.data.g를 통해 가져오실 수 있습니다.
+ });
+```
+
 ----
+
+#### Coding style guide
