@@ -238,7 +238,7 @@
 - 아래 형태로 정의하면 `$('.btn').sample();` 형태로 사용이 가능합니다.
 
 ```javascript
-_ws.ripple = new ObjectMethod('sample', {
+_ws.sample = new ObjectMethod('sample', {
  init: function(e, o) {
  // 이 함수는 초기화 시 단 한번만 호출됩니다.
  // e는 $('.btn').sample();에서 .btn의 jQuery 객체를 나타냅니다.
