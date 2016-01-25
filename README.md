@@ -298,3 +298,16 @@ sample = new ObjectMethod('sample', {
  {
  }
 ```
+
+ ```javascript
+ if(condition) {
+ }
+ else {
+ }
+```
+
+ ```javascript
+ if(condition) {
+ } else {
+ }
+```
