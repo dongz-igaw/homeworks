@@ -276,4 +276,25 @@ sample = new ObjectMethod('sample', {
 
 ----
 
-#### Coding style guide
+#### Style guide
+
+1. If / Else Pattern
+
+ - DO:
+ 
+ ```javascript
+ if (condition) {
+ } else {
+ }
+```
+
+ - DON'T:
+
+ ```javascript
+ if(condition)
+ {
+ }
+ else
+ {
+ }
+```
