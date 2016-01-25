@@ -308,6 +308,60 @@ sample = new ObjectMethod('sample', {
 
  ```javascript
  if(condition) {
- } else {
+ }else{
  }
+```
+
+2. addEventlistener Pattern
+
+ - DO:
+ 
+ ```javascript
+ $(element).bind(event code, callback);
+```
+
+ - DON'T:
+ 
+ ```javascript
+ $(element).on(event code, callback);
+```
+
+ ```javascript
+ $(element).live(event code, callback);
+```
+
+ ```javascript
+ $(element).addEventlistener(event code, callback);
+```
+
+3. trigger Pattern
+
+ - DO:
+
+ ```javascript
+ $(element).triggerHandler(event code);
+```
+
+ - DON'T:
+
+ ```javascript
+ $(element).trigger(event code);
+```
+
+4. class naming
+
+ - DO:
+
+ ```html
+ <div class="content-inner-title"></div>
+```
+ 
+ - DON'T:
+ 
+ ```html
+ <div class="contentInnerTitle"></div>
+```
+
+ ```html
+ <div class="content_inner_title"></div>
 ```
