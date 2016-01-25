@@ -328,9 +328,23 @@
         (function ($e) {
             this.bind('click', function (event) {
                 event.preventDefault();
-                $e.stop(true, true).fadeToggle(300, function () {
-                    $(this).toggleClass('toggle-active');
-                });
+                event.stopPropagation();
+                if ($e.hasClass('toggle-active')) {
+                    $(document).unbind('click.profileHandler');
+                    $e.stop(true, true).fadeOut(300, function () {
+                        $(this).removeClass('toggle-active');
+                    });
+                } else {
+                    $e.stop(true, true).fadeIn(300, function () {
+                        $(document).unbind('click.profileHandler').bind('click.profileHandler', function () {
+                            $(document).unbind('click.profileHandler');
+                            $e.stop(true, true).fadeOut(300, function () {
+                                $(this).removeClass('toggle-active');
+                            });
+                        });
+                        $(this).addClass('toggle-active');
+                    });
+                }
             });
         }).bind('profile');
 
