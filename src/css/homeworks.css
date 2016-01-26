@@ -992,6 +992,56 @@ a:active {
     padding-top: 100%;
 }
 
+.works-content-loader-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, .6);
+    z-index: 50000;
+}
+
+.works-content-loader-overlay .works-content-loader-wrapper {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    background-color: #ffffff;
+    border-radius: 50%;
+    padding: 6px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -36px;
+    margin-left: -16px;
+    z-index: 9999;
+    border: 1px solid #d8d8d8;
+    box-shadow:0 0 24px rgba(0, 0, 0, .25);
+}
+
+.works-content-loader-overlay .works-content-loader-wrapper p {
+    width: 800px;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    left: 50%;
+    bottom: -40px;
+    margin-left: -400px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.works-content-loader-overlay .works-content-loader {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: auto;
+    margin: 0;
+    width: 32px;
+}
+
 .works-content-loader-inner {
   animation: works-content-loader 2s linear infinite;
   height: 100%;
