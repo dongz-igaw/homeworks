@@ -143,6 +143,7 @@
 
             this.parseTemplate = function (n, map) {
                 var data = _this.template[n];
+                console.log(map);
                 return data.getFormat(map);
             };
 
@@ -309,6 +310,55 @@
                 supportThemes: ['light', 'dark']
             }
         });
+
+        _ws.tooltip = new ObjectMethod('tooltip', {
+            init: function (e, o) {
+                var _this = this;
+                var _opt = {
+                    type: 'toggle',
+                    margin: 20,
+                    direction: 'left'
+                };
+                $.extend(_opt, o);
+                console.log(_opt);
+                e.each(function () {
+                    var $this = $(this);
+                    $this.data('title', $this.attr('title') || '');
+                    if (_opt.type === null || _opt.type === '' || $.inArray(_opt.type, _this.data.g.supportThemes) === -1) {
+                        //_this.data.i.type = _this.data.g.supportTypes[0];
+                        _opt.type = 'show';
+                    }
+
+                    if (_opt.type == 'show') {
+                        var $tooltip = $(_this.data.$helper.parseTemplate('tooltip', {
+                            content: $this.data('title')
+                        }));
+                        var pos = {
+                            top: $this.offset().top,
+                            left: $this.offset().left
+                        };
+
+                        if (_opt.direction == 'left') {
+                            post.left -= $tooltip.width() - _opt.margin;
+                        } else if (_opt.direction == 'top') {
+                        } else if (_opt.direction == 'right') {
+                            post.left += $tooltip.width() - _opt.margin;
+                        } else if (_opt.direction == 'bottom') {
+                        }
+
+                        $tooltip.appendTo('body');
+                    }
+                });
+            },
+            method: {
+            },
+            template: {
+                tooltip: '<div class="works-tooltip"><div class="works-tooltip-header">{title}</div><div class="works-tooltip-body">{content}</div><span class="works-tooltip-arrow"></span></div>'
+            },
+            options: {
+                supportTypes: ['toogle', 'show', 'hide']
+            }
+        });
     }(jQuery));
 
 
@@ -355,5 +405,12 @@
                 $e.modal('toggle');
             });
         }).bind('modal');
+
+        // 툴팁 관련 설정
+        (function ($e, f) {
+            this.tooltip({
+                type: f
+            });
+        }).bind('tooltip');
     });
 }());

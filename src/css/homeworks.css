@@ -731,6 +731,27 @@ a:active {
     color: #ffffff;
 }
 
+.btn-success {
+    background-color: #60b416;
+    color: #ffffff;
+}
+
+.btn-success.btn-bordered {
+    background-color: transparent;
+    color: #60b416;
+    border: 1px solid #60b416;
+}
+
+.btn-success:hover {
+    background-color: #6abf20;
+    color: #ffffff;
+}
+
+.btn-success:active {
+    background-color: #52a112;
+    color: #ffffff;
+}
+
 .btn-danger {
     background-color: #fa625a;
     color: #ffffff;
@@ -1058,6 +1079,11 @@ a:active {
   stroke-dashoffset: 0;
   animation: works-content-loader-dash 1.5s ease-in-out infinite, works-loader-color 6s ease-in-out infinite;
   stroke-linecap: round;
+}
+
+.works-tooltip {
+    position: absolute;
+    z-index: 100;
 }
 
 @keyframes works-content-loader {
