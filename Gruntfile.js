@@ -40,6 +40,13 @@ module.exports = function(grunt) {
         }
       }
     },
+    copy: {
+      options: {},
+      files: [
+        {expand: true, src: 'homeworks.js', dest: 'src/js/**', cwd: 'C:/Users/User/Documents/visual studio 2012/Projects/AdbrixForAgency/AdbrixForAgency/Content/scripts/'},
+        {expand: true, src: 'homeworks.css', dest: 'src/css/**', cwd: 'C:/Users/User/Documents/visual studio 2012/Projects/AdbrixForAgency/AdbrixForAgency/Content/styles/homeworks/'},
+      ]
+    },
     cssmin: {
       options: {
         banner: '//================================================================================\n' + 
@@ -74,7 +81,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.registerTask('default', ['jshint', 'csslint', 'uglify', 'cssmin']);
   grunt.registerTask('test', ['jshint', 'csslint']);
+  grunt.registerTask('copy', ['copy']);
 };

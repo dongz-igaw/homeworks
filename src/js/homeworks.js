@@ -191,14 +191,14 @@
                         $.extend(_this.data.i, arguments[0]);
                     }
                     _this.data._init = true;
-                    _this.init.apply(_this, [this].concat(Array.prototype.slice.call(arguments)));
+                    return _this.init.apply(_this, [this].concat(Array.prototype.slice.call(arguments)));
                 } else if (typeof arguments[0] === 'string') {
                     try {
                         if (_this.data._init === false) {
                             _this.data._init = true;
-                            _this.method.init.apply(_this, [this].concat(Array.prototype.slice.call(arguments)));
+                            return _this.method.init.apply(_this, [this].concat(Array.prototype.slice.call(arguments)));
                         }
-                        _this.method[arguments[0]].apply(_this, [this].concat(Array.prototype.slice.call(arguments, 1)));
+                        return _this.method[arguments[0]].apply(_this, [this].concat(Array.prototype.slice.call(arguments, 1)));
                     } catch (e) {
                         console.warn(e);
                     }
@@ -273,32 +273,35 @@
         _ws.ripple = new ObjectMethod('ripple', {
             init: function (e, o) {
                 var _this = this;
-                e.addClass('btn-ripple');
-                
-                if ($.inArray(this.data.i.theme, this.data.g.supportThemes) != -1) {
-                    e.addClass('btn-ripple-' + this.data.i.theme);
-                }
+                return e.each(function () {
+                    var e = $(this);
+                    e.addClass('btn-ripple');
 
-                this.data.$helper.bind(e, 'click', function (event) {
-                    var $this = $(this);
-                    var $ripple = $(_this.data.$helper.parseTemplate('effect'));
-                    var size = Math.min($this.width(), $this.height());
-                    var scale = Math.max($this.width(), $this.height()) / size * 2;
-                    var point = {
-                        x: event.clientX - $this.offset().left - size / 2,
-                        y: event.clientY - $this.offset().top - size / 2
-                    };
-                    $ripple.css({ width: size, height: size, left: point.x, top: point.y });
-                    $ripple.appendTo($this);
-                    _this.data.$helper.promise(function () {
+                    if ($.inArray(_this.data.i.theme, _this.data.g.supportThemes) != -1) {
+                        e.addClass('btn-ripple-' + _this.data.i.theme);
+                    }
+
+                    _this.data.$helper.bind(e, 'click', function (event) {
+                        var $this = $(this);
+                        var $ripple = $(_this.data.$helper.parseTemplate('effect'));
+                        var size = Math.min($this.width(), $this.height());
+                        var scale = Math.max($this.width(), $this.height()) / size * 2;
+                        var point = {
+                            x: event.clientX - $this.offset().left - size / 2,
+                            y: event.clientY - $this.offset().top - size / 2
+                        };
+                        $ripple.css({ width: size, height: size, left: point.x, top: point.y });
+                        $ripple.appendTo($this);
                         _this.data.$helper.promise(function () {
                             _this.data.$helper.promise(function () {
-                                $ripple.remove();
-                            }, 500);
-                            $ripple.addClass('anim-end').css({ opacity: 0 });
-                        }, 150);
-                        $ripple.css({ transform: 'scale(' + scale + ')', opacity: 1 });
-                    }, 50);
+                                _this.data.$helper.promise(function () {
+                                    $ripple.remove();
+                                }, 500);
+                                $ripple.addClass('anim-end').css({ opacity: 0 });
+                            }, 150);
+                            $ripple.css({ transform: 'scale(' + scale + ')', opacity: 1 });
+                        }, 50);
+                    });
                 });
             },
             method: {
