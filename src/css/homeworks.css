@@ -648,7 +648,7 @@ a:active {
     border: none;
     color: #555555;
     font-family: inherit;
-    border-bottom: 2px solid #e2e2e2;
+    border-bottom:1px solid #e2e2e2;
     outline: none;
     box-sizing: border-box;
     -o-box-sizing: border-box;
@@ -662,6 +662,7 @@ a:active {
 
 .input:focus {
     border-color: #b2b2b2;
+    border-bottom-width: 2px;
 }
 
 .input-lg {
@@ -715,12 +716,48 @@ a:active {
     padding: .8em 1.2em;
     margin: .2em 0;
     cursor: pointer;
+    font: inherit;
     border-radius: 2px;
     text-align: center;
     box-sizing: border-box;
     -o-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+}
+
+.btn-file {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    font-size: 0;
+    position: relative;
+    vertical-align: middle;
+    padding: 0;
+    font: inherit;
+    overflow: hidden;
+}
+
+.btn-file .file {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 1000px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.btn-file .btn {
+    font-size: 1rem;
+}
+
+.btn-file:hover .btn-default {
+    background-color: #eaeaea;
+    color: #333333;
+}
+
+.btn-file:active .btn-default {
+    background-color: #d8d8d8;
+    color: #333333;
 }
 
 .btn.btn-block {
@@ -745,6 +782,21 @@ a:active {
 
 .btn-disabled {
     opacity: .6;
+}
+
+.btn-default {
+    background-color: #e2e2e2;
+    color: #333333;
+}
+
+.btn-default:hover {
+    background-color: #eaeaea;
+    color: #333333;
+}
+
+.btn-default:active {
+    background-color: #d8d8d8;
+    color: #333333;
 }
 
 .btn-primary {
@@ -915,7 +967,7 @@ a:active {
     border-radius: 2px;
     background-color: #a1a1a1;
     color: #ffffff;
-    line-height: 1em;
+    line-height: 1.1em;
 }
 
 .badge {

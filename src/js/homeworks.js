@@ -143,13 +143,15 @@
 
             this.parseTemplate = function (n, map) {
                 var data = _this.template[n];
-                console.log(map);
                 return data.getFormat(map);
             };
 
             this.bind = function (e, t, c, i) {
                 try {
-                    e.bind(t + '.' + _this.data.framework + '.' + _this.data.id, c);
+                    var f = t.toString().split(' ');
+                    for (var n in f) f[n] = f[n] + '.' + _this.data.framework + '.' + _this.data.id;
+                    f = f.join(' ');
+                    e.bind(f, c);
                     if (typeof i !== 'undefined' && i === true) {
                         this.triggerHandler(e, t);
                     }
@@ -167,7 +169,8 @@
             };
 
             this.triggerHandler = function (e, t) {
-                e.triggerHandler(t + '.' + _this.data.framework + '.' + _this.data.id);
+                var f = (t.toString().split(' '))[0];
+                e.triggerHandler(f + '.' + _this.data.framework + '.' + _this.data.id);
             };
         }
 
@@ -323,7 +326,6 @@
                     direction: 'left'
                 };
                 $.extend(_opt, o);
-                console.log(_opt);
                 e.each(function () {
                     var $this = $(this);
                     $this.data('title', $this.attr('title') || '');
@@ -360,6 +362,167 @@
             },
             options: {
                 supportTypes: ['toogle', 'show', 'hide']
+            }
+        });
+
+        _ws.input = new ObjectMethod('input', {
+            init: function (e, o) {
+                var _this = this;
+                var preventKeyCode = [37, 38, 39, 40, 13, 17, 46];
+                var ctrlLock = false;
+                var ctrlTimer = null;
+                e.each(function () {
+                    var e = $(this);
+                    if (e.hasClass('input-number')) {
+                        _this.data.$helper.bind(e, 'keydown keyup', function (event) {
+                            setTimeout(function () {
+                                if (event.type == 'keyup' && event.keyCode == 17) {
+                                    ctrlLock = true;
+                                    try {
+                                        clearTimeout(ctrlTimer);
+                                    } catch (e) {}
+                                    setTimeout(function () {
+                                        ctrlLock = false;
+                                    }, 150);
+                                }
+
+                                if ($.inArray(event.keyCode, preventKeyCode) == -1 && (typeof event.ctrlKey === 'undefined' || event.ctrlKey === false) && ctrlLock === false) {
+                                    var selectPosition = 0;
+                                    var oldLength = e[0].value.length;
+                                    if (e[0].selectionStart || e[0].selectionStart == '0') {
+                                        selectPosition = e[0].selectionStart;
+                                    } else {
+                                        var ran = document.selection.createRange();
+                                        ran.moveStart('character', -e[0].value.length);
+                                        selectPosition = ran.text.length;
+                                    }
+
+                                    var val = e.val();
+                                    if (typeof val !== 'undefined' && val !== null) {
+                                        val = (val.toString().split('.'))[0];
+                                    }
+                                    val = val.toString().replace(/[^\d]*/gi, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                                    e.val(val);
+
+                                    var diffLength = Math.max(0, val.length - oldLength);
+                                    selectPosition += diffLength;
+                                    if (e[0].selectionStart || e[0].selectionStart == '0') {
+                                        e[0].setSelectionRange(selectPosition, selectPosition);
+                                    } else if (e[0].createTextRange != 'undefined') {
+                                        var cursor = e[0].createTextRange();
+                                        cursor.move('character', selectPosition);
+                                        cursor.select();
+                                    }
+
+                                    if (!event.isTrigger) {
+                                        e.triggerHandler('change');
+                                    }
+                                }
+                            }, 25);
+                        }, true);
+                    } else if (e.hasClass('input-datetime')) {
+                    } else if (e.hasClass('input-decimal')) {
+                    }
+                });
+            }
+        });
+
+        _ws.fileupload = new ObjectMethod('fileupload', {
+            init: function (e, o) {
+                var _this = this;
+                $(e).bind('change', function() {
+                    var $this = $(this);
+                    if ($this.val() !== '') {
+                        _this.method.upload.apply(_this, [].concat($this, o, Array.prototype.slice.call(arguments, 2)));
+                    }
+                });
+            },
+            method: {
+                upload: function (e, o) {
+                    var _this = this;
+                    var file = e[0].files[0];
+                    var info = {
+                        name: file.name,
+                        size: file.size,
+                        type: (file.type.split('/'))[(file.type.split('/')).length - 1],
+                        exts: (file.name.split('.'))[(file.name.split('.')).length - 1],
+                    };
+                    var exts = {
+                        txt: ['TXT', 'LOG'],
+                        img: ['JPEG', 'JPG', 'JPE', 'PJPEG', 'PNG', 'GIF', 'BMP', 'RAW'],
+                        doc: ['DOC', 'DOCX', 'PPT', 'PPTX', 'HWP', 'XLS', 'XLSX', 'PDF', 'CSV'],
+                        flag: {
+                            txt: 'T',
+                            img: 'I',
+                            doc: 'D',
+                            spread: 'S'
+                        }
+                    };
+                    if (typeof o !== 'undefined' && typeof o.type !== 'undefined' && o.type !== null) {
+                        if ($.inArray(o.type, Object.keys(exts)) != -1) {
+                            if ($.inArray(info.type.toUpperCase(), exts[o.type]) != -1) {
+                                if($.inArray(info.exts.toUpperCase(), exts[o.type]) != -1) {
+                                    var form = new FormData();
+                                    form.append('file', file, file.name);
+                                    if (typeof o.type !== 'undefined' && o.type !== null) {
+                                        form.append('type', exts.flag[o.type]);
+                                    }
+                                    if (typeof o.data !== 'undefined') {
+                                        for (var idx in o.data) {
+                                            form.append(idx, o.data[idx]);
+                                        }
+                                    }
+                                    e.siblings('.btn').text('업로드 중').addClass('btn-default').removeClass('btn-success btn-danger');
+                                    $.ajax({
+                                        url: o.url,
+                                        data: form,
+                                        type: 'POST',
+                                        contentType: false,
+                                        processData: false,
+                                        mimeType: 'multipart/form-data',
+                                        dataType: 'json',
+                                        timeout: 30000,
+                                        complete: o.complete,
+                                        success: function (d, s, x) {
+                                            if (d.code == 200) {
+                                                var data = d.data;
+                                                e.val('');
+                                                if (o.type == 'img') {
+                                                    e.siblings('.btn, img').remove();
+                                                    e.before('<img src="' + data.data + '" />');
+                                                } else {
+                                                    e.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
+                                                }
+                                                e.data('value', d.data);
+                                                if (typeof o.success === 'function') {
+                                                    o.success.apply(this, Array.prototype.slice.call(arguments));
+                                                }
+                                            } else {
+                                                if (typeof d.data.msg !== 'undefined') {
+                                                    alert(d.data.msg);
+                                                }
+                                            }
+                                        },
+                                        error: function (x, s, e) {
+                                            alert('업로드 요청 도중 에러가 발생했습니다.\r\n잠시 후 다시 시도해주세요.');
+                                            e.siblings('.btn').text('에러').removeClass('btn-default btn-success').addClass('btn-danger');
+                                            if (typeof o.error === 'function') {
+                                                o.error.apply(this, Array.prototype.slice.call(arguments));
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    alert('.' + info.exts + '은 업로드를 지원하는 확장자가 아닙니다.');
+                                }
+                            } else {
+                                alert('.' + info.exts + '은 업로드를 지원하는 확장자가 아닙니다.');
+                            }
+                        } else {
+                            alert(o.type + '은 허용하는 확장자 옵션 정의가 아닙니다.');
+                        }
+                    } else {
+                    }
+                }
             }
         });
     }(jQuery));
