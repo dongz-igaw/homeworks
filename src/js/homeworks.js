@@ -86,7 +86,9 @@
                     $d: $(document)
                 },
                 p: {},
-                i: {},
+                i: {
+                    _init: false
+                },
                 g: {}
             };
             this.preference.id = id;
@@ -189,25 +191,45 @@
             $.extend(this.template, s.template);
 
             this.route = function () {
-                if (arguments.length === 0 || typeof arguments[0] === 'object') {
-                    if (typeof arguments[0] === 'object') {
-                        $.extend(_this.data.i, arguments[0]);
+                var arg = arguments;
+                this.each(function () {
+                    if (typeof this.data === 'undefined') {
+                        this.data = {};
                     }
-                    _this.data._init = true;
-                    return _this.init.apply(_this, [this].concat(Array.prototype.slice.call(arguments)));
-                } else if (typeof arguments[0] === 'string') {
-                    try {
-                        if (_this.data._init === false) {
-                            _this.data._init = true;
-                            return _this.method.init.apply(_this, [this].concat(Array.prototype.slice.call(arguments)));
+
+                    if (typeof this.data[_this.data.id] === 'undefined') {
+                        this.data[_this.data.id] = {};
+                    }
+
+                    if (arg.length === 0 || typeof arg[0] === 'object') {
+                        if (typeof arg[0] === 'object') {
+                            _this.data.i = this.data[_this.data.id];
+                            $.extend(_this.data.i, arg[0]);
+                            this.data[_this.data.id] = _this.data.i;
                         }
-                        return _this.method[arguments[0]].apply(_this, [this].concat(Array.prototype.slice.call(arguments, 1)));
-                    } catch (e) {
-                        console.warn(e);
+
+                        if (typeof this.data[_this.data.id]._init === 'undefined' || this.data[_this.data.id]._init === false) {
+                            _this.data.i._init = true;
+                            this.data[_this.data.id]._init = _this.data.i;
+                            return _this.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
+                        } else {
+                            return _this;
+                        }
+                    } else if (typeof arg[0] === 'string') {
+                        try {
+                            if (typeof this.data[_this.data.id]._init === 'undefined' || this.data[_this.data.id]._init === false) {
+                                _this.data.i._init = true;
+                                this.data[_this.data.id]._init = _this.data.i;
+                                return _this.method.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
+                            }
+                            return _this.method[arg[0]].apply(_this, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
+                        } catch (e) {
+                            console.warn(e);
+                        }
+                    } else {
+                        _this.data.$helper.log('파라미터 유효성 경고');
                     }
-                } else {
-                    _this.data.$helper.log('파라미터 유효성 경고');
-                }
+                });
             };
 
             if (typeof s.options !== 'undefined' && s.options !== null) {
@@ -368,7 +390,7 @@
         _ws.input = new ObjectMethod('input', {
             init: function (e, o) {
                 var _this = this;
-                var preventKeyCode = [37, 38, 39, 40, 13, 17, 46];
+                var preventKeyCode = [37, 38, 39, 40, 9, 13, 17, 46];
                 var ctrlLock = false;
                 var ctrlTimer = null;
                 e.each(function () {
