@@ -831,20 +831,75 @@ a:active {
 }
 
 .input-lg {
-    height: 3em;
-    font-size: 105%;
-    line-height: 2.8em;
+    height: 2.8em;
+    font-size: 115%;
+    line-height: 2.6em;
 }
 
 .input-xg {
-    height: 3.6em;
-    line-height: 3.4em;
+    font-size: 130%;
 }
 
 .input-sm {
 }
 
 .input-xm {
+}
+
+.input-primary {
+    border-color: #6092fe;
+}
+
+.input-cobalt {
+    border-color: #585d6b;
+}
+
+.input-success {
+    border-color: #60b416;
+}
+
+.input-danger {
+    border-color: #fa625a;
+}
+
+.input-warning {
+    border-color: #fe8f52;
+}
+
+.input-notice {
+    border-color: #38bffe;
+}
+
+.input-force {
+    border-color: #4e4e4e;
+}
+
+.input-primary:focus {
+    border-color: #5b8bf4;
+}
+
+.input-cobalt:focus {
+    border-color: #525a68;
+}
+
+.input-success:focus {
+    border-color: #52a112;
+}
+
+.input-danger:focus {
+    border-color: #f06458;
+}
+
+.input-warning:focus {
+    border-color: #f7894e;
+}
+
+.input-notice:focus {
+    border-color: #34b8f7;
+}
+
+.input-force:focus {
+    border-color: #444444;
 }
 
 .input-block {

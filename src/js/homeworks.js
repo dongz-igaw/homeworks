@@ -31,7 +31,7 @@
      * NOTE - data-{컴포넌트}에 안전한 바인딩을 위한 함수
      * DATE - 2016-01-19
      *******************************/
-    Function.prototype.bind = function (n, args) {
+    Function.prototype.hook = function (n, args) {
         try {
             var format = '[data-{data-name}]';
             var _this = this;
@@ -560,7 +560,7 @@
             this.ripple({
                 theme: f
             });
-        }).bind('ripple');
+        }).hook('ripple');
 
         // 프로필 관련 설정
         (function ($e) {
@@ -584,7 +584,7 @@
                     });
                 }
             });
-        }).bind('profile');
+        }).hook('profile');
 
         // 모달 관련 설정
         (function ($e) {
@@ -592,13 +592,13 @@
                 event.preventDefault();
                 $e.modal('toggle');
             });
-        }).bind('modal');
+        }).hook('modal');
 
         // 툴팁 관련 설정
         (function ($e, f) {
             this.tooltip({
                 type: f
             });
-        }).bind('tooltip');
+        }).hook('tooltip');
     });
 }());
