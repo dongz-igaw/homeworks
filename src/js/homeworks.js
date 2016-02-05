@@ -350,34 +350,57 @@
                 $.extend(_opt, o);
                 e.each(function () {
                     var $this = $(this);
-                    $this.data('title', $this.attr('title') || '');
+                    if ($this.data('title') === '') {
+                        $this.data('title', $this.attr('title') || '');
+                    }
                     if (_opt.type === null || _opt.type === '' || $.inArray(_opt.type, _this.data.g.supportThemes) === -1) {
                         //_this.data.i.type = _this.data.g.supportTypes[0];
                         _opt.type = 'show';
                     }
+                    var $tooltip = $(_this.data.$helper.parseTemplate('tooltip', {
+                        content: $this.data('title')
+                    }));
+                    if ($this.data('header') !== '') {
+                        $tooltip.find('.works-tooltip-header').remove();
+                    }
+                    var pos = {
+                        top: $this.offset().top,
+                        left: $this.offset().left
+                    };
 
-                    if (_opt.type == 'show') {
-                        var $tooltip = $(_this.data.$helper.parseTemplate('tooltip', {
-                            content: $this.data('title')
-                        }));
-                        var pos = {
-                            top: $this.offset().top,
-                            left: $this.offset().left
-                        };
+                    $tooltip.appendTo('body');
 
-                        if (_opt.direction == 'left') {
-                            post.left -= $tooltip.width() - _opt.margin;
-                        } else if (_opt.direction == 'top') {
-                        } else if (_opt.direction == 'right') {
-                            post.left += $tooltip.width() - _opt.margin;
-                        } else if (_opt.direction == 'bottom') {
-                        }
+                    if (_opt.direction == 'left') {
+                        pos.left -= ($tooltip.outerWidth() + _opt.margin);
+                    } else if (_opt.direction == 'top') {
+                        pos.top -= ($tooltip.outerHeight() + _opt.margin);
+                    } else if (_opt.direction == 'right') {
+                        pos.left += ($this.width() + _opt.margin);
+                    } else if (_opt.direction == 'bottom') {
+                        pos.top += ($this.height() + _opt.margin);
+                    }
 
-                        $tooltip.appendTo('body');
+                    $tooltip.css({
+                        left: pos.left,
+                        top: pos.top
+                    });
+
+                    if (_opt.type == 'show' || _opt.type == 'queue') {
+
+                        
                     }
                 });
             },
             method: {
+                show: function() {
+                    $tooltip.addClass('active');
+                    _this.data.$helper.promise(function () {
+                        $tooltip.addClass('animate-in');
+                    }, 25);
+                },
+                queue: function () {
+
+                }
             },
             template: {
                 tooltip: '<div class="works-tooltip"><div class="works-tooltip-header">{title}</div><div class="works-tooltip-body">{content}</div><span class="works-tooltip-arrow"></span></div>'

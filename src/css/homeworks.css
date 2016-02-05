@@ -758,8 +758,64 @@ a:active {
 }
 
 .works-tooltip {
+    display: none;
     position: absolute;
     z-index: 100;
+    border-radius: 2px;
+    padding: 1em 2.4em;
+    color: #ffffff;
+    background-color: #333742;
+    font-size: 115%;
+    transform: scale(.5);
+    -o-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -webkit-transform: scale(.5);
+    opacity: 0;
+    transition: transform .6s cubic-bezier(.49,.75,.08,1.57), -webkit-transform .6s cubic-bezier(.49,.75,.08,1.57), opacity .2s ease;
+    -o-transition: transform .6s cubic-bezier(.49,.75,.08,1.57), -webkit-transform .6s cubic-bezier(.49,.75,.08,1.57), opacity .2s ease;
+    -moz-transition: transform .6s cubic-bezier(.49,.75,.08,1.57), -webkit-transform .6s cubic-bezier(.49,.75,.08,1.57), opacity .2s ease;
+    -webkit-transition: transform .6s cubic-bezier(.49,.75,.08,1.57), -webkit-transform .6s cubic-bezier(.49,.75,.08,1.57), opacity .2s ease;
+    box-shadow: 0 0 8px rgba(0, 16, 32, .5);
+    -o-box-shadow: 0 0 8px rgba(0, 16, 32, .5);
+    -moz-box-shadow: 0 0 8px rgba(0, 16, 32, .5);
+    -webkit-box-shadow: 0 0 8px rgba(0, 16, 32, .5);
+}
+
+.works-tooltip.active {
+    display: block;
+}
+
+.works-tooltip.animate-in {
+    opacity: 1;
+    transform: scale(1);
+    -o-transform: scale(1);
+    -moz-transform: scale(1);
+    -webkit-transform: scale(1);
+}
+
+.works-tooltip.animate-out {
+    opacity: 0;
+    transition: transform .6s ease, -webkit-transform .6s ease, opacity .8s ease;
+    -o-transition: transform .6s ease, -webkit-transform .6s ease, opacity .8s ease;
+    -moz-transition: transform .6s ease, -webkit-transform .6s ease, opacity .8s ease;
+    -webkit-transition: transform .6s ease, -webkit-transform .6s ease, opacity .8s ease;
+    transform: translate3d(0, -120px, 0);
+    -o-transform: translate3d(0, -120px, 0);
+    -moz-transform: translate3d(0, -120px, 0);
+    -webkit-transform: translate3d(0, -120px, 0);
+}
+
+.works-tooltip .works-tooltip-arrow {
+    display: block;
+    border-color: transparent;
+    border-width: 10px;
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    border-style: solid;
+    border-left-color: #333742;
+    position: absolute;
+    top: 6px;
+    right: -18px;
 }
 
 .pagination {
