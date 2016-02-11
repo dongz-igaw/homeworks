@@ -48,7 +48,7 @@
           event.preventDefault();
           $e.modal('toggle');
       });
-  }).bind('modal');
+  }).hook('modal');
   ```
  
 - 이는 [data-modal] 을 속성으로 갖는 엘리먼트 중 data-modal="false" 인 것을 제외하여,
@@ -162,7 +162,7 @@
              $ripple.css({ transform: 'scale(' + scale + ')' });
          }, 50);
      });
- }).bind('ripple');
+ }).hook('ripple');
  ```
  
 - 위와 같이 적용하면 `[data-ripple]`을 가지고 있는 모든 엘리먼트에 wave 효과가 적용됩니다.
@@ -213,10 +213,10 @@
  // 버튼 Material Ripple 설정
  (function () {
      this.ripple();
- }).bind('ripple');
+ }).hook('ripple');
  ```
  
-- 이렇게 `[data-{binder_name}] ` 형태로 사용하는 것과 컴포넌트로 제공하는 것은 해당 프레임워크에서 단발성, 재활용의 여부에 따라 결정하면 됩니다.
+- 이렇게 `[data-{hook_name}] ` 형태로 사용하는 것과 컴포넌트로 제공하는 것은 해당 프레임워크에서 단발성, 재활용의 여부에 따라 결정하면 됩니다.
 
 **Life Cycle**
 
