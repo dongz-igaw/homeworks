@@ -585,29 +585,20 @@
             });
         }).hook('ripple');
 
-        // 프로필 관련 설정
-        (function ($e) {
+        (function ($e, a) {
+            var $wrapper = $('.works-wrapper');
+            var $sider = $('.works-sider');
             this.bind('click', function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                if ($e.hasClass('toggle-active')) {
-                    $(document).unbind('click.profileHandler');
-                    $e.stop(true, true).fadeOut(300, function () {
-                        $(this).removeClass('toggle-active');
-                    });
+                var $this = $(this);
+                if ($sider.hasClass('works-sider-active')) {
+                    $sider.removeClass('works-sider-active');
+                    $wrapper.removeClass('works-sider-active');
                 } else {
-                    $e.stop(true, true).fadeIn(300, function () {
-                        $(document).unbind('click.profileHandler').bind('click.profileHandler', function () {
-                            $(document).unbind('click.profileHandler');
-                            $e.stop(true, true).fadeOut(300, function () {
-                                $(this).removeClass('toggle-active');
-                            });
-                        });
-                        $(this).addClass('toggle-active');
-                    });
+                    $sider.addClass('works-sider-active');
+                    $wrapper.addClass('works-sider-active');
                 }
             });
-        }).hook('profile');
+        }).hook('menu');
 
         // 모달 관련 설정
         (function ($e) {
