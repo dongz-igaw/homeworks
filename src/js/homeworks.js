@@ -191,14 +191,23 @@
             $.extend(this.template, s.template);
 
             this.route = function () {
-                var arg = arguments;
-                this.each(function () {
-                    if (typeof this.data === 'undefined') {
-                        this.data = {};
-                    }
+                var self = this;
+                var arg = [];
+                if (arguments.length > 0) {
+                    $.map(arguments, function (d, i) {
+                        arg.push(d);
+                    });
+                }
 
-                    if (typeof this.data[_this.data.id] === 'undefined') {
-                        this.data[_this.data.id] = {};
+                var f = function () {
+                    if (typeof this === 'object') {
+                        if (typeof this.data === 'undefined') {
+                            this.data = {};
+                        }
+
+                        if (typeof this.data[_this.data.id] === 'undefined') {
+                            this.data[_this.data.id] = {};
+                        }
                     }
 
                     if (arg.length === 0 || typeof arg[0] === 'object') {
@@ -229,7 +238,15 @@
                     } else {
                         _this.data.$helper.log('파라미터 유효성 경고');
                     }
-                });
+                };
+
+                if (arg.length > 0 && self == _this.data.o.$w[0]) {
+                    self = arg[0];
+                    arg.splice(0, 1);
+                    f.call(self);
+                } else {
+                    self.each(f);
+                }
             };
 
             if (typeof s.options !== 'undefined' && s.options !== null) {
@@ -245,6 +262,7 @@
             if (this.data._bind === false) {
                 this.data._bind = true;
                 $.fn[this.data.id] = this.route;
+                window[this.data.id] = this.route;
             }
         }
 
@@ -471,6 +489,18 @@
                 });
             }
         });
+
+        _ws.toast = new ObjectMethod('toast', {
+            init: function (e, o) {
+            },
+            method: {
+                init: function (msg) {
+                    console.log(msg, this, 'a');
+                }
+            }
+        });
+
+        toast('a');
 
         _ws.fileupload = new ObjectMethod('fileupload', {
             init: function (e, o) {

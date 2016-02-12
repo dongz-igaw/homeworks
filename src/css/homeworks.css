@@ -228,7 +228,7 @@ a:active {
 
 .works-top {
     background-color: #ffffff;
-    padding: 10px 30px;
+    padding: 0;
     border-bottom: 1px solid #e2e2e2;
     position: fixed;
     top: 70px;
@@ -246,7 +246,7 @@ a:active {
     float: left;
     width: 60%;
     margin: 0;
-    padding: .7em 0;
+    padding: 20px 30px;
     font-size: 140%;
     font-weight: 400;
     color: #333742;
@@ -254,13 +254,60 @@ a:active {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .works-top .works-top-action {
     float: right;
     width: 40%;
+    padding: 0 30px;
     text-align: right;
     overflow: hidden;
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.works-top .works-menu {
+    clear: both;
+    padding: 0 30px;
+    margin-top: 20px;
+    background-color: #fafafa;
+    border-top: 1px solid #efefef;
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.works-top .works-menu a {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    padding: 14px 0;
+    margin: 0 1.6em;
+    border-bottom: 3px solid transparent;
+    font-size: 105%;
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.works-top .works-menu a.active {
+    border-bottom-color: #6092fe;
+}
+
+.works-top .works-menu a:first-child {
+    margin-left: 0;
+}
+
+.works-top .works-menu a:last-child {
+    margin-right: 0;
 }
 
 .works-header .works-header-inner .works-header-title {
@@ -518,6 +565,10 @@ a:active {
     -o-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+}
+
+.works-top-menu-enable .works-content .works-container {
+    padding-top: 141px;
 }
 
 .works-section {
@@ -1184,6 +1235,146 @@ textarea[readonly].input {
     border-left-color: #fcfcfc;
 }
 
+.toggle {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    cursor: pointer;
+}
+
+.toggle * {
+    display: none;
+}
+
+.toggle input + .switch {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 2.4em;
+    height: 1.2em;
+    border: 1px solid #efefef;
+    border-radius: 1em;
+    position: relative;
+}
+
+.toggle input + .switch:before {
+    position: absolute;
+    top: -.1em;
+    left: -.1em;
+    z-index: 5;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 1.4em;
+    height: 1.4em;
+    background-color: #ffffff;
+    border: 1px solid #d8d8d8;
+    border-radius: .8em;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .125);
+    -o-box-shadow: 0 0 3px 0 rgba(0, 0, 0, .125);
+    -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, .125);
+    -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, .125);
+    content: '';
+    transition: transform .2s ease, -webkit-transform .2s ease, border-color .4s ease;
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.toggle input + .switch:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1em;
+    background-color: #b2b2b2;
+    transform: scale(.1);
+    -o-transform: scale(.1);
+    -moz-transform: scale(.1);
+    -webkit-transform: scale(.1);
+    opacity: 0;
+    transition: transform .4s ease, -webkit-transform .4s ease, opacity .3s ease;
+    -o-transition: transform .4s ease, -webkit-transform .4s ease, opacity .3s ease;
+    -moz-transition: transform .4s ease, -webkit-transform .4s ease, opacity .3s ease;
+    -webkit-transition: transform .4s ease, -webkit-transform .4s ease, opacity .3s ease;
+}
+
+.toggle input:checked + .switch:before {
+    transform: translate3d(1.2em, 0, 0);
+    -o-transform: translate3d(1.2em, 0, 0);
+    -moz-transform: translate3d(1.2em, 0, 0);
+    -webkit-transform: translate3d(1.2em, 0, 0);
+    border-color: #b2b2b2;
+}
+
+.toggle input:checked + .switch:after {
+    transform: scale(1);
+    -o-transform: scale(1);
+    -moz-transform: scale(1);
+    -webkit-transform: scale(1);
+    opacity: 1;
+}
+
+.toggle.toggle-primary input + .switch:after {
+    background-color: #6092fe;
+}
+
+.toggle.toggle-primary input:checked + .switch:before {
+    border-color: #6092fe;
+}
+
+.toggle.toggle-cobalt input + .switch:after {
+    background-color: #585d6b;
+}
+
+.toggle.toggle-cobalt input:checked + .switch:before {
+    border-color: #585d6b;
+}
+
+.toggle.toggle-success input + .switch:after {
+    background-color: #60b416;
+}
+
+.toggle.toggle-success input:checked + .switch:before {
+    border-color: #60b416;
+}
+
+.toggle.toggle-danger input + .switch:after {
+    background-color: #fa625a;
+}
+
+.toggle.toggle-danger input:checked + .switch:before {
+    border-color: #fa625a;
+}
+
+.toggle.toggle-alert input + .switch:after {
+    background-color: #fe8f52;
+}
+
+.toggle.toggle-alert input:checked + .switch:before {
+    border-color: #fe8f52;
+}
+
+.toggle.toggle-notice input + .switch:after {
+    background-color: #38bffe;
+}
+
+.toggle.toggle-notice input:checked + .switch:before {
+    border-color: #38bffe;
+}
+
+.toggle.toggle-force input + .switch:after {
+    background-color: #4e4e4e;
+}
+
+.toggle.toggle-force input:checked + .switch:before {
+    border-color: #4e4e4e;
+}
+
 .input:focus {
     border-color: #b2b2b2;
     border-bottom-width: 2px;
@@ -1221,7 +1412,7 @@ textarea[readonly].input {
     border-color: #fa625a;
 }
 
-.input-warning {
+.input-alert {
     border-color: #fe8f52;
 }
 
@@ -1249,7 +1440,7 @@ textarea[readonly].input {
     border-color: #f06458;
 }
 
-.input-warning:focus {
+.input-alert:focus {
     border-color: #f7894e;
 }
 
@@ -1705,6 +1896,24 @@ textarea[readonly].input {
 .table-striped tbody tr:nth-child(2n+1) th,
 .table-striped tbody tr:nth-child(2n+1) td {
     background-color: rgba(0, 0, 0, .05);
+}
+
+.toast-box {
+    position: fixed;
+    bottom: 20%;
+    left: 50%;
+    z-index: 5000;
+}
+
+.toast-box .toast {
+    display: block;
+    margin: 0 auto;
+    border-radius: 2px;
+    background-color: #333333;
+    color: #ffffff;
+    padding: 1em 1.6em;
+    font-size: 115%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .5);
 }
 
 @keyframes works-content-loader {
