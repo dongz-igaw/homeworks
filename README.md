@@ -208,6 +208,9 @@
  
 - 위와 같이 구성을 한다면 `{element}.ripple();` 형태로 초기화가 가능합니다.
 - 실제로 `[data-ripple]`에 적용하기 위해서는 아래 라인을 추가하면 됩니다.
+
+- `ObjectMethod`를 이용하여 컴포넌트를 등록하시면, `{element}.ripple(opt);`과 같은 체인 메소드 형태외에도 함수형태를 제공합니다.
+- `ripple(element, opt)` 형태로 사용하시면 됩니다.
  
  ```javascript
  // 버튼 Material Ripple 설정
