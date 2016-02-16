@@ -145,6 +145,10 @@
 
             this.parseTemplate = function (n, map) {
                 var data = _this.template[n];
+                if (typeof data === 'undefined') {
+                    _this.data.$helper.log("'" + n + "' 이름의 템플릿이 확인되지 않습니다.");
+                    return false;
+                }
                 return data.getFormat(map);
             };
 
@@ -241,9 +245,7 @@
                 };
 
                 if (arg.length > 0 && self == _this.data.o.$w[0]) {
-                    self = arg[0];
-                    arg.splice(0, 1);
-                    f.call(self);
+                    _this.method.init.apply(_this, Array.prototype.slice.call(arg));
                 } else {
                     self.each(f);
                 }
@@ -495,12 +497,55 @@
             },
             method: {
                 init: function (msg) {
-                    console.log(msg, this, 'a');
+                    var _this = this;
+
+                    var $toastBox = $('.toast-box');
+                    if ($toastBox.length <= 0) {
+                        $toastBox = $(_this.data.$helper.parseTemplate('toastBox'));
+                        $toastBox.appendTo('body');
+                        $toastBox.css({
+                            marginLeft: -$toastBox.width() / 2
+                        });
+                    }
+
+                    var $toast = $(_this.data.$helper.parseTemplate('toast', {
+                        msg: msg
+                    }));
+                    var $real = $($toast.clone()).add('<br />');
+                    $toast.addClass('toast-empty');
+                    $toast.appendTo('.toast-box');
+                    $real.addClass('toast-real');
+                    var height = $toast.height();
+                    $toast.addClass('toast-anim');
+                    setTimeout(function () {
+                        $toast.addClass('toast-anim-start').stop().animate({
+                            paddingTop: '1em',
+                            paddingBottom: '1em',
+                            marginBottom: '1em',
+                        }, 300, 'easeInOutQuad');
+                        $toast.height(height);
+                        setTimeout(function () {
+                            $toast.remove();
+                            $real.appendTo('.toast-box');
+                            setTimeout(function () {
+                                $real.addClass('toast-anim-start');
+                                var t = Math.max(1000 / 30 * msg.length, 1500);
+                                setTimeout(function () {
+                                    $real.removeClass('toast-anim-start');
+                                    setTimeout(function () {
+                                        $real.remove();
+                                    }, 300);
+                                }, t);
+                            }, 25);
+                        }, 300);
+                    }, 25);
                 }
+            },
+            template: {
+                toast: '<div class="toast">{msg}</div>',
+                toastBox: '<div class="toast-box"></div>'
             }
         });
-
-        toast('a');
 
         _ws.fileupload = new ObjectMethod('fileupload', {
             init: function (e, o) {
