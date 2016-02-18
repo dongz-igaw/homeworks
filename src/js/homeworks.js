@@ -211,6 +211,8 @@
 
                         if (typeof this.data[_this.data.id] === 'undefined') {
                             this.data[_this.data.id] = {};
+                            $.extend(this.data[_this.data.id], _this.method);
+                            _this.data.i = this.data[_this.data.id];
                         }
                     }
 
@@ -222,8 +224,8 @@
                         }
 
                         if (typeof this.data[_this.data.id]._init === 'undefined' || this.data[_this.data.id]._init === false) {
-                            _this.data.i._init = true;
-                            this.data[_this.data.id]._init = _this.data.i;
+                            this.data[_this.data.id]._init = true;
+                            _this.data.i = this.data[_this.data.id];
                             return _this.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
                         } else {
                             return _this;
@@ -231,9 +233,13 @@
                     } else if (typeof arg[0] === 'string') {
                         try {
                             if (typeof this.data[_this.data.id]._init === 'undefined' || this.data[_this.data.id]._init === false) {
-                                _this.data.i._init = true;
-                                this.data[_this.data.id]._init = _this.data.i;
-                                return _this.method.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
+                                this.data[_this.data.id]._init = true;
+                                _this.data.i = this.data[_this.data.id];
+                                if (typeof _this.method.init !== 'undefined') {
+                                    _this.method.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
+                                } else {
+                                    _this.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
+                                }
                             }
                             return _this.method[arg[0]].apply(_this, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
                         } catch (e) {
@@ -258,13 +264,17 @@
             }
 
             if (typeof this.data === 'undefined') {
-                this.data = (new ObjectData(this, p)).preference;
+                this.data = (new ObjectData(this, p.replace(/[^\w]/gi, ''))).preference;
             }
 
             if (this.data._bind === false) {
                 this.data._bind = true;
-                $.fn[this.data.id] = this.route;
-                window[this.data.id] = this.route;
+                p = p.split(',');
+                for (var idx in p) {
+                    var id = $.trim(p[idx]);
+                    $.fn[id] = this.route;
+                    window[id] = this.route;
+                }
             }
         }
 
@@ -273,40 +283,51 @@
          *******************************/
 
         // HomeWorks - Modal Component
-        _ws.modal = new ObjectMethod('modal', {
+        _ws.modal = new ObjectMethod('modal, popup', {
             init: function (e, o) {
                 var _this = this;
-                var $c = e.find('.' + this.data.prefix + '-close');
+                var $c = e.find('.btn-close');
                 this.data._visible = false;
-                this.data.$helper.bind(this.data.o.$w, 'resize', function () {
-                    e.css({
-                        left: (_this.data.o.$w.width() - e.width()) / 2,
-                        top: (_this.data.o.$w.height() - e.height()) / 2
-                    });
-                }, true);
+
+                if (!e.hasClass('modal-full')) {
+                    this.data.$helper.bind(this.data.o.$w, 'resize', function () {
+                        e.css({
+                            left: (_this.data.o.$w.width() - e.width()) / 2,
+                            top: (_this.data.o.$w.height() - e.height()) / 2
+                        });
+                    }, true);
+                }
 
                 this.data.$helper.bind($c, 'click', function (event) {
                     event.preventDefault();
+                    event.stopPropagation();
                     var $this = $(this);
-                    e[_this.data.id]('close');
+                    e[0].data[_this.data.id].close.call(_this, e);
                 });
 
                 $c.ripple();
             },
             method: {
                 toggle: function (e) {
+                    console.log(e[0].data[this.data.id]);
                     if (this.data._visible === true) {
-                        e[this.data.id]('close');
+                        e[0].data[this.data.id].close.call(this, e);
                     } else {
-                        e[this.data.id]('open');
+                        e[0].data[this.data.id].open.call(this, e);
                     }
                 },
                 open: function (e) {
-                    e.show();
+                    if (e.hasClass('modal-full')) {
+                        e.css({display : 'table'});
+                    } else {
+                        e.show();
+                    }
+                    e.triggerHandler('modal.open');
                     this.data._visible = true;
                 },
                 close: function (e) {
                     e.hide();
+                    e.triggerHandler('modal.close');
                     this.data._visible = false;
                 }
             },
@@ -328,6 +349,12 @@
 
                     _this.data.$helper.bind(e, 'click', function (event) {
                         var $this = $(this);
+                        if (!$this.hasClass('.btn-ripple')) {
+                            e.addClass('btn-ripple');
+                            if ($.inArray(e[0].data[_this.data.id].theme, _this.data.g.supportThemes) != -1) {
+                                e.addClass('btn-ripple-' + e[0].data[_this.data.id].theme);
+                            }
+                        }
                         var $ripple = $(_this.data.$helper.parseTemplate('effect'));
                         var size = Math.min($this.width(), $this.height());
                         var scale = Math.max($this.width(), $this.height()) / size * 2;
@@ -499,6 +526,12 @@
                 init: function (msg) {
                     var _this = this;
 
+                    if (typeof msg === 'undefined') {
+                        return false;
+                    } else if (typeof msg === 'object') {
+                        msg = JSON.stringify(msg);
+                    }
+
                     var $toastBox = $('.toast-box');
                     if ($toastBox.length <= 0) {
                         $toastBox = $(_this.data.$helper.parseTemplate('toastBox'));
@@ -529,7 +562,7 @@
                             $real.appendTo('.toast-box');
                             setTimeout(function () {
                                 $real.addClass('toast-anim-start');
-                                var t = Math.max(1000 / 30 * msg.length, 1500);
+                                var t = Math.min(Math.max(1000 / 20 * msg.length, 1500), 5000);
                                 setTimeout(function () {
                                     $real.removeClass('toast-anim-start');
                                     setTimeout(function () {
