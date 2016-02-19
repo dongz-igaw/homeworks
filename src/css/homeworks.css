@@ -1993,6 +1993,38 @@ textarea[readonly].input {
     color: #ffffff;
 }
 
+.btn-group .btn {
+    border-radius: 0;
+    border: 1px solid #d8d8d8;
+    border-left: none;
+}
+
+.btn-group.btn-group-xm .btn {
+    font-size: 85%;
+}
+
+.btn-group.btn-group-sm .btn {
+    font-size: 95%;
+}
+
+.btn-group.btn-group-lg .btn {
+    font-size: 105%;
+}
+
+.btn-group.btn-group-xg .btn {
+    font-size: 115%;
+    padding: 1em 2em;
+}
+
+.btn-group .btn:first-child {
+    border-radius: 2px 0 0 2px;
+    border-left: 1px solid #d8d8d8;
+}
+
+.btn-group .btn:last-child {
+    border-radius: 0 2px 2px 0;
+}
+
 .btn-ripple {
     position: relative;
     overflow: hidden;
