@@ -1309,7 +1309,7 @@ textarea[readonly].input {
 .row {
     display: table;
     table-layout: fixed;
-    border-collapse: collapse;
+    border-collapse: separate;
     width: 100%;
 }
 

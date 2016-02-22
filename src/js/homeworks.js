@@ -157,7 +157,14 @@
                     var f = t.toString().split(' ');
                     for (var n in f) f[n] = f[n] + '.' + _this.data.framework + '.' + _this.data.id;
                     f = f.join(' ');
-                    e.bind(f, c);
+                    e.bind(f, function (e, v) {
+                        if (typeof v === 'object') {
+                            $.extend(e, v);
+                        }
+                        if (typeof c === 'function') {
+                            c.apply(this, Array.prototype.slice.call(arguments));
+                        }
+                    });
                     if (typeof i !== 'undefined' && i === true) {
                         this.triggerHandler(e, t);
                     }
@@ -170,13 +177,13 @@
                 e.unbind(t + '.' + _this.data.framework + '.' + _this.data.id);
             };
 
-            this.trigger = function (e, t) {
-                e.trigger(t + '.' + _this.data.framework + '.' + _this.data.id);
+            this.trigger = function (e, t, v) {
+                e.trigger(t + '.' + _this.data.framework + '.' + _this.data.id, v);
             };
 
-            this.triggerHandler = function (e, t) {
+            this.triggerHandler = function (e, t, v) {
                 var f = (t.toString().split(' '))[0];
-                e.triggerHandler(f + '.' + _this.data.framework + '.' + _this.data.id);
+                e.triggerHandler(f + '.' + _this.data.framework + '.' + _this.data.id, v);
             };
         }
 
@@ -226,9 +233,7 @@
                         if (typeof this.data[_this.data.id]._init === 'undefined' || this.data[_this.data.id]._init === false) {
                             this.data[_this.data.id]._init = true;
                             _this.data.i = this.data[_this.data.id];
-                            return _this.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
-                        } else {
-                            return _this;
+                            _this.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
                         }
                     } else if (typeof arg[0] === 'string') {
                         try {
@@ -253,7 +258,7 @@
                 if (arg.length > 0 && self == _this.data.o.$w[0]) {
                     _this.method.init.apply(_this, Array.prototype.slice.call(arg));
                 } else {
-                    self.each(f);
+                    return self.each(f);
                 }
             };
 
@@ -274,6 +279,19 @@
                     var id = $.trim(p[idx]);
                     $.fn[id] = this.route;
                     window[id] = this.route;
+
+                    /* jshint ignore:start */
+                    /* @DATE 2016. 02. 22 */
+                    /* @USER Kenneth */
+                    /* @NOTE 함수 동적반영을 위한 jshint Escape 처리. */
+                    for (var key in this.method) {
+                        if (typeof $.fn[key] === 'undefined') {
+                            $.fn[key] = function () {
+                                return _this.method[key].apply(_this, [this].concat(Array.prototype.slice.call(arguments)));
+                            };
+                        }
+                    }
+                    /* jshint ignore:end */
                 }
             }
         }
@@ -309,7 +327,6 @@
             },
             method: {
                 toggle: function (e) {
-                    console.log(e[0].data[this.data.id]);
                     if (this.data._visible === true) {
                         e[0].data[this.data.id].close.call(this, e);
                     } else {
@@ -349,7 +366,8 @@
 
                     _this.data.$helper.bind(e, 'click', function (event) {
                         var $this = $(this);
-                        if (!$this.hasClass('.btn-ripple')) {
+                        console.log(event);
+                        if (!$this.hasClass('btn-ripple')) {
                             e.addClass('btn-ripple');
                             if ($.inArray(e[0].data[_this.data.id].theme, _this.data.g.supportThemes) != -1) {
                                 e.addClass('btn-ripple-' + e[0].data[_this.data.id].theme);
@@ -359,8 +377,8 @@
                         var size = Math.min($this.width(), $this.height());
                         var scale = Math.max($this.width(), $this.height()) / size * 2;
                         var point = {
-                            x: event.clientX - $this.offset().left - size / 2,
-                            y: event.clientY - $this.offset().top - size / 2
+                            x: event.offsetX - size / 2,
+                            y: event.offsetY - size / 2
                         };
                         $ripple.css({ width: size, height: size, left: point.x, top: point.y });
                         $ripple.appendTo($this);
@@ -377,6 +395,10 @@
                 });
             },
             method: {
+                start: function (e, v) {
+                    var _this = this;
+                    _this.data.$helper.triggerHandler(e, 'click', v);
+                }
             },
             template: {
                 effect: '<div class="btn-ripple-effect"></div>'
