@@ -4,21 +4,17 @@
 
 > IGAWorks 프론트엔드 공통 프레임워크
 
-### Javascript
-
+## Javascript
 ##### ObjectData([prototype this], [string id])
-
-> 컴포넌트에서 참조하는 데이터 세트.
+ > 컴포넌트에서 참조하는 데이터 세트.
 
 ##### ObjectHelper([prototype this])
-
-> 컴포넌트에서 참조하는 헬퍼 도구.
+ > 컴포넌트에서 참조하는 헬퍼 도구.
 
 ##### ObjectMethod([string component names], [array options])
-
-> 컴포넌트 정의 함수.
-
-##### 정의예시
+ > 컴포넌트 정의 함수.
+ 
+###### 정의예시
 
 ```javascript
 // component1, component2 각각의 이름의 컴포넌트를 정의.
@@ -46,8 +42,7 @@ _ws.modal = new ObjectMethod('component1, component2', {
 });
 ```
 
-#### 사용예시
-
+###### 사용예시
 1. **Init 호출 형태**
 
  - **jQuery Style**
