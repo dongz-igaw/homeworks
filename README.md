@@ -18,9 +18,10 @@
 
 > 컴포넌트 정의 함수.
 
-##### 사용예시
+##### 정의예시
 
 ```javascript
+// component1, component2 각각의 이름의 컴포넌트를 정의.
 _ws.modal = new ObjectMethod('component1, component2', {
   init: function (element, options) {
       var _this = this;
@@ -43,6 +44,72 @@ _ws.modal = new ObjectMethod('component1, component2', {
       }
   }
 });
+```
+
+#### 사용예시
+
+1. **Init 호출 형태**
+
+ - **jQuery Style**
+
+  ```javascript
+  // 아래 예제는 component1의 init을 호출합니다.
+  // this => ObjectMethod prototype
+  // element => body
+  // options => {
+  //  debug: true
+  // }
+  var options = {
+    debug: true
+  };
+  $('body').component1(options);
+```
+
+ - **Functional Style**
+
+  ```javascript
+  // 아래 예제는 component1의 init을 호출합니다.
+  // this => ObjectMethod prototype
+  // element => body
+  // options => {
+  //  debug: true
+  // }
+  var options = {
+    debug: true
+  };
+  component1($('body'), options);
+```
+
+2. **Method 호출 형태**
+
+ - **jQuery Naming Style**
+
+  ```javascript
+  // 아래 예제는 component1의 methods 중 subMethod1을 호출합니다.
+  // this => ObjectMethod prototype
+  // element => body
+  // options => {
+  //  debug: true
+  // }
+  var options = {
+    debug: true
+  };
+  $('body').component1('subMethod1', options);
+```
+
+ - **jQuery Chaning Style**
+
+  ```javascript
+  // 아래 예제는 component1의 methods 중 subMethod1을 호출합니다.
+  // this => ObjectMethod prototype
+  // element => body
+  // options => {
+  //  debug: true
+  // }
+  var options = {
+    debug: true
+  };
+  $('body').subMethod1(options);
 ```
 
 ----
