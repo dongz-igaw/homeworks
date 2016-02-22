@@ -109,7 +109,7 @@ _ws.modal = new ObjectMethod('component1, component2', {
 
 ----
 
-### Style guide
+## 스타일 정의 가이드
 
 1. If / Else Pattern
 
