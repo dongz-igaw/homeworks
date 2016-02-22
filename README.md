@@ -6,9 +6,44 @@
 
 ### Javascript
 
-#### ObjectMethod
-#### ObjectHelper
-#### ObjectData
+##### ObjectData([prototype this], [string id])
+
+> 컴포넌트에서 참조하는 데이터 세트.
+
+##### ObjectHelper([prototype this])
+
+> 컴포넌트에서 참조하는 헬퍼 도구.
+
+##### ObjectMethod([string component names], [array options])
+
+> 컴포넌트 정의 함수.
+
+##### 사용예시
+
+```javascript
+_ws.modal = new ObjectMethod('component1, component2', {
+  init: function (element, options) {
+      var _this = this;
+      // initializing
+  },
+  method: {
+      subMethod1: function(element, options) {
+      },
+      subMethod2: function(element, options) {
+      }
+  },
+  template: {
+      template1: '',
+      template2: ''
+  },
+  options: {
+      options1: 'value',
+      options2: {
+       options2Dot1: 'value'
+      }
+  }
+});
+```
 
 ----
 
