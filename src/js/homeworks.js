@@ -122,6 +122,9 @@
             };
 
             this.invoke = function (n) {
+                if (typeof n === 'undefined') {
+                    n = _this.data.id;
+                }
                 if (typeof _ps[_this.data.framework + '.' + n] !== 'undefined') {
                     try {
                         clearTimeout(_ps[_this.data.framework + '.' + n]);
@@ -178,12 +181,13 @@
             };
 
             this.trigger = function (e, t, v) {
-                e.trigger(t + '.' + _this.data.framework + '.' + _this.data.id, v);
+                var f = (t.toString().split(' '))[0];
+                e.trigger(v === true ? f : (f + '.' + _this.data.framework + '.' + _this.data.id), v);
             };
 
             this.triggerHandler = function (e, t, v) {
                 var f = (t.toString().split(' '))[0];
-                e.triggerHandler(f + '.' + _this.data.framework + '.' + _this.data.id, v);
+                e.triggerHandler(v === true? f : (f + '.' + _this.data.framework + '.' + _this.data.id), v);
             };
         }
 
@@ -366,7 +370,6 @@
 
                     _this.data.$helper.bind(e, 'click', function (event) {
                         var $this = $(this);
-                        console.log(event);
                         if (!$this.hasClass('btn-ripple')) {
                             e.addClass('btn-ripple');
                             if ($.inArray(e[0].data[_this.data.id].theme, _this.data.g.supportThemes) != -1) {
@@ -700,6 +703,93 @@
                 }
             }
         });
+
+        _ws.spinner = new ObjectMethod('spinner', {
+            init: function ($e, o) {
+                var _this = this;
+
+                var $selected = $e.find(':selected');
+                var $spinner = $(_this.data.$helper.parseTemplate('spinner', {
+                    option: $selected.length > 0 ? $selected.text() : this.data.g.empty
+                }));
+
+                var attrs = $e.prop("attributes");
+                for (var idx in attrs) {
+                    var attr = attrs[idx];
+                    if (attr.name !== 'class' && attr.name !== 'style') {
+                        $spinner.attr(attr.name, attr.value);
+                    }
+                }
+                $e.after($spinner).hide();
+                $spinner.ripple({
+                    theme: 'dark'
+                });
+
+                _this.data.$helper.bind($e, 'change', function (event) {
+                    var $this = $(this);
+                    $spinner.find('.spinner-txt').text($this.find(':selected').text());
+                });
+
+                _this.data.$helper.bind($spinner, 'click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var $this = $(this);
+                    var $spinnerWrapper = $(_this.data.$helper.parseTemplate('spinnerWrapper'));
+                    $e.find('option').each(function () {
+                        var $this = $(this);
+                        var $option = $(_this.data.$helper.parseTemplate('spinnerOptions', {
+                            value: $this.val(),
+                            option: $this.text(),
+                            type: ($this.prop('selected') === true && $this.text() !== '')? 'selected':'default'
+                        }));
+                        if ($this.prop('selected') === true) {
+                            $spinner.find('.spinner-txt').text($this.text());
+                        }
+                        $option.ripple({
+                            theme: 'dark'
+                        }).appendTo($spinnerWrapper);
+                    });
+                    $spinnerWrapper.appendTo('body');
+                    $spinnerWrapper.css({
+                        position: 'absolute',
+                        top: $spinner.offset().top,
+                        left: $spinner.offset().left
+                    });
+                    var diffLeftFix = $spinnerWrapper.offset().left - (($spinnerWrapper.outerWidth() - $spinner.outerWidth()) / 2);
+                    $spinnerWrapper.css({
+                        left: diffLeftFix
+                    });
+                    $spinnerWrapper.addClass('anim-start');
+                    _this.data.$helper.bind(_this.data.o.$d, 'click', function () {
+                        $spinnerWrapper.removeClass('anim-start');
+                        _this.data.$helper.promise(function () {
+                            $spinnerWrapper.remove();
+                        }, 300);
+                        _this.data.$helper.unbind(_this.data.o.$d, 'click');
+                    });
+                    _this.data.$helper.bind($spinnerWrapper.find('.spinner-option'), 'click', function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        var $this = $(this);
+                        $spinnerWrapper.removeClass('anim-start');
+                        _this.data.$helper.promise(function () {
+                            $spinnerWrapper.remove();
+                        }, 300);
+                        $e.val($this.data('value'));
+                        _this.data.$helper.triggerHandler($e, 'change', true);
+                        _this.data.$helper.unbind(_this.data.o.$d, 'click');
+                    });
+                });
+            },
+            template: {
+                spinner: '<a href="#" class="spinner"><span class="spinner-txt">{option}</span><i class="fa fa-caret-down"></i></a>',
+                spinnerWrapper: '<div class="spinner-wrapper"></div>',
+                spinnerOptions: '<a href="#" class="spinner-option spinner-{type}" data-value="{value}">{option}</a>'
+            },
+            options: {
+                empty: '선택된 값이 없습니다.'
+            }
+        });
     }(jQuery));
 
 
@@ -756,5 +846,11 @@
                 type: f
             });
         }).hook('tooltip');
+
+        // 툴팁 관련 설정
+        (function ($e, f) {
+            this.spinner({
+            });
+        }).hook('spinner');
     });
 }());

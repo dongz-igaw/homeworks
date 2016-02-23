@@ -1628,6 +1628,71 @@ textarea[readonly].input {
     border-color: #4e4e4e;
 }
 
+.spinner {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    padding: 1em 1.6em;
+    color: inherit;
+    border-radius: 2px;
+    text-decoration: none;
+    font-family: 'Roboto', 'Nanum Gothic', 'dotum';
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+.spinner:hover,
+.spinner:focus {
+    color: inherit;
+}
+
+.spinner .spinner-txt {
+    margin-right: 1.2em;
+}
+
+.spinner-wrapper {
+    padding: .4em 0;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 2px;
+    font-family: 'Roboto', 'Nanum Gothic', 'dotum';
+    opacity: 0;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, .275);
+    -o-box-shadow: 0 1px 8px rgba(0, 0, 0, .275);
+    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, .275);
+    -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, .275);
+    transition: opacity .3s ease-in;
+    -o-transition: opacity .3s ease-in;
+    -moz-transition: opacity .3s ease-in;
+    -webkit-transition: opacity .3s ease-in;
+    z-index: 10;
+}
+
+.spinner-wrapper.anim-start {
+    opacity: 1;
+}
+
+.spinner-wrapper .spinner-option {
+    display: block;
+    padding: .8em 3.2em;
+    color: #777777;
+    transition: background-color .2s ease, color .2s ease;
+    -o-transition: background-color .2s ease, color .2s ease;
+    -moz-transition: background-color .2s ease, color .2s ease;
+    -webkit-transition: background-color .2s ease, color .2s ease;
+}
+
+.spinner-wrapper .spinner-option:hover {
+    background-color: #dcdcdc;
+    color: #333333;
+}
+
+.spinner-wrapper .spinner-option.spinner-selected {
+    background-color: #dcdcdc;
+    color: #333333;
+    font-weight: 600;
+}
+
 .input:focus {
     border-color: #b2b2b2;
     border-bottom-width: 2px;
