@@ -9,11 +9,21 @@
 ## Javascript
 ##### ObjectData([prototype this], [string id])
  > 컴포넌트에서 참조하는 데이터 세트.
- > HomeWorks 내부에서 관리하는 프로토타입이므로 컴포넌트 정의 작업에서는 사용하지 않습니다.
+ 
+ <br />
+ 
+ > HomeWorks 내부에서 관리하는 프로토타입이므로
+ 
+ > 컴포넌트 정의 작업에서는 사용하지 않습니다.
 
 ##### ObjectHelper([prototype this])
  > 컴포넌트에서 참조하는 헬퍼 도구.
- > HomeWorks 내부에서 관리하는 프로토타입이므로 컴포넌트 정의 작업에서는 사용하지 않습니다.
+ 
+ <br />
+ 
+ > HomeWorks 내부에서 관리하는 프로토타입이므로
+ 
+ > 컴포넌트 정의 작업에서는 사용하지 않습니다.
 
 ##### ObjectMethod([string component names], [array options])
  > 컴포넌트 정의 함수.
