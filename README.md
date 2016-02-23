@@ -6,15 +6,18 @@
 
 ## Getting Start
 
+- 이 문서에는 대략적인 Summary가 기재 되어있습니다.
+- 보다 자세한 내용은 [HomeWorks WIKI](https://www.gitbook.com/book/igaworks/homeworkswiki/edit#/edit/master/README.md)를 이용해주시기 바랍니다.
+
 ## Javascript
-##### ObjectData([prototype this], [string id])
+##### [ObjectData([prototype this], [string id])](https://www.gitbook.com/book/igaworks/homeworkswiki/edit#/edit/master/ObjectData/index.md)
  > 컴포넌트에서 참조하는 데이터 세트.
  
  > HomeWorks 내부에서 관리하는 프로토타입이므로
  
  > 컴포넌트 정의 작업에서는 사용하지 않습니다.
 
-##### ObjectHelper([prototype this])
+##### [ObjectHelper([prototype this])](https://www.gitbook.com/book/igaworks/homeworkswiki/edit#/edit/master/ObjectHelper/index.md)
  > 컴포넌트에서 참조하는 헬퍼 도구.
  
  > HomeWorks 내부에서 관리하는 프로토타입이므로
