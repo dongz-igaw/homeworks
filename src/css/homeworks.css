@@ -53,13 +53,14 @@ a:active {
 }
 
 .clearfix {
+    zoom: 1;
 }
 
 .clearfix:after,
 .clearfix:before {
-    content: '';
-    display: block;
-    height: 0;
+    content: ' ';
+    display: table;
+    width: 100%;
     clear: both;
 }
 
@@ -772,6 +773,14 @@ a:active {
 
 .works-screen .works-page .works-page-body .works-page-section:last-child {
     margin-bottom: 0;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
 }
 
 .modal {
