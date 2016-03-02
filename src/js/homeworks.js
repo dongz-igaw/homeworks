@@ -730,6 +730,10 @@
                     $spinner.find('.spinner-txt').text($this.find(':selected').text());
                 });
 
+                $e.bind('ng-change', function () {
+                    alert('saddas');
+                });
+
                 _this.data.$helper.bind($spinner, 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -759,6 +763,15 @@
                     $spinnerWrapper.css({
                         left: diffLeftFix
                     });
+                    if ($spinnerWrapper.offset().top + $spinnerWrapper.outerHeight() > _this.data.o.$w.scrollTop() + _this.data.o.$w.height()) {
+                        $spinnerWrapper.children('.spinner-option').each(function () {
+                            var $this = $(this);
+                            $this.prependTo($spinnerWrapper);
+                        });
+                        $spinnerWrapper.css({
+                            top: $spinner.offset().top + $spinner.outerHeight() - $spinnerWrapper.outerHeight()
+                        });
+                    }
                     $spinnerWrapper.addClass('anim-start');
                     _this.data.$helper.bind(_this.data.o.$d, 'click', function () {
                         $spinnerWrapper.removeClass('anim-start');
@@ -847,7 +860,7 @@
             });
         }).hook('tooltip');
 
-        // 툴팁 관련 설정
+        // 드롭다운 관련 설정
         (function ($e, f) {
             this.spinner({
             });

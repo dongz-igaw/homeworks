@@ -2228,8 +2228,8 @@ textarea[readonly].input {
     border-right: none;
 }
 
-.table tr:last-child th,
-.table tr:last-child td {
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
     border-bottom: none;
 }
 
@@ -2245,6 +2245,26 @@ textarea[readonly].input {
 
 .table-bordered {
     border: 1px solid #d8d8d8
+}
+
+.table-classic thead tr th,
+.table-classic thead tr td,
+.table-classic tbody tr th,
+.table-classic tbody tr td {
+    background-color: #f2f2f2;
+    border-left-color: #cccccc;
+    border-right-color: #e4e4e4;
+    border-top-color: #cccccc;
+    border-bottom-color: #e4e4e4;
+}
+
+.table-classic tr > *:last-child {
+    border-right-color: #cccccc;
+}
+
+.table-classic tr:last-child {
+    border-bottom-color: #cccccc;
+
 }
 
 .table-striped tbody tr th,
