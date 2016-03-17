@@ -383,6 +383,9 @@
                             x: event.offsetX - size / 2,
                             y: event.offsetY - size / 2
                         };
+                        if (o.over) {
+                            e.css({ overflow: 'visible' });
+                        }
                         $ripple.css({ width: size, height: size, left: point.x, top: point.y });
                         $ripple.appendTo($this);
                         _this.data.$helper.promise(function () {
@@ -400,6 +403,12 @@
             method: {
                 start: function (e, v) {
                     var _this = this;
+                    if (typeof v === 'undefined') {
+                        v = {
+                            offsetX: e.width() / 2,
+                            offsetY: e.height() / 2
+                        };
+                    }
                     _this.data.$helper.triggerHandler(e, 'click', v);
                 }
             },
@@ -408,6 +417,98 @@
             },
             options: {
                 supportThemes: ['light', 'dark']
+            }
+        });
+
+        _ws.input = new ObjectMethod('input', {
+            init: function (e, o) {
+                var _this = this;
+                var $label = $(_this.data.$helper.parseTemplate('label')).appendTo('body');
+                $label.width(e.outerWidth());
+                $label.insertAfter(e);
+                e.appendTo($label);
+                $label.css({ fontSize: e.css('font-size') });
+                $(_this.data.$helper.parseTemplate('placeholder')).text(e.attr('placeholder') || e.attr('title')).insertBefore(e);
+
+                _this.data.$helper.bind(e, 'focus', function () {
+                    $label.addClass('works-input-lock').addClass('works-input-focus');
+                });
+
+                _this.data.$helper.bind(e, 'blur', function () {
+                    if (e.val() === '') {
+                        $label.removeClass('works-input-lock');
+                    } else {
+                        $label.addClass('works-input-lock');
+                    }
+                    e.parent().removeClass('works-input-focus');
+                });
+
+                if (e.attr('class').match(/input-(\w+)/gi)) {
+                    var class_names = e.attr('class').match(/input-(\w+)/gi);
+                    for (var idx in class_names) {
+                        var class_name = class_names[idx];
+                        $label.addClass('works-label-' + class_name);
+                    }
+                }
+
+                _this.data.$helper.promise(function () {
+                    _this.data.$helper.triggerHandler(e, 'blur');
+                }, 25);
+
+                e.attr('placeholder', '');
+            },
+            method: {
+                
+            },
+            template: {
+                label: '<label class="works-input-label"></label>',
+                placeholder: '<span class="works-input-placeholder"></span>'
+            }
+        });
+
+        _ws.checkbox = new ObjectMethod('checkbox', {
+            init: function (e, o) {
+                var _this = this;
+                $checkbox = $(_this.data.$helper.parseTemplate('checkbox'));
+                _this.data.$helper.bind($checkbox.insertAfter(e).ripple({
+                    theme: 'dark',
+                    over: true
+                }), 'click', function (event) {
+                    event.preventDefault();
+                    if ($checkbox.hasClass('works-checkbox-checked')) {
+                        $checkbox.removeClass('works-checkbox-checked');
+                        e.prop('checked', false);
+                    } else {
+                        $checkbox.addClass('works-checkbox-checked');
+                        e.prop('checked', true);
+                    }
+                });
+
+                e.bind('change', function (event) {
+                    var $this = $(this);
+                    if ($this.prop('checked') === true) {
+                        $checkbox.addClass('works-checkbox-checked');
+                    } else {
+                        $checkbox.removeClass('works-checkbox-checked');
+                    }
+                    $checkbox.ripple('start');
+                });
+
+                if (e.attr('class').match(/input-(\w+)/gi)) {
+                    var class_names = e.attr('class').match(/input-(\w+)/gi);
+                    for (var idx in class_names) {
+                        var class_name = class_names[idx];
+                        $checkbox.addClass('works-checkbox-' + class_name);
+                    }
+                }
+
+                e.hide();
+            },
+            method: {
+
+            },
+            template: {
+                checkbox: '<a href="#" class="works-checkbox"></a>'
             }
         });
 
@@ -482,7 +583,7 @@
             }
         });
 
-        _ws.input = new ObjectMethod('input', {
+        _ws.converter = new ObjectMethod('converter', {
             init: function (e, o) {
                 var _this = this;
                 var preventKeyCode = [37, 38, 39, 40, 9, 13, 17, 46];
@@ -705,32 +806,32 @@
         });
 
         _ws.spinner = new ObjectMethod('spinner', {
-            init: function ($e, o) {
+            init: function (e, o) {
                 var _this = this;
 
-                var $selected = $e.find(':selected');
+                var $selected = e.find(':selected');
                 var $spinner = $(_this.data.$helper.parseTemplate('spinner', {
                     option: $selected.length > 0 ? $selected.text() : this.data.g.empty
                 }));
 
-                var attrs = $e.prop("attributes");
+                var attrs = e.prop("attributes");
                 for (var idx in attrs) {
                     var attr = attrs[idx];
                     if (attr.name !== 'class' && attr.name !== 'style') {
                         $spinner.attr(attr.name, attr.value);
                     }
                 }
-                $e.after($spinner).hide();
+                e.after($spinner).hide();
                 $spinner.ripple({
                     theme: 'dark'
                 });
 
-                _this.data.$helper.bind($e, 'change', function (event) {
+                _this.data.$helper.bind(e, 'change', function (event) {
                     var $this = $(this);
                     $spinner.find('.spinner-txt').text($this.find(':selected').text());
                 });
 
-                $e.bind('ng-change', function () {
+                e.bind('ng-change', function () {
                     alert('saddas');
                 });
 
@@ -739,7 +840,7 @@
                     event.stopPropagation();
                     var $this = $(this);
                     var $spinnerWrapper = $(_this.data.$helper.parseTemplate('spinnerWrapper'));
-                    $e.find('option').each(function () {
+                    e.find('option').each(function () {
                         var $this = $(this);
                         var $option = $(_this.data.$helper.parseTemplate('spinnerOptions', {
                             value: $this.val(),
@@ -754,32 +855,34 @@
                         }).appendTo($spinnerWrapper);
                     });
                     $spinnerWrapper.appendTo('body');
-                    $spinnerWrapper.css({
-                        position: 'absolute',
-                        top: $spinner.offset().top,
-                        left: $spinner.offset().left
-                    });
-                    var diffLeftFix = $spinnerWrapper.offset().left - (($spinnerWrapper.outerWidth() - $spinner.outerWidth()) / 2);
-                    $spinnerWrapper.css({
-                        left: diffLeftFix
-                    });
-                    if ($spinnerWrapper.offset().top + $spinnerWrapper.outerHeight() > _this.data.o.$w.scrollTop() + _this.data.o.$w.height()) {
-                        $spinnerWrapper.children('.spinner-option').each(function () {
-                            var $this = $(this);
-                            $this.prependTo($spinnerWrapper);
-                        });
-                        $spinnerWrapper.css({
-                            top: $spinner.offset().top + $spinner.outerHeight() - $spinnerWrapper.outerHeight()
-                        });
-                    }
                     $spinnerWrapper.addClass('anim-start');
+
+                    _this.data.$helper.bind(_this.data.o.$w, 'resize', function () {
+                        $spinnerWrapper.css({
+                            position: 'absolute',
+                            top: $spinner.offset().top,
+                            left: $spinner.offset().left
+                        });
+                        if ($spinnerWrapper.offset().top + $spinnerWrapper.outerHeight() > _this.data.o.$w.scrollTop() + _this.data.o.$w.height()) {
+                            $spinnerWrapper.children('.spinner-option').each(function () {
+                                var $this = $(this);
+                                $this.prependTo($spinnerWrapper);
+                            });
+                            $spinnerWrapper.css({
+                                top: $spinner.offset().top + $spinner.outerHeight() - $spinnerWrapper.outerHeight()
+                            });
+                        }
+                    }, true);
+
                     _this.data.$helper.bind(_this.data.o.$d, 'click', function () {
                         $spinnerWrapper.removeClass('anim-start');
                         _this.data.$helper.promise(function () {
                             $spinnerWrapper.remove();
                         }, 300);
+                        _this.data.$helper.unbind(_this.data.o.$w, 'resize');
                         _this.data.$helper.unbind(_this.data.o.$d, 'click');
                     });
+
                     _this.data.$helper.bind($spinnerWrapper.find('.spinner-option'), 'click', function (event) {
                         event.preventDefault();
                         event.stopPropagation();
@@ -788,14 +891,15 @@
                         _this.data.$helper.promise(function () {
                             $spinnerWrapper.remove();
                         }, 300);
-                        $e.val($this.data('value'));
-                        _this.data.$helper.triggerHandler($e, 'change', true);
+                        e.val($this.data('value'));
+                        _this.data.$helper.triggerHandler(e, 'change', true);
+                        _this.data.$helper.unbind(_this.data.o.$w, 'resize');
                         _this.data.$helper.unbind(_this.data.o.$d, 'click');
                     });
                 });
             },
             template: {
-                spinner: '<a href="#" class="spinner"><span class="spinner-txt">{option}</span><i class="fa fa-caret-down"></i></a>',
+                spinner: '<a href="#" class="spinner"><span class="spinner-txt">{option}</span><i class="spinner-arrow fa fa-caret-down"></i></a>',
                 spinnerWrapper: '<div class="spinner-wrapper"></div>',
                 spinnerOptions: '<a href="#" class="spinner-option spinner-{type}" data-value="{value}">{option}</a>'
             },
@@ -845,6 +949,11 @@
             });
         }).hook('menu');
 
+        // 인풋 관련 설정
+        (function ($e) {
+            $e.input();
+        }).hook('input');
+
         // 모달 관련 설정
         (function ($e) {
             this.bind('click', function (event) {
@@ -859,6 +968,11 @@
                 type: f
             });
         }).hook('tooltip');
+
+        // 체크박스 관련 설정
+        (function ($e, f) {
+            this.checkbox();
+        }).hook('checkbox');
 
         // 드롭다운 관련 설정
         (function ($e, f) {
