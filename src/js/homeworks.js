@@ -51,7 +51,7 @@
                 }
             });
         } catch (e) {
-            console.warn(e);
+            throw e;
         }
     };
 
@@ -337,23 +337,60 @@
                         e[0].data[this.data.id].open.call(this, e);
                     }
                 },
+                show: function (e) {
+                    e[0].data[this.data.id].open.call(this, e);
+                },
+                hide: function(e) {
+                    e[0].data[this.data.id].close.call(this, e);
+                },
                 open: function (e) {
+                    var _this = this;
                     if (e.hasClass('modal-full')) {
                         e.css({display : 'table'});
                     } else {
                         e.show();
                     }
+
+                    _this.data.$helper.bind(e, 'click', function (event) {
+                        event.stopPropagation();
+                    });
+
                     e.triggerHandler('modal.open');
+
+                    var $overlay = $('.modal-overlay');
+                    if ($overlay.length < 1) {
+                        $overlay = $(_this.data.$helper.parseTemplate('overlay'));
+                    }
+
+                    $overlay.insertAfter(e);
+                    $overlay.show();
+                    _this.data.$helper.promise(function () {
+                        $overlay.css('opacity', .6);
+                    }, 25);
+
+                    _this.data.$helper.bind($overlay, 'click', function (event) {
+                        e[0].data[_this.data.id].close.call(_this, e);                        
+                    });
                     this.data._visible = true;
                 },
                 close: function (e) {
+                    var _this = this;
                     e.hide();
                     e.triggerHandler('modal.close');
                     this.data._visible = false;
+
+                    var $overlay = $('.modal-overlay');
+                    $overlay.css('opacity', 0);
+                    _this.data.$helper.promise(function () {
+                        $overlay.hide();
+                    }, 300);
+
+                    _this.data.$helper.unbind(e, 'click');
+                    _this.data.$helper.unbind($overlay, 'click');
                 }
             },
             template: {
-                overlay: '<div class="{framework}-{id}"></div>'
+                overlay: '<div class="modal-overlay"></div>'
             }
         });
 
@@ -424,7 +461,7 @@
             init: function (e, o) {
                 var _this = this;
                 var $label = $(_this.data.$helper.parseTemplate('label')).appendTo('body');
-                $label.width(e.outerWidth());
+                //$label.width(e.outerWidth());
                 $label.insertAfter(e);
                 e.appendTo($label);
                 $label.css({ fontSize: e.css('font-size') });
@@ -434,7 +471,22 @@
                     $label.addClass('works-input-lock').addClass('works-input-focus');
                 });
 
+                _this.data.$helper.bind(e, 'keypress', function () {
+                    if (e.data('type') === 'number') {
+                        if (/[^\d.]+/.test(e.val())) {
+                            e.addClass('input-danger').removeClass('input-primary');
+                            e.parent().addClass('works-label-input-danger').removeClass('works-label-input-primary');
+                        } else {
+                            e.removeClass('input-danger').addClass('input-primary');
+                            e.parent().removeClass('works-label-input-danger').addClass('works-label-input-primary');
+                        }
+                    }
+                }, true);
+
                 _this.data.$helper.bind(e, 'blur', function () {
+                    if (e.data('type') == 'number') {
+                        e.val(e.val().replace(/[^\d.]+/gi, ''));
+                    }
                     if (e.val() === '') {
                         $label.removeClass('works-input-lock');
                     } else {
@@ -469,7 +521,7 @@
         _ws.checkbox = new ObjectMethod('checkbox', {
             init: function (e, o) {
                 var _this = this;
-                $checkbox = $(_this.data.$helper.parseTemplate('checkbox'));
+                var $checkbox = $(_this.data.$helper.parseTemplate('checkbox'));
                 _this.data.$helper.bind($checkbox.insertAfter(e).ripple({
                     theme: 'dark',
                     over: true
@@ -482,7 +534,7 @@
                         $checkbox.addClass('works-checkbox-checked');
                         e.prop('checked', true);
                     }
-                });
+                }, true);
 
                 e.bind('change', function (event) {
                     var $this = $(this);
@@ -951,7 +1003,8 @@
 
         // 인풋 관련 설정
         (function ($e) {
-            $e.input();
+            console.log($e);
+            this.input();
         }).hook('input');
 
         // 모달 관련 설정

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Homeworks quick guide</title>
+  <link rel="stylesheet" href="../src/css/homeworks.css">
+  <link rel="stylesheet" href="../src/css/homeworks.theme.dark.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="demo/css/pe-icon-7-stroke.css">
+  <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+  <script src="https://code.jquery.com/ui/jquery-ui-git.js"></script>
+  <script src="../src/js/homeworks.js"></script>
+  <style>
+    /**
+     * 데모 용 폰트 추가
+     */
+    @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+    @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,300');
+    body {
+      /**
+       *
+       * You can choose background color to set style at body element. *Default - White
+       *
+       */
+      background-color: #e3e6eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="works-wrapper works-theme-dark" ng-class="{'works-top-menu-enable': topmenu == true}">
+    <div class="works-header">
+        <div class="works-header-inner">
+            <div class="works-header-title">
+                <h2 class="logo"><a href="#/">HomeWorks <strong>Framework</strong></a></h2>
+            </div>
+            <div class="works-header-action works-header-menu">
+                <a href="#" class="works-menu active">메뉴1</a>
+                <a href="#" class="works-menu">메뉴2</a>
+                <a href="#" class="works-menu">메뉴3</a>
+            </div>
+            <div class="works-header-action pull-right">
+                <a href="#" class="btn-action">
+                  <!-- i 태그에 지정된 클래스는 FontAwesome, Stroke7등 아이콘폰트를 적용하기 위한 클래스입니다.-->
+                  <!-- 현재 버전에서는 HomeWorks 자체의 아이콘을 제공하지 않기때문에, FontAwesome과 같은 css를 붙여 사용하시거나 이미지를 이용 바랍니다.-->
+                  <i class="pe-7s-search"></i>
+                </a>
+                <a href="#" class="btn-action btn-bell">
+                  <!-- i 태그에 지정된 클래스는 FontAwesome, Stroke7등 아이콘폰트를 적용하기 위한 클래스입니다.-->
+                  <!-- 현재 버전에서는 HomeWorks 자체의 아이콘을 제공하지 않기때문에, FontAwesome과 같은 css를 붙여 사용하시거나 이미지를 이용 바랍니다.-->
+                  <i class="pe-7s-bell"></i>
+                  <span class="bubble">5</span>
+                </a>
+                <a href="#/partner" class="btn-action">
+                  <!-- i 태그에 지정된 클래스는 FontAwesome, Stroke7등 아이콘폰트를 적용하기 위한 클래스입니다.-->
+                  <!-- 현재 버전에서는 HomeWorks 자체의 아이콘을 제공하지 않기때문에, FontAwesome과 같은 css를 붙여 사용하시거나 이미지를 이용 바랍니다.-->
+                  <i class="pe-7s-smile"></i>
+                </a>
+                <a href="#" class="btn-action">
+                  <!-- i 태그에 지정된 클래스는 FontAwesome, Stroke7등 아이콘폰트를 적용하기 위한 클래스입니다.-->
+                  <!-- 현재 버전에서는 HomeWorks 자체의 아이콘을 제공하지 않기때문에, FontAwesome과 같은 css를 붙여 사용하시거나 이미지를 이용 바랍니다.-->
+                  <i class="pe-7s-power"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="works-body">
+        <div class="works-content">
+          <div class="works-top">
+            <h1>Header</h1>
+            <div class="works-top-action">
+              <a href="#" class="btn btn-cobalt btn-lg" data-ripple="true">Top Action 1</a>
+            </div>
+        </div>
+        <div class="works-container">
+          <div class="clearfix">
+              <a href="#/" class="btn btn-cobalt pull-left" data-ripple="true"><i class="pe-7s-angle-left"></i><span>Navigation</span></a>
+              <span class="pull-right">
+                  <a href="#" class="btn btn-cobalt btn-soft" data-ripple="true"><i class="pe-7s-config"></i> <span>Sub top action</span></a>
+              </span>
+          </div>
+
+          <div class="works-section">
+            .works-section
+          </div>
+
+          <div class="works-section works-section-padding">
+            .works-section.works-section-padding
+          </div>
+
+          <h3>Buttons</h3>
+          <div class="works-section works-section-padding">
+            <h4>Normal</h4>
+            <a href="#" class="btn">btn</a>
+            <a href="#" class="btn">
+              <i class="pe-7s-like"></i>
+              <span>btn with icon</span>
+            </a>
+            <a href="#" class="btn btn-material">btn Material</a>
+            <a href="#" class="btn btn-disabled">btn Disabled</a>
+            <a href="#" class="btn" data-ripple="true">btn Ripple - White</a>
+            <a href="#" class="btn" data-ripple="dark">btn Ripple - Dark</a>
+
+            <br /><br />
+
+            <h4>Default</h4>
+            <a href="#" class="btn btn-default">btn</a>
+            <a href="#" class="btn btn-default">
+              <i class="pe-7s-like"></i>
+              <span>btn with icon</span>
+            </a>
+            <a href="#" class="btn btn-default btn-material">btn Material</a>
+            <a href="#" class="btn btn-default btn-disabled">btn Disabled</a>
+            <a href="#" class="btn btn-default" data-ripple="true">btn Ripple - White</a>
+            <a href="#" class="btn btn-default" data-ripple="dark">btn Ripple - Dark</a>
+
+            <br /><br />
+
+            <h4>Force</h4>
+            <a href="#" class="btn btn-force">btn</a>
+            <a href="#" class="btn btn-force">
+              <i class="pe-7s-like"></i>
+              <span>btn with icon</span>
+            </a>
+            <a href="#" class="btn btn-force btn-material">btn Material</a>
+            <a href="#" class="btn btn-force btn-disabled">btn Disabled</a>
+            <a href="#" class="btn btn-force" data-ripple="true">btn Ripple - White</a>
+            <a href="#" class="btn btn-force" data-ripple="dark">btn Ripple - Dark</a>
+
+            <br /><br />
+
+            <h4>Primary</h4>
+            <a href="#" class="btn btn-primary">btn</a>
+            <a href="#" class="btn btn-primary">
+              <i class="pe-7s-like"></i>
+              <span>btn with icon</span>
+            </a>
+            <a href="#" class="btn btn-primary btn-material">btn Material</a>
+            <a href="#" class="btn btn-primary btn-disabled">btn Disabled</a>
+            <a href="#" class="btn btn-primary" data-ripple="true">btn Ripple - White</a>
+            <a href="#" class="btn btn-primary" data-ripple="dark">btn Ripple - Dark</a>
+
+            <br /><br />
+
+            <h4>Notice</h4>
+            <a href="#" class="btn btn-notice">btn</a>
+            <a href="#" class="btn btn-notice">
+              <i class="pe-7s-like"></i>
+              <span>btn with icon</span>
+            </a>
+            <a href="#" class="btn btn-notice btn-material">btn Material</a>
+            <a href="#" class="btn btn-notice btn-disabled">btn Disabled</a>
+            <a href="#" class="btn btn-notice" data-ripple="true">btn Ripple - White</a>
+            <a href="#" class="btn btn-notice" data-ripple="dark">btn Ripple - Dark</a>
+
+            <br /><br />
+
+            <h4>Cobalt</h4>
+            <a href="#" class="btn btn-cobalt">btn</a>
+            <a href="#" class="btn btn-cobalt">
+              <i class="pe-7s-like"></i>
+              <span>btn with icon</span>
+            </a>
+            <a href="#" class="btn btn-cobalt btn-material">btn Material</a>
+            <a href="#" class="btn btn-cobalt btn-disabled">btn Disabled</a>
+            <a href="#" class="btn btn-cobalt" data-ripple="true">btn Ripple - White</a>
+            <a href="#" class="btn btn-cobalt" data-ripple="dark">btn Ripple - Dark</a>
+
+            <br /><br />
+
+            <h4>Danger</h4>
+            <a href="#" class="btn btn-danger">btn</a>
+            <a href="#" class="btn btn-danger">
+              <i class="pe-7s-like"></i>
+              <span>btn with icon</span>
+            </a>
+            <a href="#" class="btn btn-danger btn-material">btn Material</a>
+            <a href="#" class="btn btn-danger btn-disabled">btn Disabled</a>
+            <a href="#" class="btn btn-danger" data-ripple="true">btn Ripple - White</a>
+            <a href="#" class="btn btn-danger" data-ripple="dark">btn Ripple - Dark</a>
+
+            <br /><br />
+
+            <h4>Alert</h4>
+            <a href="#" class="btn btn-alert">btn</a>
+            <a href="#" class="btn btn-alert">
+              <i class="pe-7s-like"></i>
+              <span>btn with icon</span>
+            </a>
+            <a href="#" class="btn btn-alert btn-material">btn Material</a>
+            <a href="#" class="btn btn-alert btn-disabled">btn Disabled</a>
+            <a href="#" class="btn btn-alert" data-ripple="true">btn Ripple - White</a>
+            <a href="#" class="btn btn-alert" data-ripple="dark">btn Ripple - Dark</a>
+
+            <br /><br />
+
+            <h4>Success</h4>
+            <a href="#" class="btn btn-success">btn</a>
+            <a href="#" class="btn btn-success">
+              <i class="pe-7s-like"></i>
+              <span>btn with icon</span>
+            </a>
+            <a href="#" class="btn btn-success btn-material">btn Material</a>
+            <a href="#" class="btn btn-success btn-disabled">btn Disabled</a>
+            <a href="#" class="btn btn-success" data-ripple="true">btn Ripple - White</a>
+            <a href="#" class="btn btn-success" data-ripple="dark">btn Ripple - Dark</a>
+          </div>
+
+          <h3>Button sizes</h3>
+          <div class="works-section">
+            <table class="table table-bordered">
+              <colgroup>
+                <col style="width: 120px;">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th>btn-xs</th>
+                  <td><a href="#" class="btn btn-cobalt btn-xs">btn</a></td>
+                </tr>
+                <tr>
+                  <th>btn-sm</th>
+                  <td><a href="#" class="btn btn-cobalt btn-sm">btn</a></td>
+                </tr>
+                <tr>
+                  <th>default</th>
+                  <td><a href="#" class="btn btn-cobalt">btn</a></td>
+                </tr>
+                <tr>
+                  <th>btn-lg</th>
+                  <td><a href="#" class="btn btn-cobalt btn-lg">btn</a></td>
+                </tr>
+                <tr>
+                  <th>btn-xg</th>
+                  <td><a href="#" class="btn btn-cobalt btn-xg">btn</a></td>
+                </tr>
+                <tr>
+                  <th>btn-block</th>
+                  <td><a href="#" class="btn btn-cobalt btn-block">btn</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Label &amp; Badges</h3>
+          <div class="works-section works-section-padding">
+            <h4>Default</h4>
+            <span class="label">label</span>
+            <span class="label">
+              <i class="pe-7s-like"></i>
+              <span>label width icon</span>
+            </span>
+            <span class="badge">badge</span>
+            <span class="badge">
+              <i class="pe-7s-like"></i>
+              <span>badge width icon</span>
+            </span>
+
+            <br /><br />
+
+            <h4>Force</h4>
+            <span class="label label-force">label</span>
+            <span class="label label-force">
+              <i class="pe-7s-like"></i>
+              <span>label width icon</span>
+            </span>
+            <span class="badge badge-force">badge</span>
+            <span class="badge badge-force">
+              <i class="pe-7s-like"></i>
+              <span>badge width icon</span>
+            </span>
+
+            <br /><br />
+
+            <h4>Primary</h4>
+            <span class="label label-primary">label</span>
+            <span class="label label-primary">
+              <i class="pe-7s-like"></i>
+              <span>label width icon</span>
+            </span>
+            <span class="badge badge-primary">badge</span>
+            <span class="badge badge-primary">
+              <i class="pe-7s-like"></i>
+              <span>badge width icon</span>
+            </span>
+
+            <br /><br />
+
+            <h4>Notice</h4>
+            <span class="label label-notice">label</span>
+            <span class="label label-notice">
+              <i class="pe-7s-like"></i>
+              <span>label width icon</span>
+            </span>
+            <span class="badge badge-notice">badge</span>
+            <span class="badge badge-notice">
+              <i class="pe-7s-like"></i>
+              <span>badge width icon</span>
+            </span>
+
+            <br /><br />
+
+            <h4>Cobalt</h4>
+            <span class="label label-cobalt">label</span>
+            <span class="label label-cobalt">
+              <i class="pe-7s-like"></i>
+              <span>label width icon</span>
+            </span>
+            <span class="badge badge-cobalt">badge</span>
+            <span class="badge badge-cobalt">
+              <i class="pe-7s-like"></i>
+              <span>badge width icon</span>
+            </span>
+
+            <br /><br />
+
+            <h4>Danger</h4>
+            <span class="label label-danger">label</span>
+            <span class="label label-danger">
+              <i class="pe-7s-like"></i>
+              <span>label width icon</span>
+            </span>
+            <span class="badge badge-danger">badge</span>
+            <span class="badge badge-danger">
+              <i class="pe-7s-like"></i>
+              <span>badge width icon</span>
+            </span>
+
+            <br /><br />
+
+            <h4>Alert</h4>
+            <span class="label label-alert">label</span>
+            <span class="label label-alert">
+              <i class="pe-7s-like"></i>
+              <span>label width icon</span>
+            </span>
+            <span class="badge badge-alert">badge</span>
+            <span class="badge badge-alert">
+              <i class="pe-7s-like"></i>
+              <span>badge width icon</span>
+            </span>
+
+            <br /><br />
+
+            <h4>Success</h4>
+            <span class="label label-success">label</span>
+            <span class="label label-success">
+              <i class="pe-7s-like"></i>
+              <span>label width icon</span>
+            </span>
+            <span class="badge badge-success">badge</span>
+            <span class="badge badge-success">
+              <i class="pe-7s-like"></i>
+              <span>badge width icon</span>
+            </span>
+          </div>
+
+          <h3>Label &amp; Badge sizes</h3>
+          <div class="works-section works-section-padding">
+            <table class="table table-bordered">
+              <colgroup>
+                <col style="width: 180px;">
+                <col>
+              </colgroup>
+              <thead>
+                  <tr>
+                    <th>size</th>
+                    <th>label</th>
+                    <th>badge</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th><span class="label label-xs label-force">component</span>-xs</th>
+                  <td>
+                    <span class="label label-cobalt label-xs">label</span>
+                  </td>
+                  <td>
+                    <span class="badge badge-cobalt badge-xs">badge</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th><span class="label label-xs label-force">component</span>-sm</th>
+                  <td>
+                    <span class="label label-cobalt label-sm">label</span>
+                  </td>
+                  <td>
+                      <span class="badge badge-cobalt badge-sm">badge</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th><span class="label label-xs label-force">component</span></th>
+                  <td>
+                    <span class="label label-cobalt">label</span>
+                  </td>
+                  <td>
+                      <span class="badge badge-cobalt">badge</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th><span class="label label-xs label-force">component</span>-lg</th>
+                  <td>
+                    <span class="label label-cobalt label-lg">label</span>
+                  </td>
+                  <td>
+                      <span class="badge badge-cobalt badge-lg">badge</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th><span class="label label-xs label-force">component</span>-xg</th>
+                  <td>
+                    <span class="label label-cobalt label-xg">label</span>
+                  </td>
+                  <td>
+                      <span class="badge badge-cobalt badge-xg">badge</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Forms</h3>
+          <div class="works-section">
+            <table class="table table-bordered">
+              <colgroup>
+                <col style="width: 120px;">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th>Input</th>
+                  <td>
+                    <label>
+                        <span>Default</span>
+                        <input type="text" class="input" placeholder="default" />
+                        <input type="text" class="input input-force" placeholder="force" />
+                        <input type="text" class="input input-primary" placeholder="primary" />
+                        <input type="text" class="input input-notice" placeholder="notice" />
+                        <input type="text" class="input input-cobalt" placeholder="cobalt" />
+                        <input type="text" class="input input-danger" placeholder="danger" />
+                        <input type="text" class="input input-alert" placeholder="alert" />
+                        <input type="text" class="input input-success" placeholder="success" />
+                    </label><br />
+                    <label>
+                        <span>Material</span>
+                        <input type="text" class="input" data-input="true" placeholder="default" />
+                        <input type="text" class="input input-force" data-input="true" placeholder="force" />
+                        <input type="text" class="input input-primary" data-input="true" placeholder="primary" />
+                        <input type="text" class="input input-notice" data-input="true" placeholder="notice" />
+                        <input type="text" class="input input-cobalt" data-input="true" placeholder="cobalt" />
+                        <input type="text" class="input input-danger" data-input="true" placeholder="danger" />
+                        <input type="text" class="input input-alert" data-input="true" placeholder="alert" />
+                        <input type="text" class="input input-success" data-input="true" placeholder="success" />
+                    </label><br />
+                  </td>
+                </tr>
+                <tr>
+                  <th>File</th>
+                  <td>
+                    <label>
+                        <span>Default</span>
+                        <span class="btn btn-file">
+                          <span>file</span>
+                          <input type="file" class="file" />
+                        </span>
+                        <span class="btn btn-default btn-file">
+                          <span>file</span>
+                          <input type="file" class="file" />
+                        </span>
+                        <span class="btn btn-force btn-file">
+                          <span>file</span>
+                          <input type="file" class="file" />
+                        </span>
+                        <span class="btn btn-primary btn-file">
+                          <span>file</span>
+                          <input type="file" class="file" />
+                        </span>
+                        <span class="btn btn-notice btn-file">
+                          <span>file</span>
+                          <input type="file" class="file" />
+                        </span>
+                        <span class="btn btn-cobalt btn-file">
+                          <span>file</span>
+                          <input type="file" class="file" />
+                        </span>
+                        <span class="btn btn-danger btn-file">
+                          <span>file</span>
+                          <input type="file" class="file" />
+                        </span>
+                        <span class="btn btn-alert btn-file">
+                          <span>file</span>
+                          <input type="file" class="file" />
+                        </span>
+                        <span class="btn btn-success btn-file">
+                          <span>file</span>
+                          <input type="file" class="file" />
+                        </span>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Spinner</th>
+                  <td>
+                    <label>
+                      <span>Default</span>
+                      <select class="input">
+                        <option>default</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-force">
+                        <option>force</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-primary">
+                        <option>force</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-notice">
+                        <option>notice</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-cobalt">
+                        <option>cobalt</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-danger">
+                        <option>danger</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-alert">
+                        <option>alert</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-success">
+                        <option>success</option>
+                        <option value="1">Option</option>
+                      </select>
+                    </label><br />
+
+                    <label>
+                      <span>Material</span>
+                      <select class="input" data-spinner="true">
+                        <option>default</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-force" data-spinner="true">
+                        <option>force</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-primary" data-spinner="true">
+                        <option>force</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-notice" data-spinner="true">
+                        <option>notice</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-cobalt" data-spinner="true">
+                        <option>cobalt</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-danger" data-spinner="true">
+                        <option>danger</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-alert" data-spinner="true">
+                        <option>alert</option>
+                        <option value="1">Option</option>
+                      </select>
+                      <select class="input input-success" data-spinner="true">
+                        <option>success</option>
+                        <option value="1">Option</option>
+                      </select>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Checkbox</th>
+                  <td>
+                    <label><input type="checkbox" /> Normal</label>
+                    <label><input type="checkbox" class="input" data-checkbox="true" checked="checked" /> Default</label>
+                    <label><input type="checkbox" class="input input-force" data-checkbox="true" checked="checked" /> Force</label>
+                    <label><input type="checkbox" class="input input-primary" data-checkbox="true" checked="checked" /> Primary</label>
+                    <label><input type="checkbox" class="input input-notice" data-checkbox="true" checked="checked" /> Notice</label>
+                    <label><input type="checkbox" class="input input-cobalt" data-checkbox="true" checked="checked" /> Cobalt</label>
+                    <label><input type="checkbox" class="input input-danger" data-checkbox="true" checked="checked" /> Danger</label>
+                    <label><input type="checkbox" class="input input-alert" data-checkbox="true" checked="checked" /> Alert</label>
+                    <label><input type="checkbox" class="input input-success" data-checkbox="true" checked="checked" /> Success</label>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Toggle</th>
+                  <td>
+                    <label class="toggle toggle-default">
+                      <input type="checkbox" checked="checked">
+                      <span class="switch"></span>
+                      <span>Default</span>
+                    </label>
+                    <label class="toggle toggle-force">
+                      <input type="checkbox" checked="checked">
+                      <span class="switch"></span>
+                      <span>Force</span>
+                    </label>
+                    <label class="toggle toggle-primary">
+                      <input type="checkbox" checked="checked">
+                      <span class="switch"></span>
+                      <span>Primary</span>
+                    </label>
+                    <label class="toggle toggle-notice">
+                      <input type="checkbox" checked="checked">
+                      <span class="switch"></span>
+                      <span>Notice</span>
+                    </label>
+                    <label class="toggle toggle-cobalt">
+                      <input type="checkbox" checked="checked">
+                      <span class="switch"></span>
+                      <span>Cobalt</span>
+                    </label>
+                    <label class="toggle toggle-danger">
+                      <input type="checkbox" checked="checked">
+                      <span class="switch"></span>
+                      <span>Danger</span>
+                    </label>
+                    <label class="toggle toggle-alert">
+                      <input type="checkbox" checked="checked">
+                      <span class="switch"></span>
+                      <span>Alert</span>
+                    </label>
+                    <label class="toggle toggle-success">
+                      <input type="checkbox" checked="checked">
+                      <span class="switch"></span>
+                      <span>Success</span>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Wizard</h3>
+          <div class="works-section">
+            <div class="wizard">
+              <a href="#/user/signup/" class="wizard-item active">Step1</a>
+              <a href="#" class="wizard-item">Step2</a>
+              <a href="#" class="wizard-item">Step3</a>
+              <a href="#" class="wizard-item">Step4</a>
+            </div>
+          </div>
+
+          <h3>Normal table</h3>
+          <div class="works-section works-section-padding">
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Head</th>
+                      <th>Head</th>
+                      <th>Head</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
+
+          <h3>Classic table</h3>
+          <div class="works-section works-section-padding">
+              <table class="table table-classic">
+                  <thead>
+                    <tr>
+                      <th>Head</th>
+                      <th>Head</th>
+                      <th>Head</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
+
+          <h3>Bordered table</h3>
+          <div class="works-section works-section-padding">
+              <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Head</th>
+                      <th>Head</th>
+                      <th>Head</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
+
+          <h3>Striped &amp; Bordered table</h3>
+          <div class="works-section works-section-padding">
+              <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Head</th>
+                      <th>Head</th>
+                      <th>Head</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
+
+          <h3>Hover &amp; Bordered table</h3>
+          <div class="works-section works-section-padding">
+              <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>Head</th>
+                      <th>Head</th>
+                      <th>Head</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
+
+          <div class="works-section works-section-padding">
+              <a href="#" class="btn btn-cobalt btn-block" onclick="window.toast('test'); return false;">Toast test</a>
+          </div>
+      </div>
+    </div>
+</body>
+</html>
