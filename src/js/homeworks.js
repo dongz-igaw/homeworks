@@ -365,7 +365,7 @@
                     $overlay.insertAfter(e);
                     $overlay.show();
                     _this.data.$helper.promise(function () {
-                        $overlay.css('opacity', .6);
+                        $overlay.css('opacity', 0.6);
                     }, 25);
 
                     _this.data.$helper.bind($overlay, 'click', function (event) {
@@ -413,12 +413,13 @@
                                 e.addClass('btn-ripple-' + e[0].data[_this.data.id].theme);
                             }
                         }
+                        var offset = this.getClientRects()[0];
                         var $ripple = $(_this.data.$helper.parseTemplate('effect'));
                         var size = Math.min($this.width(), $this.height());
                         var scale = Math.max($this.width(), $this.height()) / size * 2;
                         var point = {
-                            x: event.offsetX - size / 2,
-                            y: event.offsetY - size / 2
+                            x: (event.clientX - offset.left) - size / 2,
+                            y: (event.clientY - offset.top) - size / 2
                         };
                         if (o.over) {
                             e.css({ overflow: 'visible' });

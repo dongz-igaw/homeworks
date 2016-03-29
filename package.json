@@ -1,6 +1,6 @@
 {
   "name": "homeworks-framework",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "> IGAWorks 프론트엔드 공통 프레임워크",
   "main": "Gruntfile.js",
   "scripts": {
