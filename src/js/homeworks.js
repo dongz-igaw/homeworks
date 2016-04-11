@@ -413,7 +413,7 @@
                                 e.addClass('btn-ripple-' + e[0].data[_this.data.id].theme);
                             }
                         }
-                        var offset = this.getClientRects()[0];
+                        var offset = this.getClientRects()[0] || {left: 0, top: 0};
                         var $ripple = $(_this.data.$helper.parseTemplate('effect'));
                         var size = Math.min($this.width(), $this.height());
                         var scale = Math.max($this.width(), $this.height()) / size * 2;
@@ -462,7 +462,9 @@
             init: function (e, o) {
                 var _this = this;
                 var $label = $(_this.data.$helper.parseTemplate('label')).appendTo('body');
-                //$label.width(e.outerWidth());
+                if (e.is(':visible')) {
+                    $label.width(e.outerWidth());
+                }
                 $label.insertAfter(e);
                 e.appendTo($label);
                 $label.css({ fontSize: e.css('font-size') });
@@ -494,7 +496,7 @@
                         $label.addClass('works-input-lock');
                     }
                     e.parent().removeClass('works-input-focus');
-                });
+                }, true);
 
                 if (e.attr('class').match(/input-(\w+)/gi)) {
                     var class_names = e.attr('class').match(/input-(\w+)/gi);
@@ -957,7 +959,7 @@
                 spinnerOptions: '<a href="#" class="spinner-option spinner-{type}" data-value="{value}">{option}</a>'
             },
             options: {
-                empty: '선택된 값이 없습니다.'
+                empty: '선택'
             }
         });
     }(jQuery));

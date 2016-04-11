@@ -295,10 +295,10 @@ a:active {
 
 .works-top h1 {
     float: left;
-    width: 60%;
+    width: 50%;
     margin: 0;
     padding: 20px 30px;
-    font-size: 140%;
+    font-size: 130%;
     font-weight: 400;
     color: #333742;
     word-break: break-all;
@@ -313,8 +313,8 @@ a:active {
 
 .works-top .works-top-action {
     float: right;
-    width: 40%;
-    padding: 7px 30px;
+    width: 50%;
+    padding: .6em 30px;
     text-align: right;
     overflow: hidden;
     box-sizing: border-box;
@@ -340,7 +340,7 @@ a:active {
     padding: 21px 0;
     margin: 0 1.6em;
     border-bottom: 3px solid transparent;
-    font-size: 115%;
+    font-size: 105%;
     box-sizing: border-box;
     -o-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -684,7 +684,6 @@ a:active {
 }
 
 .works-section {
-    font-size: 105%;
     position: relative;
     width: 100%;
     margin-bottom: 2em;
@@ -1198,14 +1197,48 @@ a:active {
 }
 
 .pagination {
+    width: 100%;
     display: inline-block;
     *display: inline;
     *zoom: 1;
     font-size: 0;
     vertical-align: middle;
+    text-align: right;
 }
 
 .pagination a {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    font-size: .9rem;
+    width: 2.2em;
+    height: 2.2em;
+    line-height: 2.2em;
+    color: #444444;
+    margin: 0 .6em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.pagination a:last-child {
+    margin-right: 0;
+}
+
+.pagination a.arrow {
+    width: auto;
+}
+
+.pagination a.active {
+    background-color: #5369e3;
+    color: #ffffff;
+}
+
+.pagination a i {
+    font-size: 160%;
+    vertical-align: middle;
+}
+
+.pagination.pagination-material a {
     display: inline-block;
     *display: inline;
     *zoom: 1;
@@ -1222,15 +1255,15 @@ a:active {
     box-shadow: 0 1px 5px rgba(0, 0, 0, .175);
 }
 
-.pagination a.arrow {
+.pagination.pagination-material a.arrow {
     line-height: 3em;
 }
 
-.pagination a.arrow i {
+.pagination.pagination-material a.arrow i {
     font-size: 160%;
 }
 
-.pagination a.active {
+.pagination.pagination-material a.active {
     color: #ffffff;
     background-color: #6092fe;
     box-shadow: 0 1px 5px rgba(48, 73, 168, .5);
@@ -1250,6 +1283,7 @@ a:active {
     font-family: inherit;
     border-bottom: 1px solid #c1c1c1;
     outline: none;
+    vertical-align: middle;
     box-sizing: border-box;
     -o-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -2321,7 +2355,7 @@ textarea[readonly].input {
     display: table;
     width: 100%;
     table-layout: fixed;
-    margin-bottom: 2.8em;
+    margin-bottom: 1.2em;
     border-collapse: collapse;
     text-align: left;
 }
@@ -2370,6 +2404,13 @@ textarea[readonly].input {
 
 .table-bordered {
     border: 1px solid #d8d8d8
+}
+
+.table-layout thead th
+.table-layout thead td,
+.table-layout tbody th,
+.table-layout tbody td {
+    border: none;
 }
 
 .table-classic thead tr th,
@@ -2866,7 +2907,8 @@ textarea[readonly].input {
 */
 .works-checkbox {
     display: inline-block;
-    vertical-align: middle;
+    *display: inline;
+    *zoom: 1;
     width: 1.2em;
     height: 1.2em;
     font-family: 'FontAwesome';
@@ -2874,16 +2916,27 @@ textarea[readonly].input {
     border-radius: 2px;
     border: 2px solid #c1c1c1;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.2em;
+    vertical-align: middle;
+    overflow: hidden;
 }
 
 .works-checkbox:active {
     border-color: #747474;
 }
 
-.works-checkbox.works-checkbox-checked:before {
+.works-checkbox:before {
     content: "\f00c";
     color: #777777;
+    opacity: 0;
+    -ms-filter: alpha(opacity=0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+.works-checkbox.works-checkbox-checked:before {
+    opacity: 1;
+    -ms-filter: alpha(opacity=100);
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
 }
 
 .works-checkbox-input-primary:hover,
