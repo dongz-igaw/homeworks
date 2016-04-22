@@ -786,27 +786,52 @@
                         img: ['JPEG', 'JPG', 'JPE', 'PJPEG', 'PNG', 'GIF', 'BMP', 'RAW'],
                         doc: ['DOC', 'DOCX', 'PPT', 'PPTX', 'HWP', 'XLS', 'XLSX', 'PDF', 'CSV'],
                         flag: {
-                            txt: 'T',
-                            img: 'I',
-                            doc: 'D',
-                            spread: 'S'
+                            txt: 'Text',
+                            img: 'Image',
+                            doc: 'Doc',
+                            spread: 'Spread'
+                        },
+                        dest: {
+                            local: 'Local',
+                            s3: 'AWSS3'
                         }
                     };
                     if (typeof o !== 'undefined' && typeof o.type !== 'undefined' && o.type !== null) {
                         if ($.inArray(o.type, Object.keys(exts)) != -1) {
                             if ($.inArray(info.type.toUpperCase(), exts[o.type]) != -1) {
+                                var idx = null;
                                 if($.inArray(info.exts.toUpperCase(), exts[o.type]) != -1) {
                                     var form = new FormData();
                                     form.append('file', file, file.name);
                                     if (typeof o.type !== 'undefined' && o.type !== null) {
                                         form.append('type', exts.flag[o.type]);
                                     }
+
+                                    if (typeof o.dest !== 'undefined' && o.dest !== null) {
+                                        form.append('dest', exts.dest[o.dest]);
+                                    }
+
                                     if (typeof o.data !== 'undefined') {
-                                        for (var idx in o.data) {
+                                        for (idx in o.data) {
                                             form.append(idx, o.data[idx]);
                                         }
                                     }
-                                    e.siblings('.btn').text('업로드 중').addClass('btn-default').removeClass('btn-success btn-danger');
+
+                                    if (typeof o.isBtn !== 'undefined' && o.isBtn === true) {
+                                        e.siblings('.btn').text('업로드 중').addClass('btn-default').removeClass('btn-success btn-danger');
+                                    }
+
+                                    if (typeof o.beforeStart === 'function') {
+                                        o.beforeStart.apply(e, Array.prototype.slice.call(arguments));
+                                    }
+
+                                    if (typeof o.extensions !== 'undefined') {
+                                        for (idx in o.extensions) {
+                                            var item = o.extensions[idx];
+                                            form.append(idx, item);
+                                        }
+                                    }
+
                                     $.ajax({
                                         url: o.url,
                                         data: form,
@@ -822,14 +847,18 @@
                                                 var data = d.data;
                                                 e.val('');
                                                 if (o.type == 'img') {
-                                                    e.siblings('.btn, img').remove();
-                                                    e.before('<img src="' + data.data + '" />');
+                                                    if (typeof o.isBtn !== 'undefined' && o.isBtn === true) {
+                                                        e.siblings('.btn, img').remove();
+                                                        e.before('<img src="' + data.data + '" />');
+                                                    }
                                                 } else {
-                                                    e.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
+                                                    if (typeof o.isBtn !== 'undefined' && o.isBtn === true) {
+                                                        e.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
+                                                    }
                                                 }
                                                 e.data('value', d.data);
                                                 if (typeof o.success === 'function') {
-                                                    o.success.apply(this, Array.prototype.slice.call(arguments));
+                                                    o.success.apply(e, Array.prototype.slice.call(arguments));
                                                 }
                                             } else {
                                                 if (typeof d.data.msg !== 'undefined') {
@@ -839,9 +868,11 @@
                                         },
                                         error: function (x, s, e) {
                                             alert('업로드 요청 도중 에러가 발생했습니다.\r\n잠시 후 다시 시도해주세요.');
-                                            e.siblings('.btn').text('에러').removeClass('btn-default btn-success').addClass('btn-danger');
+                                            if (typeof o.isBtn !== 'undefined' && o.isBtn === true) {
+                                                e.siblings('.btn').text('에러').removeClass('btn-default btn-success').addClass('btn-danger');
+                                            }
                                             if (typeof o.error === 'function') {
-                                                o.error.apply(this, Array.prototype.slice.call(arguments));
+                                                o.error.apply(e, Array.prototype.slice.call(arguments));
                                             }
                                         }
                                     });
@@ -884,10 +915,6 @@
                 _this.data.$helper.bind(e, 'change', function (event) {
                     var $this = $(this);
                     $spinner.find('.spinner-txt').text($this.find(':selected').text());
-                });
-
-                e.bind('ng-change', function () {
-                    alert('saddas');
                 });
 
                 _this.data.$helper.bind($spinner, 'click', function (event) {
