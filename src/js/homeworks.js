@@ -406,6 +406,9 @@
                     }
 
                     _this.data.$helper.bind(e, 'click', function (event) {
+                        if (typeof event.originalEvent !== 'undefined' && o.passive === true) {
+                            return false;
+                        }
                         var $this = $(this);
                         if (!$this.hasClass('btn-ripple')) {
                             e.addClass('btn-ripple');
@@ -418,9 +421,20 @@
                         var size = Math.min($this.width(), $this.height());
                         var scale = Math.max($this.width(), $this.height()) / size * 2;
                         var point = {
-                            x: (event.clientX - offset.left) - size / 2,
-                            y: (event.clientY - offset.top) - size / 2
+                            x: 0,
+                            y: 0
                         };
+                        if (typeof event.x !== 'undefined' && typeof event.y !== 'undefined') {
+                            point = {
+                                x: event.x - size / 2,
+                                y: event.y - size / 2
+                            };
+                        } else {
+                            point = {
+                                x: (event.clientX - offset.left) - size / 2,
+                                y: (event.clientY - offset.top) - size / 2
+                            };
+                        }
                         if (o.over) {
                             e.css({ overflow: 'visible' });
                         }
@@ -443,9 +457,11 @@
                     var _this = this;
                     if (typeof v === 'undefined') {
                         v = {
-                            offsetX: e.width() / 2,
-                            offsetY: e.height() / 2
+                            x: e.width() / 2,
+                            y: e.height() / 2
                         };
+
+                        console.log(v);
                     }
                     _this.data.$helper.triggerHandler(e, 'click', v);
                 }
@@ -525,19 +541,12 @@
             init: function (e, o) {
                 var _this = this;
                 var $checkbox = $(_this.data.$helper.parseTemplate('checkbox'));
+                e.wrap('<label></label>');
                 _this.data.$helper.bind($checkbox.insertAfter(e).ripple({
                     theme: 'dark',
-                    over: true
-                }), 'click', function (event) {
-                    event.preventDefault();
-                    if ($checkbox.hasClass('works-checkbox-checked')) {
-                        $checkbox.removeClass('works-checkbox-checked');
-                        e.prop('checked', false);
-                    } else {
-                        $checkbox.addClass('works-checkbox-checked');
-                        e.prop('checked', true);
-                    }
-                }, true);
+                    over: true,
+                    passive: true
+                }));
 
                 e.bind('change', function (event) {
                     var $this = $(this);
@@ -546,8 +555,9 @@
                     } else {
                         $checkbox.removeClass('works-checkbox-checked');
                     }
+
                     $checkbox.ripple('start');
-                });
+                }).triggerHandler('change');
 
                 if (e.attr('class').match(/input-(\w+)/gi)) {
                     var class_names = e.attr('class').match(/input-(\w+)/gi);
@@ -563,7 +573,7 @@
 
             },
             template: {
-                checkbox: '<a href="#" class="works-checkbox"></a>'
+                checkbox: '<span href="#" class="works-checkbox"></span>'
             }
         });
 
