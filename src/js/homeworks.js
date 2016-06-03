@@ -930,6 +930,7 @@
                 _this.data.$helper.bind($spinner, 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
+                    _this.data.$helper.triggerHandler(_this.data.o.$d, 'click');
                     var $this = $(this);
                     var $spinnerWrapper = $(_this.data.$helper.parseTemplate('spinnerWrapper'));
                     e.find('option').each(function () {
