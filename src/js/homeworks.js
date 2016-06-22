@@ -460,8 +460,6 @@
                             x: e.width() / 2,
                             y: e.height() / 2
                         };
-
-                        console.log(v);
                     }
                     _this.data.$helper.triggerHandler(e, 'click', v);
                 }
@@ -477,40 +475,45 @@
         _ws.input = new ObjectMethod('input', {
             init: function (e, o) {
                 var _this = this;
-                var $label = $(_this.data.$helper.parseTemplate('label')).appendTo('body');
+                var $label = $(_this.data.$helper.parseTemplate('label')).insertAfter(e);                
+                var type = e.data('type') || ((typeof o !== 'undefined') ? o.type : '');
+
+                rule = {
+                    notnull: e.attr('notnull') || true,
+                    minlen:  e.attr('minlen')  || 0,
+                    maxlen:  e.attr('maxlen')  || 10,
+                    numeric: e.attr('numeric') || false,
+                };
+
+                _this.data.i.type = type;
+                _this.data.i.rule = rule;
+
                 if (e.is(':visible')) {
                     $label.width(e.outerWidth());
                 }
-                $label.insertAfter(e);
                 e.appendTo($label);
-                $label.css({ fontSize: e.css('font-size') });
                 $(_this.data.$helper.parseTemplate('placeholder')).text(e.attr('placeholder') || e.attr('title')).insertBefore(e);
 
                 _this.data.$helper.bind(e, 'focus', function () {
                     $label.addClass('works-input-lock').addClass('works-input-focus');
+                    e[0].data[_this.data.id].validation.call(_this, e, 'clear');
                 });
 
-                _this.data.$helper.bind(e, 'keypress', function () {
-                    if (e.data('type') === 'number') {
-                        if (/[^\d.]+/.test(e.val())) {
-                            e.addClass('input-danger').removeClass('input-primary');
-                            e.parent().addClass('works-label-input-danger').removeClass('works-label-input-primary');
-                        } else {
-                            e.removeClass('input-danger').addClass('input-primary');
-                            e.parent().removeClass('works-label-input-danger').addClass('works-label-input-primary');
-                        }
-                    }
-                }, true);
-
-                _this.data.$helper.bind(e, 'blur', function () {
-                    if (e.data('type') == 'number') {
+                _this.data.$helper.bind(e, 'blur', function (event) {
+                    if (type == 'number') {
                         e.val(e.val().replace(/[^\d.]+/gi, ''));
                     }
+
+                    if (typeof event.originalEvent !== 'undefined') {
+                        e[0].data[_this.data.id].validation.call(_this, e);
+                    }
+
                     if (e.val() === '') {
                         $label.removeClass('works-input-lock');
                     } else {
                         $label.addClass('works-input-lock');
                     }
+
                     e.parent().removeClass('works-input-focus');
                 }, true);
 
@@ -518,8 +521,12 @@
                     var class_names = e.attr('class').match(/input-(\w+)/gi);
                     for (var idx in class_names) {
                         var class_name = class_names[idx];
-                        $label.addClass('works-label-' + class_name);
+                        $label.addClass('works-' + class_name);
                     }
+                }
+
+                if(typeof o === 'undefined' || typeof o.validation === 'undefined' || o.validation.disable !== true) {
+                    e.parent().addClass('works-input-label-validation');
                 }
 
                 _this.data.$helper.promise(function () {
@@ -529,11 +536,49 @@
                 e.attr('placeholder', '');
             },
             method: {
-                
+                validation: function (e, type) {
+                    var _this = this;
+                    var allowedType = ['success', 'error', 'clear'];
+                    e.parent().find('.works-input-validation').remove();
+
+                    if (typeof type === 'undefined' || allowedType.indexOf(type) == -1) {
+                        if (e.val() === '') {
+                            if (typeof _this.data.i.rule.notnull === false) {
+                                type = 'success';
+                            } else {
+                                type = 'error';
+                            }
+                        } else {
+                            if(_this.data.i.rule.notnull)
+                            type = 'success';
+                        }
+                    }
+
+                    var $validator = null;
+                    if (type == 'success') {
+                        e.parent().removeClass('works-input-label-validation-error').addClass('works-input-label-validation-success');
+                        $validator = $(_this.data.$helper.parseTemplate('validationSuccess'));
+                        $validator.insertAfter(e);
+                    } else if (type == 'error') {
+                        e.parent().addClass('works-input-label-validation-error').removeClass('works-input-label-validation-success');
+                        $validator = $(_this.data.$helper.parseTemplate('validationError'));
+                        $validator.insertAfter(e);
+                    } else {
+                        e.parent().removeClass('works-input-label-validation-error').removeClass('works-input-label-validation-success').removeClass('works-input-label-validation-active');
+                    }
+
+                    if (type == 'success' || type == 'error') {
+                        _this.data.$helper.promise(function () {
+                            e.parent().addClass('works-input-label-validation-active');
+                        }, 25);
+                    }
+                }
             },
             template: {
                 label: '<label class="works-input-label"></label>',
-                placeholder: '<span class="works-input-placeholder"></span>'
+                placeholder: '<span class="works-input-placeholder"></span>',
+                validationSuccess: '<span class="works-input-validation works-input-validation-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path class="works-input-validation-first" d="M 10 15 l -4 -4" stroke-dasharray="5.6568" stroke-width="2" /><path class="works-input-validation-last" d="M 9 15 l 8 -7" stroke-dasharray="10.6301" stroke-width="2" /></svg></span>',
+                validationError: '<span class="works-input-validation works-input-validation-error"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path class="works-input-validation-first" d="M 8 8 L 16 16" stroke-dasharray="11.3137" stroke-width="2" /><path class="works-input-validation-last" d="M 16 8 L 8 16" stroke-dasharray="11.3137" stroke-width="2" /></svg></span>'
             }
         });
 
@@ -917,10 +962,13 @@
                         $spinner.attr(attr.name, attr.value);
                     }
                 }
-                e.after($spinner).hide();
+                e.after($spinner);
                 $spinner.ripple({
                     theme: 'dark'
+                }).css({
+                    minWidth: e.outerWidth()
                 });
+                e.hide();
 
                 _this.data.$helper.bind(e, 'change', function (event) {
                     var $this = $(this);
@@ -947,14 +995,13 @@
                             theme: 'dark'
                         }).appendTo($spinnerWrapper);
                     });
-                    $spinnerWrapper.appendTo('body');
+                    $spinnerWrapper.appendTo('body').css('position', 'absolute');
                     $spinnerWrapper.addClass('anim-start');
 
                     _this.data.$helper.bind(_this.data.o.$w, 'resize', function () {
                         $spinnerWrapper.css({
-                            position: 'absolute',
                             top: $spinner.offset().top,
-                            left: $spinner.offset().left
+                            left: $spinner.offset().left + (($spinner.outerWidth() - $spinnerWrapper.outerWidth()) / 2)
                         });
                         if ($spinnerWrapper.offset().top + $spinnerWrapper.outerHeight() > _this.data.o.$w.scrollTop() + _this.data.o.$w.height()) {
                             $spinnerWrapper.children('.spinner-option').each(function () {
@@ -998,6 +1045,53 @@
             },
             options: {
                 empty: '선택'
+            }
+        });
+
+        _ws.step = new ObjectMethod('step', {
+            init: function (e, o) {
+                var _this = this;
+                var _index = 0;
+                var _length = 0;
+                var $container = e.next();
+                _length = e.find('.step-item').length;
+                if (e.hasClass('step') && $container.length > 0 && $container.hasClass('step-container')) {
+                    e.unbind('step.next').bind('step.next', function () {
+                        if (_index + 1 <= _length) {
+                            _this.data.$helper.triggerHandler(e.find('.step-item').eq(_index + 1), 'click');
+                        } else {
+                            return false;
+                        }
+                    });
+                    e.unbind('step.prev').bind('step.prev', function () {
+                        if (_index - 1 >= 0) {
+                            _this.data.$helper.triggerHandler(e.find('.step-item').eq(_index - 1), 'click');
+                        } else {
+                            return false;
+                        }
+                    });
+                    _this.data.$helper.bind(e.find('.step-item'), 'click', function (event) {
+                        event.preventDefault();
+                        var $this = $(this);
+                        var index = $this.index();
+                        _index = index;
+                        $this.addClass('active').siblings('.active').removeClass('active');
+                        $container.find('.step-container-item').eq(index).addClass('active').siblings('.active').removeClass('active');
+
+                        e.triggerHandler('step.move', {
+                            index: _index,
+                            length: _length,
+                            header: e.find('.step-item')
+                        });
+                    });
+                    _this.data.$helper.triggerHandler(e.find('.step-item').eq(_index), 'click');
+                } else {
+                    _this.data.$helper.log('You need to add <div class="step-container"></div> at next of your step element.');
+                }
+            },
+            method: {                
+            },
+            template: {                
             }
         });
     }(jQuery));
@@ -1044,7 +1138,6 @@
 
         // 인풋 관련 설정
         (function ($e) {
-            console.log($e);
             this.input();
         }).hook('input');
 
@@ -1073,5 +1166,11 @@
             this.spinner({
             });
         }).hook('spinner');
+
+        // 스탭 관련 설정
+        (function ($e, f) {
+            this.step({
+            });
+        }).hook('step');
     });
 }());
