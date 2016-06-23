@@ -506,6 +506,19 @@ a:active {
     margin: 0;
 }
 
+.works-header .works-header-inner .btn-action.profile-pic {
+    margin-right: .6em;
+    overflow: hidden;
+}
+
+.works-header .works-header-inner .btn-action.profile-pic img {
+    width: 100%;
+}
+
+.works-header .works-header-inner .profile-name {
+    font-size: 115%;
+}
+
 .works-header .works-header-inner .btn-action:hover {
     background-color: #585d6b;
     border-color: #585d6b;
@@ -544,6 +557,15 @@ a:active {
 .works-header .works-header-inner .btn-action i {
     font-size: 140%;
     vertical-align: middle;
+}
+
+.works-header .works-header-inner .btn-profile span,
+.works-header .works-header-inner .btn-profile i {
+    vertical-align: middle;
+}
+
+.works-header .works-header-inner .btn-profile i {
+    margin-left: .4em;
 }
 
 .works-body {
@@ -3355,13 +3377,15 @@ textarea[readonly].input {
     vertical-align: middle;
 }
 
-.spinner .spinner-arrow {
-}
-
 .spinner .spinner-txt {
     margin-right: 1.2em;
 }
 
+.dropdown {
+    position: absolute;
+}
+
+.dropdown,
 .spinner-wrapper {
     max-height: 13em;
     padding: .4em 0;
@@ -3383,10 +3407,12 @@ textarea[readonly].input {
     z-index: 100000;
 }
 
+.dropdown.anim-start,
 .spinner-wrapper.anim-start {
     opacity: 1;
 }
 
+.dropdown .dropdown-menu,
 .spinner-wrapper .spinner-option {
     display: block;
     padding: .8em 1.6em;
@@ -3398,6 +3424,17 @@ textarea[readonly].input {
     -webkit-transition: background-color .2s ease, color .2s ease;
 }
 
+.dropdown .dropdown-menu i,
+.dropdown .dropdown-menu span {
+    vertical-align: middle;
+}
+
+.dropdown .dropdown-menu i {
+    margin-right: .2em;
+    font-size: 130%;
+}
+
+.dropdown .dropdown-menu:hover,
 .spinner-wrapper .spinner-option:hover {
     background-color: #dcdcdc;
     color: #333333;

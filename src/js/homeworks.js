@@ -102,12 +102,17 @@
              *******************************/
             var _this = t;
 
-            this.promise = function (n, c, t) {
+            this.promise = function (n, c, t, invoke) {
                 if (typeof n === 'function' && typeof c === 'number') {
                     t = c;
                     c = n;
                     n = _this.data.id;
                 }
+
+                if (typeof invoke !== 'undefined' && invoke === true) {
+                    this.invoke(n);
+                }
+
                 _ps[_this.data.framework + '.' + n] = setTimeout(function () {
                     try {
                         delete _ps[_this.data.framework + '.' + n];
@@ -142,7 +147,7 @@
                     if (typeof c !== 'undefined' && c !== null) {
                         t = '[' + c + '] ' + t;
                     }
-                    console.warn(t);
+                    console.error(t);
                 }
             };
 
@@ -943,6 +948,81 @@
                     } else {
                     }
                 }
+            }
+        });
+
+        _ws.dropdown = new ObjectMethod('dropdown', {
+            init: function (e, o) {
+                var _this = this;
+                var $target = null;
+                var direction = e.data('direction') || 'left';
+                try {
+                    $target = $(e.data('pen'));
+                } catch (exception) { }
+
+                if($target === null || $target.length < 1) {
+                    return false;
+                }
+
+                e.appendTo('body');
+                e.hide();
+                _this.data.$helper.unbind(_this.data.o.$w, 'resize');
+
+                _this.data.$helper.bind(_this.data.o.$d, 'click', function (event) {
+                    $target.removeClass('works-dropdown-active');
+                    e.css('opacity', 0);
+                    _this.data.$helper.promise(function () {
+                        e.hide();
+                    }, 300, true);
+                    _this.data.$helper.unbind(_this.data.o.$w, 'resize');
+                });
+
+                _this.data.$helper.bind($target, 'click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var $this = $(this);
+                    if ($this.hasClass('works-dropdown-active')) {
+                        $this.removeClass('works-dropdown-active');
+                        e.css('opacity', 0);
+                        _this.data.$helper.promise(function () {
+                            e.hide();
+                        }, 300, true);
+                        _this.data.$helper.unbind(_this.data.o.$w, 'resize');
+                    } else {
+                        $this.addClass('works-dropdown-active');
+                        e.show();
+                        var leftOffset = 0, topOffset = 0;
+                        _this.data.$helper.bind(_this.data.o.$w, 'resize', function (event) {
+                            if (direction == 'right') {
+                                leftOffset = ($target.outerWidth() - e.outerWidth()) / 2;
+                            } else {
+                                leftOffset = -($target.outerWidth() - e.outerHeight()) / 2;
+                            }
+
+                            if (direction == 'top') {
+                                topOffset = -($target.outerHeight() + 20);
+                            } else {
+                                topOffset = $target.outerHeight() + 20;
+                            }
+
+                            e.css({
+                                position: 'absolute',
+                                left: $target.offset().left + (($target.outerWidth() - e.outerWidth()) / 2) + leftOffset,
+                                top: $target.offset().top + topOffset
+                            });
+                        }, true);
+
+                        _this.data.$helper.promise(function () {
+                            e.css('opacity', 1);
+                            _this.data.$helper.triggerHandler(_this.data.o.$w, 'resize');
+                        }, 25, true);
+                    }
+                });
+
+                _this.data.$helper.unbind(e.children('*'), 'click');
+                _this.data.$helper.bind(e.children('*'), 'click', function (event) {
+                    event.stopPropagation();
+                });
             }
         });
 
