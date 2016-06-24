@@ -1050,6 +1050,10 @@
                 });
                 e.hide();
 
+                _this.data.$helper.bind(e, 'focus', function (event) {
+                    $spinner.focus();
+                });
+
                 _this.data.$helper.bind(e, 'change', function (event) {
                     var $this = $(this);
                     $spinner.find('.spinner-txt').text($this.find(':selected').text());
