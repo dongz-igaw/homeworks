@@ -3359,6 +3359,32 @@ textarea[readonly].input {
     -webkit-transition: box-shadow .3s ease;
 }
 
+.spinner.spinner-disabled,
+.spinner.spinner-readonly {
+    color: #777777;
+    background-color: rgba(0, 0, 0, .125);
+    cursor: not-allowed;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .125) inset;
+    -o-box-shadow: 0 2px 4px rgba(0, 0, 0, .125) inset;
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, .125) inset;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .125) inset;
+}
+
+.spinner.spinner-disabled:hover,
+.spinner.spinner-readonly:hover {
+    color: #919191;
+    background-color: rgba(0, 0, 0, .15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .15) inset;
+    -o-box-shadow: 0 2px 4px rgba(0, 0, 0, .15) inset;
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, .15) inset;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .15) inset;
+}
+
+.spinner.spinner-disabled:focus,
+.spinner.spinner-readonly:focus {
+    color: #777777;
+}
+
 .spinner:hover {
     box-shadow: 0 2px 6px  rgba(0, 0, 0, .25);
     -o-box-shadow: 0 2px 6px  rgba(0, 0, 0, .25);

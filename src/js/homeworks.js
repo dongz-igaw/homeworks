@@ -1029,7 +1029,6 @@
         _ws.spinner = new ObjectMethod('spinner', {
             init: function (e, o) {
                 var _this = this;
-
                 var $selected = e.find(':selected');
                 var $spinner = $(_this.data.$helper.parseTemplate('spinner', {
                     option: $selected.length > 0 ? $selected.text() : this.data.g.empty
@@ -1057,6 +1056,14 @@
                 _this.data.$helper.bind(e, 'change', function (event) {
                     var $this = $(this);
                     $spinner.find('.spinner-txt').text($this.find(':selected').text());
+
+                    if (e.prop('disabled')) {
+                        $spinner.addClass('spinner-disabled');
+                    }
+
+                    if (e.prop('readonly')) {
+                        $spinner.addClass('spinner-readonly');
+                    }
                 });
 
                 _this.data.$helper.bind($spinner, 'click', function (event) {
@@ -1064,6 +1071,9 @@
                     event.stopPropagation();
                     _this.data.$helper.triggerHandler(_this.data.o.$d, 'click');
                     var $this = $(this);
+                    if ($this.hasClass('spinner-disabled') || $this.hasClass('spinner-readonly')) {
+                        return false;
+                    }
                     var $spinnerWrapper = $(_this.data.$helper.parseTemplate('spinnerWrapper'));
                     e.find('option').each(function () {
                         var $this = $(this);
