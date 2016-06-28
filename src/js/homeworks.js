@@ -496,6 +496,8 @@
                 }
                 /* jshint ignore:end */
 
+                console.log(o.validation);
+
                 rule = {
                     notnull: e.attr('notnull') || true,
                     minlen:  e.attr('minlen')  || 0,
@@ -994,7 +996,19 @@
                     _this.data.$helper.unbind(_this.data.o.$w, 'resize');
                 });
 
-                _this.data.$helper.bind($target, 'click', function (event) {
+                _this.data.$helper.unbind(e.find('.dropdown-menu'));
+                _this.data.$helper.bind(e.find('.dropdown-menu'), 'click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    $target.removeClass('works-dropdown-active');
+                    e.css('opacity', 0);
+                    _this.data.$helper.promise(function () {
+                        e.hide();
+                    }, 300, true);
+                    _this.data.$helper.unbind(_this.data.o.$w, 'resize');                    
+                });
+
+                _this.data.$helper.bind($target.ripple({theme: 'normal'}), 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     var $this = $(this);
@@ -1034,11 +1048,6 @@
                             _this.data.$helper.triggerHandler(_this.data.o.$w, 'resize');
                         }, 25, true);
                     }
-                });
-
-                _this.data.$helper.unbind(e.children('*'), 'click');
-                _this.data.$helper.bind(e.children('*'), 'click', function (event) {
-                    event.stopPropagation();
                 });
             }
         });

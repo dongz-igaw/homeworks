@@ -496,6 +496,7 @@ a:active {
     border: 1px solid rgba(192, 192, 192, .4);
     vertical-align: middle;
     position: relative;
+    vertical-align: middle;
     transition: background-color .3s ease, color .3s ease, border-color .3s ease;
     -o-transition: background-color .3s ease, color .3s ease, border-color .3s ease, border-color .3s ease;
     -moz-transition: background-color .3s ease, color .3s ease, border-color .3s ease, border-color .3s ease;
@@ -557,6 +558,16 @@ a:active {
 .works-header .works-header-inner .btn-action i {
     font-size: 140%;
     vertical-align: middle;
+}
+
+.works-header .works-header-inner .btn-profile {
+    display: inline-block;
+    *display: block;
+    *zoom: 1;
+    height: 3em;
+    line-height: 3em;
+    vertical-align: middle;
+    overflow: visible;
 }
 
 .works-header .works-header-inner .btn-profile span,
