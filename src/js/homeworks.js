@@ -226,8 +226,11 @@
                         }
 
                         if (typeof this.data[_this.data.id] === 'undefined') {
-                            this.data[_this.data.id] = {};
-                            $.extend(this.data[_this.data.id], _this.method);
+                            this.data[_this.data.id] = {
+                                '_prototype': {},
+                                '_storage': {}
+                            };
+                            $.extend(this.data[_this.data.id]._prototype, _this.method);
                             _this.data.i = this.data[_this.data.id];
                         }
                     }
@@ -235,7 +238,7 @@
                     if (arg.length === 0 || typeof arg[0] === 'object') {
                         if (typeof arg[0] === 'object') {
                             _this.data.i = this.data[_this.data.id];
-                            $.extend(_this.data.i, arg[0]);
+                            $.extend(_this.data.i._storage, arg[0]);
                             this.data[_this.data.id] = _this.data.i;
                         }
 
@@ -329,7 +332,7 @@
                     event.preventDefault();
                     event.stopPropagation();
                     var $this = $(this);
-                    e[0].data[_this.data.id].close.call(_this, e);
+                    e[0].data[_this.data.id]._prototype.close.call(_this, e);
                 });
 
                 $c.ripple();
@@ -337,16 +340,16 @@
             method: {
                 toggle: function (e) {
                     if (this.data._visible === true) {
-                        e[0].data[this.data.id].close.call(this, e);
+                        e[0].data._prototype[this.data.id].close.call(this, e);
                     } else {
-                        e[0].data[this.data.id].open.call(this, e);
+                        e[0].data._prototype[this.data.id].open.call(this, e);
                     }
                 },
                 show: function (e) {
-                    e[0].data[this.data.id].open.call(this, e);
+                    e[0].data._prototype[this.data.id].open.call(this, e);
                 },
                 hide: function(e) {
-                    e[0].data[this.data.id].close.call(this, e);
+                    e[0].data._prototype[this.data.id].close.call(this, e);
                 },
                 open: function (e) {
                     var _this = this;
@@ -374,7 +377,7 @@
                     }, 25);
 
                     _this.data.$helper.bind($overlay, 'click', function (event) {
-                        e[0].data[_this.data.id].close.call(_this, e);                        
+                        e[0].data[_this.data.id]._prototype.close.call(_this, e);                        
                     });
                     this.data._visible = true;
                 },
@@ -417,8 +420,8 @@
                         var $this = $(this);
                         if (!$this.hasClass('btn-ripple')) {
                             e.addClass('btn-ripple');
-                            if ($.inArray(e[0].data[_this.data.id].theme, _this.data.g.supportThemes) != -1) {
-                                e.addClass('btn-ripple-' + e[0].data[_this.data.id].theme);
+                            if ($.inArray(e[0].data[_this.data.id]._prototype.theme, _this.data.g.supportThemes) != -1) {
+                                e.addClass('btn-ripple-' + e[0].data[_this.data.id]._prototype.theme);
                             }
                         }
                         var offset = this.getClientRects()[0] || {left: 0, top: 0};
@@ -482,6 +485,16 @@
                 var _this = this;
                 var $label = $(_this.data.$helper.parseTemplate('label')).insertAfter(e);                
                 var type = e.data('type') || ((typeof o !== 'undefined') ? o.type : '');
+                var validation = false;
+
+                /* jshint ignore:start */
+                /* @DATE 2016. 06. 28 */
+                /* @USER Kenneth */
+                /* @NOTE dataset에서 받아오는 boolean 타입 보정 !!구문 유효성문제로 인해 escape 처리. */
+                if (typeof o === 'undefined' || typeof o.validation === 'undefined' || !!o.validation.disable !== true) {
+                    validation = true;
+                }
+                /* jshint ignore:end */
 
                 rule = {
                     notnull: e.attr('notnull') || true,
@@ -501,7 +514,9 @@
 
                 _this.data.$helper.bind(e, 'focus', function () {
                     $label.addClass('works-input-lock').addClass('works-input-focus');
-                    e[0].data[_this.data.id].validation.call(_this, e, 'clear');
+                    if (validation === true) {
+                        e[0].data[_this.data.id]._prototype.validation.call(_this, e, 'clear');
+                    }
                 });
 
                 _this.data.$helper.bind(e, 'blur', function (event) {
@@ -510,7 +525,9 @@
                     }
 
                     if (typeof event.originalEvent !== 'undefined') {
-                        e[0].data[_this.data.id].validation.call(_this, e);
+                        if (validation === true) {
+                            e[0].data[_this.data.id]._prototype.validation.call(_this, e);
+                        }
                     }
 
                     if (e.val() === '') {
@@ -529,8 +546,8 @@
                         $label.addClass('works-' + class_name);
                     }
                 }
-
-                if(typeof o === 'undefined' || typeof o.validation === 'undefined' || o.validation.disable !== true) {
+                
+                if (validation === true) {
                     e.parent().addClass('works-input-label-validation');
                 }
 
