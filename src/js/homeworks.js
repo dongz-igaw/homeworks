@@ -409,8 +409,8 @@
                     var e = $(this);
                     e.addClass('btn-ripple');
 
-                    if ($.inArray(_this.data.i.theme, _this.data.g.supportThemes) != -1) {
-                        e.addClass('btn-ripple-' + _this.data.i.theme);
+                    if ($.inArray(_this.data.i._storage.theme, _this.data.g.supportThemes) != -1) {
+                        e.addClass('btn-ripple-' + _this.data.i._storage.theme);
                     }
 
                     _this.data.$helper.bind(e, 'click', function (event) {
@@ -611,6 +611,7 @@
                 var _this = this;
                 var $checkbox = $(_this.data.$helper.parseTemplate('checkbox'));
                 e.wrap('<label></label>');
+                
                 _this.data.$helper.bind($checkbox.insertAfter(e).ripple({
                     theme: 'dark',
                     over: true,
@@ -624,7 +625,6 @@
                     } else {
                         $checkbox.removeClass('works-checkbox-checked');
                     }
-
                     $checkbox.ripple('start');
                 }).triggerHandler('change');
 
@@ -996,7 +996,7 @@
                     _this.data.$helper.unbind(_this.data.o.$w, 'resize');
                 });
 
-                _this.data.$helper.unbind(e.find('.dropdown-menu'));
+                _this.data.$helper.unbind(e.find('.dropdown-menu').ripple({theme: 'dark'}));
                 _this.data.$helper.bind(e.find('.dropdown-menu'), 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -1008,7 +1008,7 @@
                     _this.data.$helper.unbind(_this.data.o.$w, 'resize');                    
                 });
 
-                _this.data.$helper.bind($target.ripple({theme: 'normal'}), 'click', function (event) {
+                _this.data.$helper.bind($target.ripple({theme: 'dark'}), 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     var $this = $(this);

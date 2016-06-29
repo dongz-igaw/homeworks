@@ -231,6 +231,7 @@ a:active {
     height: 100%;
     padding: 0 30px;
     text-align: left;
+    overflow: hidden;
     box-sizing: border-box;
     -o-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -1777,6 +1778,19 @@ a:active {
     padding: 1em;
 }
 
+.toggle-wrapper .toggle-label {
+    font-size: 85%;
+    color: #777777;
+}
+
+.toggle-wrapper .toggle-label:first-child {
+    margin-right: .6em;
+}
+
+.toggle-wrapper .toggle-label:last-child {
+    margin-left: .6em;
+}
+
 .toggle {
     display: inline-block;
     *display: inline;
@@ -1798,30 +1812,34 @@ a:active {
     display: inline-block;
     *display: inline;
     *zoom: 1;
-    width: 2.4em;
-    height: 1.2em;
-    border: 1px solid #efefef;
-    border-radius: 1em;
+    width: 3em;
+    height: 1.8em;
+    border: 1px solid #e2e2e2;
+    border-radius: .9em;
     position: relative;
+    box-shadow: 0 0 1px rgba(0, 0, 0, .025) inset;
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .toggle input + .switch:before {
     position: absolute;
-    top: -.1em;
-    left: -.1em;
+    top: .1em;
+    left: .2em;
     z-index: 5;
     display: inline-block;
     *display: inline;
     *zoom: 1;
-    width: 1.4em;
-    height: 1.4em;
+    width: 1.3em;
+    height: 1.3em;
     background-color: #ffffff;
-    border: 1px solid #d8d8d8;
-    border-radius: .8em;
-    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .125);
-    -o-box-shadow: 0 0 3px 0 rgba(0, 0, 0, .125);
-    -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, .125);
-    -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, .125);
+    border-radius: .6em;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .5);
+    -o-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .5);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .5);
     content: '';
     transition: transform .2s ease, -webkit-transform .2s ease, border-color .4s ease;
     box-sizing: border-box;
