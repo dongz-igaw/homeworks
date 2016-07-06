@@ -3,7 +3,7 @@
  *
  * @ AddDate 2016-01-19
  * @ UpDate  2016-02-23
- * 
+ *
  * @ Note    [HomeWorks Frameworks Helper]
  ----------------------------------------------------------*/
 
@@ -340,16 +340,16 @@
             method: {
                 toggle: function (e) {
                     if (this.data._visible === true) {
-                        e[0].data._prototype[this.data.id].close.call(this, e);
+                        e[0].data[this.data.id]._prototype.close.call(this, e);
                     } else {
-                        e[0].data._prototype[this.data.id].open.call(this, e);
+                        e[0].data[this.data.id]._prototype.open.call(this, e);
                     }
                 },
                 show: function (e) {
-                    e[0].data._prototype[this.data.id].open.call(this, e);
+                    e[0].data[this.data.id]._prototype.open.call(this, e);
                 },
                 hide: function(e) {
-                    e[0].data._prototype[this.data.id].close.call(this, e);
+                    e[0].data[this.data.id]._prototype.close.call(this, e);
                 },
                 open: function (e) {
                     var _this = this;
@@ -377,7 +377,7 @@
                     }, 25);
 
                     _this.data.$helper.bind($overlay, 'click', function (event) {
-                        e[0].data[_this.data.id]._prototype.close.call(_this, e);                        
+                        e[0].data[_this.data.id]._prototype.close.call(_this, e);
                     });
                     this.data._visible = true;
                 },
@@ -483,7 +483,7 @@
         _ws.input = new ObjectMethod('input', {
             init: function (e, o) {
                 var _this = this;
-                var $label = $(_this.data.$helper.parseTemplate('label')).insertAfter(e);                
+                var $label = $(_this.data.$helper.parseTemplate('label')).insertAfter(e);
                 var type = e.data('type') || ((typeof o !== 'undefined') ? o.type : '');
                 var validation = false;
 
@@ -548,7 +548,7 @@
                         $label.addClass('works-' + class_name);
                     }
                 }
-                
+
                 if (validation === true) {
                     e.parent().addClass('works-input-label-validation');
                 }
@@ -610,8 +610,10 @@
             init: function (e, o) {
                 var _this = this;
                 var $checkbox = $(_this.data.$helper.parseTemplate('checkbox'));
-                e.wrap('<label></label>');
-                
+                if (e.closest('label').length < 1) {
+                    e.wrap('<label></label>');
+                }
+
                 _this.data.$helper.bind($checkbox.insertAfter(e).ripple({
                     theme: 'dark',
                     over: true,
@@ -643,6 +645,54 @@
             },
             template: {
                 checkbox: '<span href="#" class="works-checkbox"></span>'
+            }
+        });
+
+        _ws.toggle = new ObjectMethod('toggle', {
+            init: function (e, o) {
+                var _this = this;
+                var _opt = {
+                    placeholder: null
+                };
+                $.extend(_opt, o);
+                var $toggle = $(_this.data.$helper.parseTemplate('toggle'));
+                if (e.closest('label').length < 1) {
+                    e.wrap('<label></label>');
+                }
+
+                _this.data.$helper.bind($toggle, 'click', function (event) {
+                    var $this = $(this);
+                    $this.find('.switch .switch-ball').ripple('start');
+                });
+
+                $toggle.find('.switch .switch-ball').ripple({
+                    theme: 'dark',
+                    over: true,
+                    passive: true
+                });
+                $toggle.insertAfter(e);
+
+                if (typeof _opt.placeholder !== 'undefined' && _opt.placeholde !== null) {
+                    var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
+                    var placeholder_default = ['Off', 'On'];
+                    for (var idx in placeholder_class) {
+                        if (typeof _opt.placeholder[idx] !== 'undefined' && _opt.placeholder[idx] !== '') {
+                            $toggle.find('.' + placeholder_class[idx]).text(_opt.placeholder[idx]);
+                        } else {
+                            $toggle.find('.' + placeholder_class[idx]).text(placeholder_default[idx]);
+                        }
+                    }
+                } else {
+                    $toggle.find('.toggle-label').remove();
+                }
+
+                e.hide();
+            },
+            method: {
+
+            },
+            template: {
+                toggle: '<span class="toggle-wrapper"><span class="toggle-label toggle-label-left">Off</span><label class="toggle toggle-cobalt"><input type="checkbox" class="checkbox-permit" value="M"><span class="switch"><span class="switch-ball"></span><span class="switch-bg"></span></span></label><span class="toggle-label toggle-label-right">On</span></span>'
             }
         });
 
@@ -694,7 +744,7 @@
 
                     if (_opt.type == 'show' || _opt.type == 'queue') {
 
-                        
+
                     }
                 });
             },
@@ -1005,7 +1055,7 @@
                     _this.data.$helper.promise(function () {
                         e.hide();
                     }, 300, true);
-                    _this.data.$helper.unbind(_this.data.o.$w, 'resize');                    
+                    _this.data.$helper.unbind(_this.data.o.$w, 'resize');
                 });
 
                 _this.data.$helper.bind($target.ripple({theme: 'dark'}), 'click', function (event) {
@@ -1159,7 +1209,7 @@
                 });
             },
             template: {
-                spinner: '<a href="#" class="spinner"><span class="spinner-txt">{option}</span><i class="spinner-arrow fa fa-caret-down"></i></a>',
+                spinner: '<a href="#" class="spinner"><span class="spinner-txt">{option}</span><i class="spinner-arrow pe-7s-angle-down"></i></a>',
                 spinnerWrapper: '<div class="spinner-wrapper"></div>',
                 spinnerOptions: '<a href="#" class="spinner-option spinner-{type}" data-value="{value}">{option}</a>'
             },
@@ -1209,9 +1259,9 @@
                     _this.data.$helper.log('You need to add <div class="step-container"></div> at next of your step element.');
                 }
             },
-            method: {                
+            method: {
             },
-            template: {                
+            template: {
             }
         });
     }(jQuery));
