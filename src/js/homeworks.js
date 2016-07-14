@@ -177,7 +177,7 @@
                         this.triggerHandler(e, t);
                     }
                 } catch (exception) {
-                    _this.data.$helper.log(e);
+                    _this.data.$helper.log(exception);
                 }
             };
 
@@ -486,17 +486,21 @@
                 var $label = $(_this.data.$helper.parseTemplate('label')).insertAfter(e);
                 var type = e.data('type') || ((typeof o !== 'undefined') ? o.type : '');
                 var validation = false;
+                var opt = $.extend({
+                    static: true,
+                    validation: {
+                        disable: false
+                    }
+                }, o);
 
                 /* jshint ignore:start */
                 /* @DATE 2016. 06. 28 */
                 /* @USER Kenneth */
                 /* @NOTE dataset에서 받아오는 boolean 타입 보정 !!구문 유효성문제로 인해 escape 처리. */
-                if (typeof o === 'undefined' || typeof o.validation === 'undefined' || !!o.validation.disable !== true) {
+                if (!!opt.validation.disable !== true) {
                     validation = true;
                 }
                 /* jshint ignore:end */
-
-                console.log(o.validation);
 
                 rule = {
                     notnull: e.attr('notnull') || true,
@@ -508,7 +512,7 @@
                 _this.data.i.type = type;
                 _this.data.i.rule = rule;
 
-                if (e.is(':visible')) {
+                if (e.is(':visible') === true && opt.static === true) {
                     $label.width(e.outerWidth());
                 }
                 e.appendTo($label);
@@ -614,11 +618,11 @@
                     e.wrap('<label></label>');
                 }
 
-                _this.data.$helper.bind($checkbox.insertAfter(e).ripple({
+                $checkbox.insertAfter(e).ripple({
                     theme: 'dark',
                     over: true,
                     passive: true
-                }));
+                });
 
                 e.bind('change', function (event) {
                     var $this = $(this);
@@ -654,6 +658,8 @@
                 var _opt = {
                     placeholder: null
                 };
+                var name = e.attr('name') || '';
+                var type = e.attr('type') || 'chekcbox';
                 $.extend(_opt, o);
                 var $toggle = $(_this.data.$helper.parseTemplate('toggle'));
                 if (e.closest('label').length < 1) {
@@ -671,6 +677,9 @@
                     passive: true
                 });
                 $toggle.insertAfter(e);
+
+                e.addClass('checkbox')
+                 .prependTo($toggle.find('.toggle'));
 
                 if (typeof _opt.placeholder !== 'undefined' && _opt.placeholde !== null) {
                     var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
@@ -692,7 +701,7 @@
 
             },
             template: {
-                toggle: '<span class="toggle-wrapper"><span class="toggle-label toggle-label-left">Off</span><label class="toggle toggle-cobalt"><input type="checkbox" class="checkbox-permit" value="M"><span class="switch"><span class="switch-ball"></span><span class="switch-bg"></span></span></label><span class="toggle-label toggle-label-right">On</span></span>'
+                toggle: '<span class="toggle-wrapper"><span class="toggle-label toggle-label-left">Off</span><label class="toggle toggle-cobalt"><span class="switch"><span class="switch-ball"></span><span class="switch-bg"></span></span></label><span class="toggle-label toggle-label-right">On</span></span>'
             }
         });
 
@@ -1239,6 +1248,9 @@
                         } else {
                             return false;
                         }
+                    });
+                    e.unbind('step.move').bind('step.move', function (event, index) {
+                        _this.data.$helper.triggerHandler(e.find('.step-item').eq(index), 'click');
                     });
                     _this.data.$helper.bind(e.find('.step-item'), 'click', function (event) {
                         event.preventDefault();
