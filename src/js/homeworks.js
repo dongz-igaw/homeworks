@@ -545,7 +545,7 @@
                     e.parent().removeClass('works-input-focus');
                 }, true);
 
-                if (e.attr('class').match(/input-(\w+)/gi)) {
+                if (typeof e.attr('class') !== 'undefined' && e.attr('class').match(/input-(\w+)/gi)) {
                     var class_names = e.attr('class').match(/input-(\w+)/gi);
                     for (var idx in class_names) {
                         var class_name = class_names[idx];
@@ -666,10 +666,12 @@
                     e.wrap('<label></label>');
                 }
 
-                _this.data.$helper.bind($toggle, 'click', function (event) {
-                    var $this = $(this);
-                    $this.find('.switch .switch-ball').ripple('start');
-                });
+                console.log(e.attr('class'));
+                if (typeof e.attr('class') !== 'undefined' && e.attr('class').match(/input-(\w+)/gi)) {
+                    var class_names = e.attr('class').match(/input-(\w+)/mi);
+                    var class_name = class_names[1];
+                    $toggle.addClass('works-' + class_name);
+                }
 
                 $toggle.find('.switch .switch-ball').ripple({
                     theme: 'dark',
@@ -678,8 +680,7 @@
                 });
                 $toggle.insertAfter(e);
 
-                e.addClass('checkbox')
-                 .prependTo($toggle.find('.toggle'));
+                e.prependTo($toggle.find('.toggle'));
 
                 if (typeof _opt.placeholder !== 'undefined' && _opt.placeholde !== null) {
                     var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
@@ -695,13 +696,36 @@
                     $toggle.find('.toggle-label').remove();
                 }
 
+                _this.data.$helper.bind($toggle.find('.toggle'), 'click', function (event) {
+                    if (typeof event.namespace === 'undefined' && e.prop('checked') === true && e.attr('type') === 'radio') {
+                        event.preventDefault();
+                        e.prop('checked', false).triggerHandler('change');
+                    }
+
+                    if (e.prop('checked') === true) {
+                        $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-left').addClass('toggle-label-active');
+                    } else {
+                        $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-right').addClass('toggle-label-active');
+                    }
+                });
+
+                if (e.prop('checked') === false) {
+                    $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-left').addClass('toggle-label-active');
+                } else {
+                    $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-right').addClass('toggle-label-active');
+                }
+
+                _this.data.$helper.bind($toggle.find('input'), 'click', function (event) {
+                    event.stopPropagation();
+                });
+
                 e.hide();
             },
             method: {
 
             },
             template: {
-                toggle: '<span class="toggle-wrapper"><span class="toggle-label toggle-label-left">Off</span><label class="toggle toggle-cobalt"><span class="switch"><span class="switch-ball"></span><span class="switch-bg"></span></span></label><span class="toggle-label toggle-label-right">On</span></span>'
+                toggle: '<span class="toggle-wrapper"><span class="toggle-label toggle-label-left">Off</span><label class="toggle"><span class="switch"><span class="switch-ball"></span><span class="switch-bg"></span></span></label><span class="toggle-label toggle-label-right">On</span></span>'
             }
         });
 
