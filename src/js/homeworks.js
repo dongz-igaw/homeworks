@@ -666,7 +666,6 @@
                     e.wrap('<label></label>');
                 }
 
-                console.log(e.attr('class'));
                 if (typeof e.attr('class') !== 'undefined' && e.attr('class').match(/input-(\w+)/gi)) {
                     var class_names = e.attr('class').match(/input-(\w+)/mi);
                     var class_name = class_names[1];
@@ -701,8 +700,10 @@
                         event.preventDefault();
                         e.prop('checked', false).triggerHandler('change');
                     }
+                });
 
-                    if (e.prop('checked') === true) {
+                _this.data.$helper.bind(e, 'change', function (event) {
+                    if (e.prop('checked') === false) {
                         $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-left').addClass('toggle-label-active');
                     } else {
                         $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-right').addClass('toggle-label-active');
@@ -1070,7 +1071,7 @@
                 e.hide();
                 _this.data.$helper.unbind(_this.data.o.$w, 'resize');
 
-                _this.data.$helper.bind(_this.data.o.$d, 'click', function (event) {
+                _this.data.$helper.bind(_this.data.o.$d, 'mousedown', function (event) {
                     $target.removeClass('works-dropdown-active');
                     e.css('opacity', 0);
                     _this.data.$helper.promise(function () {
@@ -1091,6 +1092,10 @@
                     _this.data.$helper.unbind(_this.data.o.$w, 'resize');
                 });
 
+                _this.data.$helper.bind(e.find('.dropdown-menu'), 'mousedown', function (event) {
+                    event.stopPropagation();
+                });
+
                 _this.data.$helper.bind($target.ripple({theme: 'dark'}), 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -1109,6 +1114,8 @@
                         _this.data.$helper.bind(_this.data.o.$w, 'resize', function (event) {
                             if (direction == 'right') {
                                 leftOffset = ($target.outerWidth() - e.outerWidth()) / 2;
+                            } else if (direction == 'center') {
+                                leftOffset = 0;
                             } else {
                                 leftOffset = -($target.outerWidth() - e.outerHeight()) / 2;
                             }
@@ -1119,6 +1126,7 @@
                                 topOffset = $target.outerHeight() + 20;
                             }
 
+                            console.log($target.offset().left, (($target.outerWidth() - e.outerWidth()) / 2), leftOffset);
                             e.css({
                                 position: 'absolute',
                                 left: $target.offset().left + (($target.outerWidth() - e.outerWidth()) / 2) + leftOffset,
@@ -1131,6 +1139,10 @@
                             _this.data.$helper.triggerHandler(_this.data.o.$w, 'resize');
                         }, 25, true);
                     }
+                });
+
+                _this.data.$helper.bind($target, 'mousedown', function (event) {
+                    event.stopPropagation();
                 });
             }
         });
