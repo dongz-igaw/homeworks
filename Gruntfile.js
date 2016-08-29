@@ -13,10 +13,10 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
       options: {
-        banner: '//================================================================================\n' + 
+        banner: '//================================================================================\n' +
                 '// [<%= pkg.name %>]\n' +
                 '// version: <%= pkg.version %>\n' +
-                '// update: <%= grunt.template.today("yyyy.mm.dd") %>\n' + 
+                '// update: <%= grunt.template.today("yyyy.mm.dd") %>\n' +
                 '//================================================================================\n\n'
       },
       dist: {
@@ -43,16 +43,16 @@ module.exports = function(grunt) {
     copy: {
       options: {},
       files: [
-        {expand: true, src: 'homeworks.js', dest: 'src/js/**', cwd: 'C:/Users/User/Documents/visual studio 2012/Projects/AdbrixForAgency/AdbrixForAgency/Content/scripts/'},
-        {expand: true, src: 'homeworks.css', dest: 'src/css/**', cwd: 'C:/Users/User/Documents/visual studio 2012/Projects/AdbrixForAgency/AdbrixForAgency/Content/styles/homeworks/'},
+        {expand: true, src: 'homeworks.js', dest: 'src/js/**', cwd: 'C:/Users/User/Documents/visual studio 2015/Projects/CampaignIntelligence/CampaignIntelligence/Content/scripts/'},
+        {expand: true, src: 'homeworks.css', dest: 'src/css/**', cwd: 'C:/Users/User/Documents/visual studio 2015/Projects/CampaignIntelligence/CampaignIntelligence/Content/styles/homeworks/'},
       ]
     },
     cssmin: {
       options: {
-        banner: '//================================================================================\n' + 
+        banner: '//================================================================================\n' +
                 '// [<%= pkg.name %>]\n' +
                 '// version: <%= pkg.version %>\n' +
-                '// update: <%= grunt.template.today("yyyy.mm.dd") %>\n' + 
+                '// update: <%= grunt.template.today("yyyy.mm.dd") %>\n' +
                 '//================================================================================\n\n'
       },
       dist: {
