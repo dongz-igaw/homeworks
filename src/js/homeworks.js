@@ -270,7 +270,9 @@
                 if (arg.length > 0 && self == _this.data.o.$w[0]) {
                     _this.method.init.apply(_this, Array.prototype.slice.call(arg));
                 } else {
-                    return self.each(f);
+                    if (typeof self !== 'undefined') {
+                        return self.each(f);
+                    }
                 }
             };
 
@@ -316,26 +318,40 @@
         _ws.modal = new ObjectMethod('modal, popup', {
             init: function (e, o) {
                 var _this = this;
-                var $c = e.find('.btn-close');
+                var $btn = e.find('.modal-footer .btn');
                 this.data._visible = false;
 
                 if (!e.hasClass('modal-full')) {
                     this.data.$helper.bind(this.data.o.$w, 'resize', function () {
                         e.css({
-                            left: (_this.data.o.$w.width() - e.width()) / 2,
-                            top: (_this.data.o.$w.height() - e.height()) / 2
+                            marginLeft: -e.outerWidth() / 2,
+                            marginTop: -e.outerHeight() / 2
                         });
                     }, true);
                 }
 
-                this.data.$helper.bind($c, 'click', function (event) {
+                this.data.$helper.bind(e.find('.btn-close'), 'click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var $this = $(this);
+                    e[0].data[_this.data.id]._prototype.close.call(_this, e);
+                    e.triggerHandler('modal.cancel');
+                });
+
+                this.data.$helper.unbind($btn, 'click');
+
+                this.data.$helper.bind($btn, 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     var $this = $(this);
                     e[0].data[_this.data.id]._prototype.close.call(_this, e);
                 });
 
-                $c.ripple();
+                this.data.$helper.bind($btn.filter('.btn-submit'), 'click', function (event) {
+                    e.triggerHandler('modal.submit');
+                });
+
+                $btn.ripple();
             },
             method: {
                 toggle: function (e) {
@@ -358,6 +374,7 @@
                     } else {
                         e.show();
                     }
+                    _this.data.$helper.triggerHandler(_this.data.o.$w, 'resize');
 
                     _this.data.$helper.bind(e, 'click', function (event) {
                         event.stopPropagation();
@@ -374,6 +391,7 @@
                     $overlay.show();
                     _this.data.$helper.promise(function () {
                         $overlay.css('opacity', 0.6);
+                        _this.data.$helper.triggerHandler(_this.data.o.$w, 'resize');
                     }, 25);
 
                     _this.data.$helper.bind($overlay, 'click', function (event) {
@@ -545,6 +563,15 @@
                     e.parent().removeClass('works-input-focus');
                 }, true);
 
+                _this.data.$helper.bind(e, 'update', function (event) {
+                    console.log('update', e.val());
+                    if (e.val() === '') {
+                        $label.removeClass('works-input-lock');
+                    } else {
+                        $label.addClass('works-input-lock');
+                    }
+                });
+
                 if (typeof e.attr('class') !== 'undefined' && e.attr('class').match(/input-(\w+)/gi)) {
                     var class_names = e.attr('class').match(/input-(\w+)/gi);
                     for (var idx in class_names) {
@@ -624,15 +651,20 @@
                     passive: true
                 });
 
-                e.bind('change', function (event) {
+                _this.data.$helper.bind(e, 'change', function (event) {
+                    var $this = $(this);
+                    _this.data.$helper.triggerHandler(e, 'update');
+                    $checkbox.ripple('start');
+                });
+
+                _this.data.$helper.bind(e, 'update', function (event) {
                     var $this = $(this);
                     if ($this.prop('checked') === true) {
                         $checkbox.addClass('works-checkbox-checked');
                     } else {
                         $checkbox.removeClass('works-checkbox-checked');
                     }
-                    $checkbox.ripple('start');
-                }).triggerHandler('change');
+                }, true);
 
                 if (e.attr('class').match(/input-(\w+)/gi)) {
                     var class_names = e.attr('class').match(/input-(\w+)/gi);
@@ -886,7 +918,7 @@
                     }
 
                     var $toast = $(_this.data.$helper.parseTemplate('toast', {
-                        msg: msg
+                        msg: msg.replace(/\r?\n/gi, '<br />')
                     }));
                     var $real = $($toast.clone()).add('<br />');
                     $toast.addClass('toast-empty');
@@ -903,7 +935,7 @@
                         $toast.height(height);
                         setTimeout(function () {
                             $toast.remove();
-                            $real.appendTo('.toast-box');
+                            $real.appendTo($toastBox);
                             setTimeout(function () {
                                 $real.addClass('toast-anim-start');
                                 var t = Math.min(Math.max(1000 / 20 * msg.length, 1500), 5000);
@@ -921,6 +953,130 @@
             template: {
                 toast: '<div class="toast">{msg}</div>',
                 toastBox: '<div class="toast-box"></div>'
+            }
+        });
+
+        _ws.notification = new ObjectMethod('notification', {
+            init: function (e, o) {
+            },
+            method: {
+                init: function (title, content, url, status) {
+                    var _this = this;
+
+                    if (typeof url === 'undefined' || url === null || $.trim(url) === '') {
+                        url = null;
+                    }
+
+                    status = status || 'primary';
+
+                    if (typeof title === 'undefined' || typeof content === 'undefined') {
+                        return false;
+                    } else if (typeof content === 'object') {
+                        content = JSON.stringify(content);
+                    }
+
+                    var $notificationBox = $('.notification-box');
+                    if ($notificationBox.length <= 0) {
+                        $notificationBox = $(_this.data.$helper.parseTemplate('notificationBox'));
+                        $notificationBox.appendTo('body');
+                    }
+
+                    var $notification = $(_this.data.$helper.parseTemplate('notificationTypeDefault', {
+                        status: status,
+                        title: title,
+                        content: content.replace(/\r?\n/gi, '<br />')
+                    }));
+                    var $real = $notification.clone();
+                    $notification.addClass('notification-empty');
+                    $notification.appendTo('.notification-box');
+                    $real.addClass('notification-real');
+                    var height = $notification.height();
+                    $notification.height(0);
+                    $notification.addClass('notification-anim');
+
+                    var _t = null;
+                    var removeProc = function () {
+                        try {
+                            clearTimeout(_t);
+                        } catch (e) {
+                        }
+
+                        $real.removeClass('notification-anim-start');
+                        setTimeout(function () {
+                            $real.stop().animate({
+                                height: 0,
+                                paddingTop: 0,
+                                paddingBottom: 0
+                            }, 300, 'easeInOutQuad', function () {
+                                $real.remove();
+                            });
+                        }, 300);
+                    };
+                    setTimeout(function () {
+                        $notification.addClass('notification-anim-start').stop().animate({
+                            height: height,
+                            padding: '30px'
+                        }, 300, 'easeInOutQuad');
+                        setTimeout(function () {
+                            $notification.remove();
+                            $real.appendTo($notificationBox);
+                            setTimeout(function () {
+                                var t = Math.min(Math.max(1000 / 10 * (title.length + content.length), 3000), 15000);
+                                $real.find('.notification-bar').css({
+                                    transitionDuration: t + 'ms'
+                                });
+                                $real.addClass('notification-anim-start');
+                                _t = setTimeout(removeProc, t);
+                            }, 25);
+                        }, 300);
+                    }, 25);
+
+                    _this.data.$helper.bind($real.add($real.find('.notification-btn-ok, .notification-btn-cancel')), 'click', function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        var $this = $(this);
+                        removeProc.call();
+                    });
+
+                    _this.data.$helper.bind($real.add($real.find('.notification-btn-ok')), 'click', function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        var $this = $(this);
+                        if (url !== null) {
+                            location.href = url;
+                        }
+                    });
+                    //$real.find('.notification-btn-ok').bind('click');
+                }
+            },
+            template: {
+                /* jshint ignore:start */
+                /* @DATE 2016. 10. 04 */
+                /* @USER Kenneth */
+                /* @NOTE Template escaping. */
+                notificationTypeDefault: '<div class="notification notification-{status}">\
+                                            <div class="notification-bar"></div>\
+                                            <div class="notification-content">\
+                                                <h4 class="notification-header">{title}</h4>\
+                                                <div class="notification-body">\
+                                                    {content}\
+                                                </div>\
+                                            </div>\
+                                            <div class="notification-btn-group">\
+                                                <a href="#" class="notification-btn notification-btn-ok">\
+                                                    <span class="notification-btn-inner">\
+                                                        <i class="pe-7s-check"></i>\
+                                                    </span>\
+                                                </a>\
+                                                <a href="#" class="notification-btn notification-btn-close">\
+                                                    <span class="notification-btn-inner">\
+                                                        <i class="pe-7s-close"></i>\
+                                                    </span>\
+                                                </a>\
+                                            </div>\
+                                        </div>',
+                notificationBox: '<div class="notification-box"></div>'
+                /* jshint ignore:end */
             }
         });
 
