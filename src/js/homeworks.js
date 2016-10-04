@@ -330,17 +330,9 @@
                     }, true);
                 }
 
-                this.data.$helper.bind(e.find('.btn-close'), 'click', function(event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    var $this = $(this);
-                    e[0].data[_this.data.id]._prototype.close.call(_this, e);
-                    e.triggerHandler('modal.cancel');
-                });
+                this.data.$helper.unbind($btn.add(e.find('.btn-close')), 'click');
 
-                this.data.$helper.unbind($btn, 'click');
-
-                this.data.$helper.bind($btn, 'click', function (event) {
+                this.data.$helper.bind($btn.add(e.find('.btn-close')), 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     var $this = $(this);
@@ -348,7 +340,13 @@
                 });
 
                 this.data.$helper.bind($btn.filter('.btn-submit'), 'click', function (event) {
+                    event.stopPropagation();
                     e.triggerHandler('modal.submit');
+                });
+
+                this.data.$helper.bind(e.find('.btn-close'), 'click', function (event) {
+                    event.stopPropagation();
+                    e.triggerHandler('modal.cancel');
                 });
 
                 $btn.ripple();
@@ -432,7 +430,7 @@
                     }
 
                     _this.data.$helper.bind(e, 'click', function (event) {
-                        if (typeof event.originalEvent !== 'undefined' && o.passive === true) {
+                        if (typeof event.originalEvent !== 'undefined'/* && o.passive === true*/) {
                             return false;
                         }
                         var $this = $(this);
