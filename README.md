@@ -1,6 +1,6 @@
 # HomeWorksFramework
 
-[![Build Status](https://travis-ci.com/IGAWorksDev/HomeWorksFramework.svg?token=rwDRrKxKFoGg8k5wwUnr&branch=master)](https://travis-ci.com/IGAWorksDev/HomeWorksFramework)
+[![Build Status](https://travis-ci.com/IGAWorksDev/HomeWorksFramework.svg?token=x98k8HzDc3zdfP6gvssV&branch=master)](https://travis-ci.com/IGAWorksDev/HomeWorksFramework)
 
 > IGAWorks 프론트엔드 공통 프레임워크
 
