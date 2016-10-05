@@ -1,8 +1,12 @@
 ﻿/*==========================================================
-  =
-  = Homeworks Frameworks style sheet.
-  =
-  ==========================================================*/
+  =                                                        =
+  = [               HOMEWORKS FRAMEWORK                  ] =
+  =                                                        =
+  = @ Version  v2.0.0                                      =
+  = @ Date     2016.10.05                                  =
+  = @ Author   Kenneth                                     =
+  =                                                        =
+  =========================================================*/
 
 html, body, ul, li, a, span, p, div, h1, h2, h3, h4, h5, h6, button, input, select, textarea, label, table, tr, th, td, dd, dl, dt, section, article, footer, header, video, audio {
     padding: 0;
