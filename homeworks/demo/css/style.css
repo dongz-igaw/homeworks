@@ -1,0 +1,31 @@
+﻿@font-face {
+ font-family: 'Nanum Square';
+ src: url(../fonts/NanumSquare/NanumSquareR.eot);
+ src: url(../fonts/NanumSquare/NanumSquareR.eot?#iefix) format('embedded-opentype'),
+      url(../fonts/NanumSquare/NanumSquareR.woff) format('woff'),
+      url(../fonts/NanumSquare/NanumSquareR.ttf) format('truetype');
+}
+
+@import url('https://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
+
+html, body {
+    font-family: 'Open Sans', 'Nanum Square', sans-serif;
+}
+
+body {
+    background-color: #e3e6eb;
+}
+
+.code-description {
+    margin-bottom: 1em;
+}
+
+.preview {
+    text-align: center;
+}
+
+.preview.preview-btn-arrangement .btn {
+    width: 10.375%;
+    margin: 0 .25%;
+}
