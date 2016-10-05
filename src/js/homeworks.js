@@ -1,20 +1,19 @@
-﻿/*-----------------------------------------------------------
- * [homeworks.js]
- *
- * @ AddDate 2016-01-19
- * @ UpDate  2016-02-23
- *
- * @ Note    [HomeWorks Frameworks Helper]
- ----------------------------------------------------------*/
+﻿/*==========================================================
+ *= [                   HOMEWORKS JS                     ] =
+ *==========================================================
+ *= @ UPDATE  2016-10-05                                   =
+ *= @ VERSION v2.0.0                                       =
+ *= @ AUTHOR  Kenneth                                      =
+ *=========================================================*/
 
 (function () {
-    var _ws = {}; // Works standard global variables.
-    var _ps = {}; // Promise standard global variables.
-    var _os = {}; // Plugin option standard global variables.
-    /*******************************
-     * NOTE - 스트링 내부 포매터 지시자 교체
-     * DATE - 2016-01-19
-     *******************************/
+    var _standardVariables = {}; // Works standard global variables.
+    var _promiseVariables  = {}; // Promise standard global variables.
+    var _superVariables   = {}; // Plugin option standard global variables.
+    /*=================================================
+     *= NOTE - String formatter.
+     *= DATE - 2016-01-19
+     *================================================*/
     String.prototype.getFormat = function (o) {
         var s = this;
         for (var i in o) {
@@ -27,10 +26,10 @@
         return s.toString();
     };
 
-    /*******************************
-     * NOTE - data-{컴포넌트}에 안전한 바인딩을 위한 함수
-     * DATE - 2016-01-19
-     *******************************/
+    /*=================================================
+     *= NOTE - Component biding feature.
+     *= DATE - 2016-01-19
+     *================================================*/
     Function.prototype.hook = function (n, args) {
         try {
             var format = '[data-{data-name}]';
@@ -56,19 +55,23 @@
     };
 
 
-    /*******************************
-     * NOTE - HomeWorks 플러그인 정의부
-     * DATE - 2016-01-19
-     *******************************/
+    /*=================================================
+     *= NOTE - HOMEWORKS Component define region.
+     *= DATE - 2016-01-19
+     *================================================*/
     (function ($) {
-        function ObjectData(t, id) {
-            /*******************************
-             * NOTE - OOP 플러그인 자료부
-             *******************************/
+        function HomeWorksData(context, id) {
+            /*=================================================
+             *= NOTE - HOMEWORKS Compoent storagy variables region.
+             *= DATE - 2016-01-19
+             *================================================*/
+            if (typeof _superVariables[id] === 'undefined') {
+                _superVariables[id] = {};
+            }
 
             this.preference = {
                 $self: this,
-                $super: t,
+                $super: context,
                 $helper: null,
                 _anim: false,
                 _bind: false,
@@ -81,59 +84,56 @@
                 framework: 'homeworks',
                 prefix: 'works',
                 id: '',
-                o: {
-                    $w: $(window),
-                    $d: $(document)
+                element: {
+                    $window: $(window),
+                    $document: $(document)
                 },
-                p: {},
-                i: {
-                    _init: false
-                },
-                g: {}
+                global: {}
             };
             this.preference.id = id;
-            this.preference.g = _os[id];
-            this.preference.$helper = new ObjectHelper(t);
+            this.preference.global = _superVariables[id];
+            this.preference.$helper = new HomeWorksHelper(context);
         }
 
-        function ObjectHelper(t) {
-            /*******************************
-             * NOTE - OOP 플러그인 공통 메소드부
-             *******************************/
-            var _this = t;
+        function HomeWorksHelper(context) {
+            /*=================================================
+             *= NOTE - HOMEWORKS Component shared feature.
+             *= DATE - 2016-01-19
+             *================================================*/
+            var _this = context;
 
-            this.promise = function (n, c, t, invoke) {
-                if (typeof n === 'function' && typeof c === 'number') {
-                    t = c;
-                    c = n;
-                    n = _this.data.id;
+            this.promise = function (name, callback, time, invoke) {
+                if (typeof name === 'function' && typeof callback === 'number') {
+                    time = callback;
+                    callback = name;
+                    name = _this.id;
                 }
 
                 if (typeof invoke !== 'undefined' && invoke === true) {
-                    this.invoke(n);
+                    this.invoke(name);
                 }
 
-                _ps[_this.data.framework + '.' + n] = setTimeout(function () {
+                _promiseVariables[_this.framework + '.' + name] = setTimeout(function () {
                     try {
-                        delete _ps[_this.data.framework + '.' + n];
+                        delete _promiseVariables[_this.framework + '.' + name];
                     } catch (e) {
-                        _this.data.$helper.log(e);
+                        _this.$helper.log(e);
                     }
-                    if (typeof c === 'function') {
-                        c();
+                    if (typeof callback === 'function') {
+                        callback();
                     }
-                }, t);
-                return _ps;
+                }, time);
+                return _promiseVariables;
             };
 
-            this.invoke = function (n) {
-                if (typeof n === 'undefined') {
-                    n = _this.data.id;
+            this.invoke = function (name) {
+                if (typeof name === 'undefined') {
+                    nname = _this.id;
                 }
-                if (typeof _ps[_this.data.framework + '.' + n] !== 'undefined') {
+                if (typeof _promiseVariables[_this.framework + '.' + name] !== 'undefined') {
                     try {
-                        clearTimeout(_ps[_this.data.framework + '.' + n]);
-                        delete _ps[_this.data.framework + '.' + n];
+                        clearTimeout(_promiseVariables[_this.framework + '.' + name]);
+                        delete _promiseVariables[_this.framework + '.' + name];
                     } catch (e) {
                         return false;
                     }
@@ -154,7 +154,7 @@
             this.parseTemplate = function (n, map) {
                 var data = _this.template[n];
                 if (typeof data === 'undefined') {
-                    _this.data.$helper.log("'" + n + "' 이름의 템플릿이 확인되지 않습니다.");
+                    _this.$helper.log("'" + n + "' 이름의 템플릿이 확인되지 않습니다.");
                     return false;
                 }
                 return data.getFormat(map);
@@ -163,7 +163,7 @@
             this.bind = function (e, t, c, i) {
                 try {
                     var f = t.toString().split(' ');
-                    for (var n in f) f[n] = f[n] + '.' + _this.data.framework + '.' + _this.data.id;
+                    for (var n in f) f[n] = f[n] + '.' + _this.framework + '.' + _this.id;
                     f = f.join(' ');
                     e.bind(f, function (e, v) {
                         if (typeof v === 'object') {
@@ -177,120 +177,122 @@
                         this.triggerHandler(e, t);
                     }
                 } catch (exception) {
-                    _this.data.$helper.log(exception);
+                    _this.$helper.log(exception);
                 }
             };
 
             this.unbind = function (e, t) {
-                e.unbind(t + '.' + _this.data.framework + '.' + _this.data.id);
+                e.unbind(t + '.' + _this.framework + '.' + _this.id);
             };
 
             this.trigger = function (e, t, v) {
                 var f = (t.toString().split(' '))[0];
-                e.trigger(v === true ? f : (f + '.' + _this.data.framework + '.' + _this.data.id), v);
+                e.trigger(v === true ? f : (f + '.' + _this.framework + '.' + _this.id), v);
             };
 
             this.triggerHandler = function (e, t, v) {
                 var f = (t.toString().split(' '))[0];
-                e.triggerHandler(v === true? f : (f + '.' + _this.data.framework + '.' + _this.data.id), v);
+                e.triggerHandler(v === true? f : (f + '.' + _this.framework + '.' + _this.id), v);
             };
         }
 
-        function ObjectMethod(p, s) {
-            /*******************************
-             * NOTE - OOP 플러그인 구조부
-             *******************************/
+        function HomeWorksMethod(name, settings) {
+            /*=================================================
+             *= NOTE - HOMEWORKS Component settings region.
+             *= DATE - 2016-01-19
+             *================================================*/
             var _this = this;
-            this.init = s.init;
+            var _componentVariables = (new HomeWorksData(this, name)).preference;
+            var _globalVariables = _componentVariables.global;
+
+            if (typeof settings.options !== 'undefined' && settings.options !== null) {
+                $.extend(_superVariables[name], settings.options);
+            }
+
+            this.init = settings.init;
             this.method = {
                 init: this.init
             };
             this.template = {
             };
-            $.extend(this.method, s.method);
-            $.extend(this.template, s.template);
+            $.extend(this.method, settings.method);
+            $.extend(this.template, settings.template);
 
             this.route = function () {
                 var self = this;
                 var arg = [];
                 if (arguments.length > 0) {
-                    $.map(arguments, function (d, i) {
-                        arg.push(d);
+                    $.map(arguments, function (e, i) {
+                        arg.push(e);
                     });
                 }
 
-                var f = function () {
-                    if (typeof this === 'object') {
-                        if (typeof this.data === 'undefined') {
-                            this.data = {};
-                        }
+                var ElementBinder = function () {
+                    var _localVariables = this.data;
 
-                        if (typeof this.data[_this.data.id] === 'undefined') {
-                            this.data[_this.data.id] = {
+                    if (typeof this === 'object') {
+                        if (typeof _localVariables === 'undefined') {
+                            _localVariables = {
+                                '_init': false,
                                 '_prototype': {},
-                                '_storage': {}
                             };
-                            $.extend(this.data[_this.data.id]._prototype, _this.method);
-                            _this.data.i = this.data[_this.data.id];
+                            this.data = _localVariables;
+                            $.extend(_localVariables._prototype, _this.method);
                         }
                     }
+                    var context = $.extend(this, {
+                        local: _localVariables,
+                    }, _componentVariables);
 
                     if (arg.length === 0 || typeof arg[0] === 'object') {
+                        // Function(obj) or Function() pattern.
                         if (typeof arg[0] === 'object') {
-                            _this.data.i = this.data[_this.data.id];
-                            $.extend(_this.data.i._storage, arg[0]);
-                            this.data[_this.data.id] = _this.data.i;
+                            // Function(obj) pattern.
+                            $.extend(_localVariables, arg[0]);
                         }
 
-                        if (typeof this.data[_this.data.id]._init === 'undefined' || this.data[_this.data.id]._init === false) {
-                            this.data[_this.data.id]._init = true;
-                            _this.data.i = this.data[_this.data.id];
-                            _this.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
+                        if (_localVariables._init === false) {
+                            _localVariables._init = true;
+                            _this.init.apply(context, [$(this)].concat(Array.prototype.slice.call(arg)));
                         }
                     } else if (typeof arg[0] === 'string') {
+                        // Function(Method Name) pattern.
                         try {
-                            if (typeof this.data[_this.data.id]._init === 'undefined' || this.data[_this.data.id]._init === false) {
-                                this.data[_this.data.id]._init = true;
-                                _this.data.i = this.data[_this.data.id];
+                            if (_localVariables._init === false) {
+                                _localVariables._init = true;
                                 if (typeof _this.method.init !== 'undefined') {
-                                    _this.method.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
+                                    _this.method.init.apply(context, [$(this)].concat(Array.prototype.slice.call(arg)));
                                 } else {
-                                    _this.init.apply(_this, [$(this)].concat(Array.prototype.slice.call(arg)));
+                                    _this.init.apply(context, [$(this)].concat(Array.prototype.slice.call(arg)));
                                 }
                             }
-                            return _this.method[arg[0]].apply(_this, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
+                            return _this.method[arg[0]].apply(context, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
                         } catch (e) {
-                            console.warn(e);
+                            console.error(e);
                         }
                     } else {
-                        _this.data.$helper.log('파라미터 유효성 경고');
+                        _this.$helper.log('파라미터 유효성 경고');
                     }
                 };
 
-                if (arg.length > 0 && self == _this.data.o.$w[0]) {
-                    _this.method.init.apply(_this, Array.prototype.slice.call(arg));
+                if (arg.length > 0 && self == window) {
+                    // Global basic function type - Function()
+                    _this.method.init.apply(context, Array.prototype.slice.call(arg));
                 } else {
+                    // By element channing method type - Elem.method()
                     if (typeof self !== 'undefined') {
-                        return self.each(f);
+                        return self.each(ElementBinder);
                     }
                 }
             };
 
-            if (typeof s.options !== 'undefined' && s.options !== null) {
-                if (typeof _os[p] === 'undefined') {
-                    _os[p] = s.options;
-                }
-            }
+            //============================================================================
 
-            if (typeof this.data === 'undefined') {
-                this.data = (new ObjectData(this, p.replace(/[^\w]/gi, ''))).preference;
-            }
-
-            if (this.data._bind === false) {
-                this.data._bind = true;
-                p = p.split(',');
-                for (var idx in p) {
-                    var id = $.trim(p[idx]);
+            if (_componentVariables._bind === false) {
+                _componentVariables._bind = true;
+                name = name.split(',');
+                for (var idx in name) {
+                    var id = $.trim(name[idx]);
                     $.fn[id] = this.route;
                     window[id] = this.route;
 
@@ -310,19 +312,20 @@
             }
         }
 
-        /*******************************
-         * NOTE - OOP 플러그인 정의시작
-         *******************************/
+        /*=================================================
+         *= NOTE - HOMEWORKS Coponent define region start.
+         *= DATE - 2016-01-19
+         *================================================*/
 
         // HomeWorks - Modal Component
-        _ws.modal = new ObjectMethod('modal, popup', {
+        new HomeWorksMethod('modal, popup', {
             init: function (e, o) {
                 var _this = this;
                 var $btn = e.find('.modal-footer .btn');
-                this.data._visible = false;
+                this.local._visible = false;
 
                 if (!e.hasClass('modal-full')) {
-                    this.data.$helper.bind(this.data.o.$w, 'resize', function () {
+                    this.$helper.bind(this.element.$window, 'resize', function () {
                         e.css({
                             marginLeft: -e.outerWidth() / 2,
                             marginTop: -e.outerHeight() / 2
@@ -330,21 +333,21 @@
                     }, true);
                 }
 
-                this.data.$helper.unbind($btn.add(e.find('.btn-close')), 'click');
+                this.$helper.unbind($btn.add(e.find('.btn-close')), 'click');
 
-                this.data.$helper.bind($btn.add(e.find('.btn-close')), 'click', function (event) {
+                this.$helper.bind($btn.add(e.find('.btn-close')), 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     var $this = $(this);
-                    e[0].data[_this.data.id]._prototype.close.call(_this, e);
+                    _this.local._prototype.close.call(_this, e);
                 });
 
-                this.data.$helper.bind($btn.filter('.btn-submit'), 'click', function (event) {
+                this.$helper.bind($btn.filter('.btn-submit'), 'click', function (event) {
                     event.stopPropagation();
                     e.triggerHandler('modal.submit');
                 });
 
-                this.data.$helper.bind(e.find('.btn-close'), 'click', function (event) {
+                this.$helper.bind(e.find('.btn-close'), 'click', function (event) {
                     event.stopPropagation();
                     e.triggerHandler('modal.cancel');
                 });
@@ -353,17 +356,24 @@
             },
             method: {
                 toggle: function (e) {
+                    var _this = this;
                     if (this.data._visible === true) {
-                        e[0].data[this.data.id]._prototype.close.call(this, e);
+                        _this.local._prototype.close.call(this, e);
                     } else {
-                        e[0].data[this.data.id]._prototype.open.call(this, e);
+                        _this.local._prototype.open.call(this, e);
                     }
                 },
-                show: function (e) {
-                    e[0].data[this.data.id]._prototype.open.call(this, e);
+                show: function (e, o) {
+                    var _this = this;
+                    if (typeof o === 'object') {
+                        this.data.i.opt = $.extend({}, o);
+                    }
+
+                    _this.local._prototype.open.call(this, e);
                 },
-                hide: function(e) {
-                    e[0].data[this.data.id]._prototype.close.call(this, e);
+                hide: function (e) {
+                    var _this = this;
+                    _this.local._prototype.close.call(this, e);
                 },
                 open: function (e) {
                     var _this = this;
@@ -372,9 +382,9 @@
                     } else {
                         e.show();
                     }
-                    _this.data.$helper.triggerHandler(_this.data.o.$w, 'resize');
+                    _this.$helper.triggerHandler(_this.element.$window, 'resize');
 
-                    _this.data.$helper.bind(e, 'click', function (event) {
+                    _this.$helper.bind(e, 'click', function (event) {
                         event.stopPropagation();
                     });
 
@@ -382,18 +392,18 @@
 
                     var $overlay = $('.modal-overlay');
                     if ($overlay.length < 1) {
-                        $overlay = $(_this.data.$helper.parseTemplate('overlay'));
+                        $overlay = $(_this.$helper.parseTemplate('overlay'));
                     }
 
                     $overlay.insertAfter(e);
                     $overlay.show();
-                    _this.data.$helper.promise(function () {
+                    _this.$helper.promise(function () {
                         $overlay.css('opacity', 0.6);
-                        _this.data.$helper.triggerHandler(_this.data.o.$w, 'resize');
+                        _this.$helper.triggerHandler(_this.element.$window, 'resize');
                     }, 25);
 
-                    _this.data.$helper.bind($overlay, 'click', function (event) {
-                        e[0].data[_this.data.id]._prototype.close.call(_this, e);
+                    _this.$helper.bind($overlay, 'click', function (event) {
+                        _this.local._prototype.close.call(_this, e);
                     });
                     this.data._visible = true;
                 },
@@ -405,12 +415,12 @@
 
                     var $overlay = $('.modal-overlay');
                     $overlay.css('opacity', 0);
-                    _this.data.$helper.promise(function () {
+                    _this.$helper.promise(function () {
                         $overlay.hide();
                     }, 300);
 
-                    _this.data.$helper.unbind(e, 'click');
-                    _this.data.$helper.unbind($overlay, 'click');
+                    _this.$helper.unbind(e, 'click');
+                    _this.$helper.unbind($overlay, 'click');
                 }
             },
             template: {
@@ -418,30 +428,29 @@
             }
         });
 
-        _ws.ripple = new ObjectMethod('ripple', {
+        new HomeWorksMethod('ripple', {
             init: function (e, o) {
                 var _this = this;
                 return e.each(function () {
                     var e = $(this);
                     e.addClass('btn-ripple');
-
-                    if ($.inArray(_this.data.i._storage.theme, _this.data.g.supportThemes) != -1) {
-                        e.addClass('btn-ripple-' + _this.data.i._storage.theme);
+                    if ($.inArray(_this.local.theme, _this.global.supportThemes) != -1) {
+                        e.addClass('btn-ripple-' + _this.local.theme);
                     }
 
-                    _this.data.$helper.bind(e, 'click', function (event) {
-                        if (typeof event.originalEvent !== 'undefined'/* && o.passive === true*/) {
+                    _this.$helper.bind(e, 'click', function (event) {
+                        if (typeof event.originalEvent !== 'undefined' || (typeof o !== 'undefined' && o.passive === false)) {
                             return false;
                         }
                         var $this = $(this);
                         if (!$this.hasClass('btn-ripple')) {
                             e.addClass('btn-ripple');
-                            if ($.inArray(e[0].data[_this.data.id]._prototype.theme, _this.data.g.supportThemes) != -1) {
-                                e.addClass('btn-ripple-' + e[0].data[_this.data.id]._prototype.theme);
+                            if ($.inArray(_this.local.theme, _this.global.supportThemes) != -1) {
+                                e.addClass('btn-ripple-' + _this.local.theme);
                             }
                         }
                         var offset = this.getClientRects()[0] || {left: 0, top: 0};
-                        var $ripple = $(_this.data.$helper.parseTemplate('effect'));
+                        var $ripple = $(_this.$helper.parseTemplate('effect'));
                         var size = Math.min($this.width(), $this.height());
                         var scale = Math.max($this.width(), $this.height()) / size * 2;
                         var point = {
@@ -459,14 +468,16 @@
                                 y: (event.clientY - offset.top) - size / 2
                             };
                         }
+
                         if (o.over) {
                             e.css({ overflow: 'visible' });
                         }
+
                         $ripple.css({ width: size, height: size, left: point.x, top: point.y });
                         $ripple.appendTo($this);
-                        _this.data.$helper.promise(function () {
-                            _this.data.$helper.promise(function () {
-                                _this.data.$helper.promise(function () {
+                        _this.$helper.promise(function () {
+                            _this.$helper.promise(function () {
+                                _this.$helper.promise(function () {
                                     $ripple.remove();
                                 }, 500);
                                 $ripple.addClass('anim-end').css({ opacity: 0 });
@@ -485,7 +496,7 @@
                             y: e.height() / 2
                         };
                     }
-                    _this.data.$helper.triggerHandler(e, 'click', v);
+                    _this.$helper.triggerHandler(e, 'click', v);
                 }
             },
             template: {
@@ -496,10 +507,10 @@
             }
         });
 
-        _ws.input = new ObjectMethod('input', {
+        new HomeWorksMethod('input', {
             init: function (e, o) {
                 var _this = this;
-                var $label = $(_this.data.$helper.parseTemplate('label')).insertAfter(e);
+                var $label = $(_this.$helper.parseTemplate('label')).insertAfter(e);
                 var type = e.data('type') || ((typeof o !== 'undefined') ? o.type : '');
                 var validation = false;
                 var opt = $.extend({
@@ -525,23 +536,23 @@
                     numeric: e.attr('numeric') || false,
                 };
 
-                _this.data.i.type = type;
-                _this.data.i.rule = rule;
+                _this.local.type = type;
+                _this.local.rule = rule;
 
                 if (e.is(':visible') === true && opt.static === true) {
                     $label.width(e.outerWidth());
                 }
                 e.appendTo($label);
-                $(_this.data.$helper.parseTemplate('placeholder')).text(e.attr('placeholder') || e.attr('title')).insertBefore(e);
+                $(_this.$helper.parseTemplate('placeholder')).text(e.attr('placeholder') || e.attr('title')).insertBefore(e);
 
-                _this.data.$helper.bind(e, 'focus', function () {
+                _this.$helper.bind(e, 'focus', function () {
                     $label.addClass('works-input-lock').addClass('works-input-focus');
                     if (validation === true) {
                         e[0].data[_this.data.id]._prototype.validation.call(_this, e, 'clear');
                     }
                 });
 
-                _this.data.$helper.bind(e, 'blur', function (event) {
+                _this.$helper.bind(e, 'blur', function (event) {
                     if (type == 'number') {
                         e.val(e.val().replace(/[^\d.]+/gi, ''));
                     }
@@ -561,7 +572,7 @@
                     e.parent().removeClass('works-input-focus');
                 }, true);
 
-                _this.data.$helper.bind(e, 'update', function (event) {
+                _this.$helper.bind(e, 'update', function (event) {
                     console.log('update', e.val());
                     if (e.val() === '') {
                         $label.removeClass('works-input-lock');
@@ -582,8 +593,8 @@
                     e.parent().addClass('works-input-label-validation');
                 }
 
-                _this.data.$helper.promise(function () {
-                    _this.data.$helper.triggerHandler(e, 'blur');
+                _this.$helper.promise(function () {
+                    _this.$helper.triggerHandler(e, 'blur');
                 }, 25);
 
                 e.attr('placeholder', '');
@@ -610,18 +621,18 @@
                     var $validator = null;
                     if (type == 'success') {
                         e.parent().removeClass('works-input-label-validation-error').addClass('works-input-label-validation-success');
-                        $validator = $(_this.data.$helper.parseTemplate('validationSuccess'));
+                        $validator = $(_this.$helper.parseTemplate('validationSuccess'));
                         $validator.insertAfter(e);
                     } else if (type == 'error') {
                         e.parent().addClass('works-input-label-validation-error').removeClass('works-input-label-validation-success');
-                        $validator = $(_this.data.$helper.parseTemplate('validationError'));
+                        $validator = $(_this.$helper.parseTemplate('validationError'));
                         $validator.insertAfter(e);
                     } else {
                         e.parent().removeClass('works-input-label-validation-error').removeClass('works-input-label-validation-success').removeClass('works-input-label-validation-active');
                     }
 
                     if (type == 'success' || type == 'error') {
-                        _this.data.$helper.promise(function () {
+                        _this.$helper.promise(function () {
                             e.parent().addClass('works-input-label-validation-active');
                         }, 25);
                     }
@@ -635,10 +646,10 @@
             }
         });
 
-        _ws.checkbox = new ObjectMethod('checkbox', {
+        new HomeWorksMethod('checkbox', {
             init: function (e, o) {
                 var _this = this;
-                var $checkbox = $(_this.data.$helper.parseTemplate('checkbox'));
+                var $checkbox = $(_this.$helper.parseTemplate('checkbox'));
                 if (e.closest('label').length < 1) {
                     e.wrap('<label></label>');
                 }
@@ -649,13 +660,13 @@
                     passive: true
                 });
 
-                _this.data.$helper.bind(e, 'change', function (event) {
+                _this.$helper.bind(e, 'change', function (event) {
                     var $this = $(this);
-                    _this.data.$helper.triggerHandler(e, 'update');
+                    _this.$helper.triggerHandler(e, 'update');
                     $checkbox.ripple('start');
                 });
 
-                _this.data.$helper.bind(e, 'update', function (event) {
+                _this.$helper.bind(e, 'update', function (event) {
                     var $this = $(this);
                     if ($this.prop('checked') === true) {
                         $checkbox.addClass('works-checkbox-checked');
@@ -682,7 +693,7 @@
             }
         });
 
-        _ws.toggle = new ObjectMethod('toggle', {
+        new HomeWorksMethod('toggle', {
             init: function (e, o) {
                 var _this = this;
                 var _opt = {
@@ -691,7 +702,7 @@
                 var name = e.attr('name') || '';
                 var type = e.attr('type') || 'chekcbox';
                 $.extend(_opt, o);
-                var $toggle = $(_this.data.$helper.parseTemplate('toggle'));
+                var $toggle = $(_this.$helper.parseTemplate('toggle'));
                 if (e.closest('label').length < 1) {
                     e.wrap('<label></label>');
                 }
@@ -725,14 +736,14 @@
                     $toggle.find('.toggle-label').remove();
                 }
 
-                _this.data.$helper.bind($toggle.find('.toggle'), 'click', function (event) {
+                _this.$helper.bind($toggle.find('.toggle'), 'click', function (event) {
                     if (typeof event.namespace === 'undefined' && e.prop('checked') === true && e.attr('type') === 'radio') {
                         event.preventDefault();
                         e.prop('checked', false).triggerHandler('change');
                     }
                 });
 
-                _this.data.$helper.bind(e, 'change', function (event) {
+                _this.$helper.bind(e, 'change', function (event) {
                     if (e.prop('checked') === false) {
                         $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-left').addClass('toggle-label-active');
                     } else {
@@ -746,7 +757,7 @@
                     $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-right').addClass('toggle-label-active');
                 }
 
-                _this.data.$helper.bind($toggle.find('input'), 'click', function (event) {
+                _this.$helper.bind($toggle.find('input'), 'click', function (event) {
                     event.stopPropagation();
                 });
 
@@ -760,7 +771,7 @@
             }
         });
 
-        _ws.tooltip = new ObjectMethod('tooltip', {
+        new HomeWorksMethod('tooltip', {
             init: function (e, o) {
                 var _this = this;
                 var _opt = {
@@ -774,11 +785,11 @@
                     if ($this.data('title') === '') {
                         $this.data('title', $this.attr('title') || '');
                     }
-                    if (_opt.type === null || _opt.type === '' || $.inArray(_opt.type, _this.data.g.supportThemes) === -1) {
+                    if (_opt.type === null || _opt.type === '' || $.inArray(_opt.type, _this.data.global.supportThemes) === -1) {
                         //_this.data.i.type = _this.data.g.supportTypes[0];
                         _opt.type = 'show';
                     }
-                    var $tooltip = $(_this.data.$helper.parseTemplate('tooltip', {
+                    var $tooltip = $(_this.$helper.parseTemplate('tooltip', {
                         content: $this.data('title')
                     }));
                     if ($this.data('header') !== '') {
@@ -815,7 +826,7 @@
             method: {
                 show: function() {
                     $tooltip.addClass('active');
-                    _this.data.$helper.promise(function () {
+                    _this.$helper.promise(function () {
                         $tooltip.addClass('animate-in');
                     }, 25);
                 },
@@ -831,7 +842,7 @@
             }
         });
 
-        _ws.converter = new ObjectMethod('converter', {
+        new HomeWorksMethod('converter', {
             init: function (e, o) {
                 var _this = this;
                 var preventKeyCode = [37, 38, 39, 40, 9, 13, 17, 46];
@@ -840,7 +851,7 @@
                 e.each(function () {
                     var e = $(this);
                     if (e.hasClass('input-number')) {
-                        _this.data.$helper.bind(e, 'keydown keyup', function (event) {
+                        _this.$helper.bind(e, 'keydown keyup', function (event) {
                             setTimeout(function () {
                                 if (event.type == 'keyup' && event.keyCode == 17) {
                                     ctrlLock = true;
@@ -893,7 +904,7 @@
             }
         });
 
-        _ws.toast = new ObjectMethod('toast', {
+        new HomeWorksMethod('toast', {
             init: function (e, o) {
             },
             method: {
@@ -908,14 +919,14 @@
 
                     var $toastBox = $('.toast-box');
                     if ($toastBox.length <= 0) {
-                        $toastBox = $(_this.data.$helper.parseTemplate('toastBox'));
+                        $toastBox = $(_this.$helper.parseTemplate('toastBox'));
                         $toastBox.appendTo('body');
                         $toastBox.css({
                             marginLeft: -$toastBox.width() / 2
                         });
                     }
 
-                    var $toast = $(_this.data.$helper.parseTemplate('toast', {
+                    var $toast = $(_this.$helper.parseTemplate('toast', {
                         msg: msg.replace(/\r?\n/gi, '<br />')
                     }));
                     var $real = $($toast.clone()).add('<br />');
@@ -954,7 +965,7 @@
             }
         });
 
-        _ws.notification = new ObjectMethod('notification', {
+        new HomeWorksMethod('notification', {
             init: function (e, o) {
             },
             method: {
@@ -975,11 +986,11 @@
 
                     var $notificationBox = $('.notification-box');
                     if ($notificationBox.length <= 0) {
-                        $notificationBox = $(_this.data.$helper.parseTemplate('notificationBox'));
+                        $notificationBox = $(_this.$helper.parseTemplate('notificationBox'));
                         $notificationBox.appendTo('body');
                     }
 
-                    var $notification = $(_this.data.$helper.parseTemplate('notificationTypeDefault', {
+                    var $notification = $(_this.$helper.parseTemplate('notificationTypeDefault', {
                         status: status,
                         title: title,
                         content: content.replace(/\r?\n/gi, '<br />')
@@ -1029,14 +1040,14 @@
                         }, 300);
                     }, 25);
 
-                    _this.data.$helper.bind($real.add($real.find('.notification-btn-ok, .notification-btn-cancel')), 'click', function (event) {
+                    _this.$helper.bind($real.add($real.find('.notification-btn-ok, .notification-btn-cancel')), 'click', function (event) {
                         event.preventDefault();
                         event.stopPropagation();
                         var $this = $(this);
                         removeProc.call();
                     });
 
-                    _this.data.$helper.bind($real.add($real.find('.notification-btn-ok')), 'click', function (event) {
+                    _this.$helper.bind($real.add($real.find('.notification-btn-ok')), 'click', function (event) {
                         event.preventDefault();
                         event.stopPropagation();
                         var $this = $(this);
@@ -1078,7 +1089,7 @@
             }
         });
 
-        _ws.fileupload = new ObjectMethod('fileupload', {
+        new HomeWorksMethod('fileupload', {
             init: function (e, o) {
                 var _this = this;
                 $(e).bind('change', function() {
@@ -1208,7 +1219,7 @@
             }
         });
 
-        _ws.dropdown = new ObjectMethod('dropdown', {
+        new HomeWorksMethod('dropdown', {
             init: function (e, o) {
                 var _this = this;
                 var $target = null;
@@ -1223,49 +1234,49 @@
 
                 e.appendTo('body');
                 e.hide();
-                _this.data.$helper.unbind(_this.data.o.$w, 'resize');
+                _this.$helper.unbind(_this.element.$window, 'resize');
 
-                _this.data.$helper.bind(_this.data.o.$d, 'mousedown', function (event) {
+                _this.$helper.bind(_this.element.$document, 'mousedown', function (event) {
                     $target.removeClass('works-dropdown-active');
                     e.css('opacity', 0);
-                    _this.data.$helper.promise(function () {
+                    _this.$helper.promise(function () {
                         e.hide();
                     }, 300, true);
-                    _this.data.$helper.unbind(_this.data.o.$w, 'resize');
+                    _this.$helper.unbind(_this.element.$window, 'resize');
                 });
 
-                _this.data.$helper.unbind(e.find('.dropdown-menu').ripple({theme: 'dark'}));
-                _this.data.$helper.bind(e.find('.dropdown-menu'), 'click', function (event) {
+                _this.$helper.unbind(e.find('.dropdown-menu').ripple({theme: 'dark'}));
+                _this.$helper.bind(e.find('.dropdown-menu'), 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     $target.removeClass('works-dropdown-active');
                     e.css('opacity', 0);
-                    _this.data.$helper.promise(function () {
+                    _this.$helper.promise(function () {
                         e.hide();
                     }, 300, true);
-                    _this.data.$helper.unbind(_this.data.o.$w, 'resize');
+                    _this.$helper.unbind(_this.element.$window, 'resize');
                 });
 
-                _this.data.$helper.bind(e.find('.dropdown-menu'), 'mousedown', function (event) {
+                _this.$helper.bind(e.find('.dropdown-menu'), 'mousedown', function (event) {
                     event.stopPropagation();
                 });
 
-                _this.data.$helper.bind($target.ripple({theme: 'dark'}), 'click', function (event) {
+                _this.$helper.bind($target.ripple({theme: 'dark'}), 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     var $this = $(this);
                     if ($this.hasClass('works-dropdown-active')) {
                         $this.removeClass('works-dropdown-active');
                         e.css('opacity', 0);
-                        _this.data.$helper.promise(function () {
+                        _this.$helper.promise(function () {
                             e.hide();
                         }, 300, true);
-                        _this.data.$helper.unbind(_this.data.o.$w, 'resize');
+                        _this.$helper.unbind(_this.element.$window, 'resize');
                     } else {
                         $this.addClass('works-dropdown-active');
                         e.show();
                         var leftOffset = 0, topOffset = 0;
-                        _this.data.$helper.bind(_this.data.o.$w, 'resize', function (event) {
+                        _this.$helper.bind(_this.element.$window, 'resize', function (event) {
                             if (direction == 'right') {
                                 leftOffset = ($target.outerWidth() - e.outerWidth()) / 2;
                             } else if (direction == 'center') {
@@ -1288,25 +1299,25 @@
                             });
                         }, true);
 
-                        _this.data.$helper.promise(function () {
+                        _this.$helper.promise(function () {
                             e.css('opacity', 1);
-                            _this.data.$helper.triggerHandler(_this.data.o.$w, 'resize');
+                            _this.$helper.triggerHandler(_this.element.$window, 'resize');
                         }, 25, true);
                     }
                 });
 
-                _this.data.$helper.bind($target, 'mousedown', function (event) {
+                _this.$helper.bind($target, 'mousedown', function (event) {
                     event.stopPropagation();
                 });
             }
         });
 
-        _ws.spinner = new ObjectMethod('spinner', {
+        new HomeWorksMethod('spinner', {
             init: function (e, o) {
                 var _this = this;
                 var $selected = e.find(':selected');
-                var $spinner = $(_this.data.$helper.parseTemplate('spinner', {
-                    option: $selected.length > 0 ? $selected.text() : this.data.g.empty
+                var $spinner = $(_this.$helper.parseTemplate('spinner', {
+                    option: $selected.length > 0 ? $selected.text() : this.data.global.empty
                 }));
 
                 var attrs = e.prop("attributes");
@@ -1324,11 +1335,11 @@
                 });
                 e.hide();
 
-                _this.data.$helper.bind(e, 'focus', function (event) {
+                _this.$helper.bind(e, 'focus', function (event) {
                     $spinner.focus();
                 });
 
-                _this.data.$helper.bind(e, 'change', function (event) {
+                _this.$helper.bind(e, 'change', function (event) {
                     var $this = $(this);
                     $spinner.find('.spinner-txt').text($this.find(':selected').text());
 
@@ -1341,18 +1352,18 @@
                     }
                 });
 
-                _this.data.$helper.bind($spinner, 'click', function (event) {
+                _this.$helper.bind($spinner, 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
-                    _this.data.$helper.triggerHandler(_this.data.o.$d, 'click');
+                    _this.$helper.triggerHandler(_this.element.$document, 'click');
                     var $this = $(this);
                     if ($this.hasClass('spinner-disabled') || $this.hasClass('spinner-readonly')) {
                         return false;
                     }
-                    var $spinnerWrapper = $(_this.data.$helper.parseTemplate('spinnerWrapper'));
+                    var $spinnerWrapper = $(_this.$helper.parseTemplate('spinnerWrapper'));
                     e.find('option').each(function () {
                         var $this = $(this);
-                        var $option = $(_this.data.$helper.parseTemplate('spinnerOptions', {
+                        var $option = $(_this.$helper.parseTemplate('spinnerOptions', {
                             value: $this.val(),
                             option: $this.text(),
                             type: ($this.prop('selected') === true && $this.text() !== '')? 'selected':'default'
@@ -1367,12 +1378,12 @@
                     $spinnerWrapper.appendTo('body').css('position', 'absolute');
                     $spinnerWrapper.addClass('anim-start');
 
-                    _this.data.$helper.bind(_this.data.o.$w, 'resize', function () {
+                    _this.$helper.bind(_this.element.$window, 'resize', function () {
                         $spinnerWrapper.css({
                             top: $spinner.offset().top,
                             left: $spinner.offset().left + (($spinner.outerWidth() - $spinnerWrapper.outerWidth()) / 2)
                         });
-                        if ($spinnerWrapper.offset().top + $spinnerWrapper.outerHeight() > _this.data.o.$w.scrollTop() + _this.data.o.$w.height()) {
+                        if ($spinnerWrapper.offset().top + $spinnerWrapper.outerHeight() > _this.element.$window.scrollTop() + _this.element.$window.height()) {
                             $spinnerWrapper.children('.spinner-option').each(function () {
                                 var $this = $(this);
                                 $this.prependTo($spinnerWrapper);
@@ -1383,27 +1394,27 @@
                         }
                     }, true);
 
-                    _this.data.$helper.bind(_this.data.o.$d, 'click', function () {
+                    _this.$helper.bind(_this.element.$document, 'click', function () {
                         $spinnerWrapper.removeClass('anim-start');
-                        _this.data.$helper.promise(function () {
+                        _this.$helper.promise(function () {
                             $spinnerWrapper.remove();
                         }, 300);
-                        _this.data.$helper.unbind(_this.data.o.$w, 'resize');
-                        _this.data.$helper.unbind(_this.data.o.$d, 'click');
+                        _this.$helper.unbind(_this.element.$window, 'resize');
+                        _this.$helper.unbind(_this.element.$document, 'click');
                     });
 
-                    _this.data.$helper.bind($spinnerWrapper.find('.spinner-option'), 'click', function (event) {
+                    _this.$helper.bind($spinnerWrapper.find('.spinner-option'), 'click', function (event) {
                         event.preventDefault();
                         event.stopPropagation();
                         var $this = $(this);
                         $spinnerWrapper.removeClass('anim-start');
-                        _this.data.$helper.promise(function () {
+                        _this.$helper.promise(function () {
                             $spinnerWrapper.remove();
                         }, 300);
                         e.val($this.data('value'));
-                        _this.data.$helper.triggerHandler(e, 'change', true);
-                        _this.data.$helper.unbind(_this.data.o.$w, 'resize');
-                        _this.data.$helper.unbind(_this.data.o.$d, 'click');
+                        _this.$helper.triggerHandler(e, 'change', true);
+                        _this.$helper.unbind(_this.element.$window, 'resize');
+                        _this.$helper.unbind(_this.element.$document, 'click');
                     });
                 });
             },
@@ -1417,7 +1428,7 @@
             }
         });
 
-        _ws.step = new ObjectMethod('step', {
+        new HomeWorksMethod('step', {
             init: function (e, o) {
                 var _this = this;
                 var _index = 0;
@@ -1427,22 +1438,22 @@
                 if (e.hasClass('step') && $container.length > 0 && $container.hasClass('step-container')) {
                     e.unbind('step.next').bind('step.next', function () {
                         if (_index + 1 <= _length) {
-                            _this.data.$helper.triggerHandler(e.find('.step-item').eq(_index + 1), 'click');
+                            _this.$helper.triggerHandler(e.find('.step-item').eq(_index + 1), 'click');
                         } else {
                             return false;
                         }
                     });
                     e.unbind('step.prev').bind('step.prev', function () {
                         if (_index - 1 >= 0) {
-                            _this.data.$helper.triggerHandler(e.find('.step-item').eq(_index - 1), 'click');
+                            _this.$helper.triggerHandler(e.find('.step-item').eq(_index - 1), 'click');
                         } else {
                             return false;
                         }
                     });
                     e.unbind('step.move').bind('step.move', function (event, index) {
-                        _this.data.$helper.triggerHandler(e.find('.step-item').eq(index), 'click');
+                        _this.$helper.triggerHandler(e.find('.step-item').eq(index), 'click');
                     });
-                    _this.data.$helper.bind(e.find('.step-item'), 'click', function (event) {
+                    _this.$helper.bind(e.find('.step-item'), 'click', function (event) {
                         event.preventDefault();
                         var $this = $(this);
                         var index = $this.index();
@@ -1456,9 +1467,9 @@
                             header: e.find('.step-item')
                         });
                     });
-                    _this.data.$helper.triggerHandler(e.find('.step-item').eq(_index), 'click');
+                    _this.$helper.triggerHandler(e.find('.step-item').eq(_index), 'click');
                 } else {
-                    _this.data.$helper.log('You need to add <div class="step-container"></div> at next of your step element.');
+                    _this.$helper.log('You need to add <div class="step-container"></div> at next of your step element.');
                 }
             },
             method: {
