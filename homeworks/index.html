@@ -1,16 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>HOMEWORKS FRAMEWORK</title>
-  <link rel="stylesheet" href="../src/css/homeworks.css">
-  <link rel="stylesheet" href="../src/css/homeworks.theme.dark.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="demo/css/pe-icon-7-stroke.css">
+    <meta charset="UTF-8">
+    <title>HOMEWORKS FRAMEWORK</title>
+    <link rel="stylesheet" href="../src/css/homeworks.css">
+    <link rel="stylesheet" href="../src/css/homeworks.theme.dark.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="demo/css/pe-icon-7-stroke.css">
     <link rel="stylesheet" href="demo/css/style.css">
-  <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
-  <script src="https://code.jquery.com/ui/jquery-ui-git.js"></script>
-  <script src="../src/js/homeworks.js"></script>
+    <link rel="shortcut icon" href="http://static.c-intelligence.com/resources/homeworks/homeworks_favicon.ico" media="image/x-icon" />
+    <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+    <script src="https://code.jquery.com/ui/jquery-ui-git.js"></script>
+    <script src="../src/js/homeworks.js"></script>
 </head>
 <body>
     <div class="works-sider">
@@ -117,43 +118,625 @@
         <div class="works-body">
             <div class="works-content">
                 <div class="works-container">
-                    <h1 class="header-divider">Buttons</h1>
-                    <div class="works-section works-section-padding">
-                        <h2>DEFAULT BUTTONS</h2>
-                        <div class="code-description">
-                            Use a Classes
-                            <span class="label label-danger">btn btn-default</span>
-                            to quickly create a Default btn.
+                    <div class="works-section works-section-transparent">
+                        <h1 class="header-divider">GRIDS</h1>
+                        <div class="works-section works-section-padding">
+                            <h2>COLUMNS</h2>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.col .col-md</span>
+                                for admitting column based grid system.
+                            </div>
+                            <div class="preview">
+                                <div class="row">
+                                    <div class="col-1 col-md preview-fill">.col-1</div>
+                                    <div class="col-2 col-md preview-fill">.col-2</div>
+                                    <div class="col-4 col-md preview-fill">.col-4</div>
+                                    <div class="col col-md preview-fill">.col</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1 col-md preview-fill">.col-1</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 col-md preview-fill">.col-1</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3 col-md preview-fill">.col-1</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 col-md preview-fill">.col-1</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 col-md preview-fill">.col-1</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md preview-fill">.col-1</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7 col-md preview-fill">.col-1</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8 col-md preview-fill">.col-8</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-9 col-md preview-fill">.col-9</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10 col-md preview-fill">.col-10</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-11 col-md preview-fill">.col-11</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md preview-fill">.col-12</div>
+                                    <div class="col"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="preview preview-btn-arrangement">
-                            <a href="#" class="btn">NORMAL</a>
-                            <a href="#" class="btn btn-default">DEFAULT</a>
-                            <a href="#" class="btn btn-force">FORCE</a>
-                            <a href="#" class="btn btn-primary">PRIMARY *</a>
-                            <a href="#" class="btn btn-notice">NOTICE</a>
-                            <a href="#" class="btn btn-cobalt">COBALT</a>
-                            <a href="#" class="btn btn-danger">DANGER</a>
-                            <a href="#" class="btn btn-alert">ALERT</a>
-                            <a href="#" class="btn btn-success">SUCCESS</a>
+                    </div>
+                    <div class="works-section works-section-transparent">
+                        <h1 class="header-divider">Typographys</h1>
+                        <div class="works-section works-section-padding">
+                            <h2>HEADERS</h2>
+                            <div class="code-description">
+                                Use an element
+                                <span class="label label-code">h1, h2, h3, h4, h5, h6</span>
+                                as header level contents.
+                            </div>
+                            <div class="preview preview-left">
+                                <h1>H1</h1>
+                                <h2>H2</h2>
+                                <h3>H3</h3>
+                                <h4>H4</h4>
+                                <h5>H5</h5>
+                                <h6>H6</h6>
+                            </div>
+                        </div>
+                        <div class="works-section works-section-padding">
+                            <h2>LISTS</h2>
+                            <div class="code-description">
+                                Use elements either
+                                <span class="label label-code">ul, li</span>
+                                for displaying list type contents.
+                            </div>
+                            <div class="preview preview-left">
+                                <ul>
+                                    <li>Item1</li>
+                                    <li>Item2</li>
+                                    <li>Item3</li>
+                                    <li>Item4</li>
+                                    <li>Item5</li>
+                                </ul>
+                            </div>
+                            <div class="preview preview-left">
+                                <ol>
+                                    <li>Item1</li>
+                                    <li>Item2</li>
+                                    <li>Item3</li>
+                                    <li>Item4</li>
+                                    <li>Item5</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="works-section works-section-padding">
+                            <h2>GUIDE</h2>
+                            <div class="code-description">
+                                Use an class
+                                <span class="label label-code">.guide</span>,
+                                this component will be more readable of contents.
+                            </div>
+                            <div class="preview">
+                                <div class="guide">
+                                    Content description.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="works-section works-section-transparent">
+                        <h1 class="header-divider">Buttons</h1>
+                        <div class="works-section works-section-padding">
+                            <h2>DEFAULT BUTTONS</h2>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.btn</span>
+                                which you want set the style on buttons.
+                            </div>
+                            <div class="preview">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <a href="#" class="btn">NORMAL</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-default">DEFAULT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-force">FORCE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-primary">PRIMARY *</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-notice">NOTICE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-cobalt">COBALT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-danger">DANGER</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-alert">ALERT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-success">SUCCESS</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="works-section-divider" />
+
+                            <h2>OUTLINE BUTTONS</h2>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.btn-bordered</span>
+                                to buttons what you want display outline style.
+                            </div>
+                            <div class="preview">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-bordered">NORMAL</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-default btn-bordered">DEFAULT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-force btn-bordered">FORCE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-primary btn-bordered">PRIMARY *</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-notice btn-bordered">NOTICE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-cobalt btn-bordered">COBALT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-danger btn-bordered">DANGER</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-alert btn-bordered">ALERT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-success btn-bordered">SUCCESS</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="works-section-divider" />
+
+                            <h2>MATERIALIZED BUTTONS</h2>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.btn-material</span>
+                                to buttons what you want display material style.
+                            </div>
+                            <div class="preview">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-material">NORMAL</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-default btn-material">DEFAULT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-force btn-material">FORCE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-primary btn-material">PRIMARY *</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-notice btn-material">NOTICE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-cobalt btn-material">COBALT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-danger btn-material">DANGER</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-alert btn-material">ALERT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-success btn-material">SUCCESS</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="works-section works-section-padding">
+                            <h2>ROUNDED BUTTONS</h2>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.btn-rounded</span>
+                                to buttons what you want display round style.
+                            </div>
+                            <div class="preview">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded">NORMAL</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-default">DEFAULT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-force">FORCE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-primary">PRIMARY *</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-notice">NOTICE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-cobalt">COBALT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-danger">DANGER</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-alert">ALERT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-success">SUCCESS</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="works-section-divider" />
+
+                            <h2>OUTLINE BUTTONS</h2>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.btn-bordered</span>
+                                to buttons what you want display outline style.
+                            </div>
+                            <div class="preview">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-bordered">NORMAL</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-default btn-bordered">DEFAULT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-force btn-bordered">FORCE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-primary btn-bordered">PRIMARY *</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-notice btn-bordered">NOTICE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-cobalt btn-bordered">COBALT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-danger btn-bordered">DANGER</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-alert btn-bordered">ALERT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-success btn-bordered">SUCCESS</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="works-section-divider" />
+
+                            <h2>MATERIALIZED BUTTONS</h2>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.btn-material</span>
+                                to buttons what you want display material style.
+                            </div>
+                            <div class="preview">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-material">NORMAL</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-default btn-material">DEFAULT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-force btn-material">FORCE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-primary btn-material">PRIMARY *</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-notice btn-material">NOTICE</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-cobalt btn-material">COBALT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-danger btn-material">DANGER</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-alert btn-material">ALERT</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="#" class="btn btn-rounded btn-success btn-material">SUCCESS</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-stech">
+                            <div class="col-6 col-pd">
+                                <div class="works-section works-section-padding">
+                                    <h2>BUTTON SIZES</h2>
+                                    <div class="code-description">
+                                        Use classes
+                                        <span class="label label-code">.btn-xs .btn-sm .btn-lg .btn-xg</span>
+                                        for set each of buttons size.
+                                    </div>
+                                    <div class="preview">
+                                        <div class="row">
+                                            <div class="col col-md">
+                                                <a href="#" class="btn btn-xs btn-primary">EXTRA SMALL</a>
+                                            </div>
+                                            <div class="col col-md">
+                                                <a href="#" class="btn btn-sm btn-primary">SMALL</a>
+                                            </div>
+                                            <div class="col col-md">
+                                                <a href="#" class="btn btn-primary">NORMAL</a>
+                                            </div>
+                                            <div class="col col-md">
+                                                <a href="#" class="btn btn-lg btn-primary">LARGE</a>
+                                            </div>
+                                            <div class="col col-md">
+                                                <a href="#" class="btn btn-xg btn-primary">EXTRA LARGE</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-pd">
+                                <div class="works-section works-section-padding">
+                                    <h2>BLOCK TYPE BUTTON</h2>
+                                    <div class="code-description">
+                                        Use a class
+                                        <span class="label label-code">.btn-block</span>
+                                        for fit to parent area.
+                                    </div>
+                                    <div class="preview">
+                                        <a href="#" class="btn btn-xg btn-block btn-primary">BLOCK BUTTON</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="works-section works-section-padding">
-                        <h2>ROUNDED BUTTONS</h2>
+                        <h2>FLOATING BUTTONS</h2>
                         <div class="code-description">
-                            Use a Classes
-                            <span class="label label-danger">btn btn-rounded</span>
-                            to quickly create a Default btn.
+                            Use a class
+                            <span class="label label-code">.floating</span>
+                            for make floating style buttons.
                         </div>
-                        <div class="preview preview-btn-arrangement">
-                            <a href="#" class="btn btn-rounded">NORMAL</a>
-                            <a href="#" class="btn btn-rounded btn-default">DEFAULT</a>
-                            <a href="#" class="btn btn-rounded btn-force">FORCE</a>
-                            <a href="#" class="btn btn-rounded btn-primary">PRIMARY *</a>
-                            <a href="#" class="btn btn-rounded btn-notice">NOTICE</a>
-                            <a href="#" class="btn btn-rounded btn-cobalt">COBALT</a>
-                            <a href="#" class="btn btn-rounded btn-danger">DANGER</a>
-                            <a href="#" class="btn btn-rounded btn-alert">ALERT</a>
-                            <a href="#" class="btn btn-rounded btn-success">SUCCESS</a>
+                        <div class="preview">
+                            <div class="row">
+                                <div class="col-md">
+                                    <a href="#" class="floating"><i class="fa fa-play" aria-hidden="true"></i></a>
+                                    <p class="preview-description">NORMAL</p>
+                                </div>
+                                <div class="col-md">
+                                    <a href="#" class="floating floating-default"><i class="fa fa-play"></i></a>
+                                    <p class="preview-description">DEFAULT</p>
+                                </div>
+                                <div class="col-md">
+                                    <a href="#" class="floating floating-force"><i class="fa fa-play"></i></a>
+                                    <p class="preview-description">FORCE</p>
+                                </div>
+                                <div class="col-md">
+                                    <a href="#" class="floating floating-primary"><i class="fa fa-play"></i></a>
+                                    <p class="preview-description">PRIMARY</p>
+                                </div>
+                                <div class="col-md">
+                                    <a href="#" class="floating floating-notice"><i class="fa fa-play"></i></a>
+                                    <p class="preview-description">NOTICE</p>
+                                </div>
+                                <div class="col-md">
+                                    <a href="#" class="floating floating-cobalt"><i class="fa fa-play"></i></a>
+                                    <p class="preview-description">COBALT</p>
+                                </div>
+                                <div class="col-md">
+                                    <a href="#" class="floating floating-danger"><i class="fa fa-play"></i></a>
+                                    <p class="preview-description">DANGER</p>
+                                </div>
+                                <div class="col-md">
+                                    <a href="#" class="floating floating-alert"><i class="fa fa-play"></i></a>
+                                    <p class="preview-description">ALERT</p>
+                                </div>
+                                <div class="col-md">
+                                    <a href="#" class="floating floating-success"><i class="fa fa-play"></i></a>
+                                    <p class="preview-description">SUCCESS</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="works-section works-section-transparent">
+                        <h1 class="header-divider">Tables</h1>
+                        <div class="works-section works-section-padding">
+                            <h2>DEFAULT TABLE</h2>
+                            <div class="code-description">
+                                Use a Classes
+                                <span class="label label-code">btn btn-default</span>
+                                to quickly create a Default btn.
+                            </div>
+                            <div class="preview">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Subject1</th>
+                                            <th>Subject2</th>
+                                            <th>Subject3</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="works-section works-section-transparent">
+                            <h1 class="header-divider">Tables</h1>
+                            <div class="works-section works-section-padding">
+                                <h2>STRIPED TABLE</h2>
+                                <div class="code-description">
+                                    Use a Classes
+                                    <span class="label label-code">btn btn-default</span>
+                                    to quickly create a Default btn.
+                                </div>
+                                <div class="preview">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Subject1</th>
+                                                <th>Subject2</th>
+                                                <th>Subject3</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Contents1</td>
+                                                <td>Contents2</td>
+                                                <td>Contents3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Contents1</td>
+                                                <td>Contents2</td>
+                                                <td>Contents3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Contents1</td>
+                                                <td>Contents2</td>
+                                                <td>Contents3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>Contents1</td>
+                                                <td>Contents2</td>
+                                                <td>Contents3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Contents1</td>
+                                                <td>Contents2</td>
+                                                <td>Contents3</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="works-section works-section-padding">
+                                <h2>HOVER TABLE</h2>
+                                <div class="code-description">
+                                    Use a Classes
+                                    <span class="label label-code">btn btn-default</span>
+                                    to quickly create a Default btn.
+                                </div>
+                                <div class="preview">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Subject1</th>
+                                                <th>Subject2</th>
+                                                <th>Subject3</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Contents1</td>
+                                                <td>Contents2</td>
+                                                <td>Contents3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Contents1</td>
+                                                <td>Contents2</td>
+                                                <td>Contents3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Contents1</td>
+                                                <td>Contents2</td>
+                                                <td>Contents3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>Contents1</td>
+                                                <td>Contents2</td>
+                                                <td>Contents3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Contents1</td>
+                                                <td>Contents2</td>
+                                                <td>Contents3</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

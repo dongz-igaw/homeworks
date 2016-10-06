@@ -22,10 +22,86 @@ body {
 }
 
 .preview {
+    margin-bottom: 1.6em;
     text-align: center;
 }
 
-.preview.preview-btn-arrangement .btn {
-    width: 10.375%;
-    margin: 0 .25%;
+.preview .preview-description {
+    margin-top: .6em;
+    font-size: 110%;
+}
+
+.preview:after,
+.preview:before {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+.preview .btn {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.preview .col .btn,
+.preview .col-md .btn {
+    width: 95%;
+}
+
+.preview:last-child {
+    margin-bottom: 0;
+}
+
+.preview.preview-left {
+    text-align: left;
+}
+
+.preview .preview-fill {
+    background-color: #e3e6eB;
+}
+
+.preview .row {
+    border-spacing: 1px;
+}
+
+.preview .col-1,
+.preview .col-2,
+.preview .col-3,
+.preview .col-4,
+.preview .col-5,
+.preview .col-6,
+.preview .col-7,
+.preview .col-8,
+.preview .col-9,
+.preview .col-10,
+.preview .col-11,
+.preview .col-12,
+.preview .col-md-1,
+.preview .col-md-2,
+.preview .col-md-3,
+.preview .col-md-4,
+.preview .col-md-5,
+.preview .col-md-6,
+.preview .col-md-7,
+.preview .col-md-8,
+.preview .col-md-9,
+.preview .col-md-10,
+.preview .col-md-11,
+.preview .col-md-12 {
+    height: 5.2em;
+    text-align: center;
+}
+
+.preview > :last-child {
+    margin-bottom: 0;
+}
+
+.preview .floating {
+    line-height: 4.4em;
+    margin: 0 auto;
+}
+
+.preview .floating i {
+    margin-right: -.1em;
 }
