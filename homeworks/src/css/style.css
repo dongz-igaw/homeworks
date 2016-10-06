@@ -226,3 +226,19 @@ pre code {
     display: block;
     padding: 2.4em 3.2em;
 }
+
+pre code .token.tag {
+    color: #4b5fcd;
+}
+
+pre code .token.attr-name {
+    color: #ef4a51;
+}
+
+pre code .token.value {
+    color: #34b8f7;
+}
+
+pre code .token.punctuation {
+    color: #5a5f78;
+}

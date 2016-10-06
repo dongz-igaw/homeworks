@@ -1526,6 +1526,26 @@
             this.input();
         }).hook('input');
 
+        // 토글 관련 설정
+        (function ($e) {
+            var placeholder = this.data('toggleplaceholder');
+            console.log(placeholder, this);
+            try {
+                if (typeof placeholder !== 'undefined' && placeholder !== null && placeholder !== '') {
+                    placeholder = placeholder.replace(/\'/gi, "\"");
+                    placeholder = JSON.parse(placeholder);
+                } else {
+                    placeholder = null;
+                }
+            } catch (e) {
+                placeholder = null;
+            }
+
+            this.toggle({
+                placeholder: placeholder
+            });
+        }).hook('toggle');
+
         // 모달 관련 설정
         (function ($e) {
             this.bind('click', function (event) {
