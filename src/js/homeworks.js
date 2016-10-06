@@ -366,7 +366,7 @@
                 show: function (e, o) {
                     var _this = this;
                     if (typeof o === 'object') {
-                        this.data.i.opt = $.extend({}, o);
+                        this.local.opt = $.extend({}, o);
                     }
 
                     _this.local._prototype.open.call(this, e);
@@ -439,7 +439,7 @@
                     }
 
                     _this.$helper.bind(e, 'click', function (event) {
-                        if (typeof event.originalEvent !== 'undefined' || (typeof o !== 'undefined' && o.passive === false)) {
+                        if (typeof event.originalEvent === 'undefined' && (typeof o !== 'undefined' || o.passive === false)) {
                             return false;
                         }
                         var $this = $(this);
@@ -475,10 +475,12 @@
 
                         $ripple.css({ width: size, height: size, left: point.x, top: point.y });
                         $ripple.appendTo($this);
+                        $this.addClass('btn-ripple-start');
                         _this.$helper.promise(function () {
                             _this.$helper.promise(function () {
                                 _this.$helper.promise(function () {
                                     $ripple.remove();
+                                    $this.removeClass('btn-ripple-start');
                                 }, 500);
                                 $ripple.addClass('anim-end').css({ opacity: 0 });
                             }, 150);
@@ -548,7 +550,7 @@
                 _this.$helper.bind(e, 'focus', function () {
                     $label.addClass('works-input-lock').addClass('works-input-focus');
                     if (validation === true) {
-                        e[0].data[_this.data.id]._prototype.validation.call(_this, e, 'clear');
+                        _this.local._prototype.validation.call(_this, e, 'clear');
                     }
                 });
 
@@ -559,7 +561,7 @@
 
                     if (typeof event.originalEvent !== 'undefined') {
                         if (validation === true) {
-                            e[0].data[_this.data.id]._prototype.validation.call(_this, e);
+                            _this.local._prototype.validation.call(_this, e);
                         }
                     }
 
@@ -607,13 +609,13 @@
 
                     if (typeof type === 'undefined' || allowedType.indexOf(type) == -1) {
                         if (e.val() === '') {
-                            if (typeof _this.data.i.rule.notnull === false) {
+                            if (typeof _this.local.rule.notnull === false) {
                                 type = 'success';
                             } else {
                                 type = 'error';
                             }
                         } else {
-                            if(_this.data.i.rule.notnull)
+                            if(_this.local.rule.notnull)
                             type = 'success';
                         }
                     }

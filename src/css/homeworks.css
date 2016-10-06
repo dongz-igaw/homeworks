@@ -11,7 +11,7 @@
 ::-webkit-scrollbar {
     height: 5px;
     width: 5px;
-    background: #20242e;
+    background: #bec3cd;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -21,7 +21,7 @@
 }
 
 ::-webkit-scrollbar-corner {
-    background-color: #20242e;
+    background-color: #737d93;
 }
 
 html, body, ul, li, a, span, p, div, h1, h2, h3, h4, h5, h6, button, input, select, textarea, label, table, tr, th, td, dd, dl, dt, section, article, footer, header, video, audio {
@@ -815,10 +815,6 @@ a:active {
 .works-content h1 {
     font-size: 180%;
     padding: .4em 0;
-}
-
-.works-content .header-divider {
-    border-bottom: 1px solid #c6c9cd;
 }
 
 .works-section {
@@ -2330,12 +2326,25 @@ textarea[readonly].input {
     cursor: not-allowed;
 }
 
+pre,
 .guide {
     padding: 2.4em 3.2em;
     margin-bottom: 1.2em;
     background-color: #f4f4f4;
     color: #414141;
     line-height: 2.4;
+}
+
+pre,
+pre code {
+    margin: 0;
+    font-family: Consolas;
+    line-height: 1.6;
+}
+
+pre {
+    display: block;
+    margin-bottom: 1.6em;
 }
 
 .btn {
@@ -2647,6 +2656,13 @@ textarea[readonly].input {
 .btn-ripple {
     position: relative;
     overflow: hidden;
+}
+
+.btn-ripple.btn-ripple-start {
+    transform: translateZ(0);
+    -o-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 .btn-ripple .btn-ripple-effect {

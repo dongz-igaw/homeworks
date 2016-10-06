@@ -6,12 +6,15 @@
     <link rel="stylesheet" href="../src/css/homeworks.css">
     <link rel="stylesheet" href="../src/css/homeworks.theme.dark.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="demo/css/pe-icon-7-stroke.css">
-    <link rel="stylesheet" href="demo/css/style.css">
+    <link rel="stylesheet" href="src/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="vender/prism.css">
+    <link rel="stylesheet" href="src/css/style.css">
     <link rel="shortcut icon" href="http://static.c-intelligence.com/resources/homeworks/homeworks_favicon.ico" media="image/x-icon" />
     <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
     <script src="https://code.jquery.com/ui/jquery-ui-git.js"></script>
+    <script src="vender/prism.js"></script>
     <script src="../src/js/homeworks.js"></script>
+    <script src="src/js/script.js"></script>
 </head>
 <body>
     <div class="works-sider">
@@ -98,7 +101,7 @@
             <div class="works-header-inner">
                 <div class="works-header-action">
                     <a class="works-header-menu" href="#" data-menu="true" data-ripple="dark">
-                        <img src="demo/images/icon_menu_white.png" alt="" />
+                        <img src="src/images/icon_menu_white.png" alt="" />
                     </a>
                 </div>
                 <div class="works-header-action pull-right">
@@ -119,9 +122,23 @@
             <div class="works-content">
                 <div class="works-container">
                     <div class="works-section works-section-transparent">
-                        <h1 class="header-divider">GRIDS</h1>
+                        <h1 class="header-divider">
+                            <a id="grids" name="grids" href="#grids">
+                                <span>GRIDS</span>
+                                <i class="pe-7s-link"></i>
+                            </a>
+                        </h1>
                         <div class="works-section works-section-padding">
-                            <h2>COLUMNS</h2>
+                            <h2 id="grids-columns" name="grids-columns">
+                                <a href="#grids-columns">
+                                    <span>COLUMNS</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col col-md&quot;&gt;contents&lt;/div&gt;
+&lt;/div&gt;</code></pre>
                             <div class="code-description">
                                 Use a class
                                 <span class="label label-code">.col .col-md</span>
@@ -186,9 +203,26 @@
                         </div>
                     </div>
                     <div class="works-section works-section-transparent">
-                        <h1 class="header-divider">Typographys</h1>
+                        <h1 id="typographys" name="typographys" class="header-divider">
+                            <a href="#typographys">
+                                <span>Typographys</span>
+                                <i class="pe-7s-link"></i>
+                            </a>
+                        </h1>
                         <div class="works-section works-section-padding">
-                            <h2>HEADERS</h2>
+                            <h2 id="typographys-headers" name="typographys-headers">
+                                <a href="#typographys-headers">
+                                    <span>HEADERS</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;h1&gt;H1&lt;/h1&gt;                                     
+&lt;h2&gt;H2&lt;/h2&gt;                                     
+&lt;h3&gt;H3&lt;/h3&gt;                                     
+&lt;h4&gt;H4&lt;/h4&gt;                                     
+&lt;h5&gt;H5&lt;/h5&gt;                                     
+&lt;h6&gt;H6&lt;/h6&gt;</code></pre>
                             <div class="code-description">
                                 Use an element
                                 <span class="label label-code">h1, h2, h3, h4, h5, h6</span>
@@ -204,33 +238,67 @@
                             </div>
                         </div>
                         <div class="works-section works-section-padding">
-                            <h2>LISTS</h2>
+                            <h2 id="typographys-lists" name="typographys-lists">
+                                <a href="#typographys-lists">
+                                    <span>LISTS</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
                             <div class="code-description">
                                 Use elements either
                                 <span class="label label-code">ul, li</span>
                                 for displaying list type contents.
                             </div>
+
+                            <h3>UL</h3>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;ITEM1&lt;/li&gt;                                     
+    &lt;li&gt;ITEM2&lt;/li&gt;                                     
+    &lt;li&gt;ITEM3&lt;/li&gt;                                     
+    &lt;li&gt;ITEM4&lt;/li&gt;                                     
+    &lt;li&gt;ITEM5&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
                             <div class="preview preview-left">
                                 <ul>
-                                    <li>Item1</li>
-                                    <li>Item2</li>
-                                    <li>Item3</li>
-                                    <li>Item4</li>
-                                    <li>Item5</li>
+                                    <li>ITEM1</li>
+                                    <li>ITEM2</li>
+                                    <li>ITEM3</li>
+                                    <li>ITEM4</li>
+                                    <li>ITEM5</li>
                                 </ul>
                             </div>
+
+                            <h3>OL</h3>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;ol&gt;
+    &lt;li&gt;ITEM1&lt;/li&gt;                                     
+    &lt;li&gt;ITEM2&lt;/li&gt;                                     
+    &lt;li&gt;ITEM3&lt;/li&gt;                                     
+    &lt;li&gt;ITEM4&lt;/li&gt;                                     
+    &lt;li&gt;ITEM5&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
                             <div class="preview preview-left">
                                 <ol>
-                                    <li>Item1</li>
-                                    <li>Item2</li>
-                                    <li>Item3</li>
-                                    <li>Item4</li>
-                                    <li>Item5</li>
+                                    <li>ITEM1</li>
+                                    <li>ITEM2</li>
+                                    <li>ITEM3</li>
+                                    <li>ITEM4</li>
+                                    <li>ITEM5</li>
                                 </ol>
                             </div>
                         </div>
                         <div class="works-section works-section-padding">
-                            <h2>GUIDE</h2>
+                            <h2 id="typographys-guide" name="typographys-guide">
+                                <a href="#typographys-guide">
+                                    <span>GUIDE</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;div class=&quot;guide&quot;&gt;
+    Content description.
+&lt;/div&gt;</code></pre>
                             <div class="code-description">
                                 Use an class
                                 <span class="label label-code">.guide</span>,
@@ -244,9 +312,29 @@
                         </div>
                     </div>
                     <div class="works-section works-section-transparent">
-                        <h1 class="header-divider">Buttons</h1>
-                        <div class="works-section works-section-padding">
-                            <h2>DEFAULT BUTTONS</h2>
+                        <h1 id="buttons" name="buttons" class="header-divider">
+                            <a href="#buttons">
+                                <span>Buttons</span>
+                                <i class="pe-7s-link"></i>
+                            </a>
+                        </h1>
+                        <div id="buttons-default-buttons" name="buttons-default-buttons" class="works-section works-section-padding">
+                            <h2>
+                                <a href="#buttons-default-buttons">
+                                    <span>DEFAULT BUTTONS</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;btn&quot;&gt;NORMAL&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-default&quot;&gt;DEFAULT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-force&quot;&gt;FORCE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-primary&quot;&gt;PRIMARYT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-notice&quot;&gt;NOTICE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-cobalt&quot;&gt;COBALT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-danger&quot;&gt;DANGER&lt;/a&gt;                                                                          
+&lt;a href=&quot;#&quot; class=&quot;btn btn-alert&quot;&gt;ALERT&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-success&quot;&gt;SUCCESS&lt;/a&gt;</code></pre>
                             <div class="code-description">
                                 Use a class
                                 <span class="label label-code">.btn</span>
@@ -255,38 +343,53 @@
                             <div class="preview">
                                 <div class="row">
                                     <div class="col-md">
-                                        <a href="#" class="btn">NORMAL</a>
+                                        <a href="#" class="btn" data-ripple="dark">NORMAL</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-default">DEFAULT</a>
+                                        <a href="#" class="btn btn-default" data-ripple="dark">DEFAULT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-force">FORCE</a>
+                                        <a href="#" class="btn btn-force" data-ripple="dark">FORCE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-primary">PRIMARY *</a>
+                                        <a href="#" class="btn btn-primary" data-ripple="dark">PRIMARY *</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-notice">NOTICE</a>
+                                        <a href="#" class="btn btn-notice" data-ripple="dark">NOTICE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-cobalt">COBALT</a>
+                                        <a href="#" class="btn btn-cobalt" data-ripple="dark">COBALT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-danger">DANGER</a>
+                                        <a href="#" class="btn btn-danger" data-ripple="dark">DANGER</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-alert">ALERT</a>
+                                        <a href="#" class="btn btn-alert" data-ripple="dark">ALERT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-success">SUCCESS</a>
+                                        <a href="#" class="btn btn-success" data-ripple="dark">SUCCESS</a>
                                     </div>
                                 </div>
                             </div>
 
                             <hr class="works-section-divider" />
 
-                            <h2>OUTLINE BUTTONS</h2>
+                            <h2 id="buttons-outline-buttons" name="buttons-outline-buttons">
+                                <a href="#buttons-outline-buttons">
+                                    <span>OUTLINE BUTTONS</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;btn btn-bordered&quot;&gt;NORMAL&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-bordered btn-default&quot;&gt;DEFAULT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-bordered btn-force&quot;&gt;FORCE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-bordered btn-primary&quot;&gt;PRIMARYT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-bordered btn-notice&quot;&gt;NOTICE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-bordered btn-cobalt&quot;&gt;COBALT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-bordered btn-danger&quot;&gt;DANGER&lt;/a&gt;                                                                          
+&lt;a href=&quot;#&quot; class=&quot;btn btn-bordered btn-alert&quot;&gt;ALERT&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-bordered btn-success&quot;&gt;SUCCESS&lt;/a&gt;</code></pre>
                             <div class="code-description">
                                 Use a class
                                 <span class="label label-code">.btn-bordered</span>
@@ -295,38 +398,53 @@
                             <div class="preview">
                                 <div class="row">
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-bordered">NORMAL</a>
+                                        <a href="#" class="btn btn-bordered" data-ripple="dark">NORMAL</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-default btn-bordered">DEFAULT</a>
+                                        <a href="#" class="btn btn-default btn-bordered" data-ripple="dark">DEFAULT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-force btn-bordered">FORCE</a>
+                                        <a href="#" class="btn btn-force btn-bordered" data-ripple="dark">FORCE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-primary btn-bordered">PRIMARY *</a>
+                                        <a href="#" class="btn btn-primary btn-bordered" data-ripple="dark">PRIMARY *</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-notice btn-bordered">NOTICE</a>
+                                        <a href="#" class="btn btn-notice btn-bordered" data-ripple="dark">NOTICE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-cobalt btn-bordered">COBALT</a>
+                                        <a href="#" class="btn btn-cobalt btn-bordered" data-ripple="dark">COBALT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-danger btn-bordered">DANGER</a>
+                                        <a href="#" class="btn btn-danger btn-bordered" data-ripple="dark">DANGER</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-alert btn-bordered">ALERT</a>
+                                        <a href="#" class="btn btn-alert btn-bordered" data-ripple="dark">ALERT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-success btn-bordered">SUCCESS</a>
+                                        <a href="#" class="btn btn-success btn-bordered" data-ripple="dark">SUCCESS</a>
                                     </div>
                                 </div>
                             </div>
 
                             <hr class="works-section-divider" />
 
-                            <h2>MATERIALIZED BUTTONS</h2>
+                            <h2 id="buttons-materialized-buttons" name="buttons-materialized-buttons">
+                                <a href="#buttons-materialized-buttons">
+                                    <span>MATERIALIZED BUTTONS</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;btn btn-material&quot;&gt;NORMAL&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-material btn-default&quot;&gt;DEFAULT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-material btn-force&quot;&gt;FORCE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-material btn-primary&quot;&gt;PRIMARYT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-material btn-notice&quot;&gt;NOTICE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-material btn-cobalt&quot;&gt;COBALT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-material btn-danger&quot;&gt;DANGER&lt;/a&gt;                                                                          
+&lt;a href=&quot;#&quot; class=&quot;btn btn-material btn-alert&quot;&gt;ALERT&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-material btn-success&quot;&gt;SUCCESS&lt;/a&gt;</code></pre>
                             <div class="code-description">
                                 Use a class
                                 <span class="label label-code">.btn-material</span>
@@ -335,37 +453,52 @@
                             <div class="preview">
                                 <div class="row">
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-material">NORMAL</a>
+                                        <a href="#" class="btn btn-material" data-ripple="dark">NORMAL</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-default btn-material">DEFAULT</a>
+                                        <a href="#" class="btn btn-default btn-material" data-ripple="dark">DEFAULT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-force btn-material">FORCE</a>
+                                        <a href="#" class="btn btn-force btn-material" data-ripple="dark">FORCE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-primary btn-material">PRIMARY *</a>
+                                        <a href="#" class="btn btn-primary btn-material" data-ripple="dark">PRIMARY *</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-notice btn-material">NOTICE</a>
+                                        <a href="#" class="btn btn-notice btn-material" data-ripple="dark">NOTICE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-cobalt btn-material">COBALT</a>
+                                        <a href="#" class="btn btn-cobalt btn-material" data-ripple="dark">COBALT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-danger btn-material">DANGER</a>
+                                        <a href="#" class="btn btn-danger btn-material" data-ripple="dark">DANGER</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-alert btn-material">ALERT</a>
+                                        <a href="#" class="btn btn-alert btn-material" data-ripple="dark">ALERT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-success btn-material">SUCCESS</a>
+                                        <a href="#" class="btn btn-success btn-material" data-ripple="dark">SUCCESS</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="works-section works-section-padding">
-                            <h2>ROUNDED BUTTONS</h2>
+                            <h2 id="buttons-rounded-buttons" name="buttons-rounded-buttons">
+                                <a href="#buttons-rounded-buttons">
+                                    <span>ROUNDED BUTTONS</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded&quot;&gt;NORMAL&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-default&quot;&gt;DEFAULT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-force&quot;&gt;FORCE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-primary&quot;&gt;PRIMARYT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-notice&quot;&gt;NOTICE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-cobalt&quot;&gt;COBALT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-danger&quot;&gt;DANGER&lt;/a&gt;                                                                          
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-alert&quot;&gt;ALERT&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-success&quot;&gt;SUCCESS&lt;/a&gt;</code></pre>
                             <div class="code-description">
                                 Use a class
                                 <span class="label label-code">.btn-rounded</span>
@@ -374,38 +507,53 @@
                             <div class="preview">
                                 <div class="row">
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded">NORMAL</a>
+                                        <a href="#" class="btn btn-rounded" data-ripple="dark">NORMAL</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-default">DEFAULT</a>
+                                        <a href="#" class="btn btn-rounded btn-default" data-ripple="dark">DEFAULT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-force">FORCE</a>
+                                        <a href="#" class="btn btn-rounded btn-force" data-ripple="dark">FORCE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-primary">PRIMARY *</a>
+                                        <a href="#" class="btn btn-rounded btn-primary" data-ripple="dark">PRIMARY *</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-notice">NOTICE</a>
+                                        <a href="#" class="btn btn-rounded btn-notice" data-ripple="dark">NOTICE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-cobalt">COBALT</a>
+                                        <a href="#" class="btn btn-rounded btn-cobalt" data-ripple="dark">COBALT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-danger">DANGER</a>
+                                        <a href="#" class="btn btn-rounded btn-danger" data-ripple="dark">DANGER</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-alert">ALERT</a>
+                                        <a href="#" class="btn btn-rounded btn-alert" data-ripple="dark">ALERT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-success">SUCCESS</a>
+                                        <a href="#" class="btn btn-rounded btn-success" data-ripple="dark">SUCCESS</a>
                                     </div>
                                 </div>
                             </div>
 
                             <hr class="works-section-divider" />
 
-                            <h2>OUTLINE BUTTONS</h2>
+                            <h2 id="buttons-rounded-outline-buttons" name="buttons-rounded-outline-buttons">
+                                <a href="#buttons-rounded-outline-buttons">
+                                    <span>OUTLINE BUTTONS</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-bordered&quot;&gt;NORMAL&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-bordered btn-default&quot;&gt;DEFAULT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-bordered btn-force&quot;&gt;FORCE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-bordered btn-primary&quot;&gt;PRIMARYT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-bordered btn-notice&quot;&gt;NOTICE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-bordered btn-cobalt&quot;&gt;COBALT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-bordered btn-danger&quot;&gt;DANGER&lt;/a&gt;                                                                          
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-bordered btn-alert&quot;&gt;ALERT&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-bordered btn-success&quot;&gt;SUCCESS&lt;/a&gt;</code></pre>
                             <div class="code-description">
                                 Use a class
                                 <span class="label label-code">.btn-bordered</span>
@@ -414,38 +562,53 @@
                             <div class="preview">
                                 <div class="row">
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-bordered">NORMAL</a>
+                                        <a href="#" class="btn btn-rounded btn-bordered" data-ripple="dark">NORMAL</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-default btn-bordered">DEFAULT</a>
+                                        <a href="#" class="btn btn-rounded btn-default btn-bordered" data-ripple="dark">DEFAULT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-force btn-bordered">FORCE</a>
+                                        <a href="#" class="btn btn-rounded btn-force btn-bordered" data-ripple="dark">FORCE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-primary btn-bordered">PRIMARY *</a>
+                                        <a href="#" class="btn btn-rounded btn-primary btn-bordered" data-ripple="dark">PRIMARY *</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-notice btn-bordered">NOTICE</a>
+                                        <a href="#" class="btn btn-rounded btn-notice btn-bordered" data-ripple="dark">NOTICE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-cobalt btn-bordered">COBALT</a>
+                                        <a href="#" class="btn btn-rounded btn-cobalt btn-bordered" data-ripple="dark">COBALT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-danger btn-bordered">DANGER</a>
+                                        <a href="#" class="btn btn-rounded btn-danger btn-bordered" data-ripple="dark">DANGER</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-alert btn-bordered">ALERT</a>
+                                        <a href="#" class="btn btn-rounded btn-alert btn-bordered" data-ripple="dark">ALERT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-success btn-bordered">SUCCESS</a>
+                                        <a href="#" class="btn btn-rounded btn-success btn-bordered" data-ripple="dark">SUCCESS</a>
                                     </div>
                                 </div>
                             </div>
 
                             <hr class="works-section-divider" />
 
-                            <h2>MATERIALIZED BUTTONS</h2>
+                            <h2 id="buttons-rounded-material-buttons" name="buttons-rounded-material-buttons">
+                                <a href="#buttons-rounded-material-buttons">
+                                    <span>MATERIALIZED BUTTONS</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-material&quot;&gt;NORMAL&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-material btn-default&quot;&gt;DEFAULT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-material btn-force&quot;&gt;FORCE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-material btn-primary&quot;&gt;PRIMARYT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-material btn-notice&quot;&gt;NOTICE&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-material btn-cobalt&quot;&gt;COBALT&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-material btn-danger&quot;&gt;DANGER&lt;/a&gt;                                                                          
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-material btn-alert&quot;&gt;ALERT&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-rounded btn-material btn-success&quot;&gt;SUCCESS&lt;/a&gt;</code></pre>
                             <div class="code-description">
                                 Use a class
                                 <span class="label label-code">.btn-material</span>
@@ -454,31 +617,31 @@
                             <div class="preview">
                                 <div class="row">
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-material">NORMAL</a>
+                                        <a href="#" class="btn btn-rounded btn-material" data-ripple="dark">NORMAL</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-default btn-material">DEFAULT</a>
+                                        <a href="#" class="btn btn-rounded btn-default btn-material" data-ripple="dark">DEFAULT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-force btn-material">FORCE</a>
+                                        <a href="#" class="btn btn-rounded btn-force btn-material" data-ripple="dark">FORCE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-primary btn-material">PRIMARY *</a>
+                                        <a href="#" class="btn btn-rounded btn-primary btn-material" data-ripple="dark">PRIMARY *</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-notice btn-material">NOTICE</a>
+                                        <a href="#" class="btn btn-rounded btn-notice btn-material" data-ripple="dark">NOTICE</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-cobalt btn-material">COBALT</a>
+                                        <a href="#" class="btn btn-rounded btn-cobalt btn-material" data-ripple="dark">COBALT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-danger btn-material">DANGER</a>
+                                        <a href="#" class="btn btn-rounded btn-danger btn-material" data-ripple="dark">DANGER</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-alert btn-material">ALERT</a>
+                                        <a href="#" class="btn btn-rounded btn-alert btn-material" data-ripple="dark">ALERT</a>
                                     </div>
                                     <div class="col-md">
-                                        <a href="#" class="btn btn-rounded btn-success btn-material">SUCCESS</a>
+                                        <a href="#" class="btn btn-rounded btn-success btn-material" data-ripple="dark">SUCCESS</a>
                                     </div>
                                 </div>
                             </div>
@@ -487,7 +650,18 @@
                         <div class="row row-stech">
                             <div class="col-6 col-pd">
                                 <div class="works-section works-section-padding">
-                                    <h2>BUTTON SIZES</h2>
+                                    <h2 id="buttons-sizes" name="buttons-sizes">
+                                        <a href="#buttons-sizes">
+                                            <span>BUTTON SIZES</span>
+                                            <i class="pe-7s-link"></i>
+                                        </a>
+                                    </h2>
+                                    <a href="#" class="view-source"></a>
+                                    <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;btn btn-xs&quot;&gt;EXTRA SMALL&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-sm&quot;&gt;SMALL&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn&quot;&gt;NORMAL&lt;/a&gt;                                     
+&lt;a href=&quot;#&quot; class=&quot;btn btn-lg&quot;&gt;LARGE&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-xg&quot;&gt;EXTRA LARGE&lt;/a&gt;</code></pre>
                                     <div class="code-description">
                                         Use classes
                                         <span class="label label-code">.btn-xs .btn-sm .btn-lg .btn-xg</span>
@@ -496,19 +670,19 @@
                                     <div class="preview">
                                         <div class="row">
                                             <div class="col col-md">
-                                                <a href="#" class="btn btn-xs btn-primary">EXTRA SMALL</a>
+                                                <a href="#" class="btn btn-xs btn-primary" data-ripple="dark">EXTRA SMALL</a>
                                             </div>
                                             <div class="col col-md">
-                                                <a href="#" class="btn btn-sm btn-primary">SMALL</a>
+                                                <a href="#" class="btn btn-sm btn-primary" data-ripple="dark">SMALL</a>
                                             </div>
                                             <div class="col col-md">
-                                                <a href="#" class="btn btn-primary">NORMAL</a>
+                                                <a href="#" class="btn btn-primary" data-ripple="dark">NORMAL</a>
                                             </div>
                                             <div class="col col-md">
-                                                <a href="#" class="btn btn-lg btn-primary">LARGE</a>
+                                                <a href="#" class="btn btn-lg btn-primary" data-ripple="dark">LARGE</a>
                                             </div>
                                             <div class="col col-md">
-                                                <a href="#" class="btn btn-xg btn-primary">EXTRA LARGE</a>
+                                                <a href="#" class="btn btn-xg btn-primary" data-ripple="dark">EXTRA LARGE</a>
                                             </div>
                                         </div>
                                     </div>
@@ -516,21 +690,43 @@
                             </div>
                             <div class="col-6 col-pd">
                                 <div class="works-section works-section-padding">
-                                    <h2>BLOCK TYPE BUTTON</h2>
+                                    <h2 id="buttons-block-type-button" name="buttons-block-type-button">
+                                        <a href="#buttons-block-type-button">
+                                            <span>BLOCK TYPE BUTTON</span>
+                                            <i class="pe-7s-link"></i>
+                                        </a>
+                                    </h2>
+                                    <a href="#" class="view-source"></a>
+                                    <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;btn btn-block&quot;&gt;BLOCK BUTTON&lt;/a&gt;</code></pre>
                                     <div class="code-description">
                                         Use a class
                                         <span class="label label-code">.btn-block</span>
                                         for fit to parent area.
                                     </div>
                                     <div class="preview">
-                                        <a href="#" class="btn btn-xg btn-block btn-primary">BLOCK BUTTON</a>
+                                        <a href="#" class="btn btn-xg btn-block btn-primary" data-ripple="dark">BLOCK BUTTON</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="works-section works-section-padding">
-                        <h2>FLOATING BUTTONS</h2>
+                        <h2 id="buttons-floating-buttons" name="buttons-floating-buttons">
+                            <a href="#buttons-floating-buttons">
+                                <span>FLOATING BUTTONS</span>
+                                <i class="pe-7s-link"></i>
+                            </a>
+                        </h2>
+                        <a href="#" class="view-source"></a>
+                        <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;floating&quot;&gt;&lt;!--NORMAL FLOATING--&gt;&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;floating floating-default&quot;&gt;&lt;!--DEFAULT FLOATING--&gt;&lt;/a&gt;                                 
+&lt;a href=&quot;#&quot; class=&quot;floating floating-force&quot;&gt;&lt;!--FORCE FLOATING--&gt;&lt;/a&gt;                                 
+&lt;a href=&quot;#&quot; class=&quot;floating floating-primary&quot;&gt;&lt;!--PRIMARY FLOATING--&gt;&lt;/a&gt;                                 
+&lt;a href=&quot;#&quot; class=&quot;floating floating-notice&quot;&gt;&lt;!--NOTICE FLOATING--&gt;&lt;/a&gt;                                 
+&lt;a href=&quot;#&quot; class=&quot;floating floating-cobalt&quot;&gt;&lt;!--COBALT FLOATING--&gt;&lt;/a&gt;                                 
+&lt;a href=&quot;#&quot; class=&quot;floating floating-danger&quot;&gt;&lt;!--DANGER FLOATING--&gt;&lt;/a&gt;                                 
+&lt;a href=&quot;#&quot; class=&quot;floating floating-alert&quot;&gt;&lt;!--ALERT FLOATING--&gt;&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;floating floating-success&quot;&gt;&lt;!--SUCCESS FLOATING--&gt;&lt;/a&gt;</code></pre>
                         <div class="code-description">
                             Use a class
                             <span class="label label-code">.floating</span>
@@ -539,52 +735,263 @@
                         <div class="preview">
                             <div class="row">
                                 <div class="col-md">
-                                    <a href="#" class="floating"><i class="fa fa-play" aria-hidden="true"></i></a>
+                                    <a href="#" class="floating" data-ripple="dark"><i class="fa fa-play"></i></a>
                                     <p class="preview-description">NORMAL</p>
                                 </div>
                                 <div class="col-md">
-                                    <a href="#" class="floating floating-default"><i class="fa fa-play"></i></a>
+                                    <a href="#" class="floating floating-default" data-ripple="dark"><i class="fa fa-play"></i></a>
                                     <p class="preview-description">DEFAULT</p>
                                 </div>
                                 <div class="col-md">
-                                    <a href="#" class="floating floating-force"><i class="fa fa-play"></i></a>
+                                    <a href="#" class="floating floating-force" data-ripple="dark"><i class="fa fa-play"></i></a>
                                     <p class="preview-description">FORCE</p>
                                 </div>
                                 <div class="col-md">
-                                    <a href="#" class="floating floating-primary"><i class="fa fa-play"></i></a>
+                                    <a href="#" class="floating floating-primary" data-ripple="dark"><i class="fa fa-play"></i></a>
                                     <p class="preview-description">PRIMARY</p>
                                 </div>
                                 <div class="col-md">
-                                    <a href="#" class="floating floating-notice"><i class="fa fa-play"></i></a>
+                                    <a href="#" class="floating floating-notice" data-ripple="dark"><i class="fa fa-play"></i></a>
                                     <p class="preview-description">NOTICE</p>
                                 </div>
                                 <div class="col-md">
-                                    <a href="#" class="floating floating-cobalt"><i class="fa fa-play"></i></a>
+                                    <a href="#" class="floating floating-cobalt" data-ripple="dark"><i class="fa fa-play"></i></a>
                                     <p class="preview-description">COBALT</p>
                                 </div>
                                 <div class="col-md">
-                                    <a href="#" class="floating floating-danger"><i class="fa fa-play"></i></a>
+                                    <a href="#" class="floating floating-danger" data-ripple="dark"><i class="fa fa-play"></i></a>
                                     <p class="preview-description">DANGER</p>
                                 </div>
                                 <div class="col-md">
-                                    <a href="#" class="floating floating-alert"><i class="fa fa-play"></i></a>
+                                    <a href="#" class="floating floating-alert" data-ripple="dark"><i class="fa fa-play"></i></a>
                                     <p class="preview-description">ALERT</p>
                                 </div>
                                 <div class="col-md">
-                                    <a href="#" class="floating floating-success"><i class="fa fa-play"></i></a>
+                                    <a href="#" class="floating floating-success" data-ripple="dark"><i class="fa fa-play"></i></a>
                                     <p class="preview-description">SUCCESS</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="works-section works-section-transparent">
-                        <h1 class="header-divider">Tables</h1>
-                        <div class="works-section works-section-padding">
-                            <h2>DEFAULT TABLE</h2>
+                        <h1 id="forms" name="forms" class="header-divider">
+                            <a href="#forms">
+                                <span>Forms</span>
+                                <i class="pe-7s-link"></i>
+                            </a>
+                        </h1>
+                        <div id="forms-text-inputs" name="forms-text-inputs" class="works-section works-section-padding">
+                            <h2>
+                                <a href="#forms-text-inputs">
+                                    <span>TEXT INPUTS</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;input type=&quot;text&quot; class=&quot;input&quot; data-input=&quot;true&quot; placeholder=&quot;NORMAL&quot; /&gt;
+&lt;input type=&quot;text&quot; class=&quot;input input-default&quot; data-input=&quot;true&quot; placeholder=&quot;DEFAULT&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-force&quot; data-input=&quot;true&quot; placeholder=&quot;FORCE&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-primary&quot; data-input=&quot;true&quot; placeholder=&quot;PRIMARY&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-notice&quot; data-input=&quot;true&quot; placeholder=&quot;NOTICE&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-cobalt&quot; data-input=&quot;true&quot; placeholder=&quot;COBALT&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-danger&quot; data-input=&quot;true&quot; placeholder=&quot;DANGER&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-alert&quot; data-input=&quot;true&quot; placeholder=&quot;ALERT&quot; /&gt;
+&lt;input type=&quot;text&quot; class=&quot;input input-success&quot; data-input=&quot;true&quot; placeholder=&quot;SUCCESS&quot; /&gt;</code></pre>
                             <div class="code-description">
-                                Use a Classes
-                                <span class="label label-code">btn btn-default</span>
-                                to quickly create a Default btn.
+                                Use a class
+                                <span class="label label-code">.input</span>
+                                for input type elements, And also put <span class="label label-code">data-input=&quot;true&quot;</span> attribute for setup a scripts.
+                            </div>
+                            <div class="preview">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <input type="text" class="input" data-input="true" placeholder="NORMAL" />
+                                    </div>
+                                    <div class="col-md">
+                                        <input type="text" class="input input-default" data-input="true" placeholder="DEFAULT" />
+                                    </div>
+                                    <div class="col-md">
+                                        <input type="text" class="input input-force" data-input="true" placeholder="FORCE" />
+                                    </div>
+                                    <div class="col-md">
+                                        <input type="text" class="input input-primary" data-input="true" placeholder="PRIMARY *" />
+                                    </div>
+                                    <div class="col-md">
+                                        <input type="text" class="input input-notice" data-input="true" placeholder="NOTICE" />
+                                    </div>
+                                    <div class="col-md">
+                                        <input type="text" class="input input-cobalt" data-input="true" placeholder="COBALT" />
+                                    </div>
+                                    <div class="col-md">
+                                        <input type="text" class="input input-danger" data-input="true" placeholder="DANGER" />
+                                    </div>
+                                    <div class="col-md">
+                                        <input type="text" class="input input-alert" data-input="true" placeholder="ALERT" />
+                                    </div>
+                                    <div class="col-md">
+                                        <input type="text" class="input input-success" data-input="true" placeholder="SUCCESS" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="forms-text-inputs" name="forms-text-inputs" class="works-section works-section-padding">
+                            <h2>
+                                <a href="#forms-text-inputs">
+                                    <span>SELECT</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;input type=&quot;text&quot; class=&quot;input&quot; data-input=&quot;true&quot; placeholder=&quot;NORMAL&quot; /&gt;
+&lt;input type=&quot;text&quot; class=&quot;input input-default&quot; data-input=&quot;true&quot; placeholder=&quot;DEFAULT&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-force&quot; data-input=&quot;true&quot; placeholder=&quot;FORCE&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-primary&quot; data-input=&quot;true&quot; placeholder=&quot;PRIMARY&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-notice&quot; data-input=&quot;true&quot; placeholder=&quot;NOTICE&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-cobalt&quot; data-input=&quot;true&quot; placeholder=&quot;COBALT&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-danger&quot; data-input=&quot;true&quot; placeholder=&quot;DANGER&quot; /&gt;                                     
+&lt;input type=&quot;text&quot; class=&quot;input input-alert&quot; data-input=&quot;true&quot; placeholder=&quot;ALERT&quot; /&gt;
+&lt;input type=&quot;text&quot; class=&quot;input input-success&quot; data-input=&quot;true&quot; placeholder=&quot;SUCCESS&quot; /&gt;</code></pre>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.input</span>
+                                for input type elements, And also put <span class="label label-code">data-input=&quot;true&quot;</span> attribute for setup a scripts.
+                            </div>
+                            <div class="preview">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <select class="input" data-spinner="true">
+                                            <option>NORMAL OPTION1</option>
+                                            <option>NORMAL OPTION2</option>
+                                            <option>NORMAL OPTION3</option>
+                                            <option>NORMAL OPTION4</option>
+                                            <option>NORMAL OPTION5</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md">
+                                        <select class="input input-default" data-spinner="true">
+                                            <option>DEFAULT OPTION1</option>
+                                            <option>DEFAULT OPTION2</option>
+                                            <option>DEFAULT OPTION3</option>
+                                            <option>DEFAULT OPTION4</option>
+                                            <option>DEFAULT OPTION5</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md">
+                                        <select class="input input-force" data-spinner="true">
+                                            <option>FORCE OPTION1</option>
+                                            <option>FORCE OPTION2</option>
+                                            <option>FORCE OPTION3</option>
+                                            <option>FORCE OPTION4</option>
+                                            <option>FORCE OPTION5</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md">
+                                        <select class="input input-primary" data-spinner="true">
+                                            <option>PRIMARY * OPTION1</option>
+                                            <option>PRIMARY * OPTION2</option>
+                                            <option>PRIMARY * OPTION3</option>
+                                            <option>PRIMARY * OPTION4</option>
+                                            <option>PRIMARY * OPTION5</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md">
+                                        <select class="input input-notice" data-spinner="true">
+                                            <option>NOTICE OPTION1</option>
+                                            <option>NOTICE OPTION2</option>
+                                            <option>NOTICE OPTION3</option>
+                                            <option>NOTICE OPTION4</option>
+                                            <option>NOTICE OPTION5</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md">
+                                        <select class="input input-cobalt" data-spinner="true">
+                                            <option>COBALT OPTION1</option>
+                                            <option>COBALT OPTION2</option>
+                                            <option>COBALT OPTION3</option>
+                                            <option>COBALT OPTION4</option>
+                                            <option>COBALT OPTION5</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md">
+                                        <select class="input input-danger" data-spinner="true">
+                                            <option>DANGER OPTION1</option>
+                                            <option>DANGER OPTION2</option>
+                                            <option>DANGER OPTION3</option>
+                                            <option>DANGER OPTION4</option>
+                                            <option>DANGER OPTION5</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md">
+                                        <input type="text" class="input input-alert" data-input="true" placeholder="ALERT" />
+                                    </div>
+                                    <div class="col-md">
+                                        <input type="text" class="input input-success" data-input="true" placeholder="SUCCESS" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="works-section works-section-transparent">
+                        <h1 id="tables" name="tables" class="header-divider">
+                            <a href="#tables">
+                                <span>Tables</span>
+                                <i class="pe-7s-link"></i>
+                            </a>
+                        </h1>
+                        <div class="works-section works-section-padding">
+                            <h2 id="tables-default-table" name="tables-default-table">
+                                <a href="#tables-default-table">
+                                    <span>DEFAULT TABLE</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;table class=&quot;table table-bordered&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;No&lt;/th&gt;                                 
+            &lt;th&gt;Subject1&lt;/th&gt;                                 
+            &lt;th&gt;Subject2&lt;/th&gt;                                 
+            &lt;th&gt;Subject3&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;                                 
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th&gt;1&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;2&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;3&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;4&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;5&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.table</span>
+                                to quickly create a table element.
                             </div>
                             <div class="preview">
                                 <table class="table table-bordered">
@@ -631,111 +1038,204 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="works-section works-section-transparent">
-                            <h1 class="header-divider">Tables</h1>
-                            <div class="works-section works-section-padding">
-                                <h2>STRIPED TABLE</h2>
-                                <div class="code-description">
-                                    Use a Classes
-                                    <span class="label label-code">btn btn-default</span>
-                                    to quickly create a Default btn.
-                                </div>
-                                <div class="preview">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Subject1</th>
-                                                <th>Subject2</th>
-                                                <th>Subject3</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Contents1</td>
-                                                <td>Contents2</td>
-                                                <td>Contents3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Contents1</td>
-                                                <td>Contents2</td>
-                                                <td>Contents3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Contents1</td>
-                                                <td>Contents2</td>
-                                                <td>Contents3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Contents1</td>
-                                                <td>Contents2</td>
-                                                <td>Contents3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Contents1</td>
-                                                <td>Contents2</td>
-                                                <td>Contents3</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <div class="works-section works-section-padding">
+                            <h2 id="tables-striped-table" name="tables-striped-table">
+                                <a href="#tables-striped-table">
+                                    <span>STRIPED TABLE</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;table class=&quot;table table-bordered table-striped&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;No&lt;/th&gt;                                 
+            &lt;th&gt;Subject1&lt;/th&gt;                                 
+            &lt;th&gt;Subject2&lt;/th&gt;                                 
+            &lt;th&gt;Subject3&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;                                 
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th&gt;1&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;2&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;3&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;4&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;5&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.table-striped</span>,
+                                If you want to give stripe style at each of rows.
                             </div>
-                            <div class="works-section works-section-padding">
-                                <h2>HOVER TABLE</h2>
-                                <div class="code-description">
-                                    Use a Classes
-                                    <span class="label label-code">btn btn-default</span>
-                                    to quickly create a Default btn.
-                                </div>
-                                <div class="preview">
-                                    <table class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Subject1</th>
-                                                <th>Subject2</th>
-                                                <th>Subject3</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Contents1</td>
-                                                <td>Contents2</td>
-                                                <td>Contents3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Contents1</td>
-                                                <td>Contents2</td>
-                                                <td>Contents3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Contents1</td>
-                                                <td>Contents2</td>
-                                                <td>Contents3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Contents1</td>
-                                                <td>Contents2</td>
-                                                <td>Contents3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Contents1</td>
-                                                <td>Contents2</td>
-                                                <td>Contents3</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="preview">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Subject1</th>
+                                            <th>Subject2</th>
+                                            <th>Subject3</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="works-section works-section-padding">
+                            <h2 id="tables-hover-table" name="tables-hover-table">
+                                <a href="#tables-hover-table">
+                                    <span>HOVER TABLE</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;table class=&quot;table table-bordered table-hover&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;No&lt;/th&gt;                                 
+            &lt;th&gt;Subject1&lt;/th&gt;                                 
+            &lt;th&gt;Subject2&lt;/th&gt;                                 
+            &lt;th&gt;Subject3&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;                                 
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th&gt;1&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;2&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;3&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;4&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;                                 
+        &lt;tr&gt;
+            &lt;th&gt;5&lt;/th&gt;                                 
+            &lt;th&gt;Contents1&lt;/th&gt;                                 
+            &lt;th&gt;Contents2&lt;/th&gt;                                 
+            &lt;th&gt;Contents3&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.table-hover</span>,
+                                If you want to give mouse hover effect at each of rows.
+                            </div>
+                            <div class="preview">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Subject1</th>
+                                            <th>Subject2</th>
+                                            <th>Subject3</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Contents1</td>
+                                            <td>Contents2</td>
+                                            <td>Contents3</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

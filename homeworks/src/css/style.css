@@ -1,0 +1,228 @@
+﻿@font-face {
+ font-family: 'Nanum Square';
+ src: url(../fonts/NanumSquare/NanumSquareR.eot);
+ src: url(../fonts/NanumSquare/NanumSquareR.eot?#iefix) format('embedded-opentype'),
+      url(../fonts/NanumSquare/NanumSquareR.woff) format('woff'),
+      url(../fonts/NanumSquare/NanumSquareR.ttf) format('truetype');
+}
+
+@import url('https://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
+
+html, body {
+    font-family: 'Open Sans', 'Nanum Square', sans-serif;
+}
+
+body {
+    background-color: #e3e6eb;
+}
+
+.works-content .header-divider {
+    border-bottom: 1px solid #c6c9cd;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    color: #333333 !important;
+}
+
+h1 > *,
+h2 > *,
+h3 > *,
+h4 > *,
+h5 > *,
+h6 > * {
+    vertical-align: middle !important;
+}
+
+h1 i,
+h2 i,
+h3 i,
+h4 i,
+h5 i,
+h6 i {
+    color: #111111 !important;
+    font-weight: 600 !important;
+    font-size: 75%;
+    margin-left: .4em;
+    margin-top: .05em;
+    opacity: 0;
+    transition: opacity .3s ease;
+    -o-transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    -webkit-transition: opacity .3s ease;
+}
+
+h1:hover i,
+h2:hover i,
+h3:hover i,
+h4:hover i,
+h5:hover i,
+h6:hover i {
+    opacity: 1;
+}
+
+.code-description {
+    margin-bottom: 1em;
+}
+
+.preview {
+    margin-bottom: 1.6em;
+    text-align: center;
+}
+
+.preview .preview-description {
+    margin-top: .6em;
+    font-size: 110%;
+}
+
+.preview:after,
+.preview:before {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+.preview .btn {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.preview .col .btn,
+.preview .col-md .btn {
+    width: 95%;
+}
+
+.preview:last-child {
+    margin-bottom: 0;
+}
+
+.preview.preview-left {
+    text-align: left;
+}
+
+.preview .preview-fill {
+    background-color: #e3e6eB;
+}
+
+.preview .row {
+    border-spacing: 1px;
+}
+
+.preview .col-1,
+.preview .col-2,
+.preview .col-3,
+.preview .col-4,
+.preview .col-5,
+.preview .col-6,
+.preview .col-7,
+.preview .col-8,
+.preview .col-9,
+.preview .col-10,
+.preview .col-11,
+.preview .col-12,
+.preview .col-md-1,
+.preview .col-md-2,
+.preview .col-md-3,
+.preview .col-md-4,
+.preview .col-md-5,
+.preview .col-md-6,
+.preview .col-md-7,
+.preview .col-md-8,
+.preview .col-md-9,
+.preview .col-md-10,
+.preview .col-md-11,
+.preview .col-md-12 {
+    height: 5.2em;
+    text-align: center;
+}
+
+.preview > :last-child {
+    margin-bottom: 0;
+}
+
+.preview .floating {
+    line-height: 4.4em;
+    margin: 0 auto;
+}
+
+.preview .floating i {
+    margin-right: -.1em;
+}
+
+.view-source {
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin: 1.6em 0;
+    background: #e2e2e2;
+    position: relative;
+    color: #333333;
+    text-decoration: none;
+}
+
+.view-source:before {
+    display: block;
+    position: absolute;
+    content: '\e688';
+    font-family: 'Pe-icon-7-stroke';
+    left: 50%;
+    font-size: 160%;
+    width: 1.6em;
+    height: 1.6em;
+    top: -.8em;
+    z-index: 5;
+    font-weight: 600;
+    line-height: 1.6em;
+    border-radius: 50%;
+    background-color: #f8f8f8;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    -o-box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+}
+
+.view-source:after {
+    content: 'View Source';
+    display: block;
+    padding: .4em .6em;
+    position: absolute;
+    background-color: #f8f8f8;
+    color: #999999;
+    position: absolute;
+    right: 0;
+    top: -.95em;
+    z-index: 5;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    -o-box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+}
+
+.view-source.view-source-no-padding {
+    margin-bottom: 0;
+}
+
+.view-source.active:before {
+    content: '\e682';
+}
+
+.view-source.active:after {
+    content: 'Hide Source';
+}
+
+pre {
+    display: none;
+    margin-bottom: 1.6em !important;
+}
+
+pre code {
+    display: block;
+    padding: 2.4em 3.2em;
+}
