@@ -242,3 +242,16 @@ pre code .token.value {
 pre code .token.punctuation {
     color: #5a5f78;
 }
+
+.homeworks-char {
+    width: 4em;
+    height: 4em;
+    margin: 0 auto 1.6em;
+    background: url('https://static.c-intelligence.com/resources/homeworks/homeworks_typo_character_v1.png') no-repeat center center scroll #242831;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, .05) inset;
+    -o-box-shadow: 0 4px 12px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, .05) inset;
+    -moz-box-shadow: 0 4px 12px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, .05) inset;
+    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, .05) inset;
+    text-indent: -1000px;
+    overflow: hidden;
+}

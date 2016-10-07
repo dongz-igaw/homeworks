@@ -2,9 +2,14 @@
  *= [                   HOMEWORKS JS                     ] =
  *==========================================================
  *= @ UPDATE  2016-10-07                                   =
- *= @ VERSION v2.0.1                                       =
  *= @ AUTHOR  Kenneth                                      =
  *=========================================================*/
+
+window.HOMEWORKS_VERSION = '2.0.2';
+var VERSION = '@@VERSION';
+if (VERSION.replace(/@/g, '') !== 'VERSION') {
+    window.HOMEWORKS_VERSION = VERSION;
+}
 
 (function () {
     var _standardVariables = {}; // Works standard global variables.

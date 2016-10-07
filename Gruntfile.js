@@ -64,6 +64,26 @@ module.exports = function(grunt) {
     csslint: {
       dist: ['src/css/**.css']
     },
+    replace: {
+      dist: {
+        options: {
+          patterns: [
+            {
+              match: 'VERSION',
+              replacement: '<%= pkg.version %>'
+            }
+          ]
+        },
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: ['dist/**.js'],
+            dest: 'dist/'
+          }
+        ]
+      }
+    },
     watch: {
       files: ['<%= jshint.files %>'],
       tasks: ['jshint']
@@ -75,6 +95,7 @@ module.exports = function(grunt) {
   // ===========================================================================
   // we can only load these if they are in our package.json
   // make sure you have run npm install so our app can find these
+  grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -83,7 +104,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default', ['jshint', 'csslint', 'uglify', 'cssmin']);
+  grunt.registerTask('default', ['jshint', 'csslint', 'uglify', 'cssmin', 'replace']);
+  grunt.registerTask('replacement', ['replace']);
   grunt.registerTask('test', ['jshint', 'csslint']);
   grunt.registerTask('copy', ['copy']);
 };

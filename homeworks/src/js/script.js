@@ -16,5 +16,10 @@
         }
     });
 
-    $()
+    !(function() {
+        if (typeof HOMEWORKS_VERSION !== 'undefined') {
+            var VERSION = 'v' + HOMEWORKS_VERSION;
+            $('strong.homeworks-version').text(VERSION);
+        }
+    }());
 });
