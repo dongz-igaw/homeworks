@@ -27,3 +27,24 @@
 ----
 
 - 파일 내에 래핑된 Docs 페이지 [`homeworks/index.html`](https://github.com/IGAWorksDev/HomeWorksFramework/blob/master/homeworks/index.html) 참고하여 주시기 바랍니다.
+
+```htmlshell
+  ─┬ homeworks repository
+   │
+   ├─┬ src
+   │　│ 
+   │　├┬ js
+   │　│└─ `homeworks.js`     <!-- Original script file. -->
+   │　└┬ css
+   │　　└─`homeworks.css`    <!-- Original style sheet file. -->
+   │
+   ├─┬ dist
+   │　│ 
+   │　├─ `homeworks.min.js`  <!-- Distributed script file. -->
+   │　└─ `homeworks.min.css` <!-- Distributed style sheet file. -->
+   │
+   └─┬ vender
+     │
+     └┬ js
+      └─ jquery-1.12.2.min.js
+```
