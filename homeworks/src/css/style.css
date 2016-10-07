@@ -67,7 +67,8 @@ h6:hover i {
 }
 
 .code-description {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
+    line-height: 2;
 }
 
 .preview {
@@ -86,6 +87,15 @@ h6:hover i {
     display: block;
     height: 0;
     clear: both;
+}
+
+.preview .modal {
+    width: 60%;
+    max-width: 800px;
+}
+
+.preview .modal .modal-header {
+    text-align: left;
 }
 
 .preview .btn {
@@ -254,4 +264,158 @@ pre code .token.punctuation {
     -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, .05) inset;
     text-indent: -1000px;
     overflow: hidden;
+}
+
+.pagination {
+    text-align: center;
+}
+
+.layout {
+    max-width: 840px;
+    height: 640px;
+    width: 80%;
+    margin: 0 auto;
+    background-color: #f1f1f1;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .25);
+    -o-box-shadow: 0 3px 12px rgba(0, 0, 0, .25);
+    -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .25);
+    -wekit-box-shadow: 0 3px 12px rgba(0, 0, 0, .25);
+}
+
+.layout-description-depth1,
+.layout-description-depth2,
+.layout-description-depth3,
+.layout-description-depth4 {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 5;
+}
+
+.layout-description-depth1 {
+    color: #ff5656;
+}
+
+.layout-description-depth2 {
+    color: #5369e3;
+
+}
+
+.layout-description-depth3 {
+    color: #555555;
+}
+
+.layout-description-depth4 {
+    left: 20px;
+    right: auto;
+    color: #61687a;
+}
+
+.layout-sider {
+    width: 200px;
+    background-color: #f8f8f8;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .25);
+    transform: translate3d(-210px, 0, 0);
+    -o-transform: translate3d(-210px, 0, 0);
+    -moz-transform: translate3d(-210px, 0, 0);
+    -webkit-transform: translate3d(-210px, 0, 0);
+    transition: transform .3s ease, -webkit-transform .3s ease;
+    -o-transition: transform .3s ease, -webkit-transform .3s ease;
+    -moz-transition: transform .3s ease, -webkit-transform .3s ease;
+    -webkit-transition: transform .3s ease, -webkit-transform .3s ease;
+}
+
+.layout-sider .layout-logo {
+    height: 80px;
+    background-color: #b2b2b2;
+    position: relative;
+}
+
+.layout-wrapper {
+    transition: transform .3s ease, -webkit-transform .3s ease;
+    -o-transition: transform .3s ease, -webkit-transform .3s ease;
+    -moz-transition: transform .3s ease, -webkit-transform .3s ease;
+    -webkit-transition: transform .3s ease, -webkit-transform .3s ease;
+    transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    position: relative;
+    height: 100%;
+}
+
+.layout.layout-active .layout-sider {
+    transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.layout.layout-active .layout-wrapper {
+    transform: translate3d(200px, 0, 0);
+    -o-transform: translate3d(200px, 0, 0);
+    -moz-transform: translate3d(200px, 0, 0);
+    -webkit-transform: translate3d(200px, 0, 0);
+}
+
+.layout-header {
+    height: 80px;
+    background-color: #dfdfdf;
+    position: relative;
+    z-index: 5;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+}
+
+.layout-content {
+    position: absolute;
+    top: 80px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.layout-container {
+    padding: 40px;
+}
+
+.layout-container .layout-section {
+    height: 80px;
+    margin-bottom: 16px;
+    background-color: #ffffff;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+    -o-box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+    -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+    -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+}
+
+.layout-footer {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    left: 0;
+    bottom: 0;
+    background-color: #d2d2d2;
+    z-index: 5;
+}
+
+.layout-footer .layout-floating {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    right: 120px;
+    top: -20px;
+    background-color: #a0a0a0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .375);
+    -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .375);
+    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .375);
+    -wekit-box-shadow: 0 2px 5px rgba(0, 0, 0, .375);
 }

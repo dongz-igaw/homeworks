@@ -152,10 +152,23 @@ a:active {
 }
 
 .works-footer {
+    margin-top: 4em;
     padding: 3.2em 0;
     text-align: center;
     background-color: #242831;
     color: #999999;
+    position: relative;
+}
+
+.works-footer .floating-top {
+    position: absolute;
+    top: -2.1em;
+    right: 12em;
+    line-height: 4.8em;
+}
+
+.works-footer .floating-top i {
+    font-size: 180%;
 }
 
 .works-footer a {
@@ -1275,11 +1288,20 @@ a:active {
 }
 
 .modal .modal-header .btn-close {
+    display: block;
+    width: 1.4em;
+    height: 1.4em;
+    text-align: center;
+    line-height: 1.4em;
     color: #414141;
     position: absolute;
     right: .6em;
     top: .4em;
     font-size: 200%;
+}
+
+.modal .modal-header .btn-close i {
+    line-height: inherit;
 }
 
 .modal .modal-header .btn-close:hover {
@@ -2589,7 +2611,7 @@ pre {
 }
 
 .btn-cobalt:hover {
-    background-color: #5f6270;
+    background-color: #61687a;
     color: #ffffff;
 }
 
@@ -2694,7 +2716,7 @@ pre {
 }
 
 .btn-force:hover {
-    background-color: #555555;
+    background-color: #616161;
     color: #ffffff;
 }
 
@@ -2782,21 +2804,21 @@ pre {
     line-height: 4.2em;
     background-color: #fafafa;
     outline: none;
-    transition: box-shadow .3s ease;
-    -o-transition: box-shadow .3s ease;
-    -moz-transition: box-shadow .3s ease;
-    -webkit-transition: box-shadow .3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .5);
-    -o-box-shadow: 0 4px 12px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 0 4px 12px rgba(0, 0, 0, .5);
-    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, .5);
+    transition: box-shadow .3s ease, background-color .3s ease;
+    -o-transition: box-shadow .3s ease, background-color .3s ease;
+    -moz-transition: box-shadow .3s ease, background-color .3s ease;
+    -webkit-transition: box-shadow .3s ease, background-color .3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .75), 0 1px 0 rgba(255, 255, 255, .25) inset;
+    -o-box-shadow: 0 4px 12px rgba(0, 0, 0, .75), 0 1px 0 rgba(255, 255, 255, .25) inset;
+    -moz-box-shadow: 0 4px 12px rgba(0, 0, 0, .75), 0 1px 0 rgba(255, 255, 255, .25) inset;
+    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, .75), 0 1px 0 rgba(255, 255, 255, .25) inset;
 }
 
 .floating:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .75);
-    -o-box-shadow: 0 4px 12px rgba(0, 0, 0, .75);
-    -moz-box-shadow: 0 4px 12px rgba(0, 0, 0, .75);
-    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, .75);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 1);
+    -o-box-shadow: 0 4px 12px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0 4px 12px rgba(0, 0, 0, 1);
+    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 1);
 }
 
 .floating i {
@@ -2812,29 +2834,59 @@ pre {
     background-color: #4b5fcd;
 }
 
+.floating.floating-primary:hover {
+    background-color: #6d7fe7;
+}
+
 .floating.floating-cobalt {
     background-color: #525a68;
 }
 
+.floating.floating-cobalt:hover {
+    background-color: #61687a;
+}
+
+
 .floating.floating-success {
     background-color: #52a112;
+}
+
+
+.floating.floating-success:hover {
+    background-color: #6abf20;
 }
 
 .floating.floating-danger {
     background-color: #f06458;
 }
 
+.floating.floating-danger:hover {
+    background-color: #ff6a5d;
+}
+
 .floating.floating-alert {
     background-color: #f7894e;
+}
+
+.floating.floating-alert:hover {
+    background-color: #ff9855;
 }
 
 .floating.floating-notice {
     background-color: #34b8f7;
 }
 
+.floating.floating-notice:hover {
+    background-color: #3bc8ff;
+}
+
 .floating.floating-force {
     background-color: #4e4e4e;
     color: #ffffff;
+}
+
+.floating.floating-force:hover {
+    background-color: #616161;
 }
 
 .floating.floating-default i,
