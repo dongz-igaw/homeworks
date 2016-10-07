@@ -8,7 +8,7 @@
 
 ## Getting Start
 
-- [가이드라인 바로가기](http://campaignintelligence-dev.ap-northeast-1.elasticbeanstalk.com/Content/homeworks/homeworks/)
+- [가이드라인 바로가기](http://campaignintelligence-dev.ap-northeast-1.elasticbeanstalk.com/Content/homeworks/homeworks/docs/)
 - 자세한 내용은 [HomeWorks WIKI](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)를 이용해주시기 바랍니다.
 
 ## Note
