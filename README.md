@@ -13,5 +13,13 @@
 
 ## Note
 
-- 가이드를 위해 시안 작업 진행 중.
-- 기존에 안내되었던 가이드 문구는 현재 사용하지 않습니다. (버전 업데이트로 인한 안내사항)
+- 설치 가이드가 아직 가이드문서에 포함되지 않아 이곳에 간략히 정리합니다.
+```html
+  <!-- HomeWorks에서는 jQuery 라이브러리를 요구합니다. 1.11.1 이상으로 불러와주시기 바랍니다. -->
+  <script src="vender/js/jquery-1.12.2.min.js"></script>
+  
+
+  <!-- 아래 두가지 파일이 HomeWorks에서 사용되는 최소 파일입니다. -->
+  <script src="dist/homeworks.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="dist/homeworks.min.css" />
+```
