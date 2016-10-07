@@ -1,6 +1,6 @@
 {
   "name": "HomeWorksFramework",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "> IGAWorks Inc, Front End-side framework.",
   "main": "Gruntfile.js",
   "scripts": {

@@ -17,7 +17,6 @@
 ::-webkit-scrollbar-thumb {
     background-color: #4a4d58;
     border-radius: 2.5px;
-    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.75);
 }
 
 ::-webkit-scrollbar-corner {
@@ -309,6 +308,18 @@ a:active {
 
 .works-header .works-header-inner .works-header-action i {
     margin-top: .05em;
+}
+
+.works-header .works-header-inner .works-header-action .works-header-button {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: middle;
+    margin-right: .6em;
+}
+
+.works-header .works-header-inner .works-header-action .btn {
+    margin: 0 .2em;
 }
 
 .works-content .works-top {
@@ -704,88 +715,127 @@ a:active {
     -webkit-box-sizing: border-box;
 }
 
-.works-sider .works-sider-title {
-    padding: 16px 20px;
+.works-sider .works-sider-menu {
+    padding: 24px 20px;
     background-color: #2d323e;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.works-sider .works-sider-menu.active,
+.works-sider .works-sider-menu:hover {
+    background-color: #5369e3;
+}
+
+.works-sider .works-sider-group .works-sider-menu {
+    padding: 16px 20px;
+    font-size: 13px;
     color: #b3b9c7;
 }
 
-.works-sider .works-sider-title > span {
+.works-sider .works-sider-group .works-sider-menu > span {
     font-size: 100%;
 }
 
-.works-sider .works-sider-title:hover {
+.works-sider .works-sider-group .works-sider-menu.active,
+.works-sider .works-sider-group .works-sider-menu:hover {
     background-color: #3c4353;
     border-left: 5px solid #5369e3;
     padding-left: 15px;
 }
 
 .works-sider .works-sider-group {
+    display: none;
+}
+
+.works-sider .works-sider-sub-group {
+    display: none;
     padding: 1.6em 0;
     background-color: #20242e;
 }
 
-.works-sider .works-sider-group > a {
+.works-sider .works-sider-sub-group > a {
     padding: 12px 20px;
     color: #ffffff;
 }
 
-.works-sider .works-sider-group > a.active {
+.works-sider .works-sider-sub-group > a.active {
     border-top: none;
     border-left: 3px solid #787b8a;
     background-color: #caccce;
     color: #383b4b;
 }
 
-.works-sider .works-sider-group > a:hover {
+.works-sider .works-sider-sub-group > a:hover {
     color: #889aff;
 }
 
-.works-sider .works-sider-group i {
+.works-sider .works-sider-sub-group i {
     color: #ffffff;
 }
 
-.works-sider .works-sider-group > a:last-child {
+.works-sider .works-sider-sub-group > a:last-child {
     border-bottom: none;
 }
 
-.works-sider .works-sider-title,
-.works-sider .works-sider-group > a {
+.works-sider .works-sider-menu,
+.works-sider .works-sider-sub-group > a {
     display: block;
     text-align: left;
     text-decoration: none;
 }
 
-.works-sider .works-sider-group > a span {
+.works-sider .works-sider-menu.works-sider-group-menu,
+.works-sider .works-sider-group .works-sider-menu.works-sider-sub-group-menu {
+    position: relative;
+}
+
+.works-sider .works-sider-group .works-sider-menu.works-sider-sub-group-menu.active {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.works-sider .works-sider-menu.works-sider-group-menu:after,
+.works-sider .works-sider-group .works-sider-menu.works-sider-sub-group-menu:after {
+    content: '\e684';
+    font-family: 'Pe-icon-7-stroke';
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 130%;
+    transition: transform .3s ease, -webkit-transform .3s ease;
+    -o-transition: transform .3s ease, -webkit-transform .3s ease;
+    -moz-transition: transform .3s ease, -webkit-transform .3s ease;
+    -webkit-transition: transform .3s ease, -webkit-transform .3s ease;
+}
+
+.works-sider .works-sider-menu.works-sider-group-menu:after {
+    top: 1.3em;
+}
+
+.works-sider .works-sider-menu.works-sider-group-menu.active:after,
+.works-sider .works-sider-group .works-sider-menu.works-sider-sub-group-menu.active:after {
+    transform: rotateZ(90deg);
+    -o-transform: rotateZ(90deg);
+    -moz-transform: rotateZ(90deg);
+    -webkit-transform: rotateZ(90deg);
+}
+
+.works-sider .works-sider-sub-group > a span {
     font-size: 95%;
 }
 
-.works-sider .works-sider-title i,
-.works-sider .works-sider-group i {
+.works-sider .works-sider-group .works-sider-menu i,
+.works-sider .works-sider-sub-group i {
     vertical-align: middle;
     font-size: 115%;
     margin-top: -.125em;
     margin-right: .4em;
 }
 
-.works-sider .works-sider-title span ,
-.works-sider .works-sider-group > a {
+.works-sider .works-sider-group .works-sider-menu span ,
+.works-sider .works-sider-sub-group > a {
     vertical-align: middle;
-}
-
-.works-sider .works-sider-title.active {
-    background-color: #585d6b;
-    border-left: 3px solid #787b8a;
-    border-bottom: none;
-}
-
-.works-sider .works-sider-title.active,
-.works-sider .works-sider-title.active i {
-    color: #ffffff;
-}
-
-.works-sider .works-sider-group> a.active:hover i {
-    color: #383b4b;
 }
 
 .works-content {

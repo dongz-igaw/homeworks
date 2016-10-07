@@ -1,8 +1,8 @@
 ﻿/*==========================================================
  *= [                   HOMEWORKS JS                     ] =
  *==========================================================
- *= @ UPDATE  2016-10-05                                   =
- *= @ VERSION v2.0.0                                       =
+ *= @ UPDATE  2016-10-07                                   =
+ *= @ VERSION v2.0.1                                       =
  *= @ AUTHOR  Kenneth                                      =
  *=========================================================*/
 
@@ -1577,5 +1577,33 @@
             this.step({
             });
         }).hook('step');
+
+        $('.works-sider .works-sider-group-menu').bind('click', function () {
+            var $this = $(this);
+            var $next = $this.next();
+            $this.toggleClass('active');
+            if ($next.is('.works-sider-group')) {
+                $next.stop();
+                if ($this.hasClass('active')) {
+                    $next.slideDown(300);
+                } else {
+                    $next.slideUp(300);
+                }
+            }
+        });
+
+        $('.works-sider .works-sider-sub-group-menu').bind('click', function () {
+            var $this = $(this);
+            var $next = $this.next();
+            $this.toggleClass('active');
+            if ($next.is('.works-sider-sub-group')) {
+                $next.stop();
+                if ($this.hasClass('active')) {
+                    $next.slideDown(300);
+                } else {
+                    $next.slideUp(300);
+                }
+            }
+        });
     });
 }());

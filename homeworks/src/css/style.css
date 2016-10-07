@@ -1,13 +1,13 @@
-﻿@font-face {
+﻿@import url('https://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
+
+@font-face {
  font-family: 'Nanum Square';
  src: url(../fonts/NanumSquare/NanumSquareR.eot);
  src: url(../fonts/NanumSquare/NanumSquareR.eot?#iefix) format('embedded-opentype'),
       url(../fonts/NanumSquare/NanumSquareR.woff) format('woff'),
       url(../fonts/NanumSquare/NanumSquareR.ttf) format('truetype');
 }
-
-@import url('https://fonts.googleapis.com/earlyaccess/nanumgothic.css');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
 
 html, body {
     font-family: 'Open Sans', 'Nanum Square', sans-serif;
