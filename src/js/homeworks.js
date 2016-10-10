@@ -1,11 +1,11 @@
 ﻿/*==========================================================
  *= [                   HOMEWORKS JS                     ] =
  *==========================================================
- *= @ UPDATE  2016-10-07                                   =
+ *= @ UPDATE  2016-10-10                                   =
  *= @ AUTHOR  Kenneth                                      =
  *=========================================================*/
 
-window.HOMEWORKS_VERSION = '2.0.4';
+window.HOMEWORKS_VERSION = '2.0.5';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
