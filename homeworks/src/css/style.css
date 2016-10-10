@@ -21,12 +21,12 @@ body {
     border-bottom: 1px solid #c6c9cd;
 }
 
-h1 a,
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a {
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a {
     color: #333333 !important;
 }
 
@@ -67,6 +67,8 @@ h6:hover i {
 }
 
 .code-description {
+    background-color: #f2f4f6;
+    padding: 1.6em;
     margin-bottom: 2em;
     line-height: 2;
 }
@@ -163,6 +165,83 @@ h6:hover i {
 
 .preview .floating i {
     margin-right: -.1em;
+}
+
+.preview .works-header {
+    position: relative;
+}
+
+.preview .works-sider {
+    position: relative;
+    min-height: 400px;
+    transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.preview .works-body { 
+    padding: 0;
+    text-align: left;
+}
+
+.preview .preview-color {
+    text-align: left;
+}
+
+.preview .preview-color .row {
+    margin-bottom: 30px;
+}
+
+.preview .preview-color .row:last-child {
+    margin-bottom: 0;
+}
+
+.preview .preview-color .color-group {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .5);
+}
+
+.preview .preview-color .color-group .color {
+    padding: .6em 1em;
+    position: relative;
+    border-bottom: 1px rgba(0, 0, 0, .25);
+    color: #000000;
+    cursor: pointer;
+}
+
+.preview .preview-color .color-group .color.color-dark {
+    color: #ffffff;
+}
+
+.preview .preview-color .color-group .color .color-title {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    min-width: 10em;
+    font-weight: 600;
+}
+
+.preview .preview-color .color-group .color .color-code {
+    padding-left: 1em;
+}
+
+.preview .preview-color .color-group .color .color-brightness {
+    float: right;
+    font-weight: 600;
+}
+
+.preview .works-body .works-content { 
+    position: relative;
+    top: auto;
+    left: auto;
+}
+
+.preview .works-body .works-footer .floating {
+    line-height: 4.8em;
+}
+
+.preview .works-body .works-footer .floating i {
+    margin: auto;
 }
 
 .view-source {
@@ -274,7 +353,6 @@ pre code .token.punctuation {
     max-width: 840px;
     height: 640px;
     width: 80%;
-    margin: 0 auto;
     background-color: #f1f1f1;
     position: relative;
     overflow: hidden;

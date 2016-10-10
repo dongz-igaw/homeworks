@@ -319,6 +319,7 @@ a:active {
     *display: inline;
     *zoom: 1;
     vertical-align: middle;
+    height: 70px;
     line-height: 70px;
     color: #555555;
     font-size: 14px;
@@ -711,6 +712,7 @@ a:active {
 }
 
 .works-body {
+    background-color: #e3e6eb;
     padding-top: 80px;
     overflow: hidden;
 }
@@ -947,6 +949,18 @@ a:active {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     overflow: visible;
+}
+
+.works-section .section-title {
+    height: 2.8em;
+    padding-top: 0;
+    line-height: 2.8em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.works-section .header-buttons {
+    font-size: 1rem;
 }
 
 .works-section-padding {

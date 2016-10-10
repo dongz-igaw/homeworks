@@ -12,6 +12,7 @@
     <link rel="shortcut icon" href="http://static.c-intelligence.com/resources/homeworks/homeworks_favicon.ico" media="image/x-icon" />
     <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
     <script src="../vender/prism.js"></script>
+    <script src="../vender/clipboard.min.js"></script>
     <script src="../../src/js/homeworks.js"></script>
     <script src="../src/js/script.js"></script>
     <script src="../src/js/main.js"></script>
@@ -149,7 +150,7 @@
                             <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;../../src/css/homeworks.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;src/css/homeworks.css&quot;&gt;
     &lt;script src=&quot;vender/jquery-1.12.1.js&quot;&gt;&lt;/script&gt;
     &lt;script src=&quot;src/js/homeworks.js&quot;&gt;&lt;/script&gt;
 &lt;/head&gt;
@@ -265,14 +266,76 @@
                                 </a>
                             </h2>
                             <a href="#" class="view-source"></a>
-                            <pre><code class="language-html">
-                            </code></pre>
+                            <pre><code class="language-html">&lt;div class=&quot;works-header&quot;&gt;
+    &lt;div class=&quot;works-header-inner&quot;&gt;
+        &lt;div class=&quot;works-header-action&quot;&gt;
+            &lt;a class=&quot;works-header-menu&quot; href=&quot;#&quot; data-ripple=&quot;dark&quot;&gt;
+                &lt;img src=&quot;../src/images/icon_menu_white.png&quot; alt=&quot;&quot; /&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;works-header-action works-header-menu&quot;&gt;
+            &lt;a href=&quot;#&quot; class=&quot;works-menu active&quot; data-ripple=&quot;dark&quot;&gt;MENU 1&lt;/a&gt;
+            &lt;a href=&quot;#&quot; class=&quot;works-menu&quot; data-ripple=&quot;dark&quot;&gt;MENU 2&lt;/a&gt;
+            &lt;a href=&quot;#&quot; class=&quot;works-menu&quot; data-ripple=&quot;dark&quot;&gt;MENU 3&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;works-header-action pull-right&quot;&gt;
+            &lt;div class=&quot;works-header-button&quot;&gt;
+                &lt;a href=&quot;#&quot; class=&quot;btn btn-sm btn-primary btn-material&quot; data-ripple=&quot;true&quot;&gt;
+                    PRIMARY BUTTON
+                &lt;/a&gt;
+                &lt;a href=&quot;#&quot; class=&quot;btn btn-sm btn-cobalt btn-material&quot; data-ripple=&quot;true&quot;&gt;
+                    SECOND BUTTON
+                &lt;/a&gt;
+            &lt;/div&gt;
+            &lt;a href=&quot;#&quot; class=&quot;btn-action&quot;&gt;
+                &lt;i class=&quot;pe-7s-search&quot;&gt;&lt;/i&gt;
+            &lt;/a&gt;
+            &lt;a href=&quot;#&quot; class=&quot;btn-action btn-bell&quot;&gt;
+                &lt;i class=&quot;pe-7s-bell&quot;&gt;&lt;/i&gt;
+                &lt;span class=&quot;bubble&quot;&gt;1&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
                             <div class="code-description">
-                                <!-- DESCRIPTION -->
+                                HEADER는 웹 페이지 최상단에 게시되는 메뉴 영역입니다.<br />
+                                <span class="label label-code">.works-header</span> 클래스를 사용하셔서 해당 영역을 구성 가능합니다.<br />
+                                자세한 부분은 위쪽 버튼을 클릭하셔서 샘플코드를 참고해주세요.<br />
+                                메뉴는 아래 샘플과 같이 일반 <span class="label label-code">GNB 메뉴</span>(Global Navigation Button)와 <span class="label label-code">PRIMARY, SECOND BUTTON</span>이 들어갑니다.<br />
+                                추가적으로 디자인 분리를 위해 ICON CIRCLE BUTTON을 추가하실 수 있습니다.<br />
+                                버튼 엘리먼트들에게 <span class="label label-code">data-ripple</span> 옵션을 사용하시면 누를 때 웨이브 효과를 주실 수 있습니다. *권장
                             </div>
                             <div class="preview">
-                                <div class="guide">
-                                    10.10 내용 추가 예정.
+                                <div class="works-header">
+                                    <div class="works-header-inner">
+                                        <div class="works-header-action">
+                                            <a class="works-header-menu" href="#" data-ripple="dark">
+                                                <img src="../src/images/icon_menu_white.png" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="works-header-action works-header-menu">
+                                            <a href="#" class="works-menu active" data-ripple="dark">MENU 1</a>
+                                            <a href="#" class="works-menu" data-ripple="dark">MENU 2</a>
+                                            <a href="#" class="works-menu" data-ripple="dark">MENU 3</a>
+                                        </div>
+                                        <div class="works-header-action pull-right">
+                                            <div class="works-header-button">
+                                                <a href="#" class="btn btn-sm btn-primary btn-material" data-ripple="true">
+                                                    PRIMARY BUTTON
+                                                </a>
+                                                <a href="#" class="btn btn-sm btn-cobalt btn-material" data-ripple="true">
+                                                    SECONDARY BUTTON
+                                                </a>
+                                            </div>
+                                            <a href="#" class="btn-action">
+                                                <i class="pe-7s-search"></i>
+                                            </a>
+                                            <a href="#" class="btn-action btn-bell">
+                                                <i class="pe-7s-bell"></i>
+                                                <span class="bubble">1</span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -284,14 +347,110 @@
                                 </a>
                             </h2>
                             <a href="#" class="view-source"></a>
-                            <pre><code class="language-html">
-</code></pre>
+                            <pre><code class="language-html">&lt;div class=&quot;works-sider&quot;&gt;
+    &lt;h1 class=&quot;works-sider-logo&quot;&gt;
+        &lt;img src=&quot;https://s3-ap-northeast-1.amazonaws.com/campaign.intelligence/static/resources/homeworks/homeworks_logo_basic_v1.png&quot; alt=&quot;Homeworks&quot; /&gt;
+    &lt;/h1&gt;
+    &lt;a href=&quot;#&quot; class=&quot;works-sider-menu active&quot;&gt;PRIMARY MENU #1&lt;/a&gt;
+    &lt;a href=&quot;#&quot; class=&quot;works-sider-menu works-sider-group-menu&quot;&gt;PRIMARY MENU #2&lt;/a&gt;
+    &lt;div class=&quot;works-sider-group&quot;&gt;
+        &lt;a href=&quot;#&quot; class=&quot;works-sider-menu&quot; data-ripple=&quot;true&quot;&gt;
+            &lt;span&gt;SECONDARY MENU #1&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;a href=&quot;#&quot; class=&quot;works-sider-menu works-sider-sub-group-menu&quot; data-ripple=&quot;true&quot;&gt;
+            &lt;span&gt;SECONDARY MENU #2&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;div class=&quot;works-sider-sub-group&quot;&gt;
+            &lt;a href=&quot;#/&quot; data-ripple=&quot;dark&quot;&gt;
+                &lt;span&gt;THIRD MENU #1&lt;/span&gt;
+            &lt;/a&gt;
+            &lt;a href=&quot;#/&quot; data-ripple=&quot;dark&quot;&gt;
+                &lt;span&gt;THIRD MENU #2&lt;/span&gt;
+            &lt;/a&gt;
+            &lt;a href=&quot;#/&quot; data-ripple=&quot;dark&quot;&gt;
+                &lt;span&gt;THIRD MENU #3&lt;/span&gt;
+            &lt;/a&gt;
+            &lt;a href=&quot;#/&quot; data-ripple=&quot;dark&quot;&gt;
+                &lt;span&gt;THIRD MENU #4&lt;/span&gt;
+            &lt;/a&gt;
+            &lt;a href=&quot;#/&quot; data-ripple=&quot;dark&quot;&gt;
+                &lt;span&gt;THIRD MENU #5&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;a href=&quot;#&quot; class=&quot;works-sider-menu&quot; data-ripple=&quot;true&quot;&gt;
+            &lt;span&gt;SECONDARY MENU #3&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;a href=&quot;#&quot; class=&quot;works-sider-menu&quot; data-ripple=&quot;true&quot;&gt;
+            &lt;span&gt;SECONDARY MENU #4&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;a href=&quot;#&quot; class=&quot;works-sider-menu&quot; data-ripple=&quot;true&quot;&gt;
+            &lt;span&gt;SECONDARY MENU #5&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;a href=&quot;#&quot; class=&quot;works-sider-menu&quot; data-ripple=&quot;true&quot;&gt;
+            &lt;span&gt;SECONDARY MENU #6&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;a href=&quot;#&quot; class=&quot;works-sider-menu&quot; data-ripple=&quot;true&quot;&gt;
+            &lt;span&gt;SECONDARY MENU #7&lt;/span&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;a href=&quot;#&quot; class=&quot;works-sider-menu&quot;&gt;PRIMARY MENU #3&lt;/a&gt;
+&lt;/div&gt;</code></pre>
                             <div class="code-description">
-                                <!-- DESCRIPTION -->
+                                SIDEBAR는 웹 페이지 좌측에 게시되는 메뉴 영역입니다.<br />
+                                <span class="label label-code">.works-sider</span> 클래스를 사용하셔서 해당 영역을 구성 가능합니다.<br />
+                                자세한 부분은 위쪽 버튼을 클릭하셔서 샘플코드를 참고해주세요.<br />
+                                <strong>HOMEWORKS&trade;</strong>에서는 총 3단계 깊이의 메뉴 종류를 지원합니다.<br />
+                                아래 샘플을 확인하시면 메뉴 중 일부가 그룹을 가지고 있는 것을 확인 가능합니다.<br />
+                                버튼 엘리먼트들에게 <span class="label label-code">data-ripple</span> 옵션을 사용하시면 누를 때 웨이브 효과를 주실 수 있습니다. *권장
                             </div>
                             <div class="preview">
-                                <div class="guide">
-                                    10.10 내용 추가 예정.
+                                <div class="works-sider">
+                                    <h1 class="works-sider-logo">
+                                        <img src="https://s3-ap-northeast-1.amazonaws.com/campaign.intelligence/static/resources/homeworks/homeworks_logo_basic_v1.png" alt="Homeworks" />
+                                    </h1>
+                                    <a href="#" class="works-sider-menu active">PRIMARY MENU #1</a>
+                                    <a href="#" class="works-sider-menu works-sider-group-menu">PRIMARY MENU #2</a>
+                                    <div class="works-sider-group">
+                                        <a href="#" class="works-sider-menu" data-ripple="true">
+                                            <span>SECONDARY MENU #1</span>
+                                        </a>
+                                        <a href="#" class="works-sider-menu works-sider-sub-group-menu" data-ripple="true">
+                                            <span>SECONDARY MENU #2</span>
+                                        </a>
+                                        <div class="works-sider-sub-group">
+                                            <a href="#/" data-ripple="dark">
+                                                <span>THIRD MENU #1</span>
+                                            </a>
+                                            <a href="#/" data-ripple="dark">
+                                                <span>THIRD MENU #2</span>
+                                            </a>
+                                            <a href="#/" data-ripple="dark">
+                                                <span>THIRD MENU #3</span>
+                                            </a>
+                                            <a href="#/" data-ripple="dark">
+                                                <span>THIRD MENU #4</span>
+                                            </a>
+                                            <a href="#/" data-ripple="dark">
+                                                <span>THIRD MENU #5</span>
+                                            </a>
+                                        </div>
+                                        <a href="#" class="works-sider-menu" data-ripple="true">
+                                            <span>SECONDARY MENU #3</span>
+                                        </a>
+                                        <a href="#" class="works-sider-menu" data-ripple="true">
+                                            <span>SECONDARY MENU #4</span>
+                                        </a>
+                                        <a href="#" class="works-sider-menu" data-ripple="true">
+                                            <span>SECONDARY MENU #5</span>
+                                        </a>
+                                        <a href="#" class="works-sider-menu" data-ripple="true">
+                                            <span>SECONDARY MENU #6</span>
+                                        </a>
+                                        <a href="#" class="works-sider-menu" data-ripple="true">
+                                            <span>SECONDARY MENU #7</span>
+                                        </a>
+                                    </div>
+                                    <a href="#" class="works-sider-menu">PRIMARY MENU #3</a>
                                 </div>
                             </div>
                         </div>
@@ -302,15 +461,97 @@
                                     <i class="pe-7s-link"></i>
                                 </a>
                             </h2>
-                            <div class="code-description">
-                                <!-- DESCRIPTION -->
-                            </div>
                             <a href="#" class="view-source"></a>
-                            <pre><code class="language-html">
- </code></pre>
+                            <pre><code class="language-html">&lt;div class=&quot;works-body&quot;&gt;
+    &lt;div class=&quot;works-content&quot;&gt;
+        &lt;div class=&quot;works-container&quot;&gt;
+            &lt;h1 class=&quot;header-divider&quot;&gt;
+                &lt;span&gt;Page Title&lt;/span&gt;
+                &lt;span class=&quot;header-buttons pull-right&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;btn btn-primary&quot; data-ripple=&quot;dark&quot;&gt;SECTION BUTTON&lt;/a&gt;
+                &lt;/span&gt;
+            &lt;/h1&gt;
+            &lt;div class=&quot;works-section works-section-transparent&quot;&gt;
+                &lt;div class=&quot;row row-stech&quot;&gt;
+                    &lt;div class=&quot;col-pd-6&quot;&gt;
+                        &lt;div class=&quot;works-section works-section-padding&quot;&gt;
+                            &lt;h2 class=&quot;section-title&quot;&gt;DRIVEN SECTION TITLE&lt;/h2&gt;
+                            &lt;div class=&quot;works-article&quot;&gt;
+                                DRIVEN SECTION #1
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;col-pd-6&quot;&gt;
+                        &lt;div class=&quot;works-section works-section-padding&quot;&gt;
+                            &lt;h2 class=&quot;section-title&quot;&gt;DRIVEN SECTION TITLE&lt;/h2&gt;
+                            &lt;div class=&quot;works-article&quot;&gt;
+                                DRIVEN SECTION #2
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;works-section&quot;&gt;
+                &lt;div class=&quot;works-section works-section-padding&quot;&gt;
+                    SECTION CONTENTS #1
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;works-section&quot;&gt;
+                &lt;div class=&quot;works-section works-section-padding&quot;&gt;
+                    SECTION CONTENTS #2
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                            <div class="code-description">
+                                BODY는 웹 페이지 콘텐츠를 보여주는 메인 영역입니다.<br />
+                                <span class="label label-code">.works-body</span> 클래스를 사용하셔서 해당 영역을 구성 가능합니다.<br />
+                                BODY 내부의 콘텐츠는 모두 <span class="label label-code">section</span>과 <label class="label label-code">article</label>로 구성됩니다.<br />
+                                아래 샘플을 참고하시기 바랍니다.
+                            </div>
                             <div class="preview">
-                                <div class="guide">
-                                    10.10 내용 추가 예정.
+                                <div class="works-body">
+                                    <div class="works-content">
+                                        <div class="works-container">
+                                            <h1 class="header-divider">
+                                                <span>Page Title</span>
+                                                <span class="header-buttons pull-right">
+                                                    <a href="#" class="btn btn-primary" data-ripple="dark">SECTION BUTTON</a>
+                                                </span>
+                                            </h1>
+                                            <div class="works-section works-section-transparent">
+                                                <div class="row row-stech">
+                                                    <div class="col-pd-6">
+                                                        <div class="works-section works-section-padding">
+                                                            <h2 class="section-title">DRIVEN SECTION TITLE</h2>
+                                                            <div class="works-article">
+                                                                DRIVEN SECTION #1
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-pd-6">
+                                                        <div class="works-section works-section-padding">
+                                                            <h2 class="section-title">DRIVEN SECTION TITLE</h2>
+                                                            <div class="works-article">
+                                                                DRIVEN SECTION #2
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="works-section">
+                                                <div class="works-section works-section-padding">
+                                                    SECTION CONTENTS #1
+                                                </div>
+                                            </div>
+                                            <div class="works-section">
+                                                <div class="works-section works-section-padding">
+                                                    SECTION CONTENTS #2
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -321,15 +562,41 @@
                                     <i class="pe-7s-link"></i>
                                 </a>
                             </h2>
-                            <div class="code-description">
-                                <!-- DESCRIPTION -->
-                            </div>
                             <a href="#" class="view-source"></a>
-                            <pre><code class="language-html">
- </code></pre>
+                            <pre><code class="language-html">&lt;div class=&quot;works-body&quot;&gt;
+    &lt;div class=&quot;works-content&quot;&gt;
+        &lt;div class=&quot;works-footer&quot;&gt;
+            &lt;a href=&quot;#&quot; class=&quot;floating floating-primary floating-top&quot; data-ripple=&quot;true&quot;&gt;
+                &lt;i class=&quot;pe-7s-angle-up&quot;&gt;&lt;/i&gt;
+            &lt;/a&gt;
+            &lt;div class=&quot;homeworks-char&quot;&gt;HomeWorks&lt;/div&gt;
+            &lt;div class=&quot;works-copyright&quot;&gt;
+                &lt;span&gt;Lisense Under &lt;a href=&quot;../License.txt&quot; target=&quot;_blank&quot;&gt;LISENSE Docs&lt;/a&gt;&lt;/span&gt;
+                &lt;span&gt;Version &lt;strong class=&quot;homeworks-version&quot;&gt;&lt;/strong&gt;&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                            <div class="code-description">
+                                FOOTER는 웹 페이지 하단에 게시되는 영역입니다.<br />
+                                상단 페이지 이동을 돕는 플로팅 버튼과, 카피라이터, 연락 정보와 버전에 대한 내용을 기재하실 수 있습니다.<br />
+                                <span class="label label-code">.works-footer</span> 클래스를 이용하여 해당 영역을 구성 가능하며,
+                                해당 영역은 구조상 <span class="label label-code">.works-body</span> 하위에 포함되어야 합니다.
+                            </div>
                             <div class="preview">
-                                <div class="guide">
-                                    10.10 내용 추가 예정.
+                                <div class="works-body">
+                                    <div class="works-content">
+                                        <div class="works-footer">
+                                            <a href="#" class="floating floating-primary floating-top" data-ripple="true">
+                                                <i class="pe-7s-angle-up"></i>
+                                            </a>
+                                            <div class="homeworks-char">HomeWorks</div>
+                                            <div class="works-copyright">
+                                                <span>Lisense Under <a href="../License.txt" target="_blank">LISENSE Docs</a></span>
+                                                <span>Version <strong class="homeworks-version"></strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

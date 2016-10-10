@@ -5,7 +5,7 @@
  *= @ AUTHOR  Kenneth                                      =
  *=========================================================*/
 
-window.HOMEWORKS_VERSION = '2.0.3';
+window.HOMEWORKS_VERSION = '2.0.4';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -282,6 +282,21 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
                 if (arg.length > 0 && self == window) {
                     // Global basic function type - Function()
+                    var _localVariables = this.data;
+
+                    if (typeof this === 'object') {
+                        if (typeof _localVariables === 'undefined') {
+                            _localVariables = {
+                                '_init': false,
+                                '_prototype': {},
+                            };
+                            this.data = _localVariables;
+                            $.extend(_localVariables._prototype, _this.method);
+                        }
+                    }
+                    var context = $.extend(window, {
+                        local: _localVariables,
+                    }, _componentVariables);
                     _this.method.init.apply(context, Array.prototype.slice.call(arg));
                 } else {
                     // By element channing method type - Elem.method()
@@ -947,7 +962,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                             paddingTop: '1em',
                             paddingBottom: '1em',
                             marginBottom: '1em',
-                        }, 300, 'easeInOutQuad');
+                        }, 300);
                         $toast.height(height);
                         setTimeout(function () {
                             $toast.remove();

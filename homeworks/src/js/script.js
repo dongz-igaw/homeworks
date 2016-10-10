@@ -16,6 +16,22 @@
         }
     });
 
+    var clipboard = new Clipboard('[data-clipboard]', {
+        text: function (trigger) {
+            var value = null;
+            if (typeof trigger.dataset !== 'undefined' && typeof trigger.dataset.clipboard !== 'undefined') {
+                value = trigger.dataset.clipboard;
+            } else {
+                value = trigger.getAttribute('data-clipboard');
+            }
+            return value || null;
+        }
+    });
+
+    clipboard.on('success', function (e) {
+        toast(e.text + ' Copied.');
+    });
+
     !(function() {
         if (typeof HOMEWORKS_VERSION !== 'undefined') {
             var VERSION = 'v' + HOMEWORKS_VERSION;
