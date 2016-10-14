@@ -95,12 +95,13 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 },
                 global: {}
             };
+
             this.preference.id = id;
             this.preference.global = _superVariables[id];
-            this.preference.$helper = new HomeWorksHelper(context);
+            this.preference.$helper = new HomeWorksHelper(context, this.preference);
         }
 
-        function HomeWorksHelper(context) {
+        function HomeWorksHelper(context, data) {
             /*=================================================
              *= NOTE - HOMEWORKS Component shared feature.
              *= DATE - 2016-01-19
@@ -108,6 +109,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             var _this = context;
 
             this.promise = function (name, callback, time, invoke) {
+                var self = this;
                 if (typeof name === 'function' && typeof callback === 'number') {
                     time = callback;
                     callback = name;
@@ -122,7 +124,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     try {
                         delete _promiseVariables[_this.framework + '.' + name];
                     } catch (e) {
-                        _this.$helper.log(e);
+                        self.log(e);
                     }
                     if (typeof callback === 'function') {
                         callback();
@@ -147,7 +149,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             };
 
             this.log = function (m, c) {
-                if (_this.data._debug === true) {
+                if (_this._debug === true) {
                     var t = m;
                     if (typeof c !== 'undefined' && c !== null) {
                         t = '[' + c + '] ' + t;
@@ -159,16 +161,25 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             this.parseTemplate = function (n, map) {
                 var data = _this.template[n];
                 if (typeof data === 'undefined') {
-                    _this.$helper.log("'" + n + "' 이름의 템플릿이 확인되지 않습니다.");
+                    this.log("'" + n + "' 이름의 템플릿이 확인되지 않습니다.");
                     return false;
                 }
                 return data.getFormat(map);
             };
 
+            this.getIdentifier = function () {
+                var id = data.id.replace(/,?\s/g, '-');
+                var id_arr = id.split('');
+                id = [id_arr[0].toUpperCase()].concat(id_arr.splice(1, id.length)).join('');
+                return data.framework + id;
+            };
+
             this.bind = function (e, t, c, i) {
                 try {
                     var f = t.toString().split(' ');
-                    for (var n in f) f[n] = f[n] + '.' + _this.framework + '.' + _this.id;
+                    for (var n in f) {
+                        f[n] = f[n] + '.' + this.getIdentifier();
+                    }
                     f = f.join(' ');
                     e.bind(f, function (e, v) {
                         if (typeof v === 'object') {
@@ -178,26 +189,27 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                             c.apply(this, Array.prototype.slice.call(arguments));
                         }
                     });
+
                     if (typeof i !== 'undefined' && i === true) {
                         this.triggerHandler(e, t);
                     }
                 } catch (exception) {
-                    _this.$helper.log(exception);
+                    this.log(exception);
                 }
             };
 
             this.unbind = function (e, t) {
-                e.unbind(t + '.' + _this.framework + '.' + _this.id);
+                e.unbind(t + '.' + this.getIdentifier());
             };
 
             this.trigger = function (e, t, v) {
                 var f = (t.toString().split(' '))[0];
-                e.trigger(v === true ? f : (f + '.' + _this.framework + '.' + _this.id), v);
+                e.trigger(v === true ? f : (f + '.' + this.getIdentifier()), v);
             };
 
             this.triggerHandler = function (e, t, v) {
                 var f = (t.toString().split(' '))[0];
-                e.triggerHandler(v === true? f : (f + '.' + _this.framework + '.' + _this.id), v);
+                e.triggerHandler(v === true? f : (f + '.' + this.getIdentifier()));
             };
         }
 
@@ -276,14 +288,13 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                             console.error(e);
                         }
                     } else {
-                        _this.$helper.log('파라미터 유효성 경고');
+                        _componentVariables.$helper.log('파라미터 유효성 경고');
                     }
                 };
 
                 if (arg.length > 0 && self == window) {
                     // Global basic function type - Function()
                     var _localVariables = this.data;
-
                     if (typeof this === 'object') {
                         if (typeof _localVariables === 'undefined') {
                             _localVariables = {
@@ -322,9 +333,25 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     /* @NOTE 함수 동적반영을 위한 jshint Escape 처리. */
                     for (var key in this.method) {
                         if (typeof $.fn[key] === 'undefined') {
-                            $.fn[key] = function () {
-                                return _this.method[key].apply(_this, [this].concat(Array.prototype.slice.call(arguments)));
-                            };
+                            if (typeof this === 'object') {
+                                var _localVariables = this.data;
+                                if (typeof _localVariables === 'undefined') {
+                                    _localVariables = {
+                                        '_init': false,
+                                        '_prototype': {},
+                                    };
+                                    this.data = _localVariables;
+                                    $.extend(_localVariables._prototype, _this.method);
+                                }
+
+                                var context = $.extend(_this, {
+                                    local: _localVariables,
+                                }, _componentVariables);
+
+                                $.fn[key] = function () {
+                                    return _this.method[key].apply(context, [this].concat(Array.prototype.slice.call(arguments)));
+                                };
+                            }
                         }
                     }
                     /* jshint ignore:end */
@@ -345,8 +372,15 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 this.local._visible = false;
 
                 if (!e.hasClass('modal-full')) {
-                    this.$helper.bind(this.element.$window, 'resize', function () {
+                    this.$helper.bind(this.element.$window, 'resize update', function (event) {
                         e.css({
+                            left: 0,
+                            top: 0
+                        });
+
+                        e.css({
+                            left: '50%',
+                            top: '50%',
                             marginLeft: -e.outerWidth() / 2,
                             marginTop: -e.outerHeight() / 2
                         });
@@ -375,6 +409,10 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 $btn.ripple();
             },
             method: {
+                update: function () {
+                    var _this = this;
+                    _this.$helper.triggerHandler(_this.element.$window, 'update');
+                },
                 toggle: function (e) {
                     var _this = this;
                     if (this.data._visible === true) {
@@ -397,12 +435,15 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 },
                 open: function (e) {
                     var _this = this;
+                    this.data._visible = true;
+
                     if (e.hasClass('modal-full')) {
                         e.css({display : 'table'});
                     } else {
                         e.show();
                     }
-                    _this.$helper.triggerHandler(_this.element.$window, 'resize');
+
+                    _this.$helper.triggerHandler(_this.element.$window, 'update');
 
                     _this.$helper.bind(e, 'click', function (event) {
                         event.stopPropagation();
@@ -419,19 +460,18 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     $overlay.show();
                     _this.$helper.promise(function () {
                         $overlay.css('opacity', 0.6);
-                        _this.$helper.triggerHandler(_this.element.$window, 'resize');
                     }, 25);
 
                     _this.$helper.bind($overlay, 'click', function (event) {
                         _this.local._prototype.close.call(_this, e);
                     });
-                    this.data._visible = true;
                 },
                 close: function (e) {
                     var _this = this;
+                    this.data._visible = false;
+
                     e.hide();
                     e.triggerHandler('modal.close');
-                    this.data._visible = false;
 
                     var $overlay = $('.modal-overlay');
                     $overlay.css('opacity', 0);
@@ -595,7 +635,6 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 }, true);
 
                 _this.$helper.bind(e, 'update', function (event) {
-                    console.log('update', e.val());
                     if (e.val() === '') {
                         $label.removeClass('works-input-lock');
                     } else {
@@ -1117,7 +1156,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 $(e).bind('change', function() {
                     var $this = $(this);
                     if ($this.val() !== '') {
-                        _this.method.upload.apply(_this, [].concat($this, o, Array.prototype.slice.call(arguments, 2)));
+                        _this.local._prototype.upload.apply(_this, [].concat($this, o, Array.prototype.slice.call(arguments, 2)));
                     }
                 });
             },
@@ -1313,7 +1352,6 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                                 topOffset = $target.outerHeight() + 20;
                             }
 
-                            console.log($target.offset().left, (($target.outerWidth() - e.outerWidth()) / 2), leftOffset);
                             e.css({
                                 position: 'absolute',
                                 left: $target.offset().left + (($target.outerWidth() - e.outerWidth()) / 2) + leftOffset,
@@ -1362,6 +1400,10 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 });
 
                 _this.$helper.bind(e, 'change', function (event) {
+                    _this.$helper.triggerHandler(e, 'update');
+                });
+
+                _this.$helper.bind(e, 'update', function (event) {
                     var $this = $(this);
                     $spinner.find('.spinner-txt').text($this.find(':selected').text());
 
@@ -1549,7 +1591,6 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
         // 토글 관련 설정
         (function ($e) {
             var placeholder = this.data('toggleplaceholder');
-            console.log(placeholder, this);
             try {
                 if (typeof placeholder !== 'undefined' && placeholder !== null && placeholder !== '') {
                     placeholder = placeholder.replace(/\'/gi, "\"");
