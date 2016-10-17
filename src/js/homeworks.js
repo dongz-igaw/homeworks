@@ -721,6 +721,10 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     passive: true
                 });
 
+                _this.$helper.bind(e.closest('label'), 'click', function (event) {
+                    event.stopPropagation();
+                });
+
                 _this.$helper.bind(e, 'change', function (event) {
                     var $this = $(this);
                     _this.$helper.triggerHandler(e, 'update');
@@ -783,7 +787,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
                 e.prependTo($toggle.find('.toggle'));
 
-                if (typeof _opt.placeholder !== 'undefined' && _opt.placeholde !== null) {
+                if (typeof _opt.placeholder !== 'undefined' && _opt.placeholder !== null) {
                     var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
                     var placeholder_default = ['Off', 'On'];
                     for (var idx in placeholder_class) {
