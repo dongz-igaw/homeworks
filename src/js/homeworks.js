@@ -371,7 +371,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 var $btn = e.find('.modal-footer .btn');
                 this.local._visible = false;
 
-                if (!e.hasClass('modal-full')) {
+                if (e.hasClass('modal-full') === false) {
                     this.$helper.bind(this.element.$window, 'resize update', function (event) {
                         e.css({
                             left: 0,
@@ -383,6 +383,19 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                             top: '50%',
                             marginLeft: -e.outerWidth() / 2,
                             marginTop: -e.outerHeight() / 2
+                        });
+                    }, true);
+                } else {
+                    if (e.children('.modal-inner').children('.modal-scroller').length < 1) {
+                        var $scoller = $('<div class="modal-scroller"></div>');
+                        $scoller.append(e.children('.modal-inner').children());
+                        $scoller.appendTo(e.children('.modal-inner'));
+                    }
+
+                    this.$helper.bind(this.element.$window, 'resize update', function (event) {
+                        e.find('> .modal-inner > .modal-scroller').css({
+                            maxWidth: _this.element.$window.outerWidth(),
+                            maxHeight: _this.element.$window.outerHeight()
                         });
                     }, true);
                 }
@@ -437,6 +450,13 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     var _this = this;
                     this.data._visible = true;
 
+                    var $body = $('body:first');
+                    var $parent = e.parent();
+                    if ($parent.is($body) === false) {
+                        e.appendTo($body);
+                    }
+                    e.siblings(':visible').addClass('modal-opner');
+
                     if (e.hasClass('modal-full')) {
                         e.css({display : 'table'});
                     } else {
@@ -458,7 +478,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
                     $overlay.insertAfter(e);
                     $overlay.show();
+
                     _this.$helper.promise(function () {
+                        e.addClass('anim-start');
                         $overlay.css('opacity', 0.6);
                     }, 25);
 
@@ -470,6 +492,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     var _this = this;
                     this.data._visible = false;
 
+                    $('.modal-opner').removeClass('modal-opner');
+
+                    e.removeClass('anim-start');
                     e.hide();
                     e.triggerHandler('modal.close');
 
@@ -650,6 +675,10 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     }
                 }
 
+                if (e.prop('disabled') === true) {
+                    $label.addClass('works-input-disabled');
+                }
+
                 if (validation === true) {
                     e.parent().addClass('works-input-label-validation');
                 }
@@ -740,7 +769,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     }
                 }, true);
 
-                if (e.attr('class').match(/input-(\w+)/gi)) {
+                if (typeof e.attr('class') !== 'undefined' && e.attr('class').match(/input-(\w+)/gi)) {
                     var class_names = e.attr('class').match(/input-(\w+)/gi);
                     for (var idx in class_names) {
                         var class_name = class_names[idx];
@@ -763,7 +792,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 var _this = this;
                 var _opt = {
                     placeholder: null
-                };
+                }, idx=0;
                 var name = e.attr('name') || '';
                 var type = e.attr('type') || 'chekcbox';
                 $.extend(_opt, o);
@@ -773,9 +802,11 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 }
 
                 if (typeof e.attr('class') !== 'undefined' && e.attr('class').match(/input-(\w+)/gi)) {
-                    var class_names = e.attr('class').match(/input-(\w+)/mi);
-                    var class_name = class_names[1];
-                    $toggle.addClass('works-' + class_name);
+                    var class_names = e.attr('class').match(/input-(\w+)/gi);
+                    for (idx in class_names) {
+                        var class_name = class_names[idx];
+                        $toggle.addClass('works-' + class_name);
+                    }
                 }
 
                 $toggle.find('.switch .switch-ball').ripple({
@@ -790,7 +821,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 if (typeof _opt.placeholder !== 'undefined' && _opt.placeholder !== null) {
                     var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
                     var placeholder_default = ['Off', 'On'];
-                    for (var idx in placeholder_class) {
+                    for (idx in placeholder_class) {
                         if (typeof _opt.placeholder[idx] !== 'undefined' && _opt.placeholder[idx] !== '') {
                             $toggle.find('.' + placeholder_class[idx]).text(_opt.placeholder[idx]);
                         } else {

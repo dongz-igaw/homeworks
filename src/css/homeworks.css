@@ -371,16 +371,17 @@ a:active {
 .works-content .works-top {
     background-color: #ffffff;
     padding: 0;
-    border-bottom: 1px solid #b2b2b2;
+    border-bottom: 1px solid #c2c2c2;
+    border-bottom: 1px solid rgba(0, 0, 0, .25);
     position: fixed;
     top: 70px;
     left: 0;
     right: 0;
     z-index: 50000;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
-    -o-box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .075);
+    -o-box-shadow: 0 1px 2px rgba(0, 0, 0, .075);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .075);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .075);
     overflow: hidden;
 }
 
@@ -1213,6 +1214,13 @@ a:active {
     float: right;
 }
 
+.modal-opner {
+    filter: blur(3px);
+    -o-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -webkit-filter: blur(3px);
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -1220,9 +1228,7 @@ a:active {
     left: 50%;
     max-width: 92%;
     min-width: 300px;
-    border-radius: 2px;
     background-color: #ffffff;
-    border: 1px solid #cccccc;
     overflow: hidden;
     box-shadow: 0 5px 12px rgba(0, 0, 0, .25);
     -o-box-shadow: 0 5px 12px rgba(0, 0, 0, .25);
@@ -1232,7 +1238,19 @@ a:active {
     -o-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    z-index: 1000000;
+    transform: scale(.9);
+    -o-transform: scale(.9);
+    -moz-transform: scale(.9);
+    -webkit-transform: scale(.9);
+    transition: transform .15s cubic-bezier(0.25, 0.5, 0.5, 0.9), -webkit-transform .15s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+    z-index: 100001;
+}
+
+.modal.anim-start {
+    transform: scale(1);
+    -o-transform: scale(1);
+    -moz-transform: scale(1);
+    -webkit-transform: scale(1);
 }
 
 .modal-overlay {
@@ -1248,7 +1266,7 @@ a:active {
     -o-transition: opacity .3s ease;
     -moz-transition: opacity .3s ease;
     -webkit-transition: opacity .3s ease;
-    z-index: 500000;
+    z-index: 100000;
 }
 
 .modal .btn-close-circle {
@@ -1268,11 +1286,14 @@ a:active {
     right: 0;
     bottom: 0;
     width: 100%;
+    max-width: 100%;
     height: 100%;
     table-layout: fixed;
     border-collapse: collapse;
-    background-color: rgba(255, 255, 255, .9);
+    background-color: rgba(255, 255, 255, .85);
     box-shadow: none;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .modal.modal-full .btn-close {
@@ -1285,16 +1306,28 @@ a:active {
     z-index: 5000;
 }
 
-.modal.modal-full .modal-body {
+.modal.modal-full .modal-inner {
     display: table-cell;
+    width: 100%;
+    height: 100%;
     text-align: center;
-    vertical-align: top;
+    vertical-align: middle;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .modal .modal-header {
-    padding: 1.2em;
+    padding: 1.6em 1.2em;
     border-bottom: 1px solid #dadada;
     background-color: #f1f1f1;
+}
+
+.modal.modal-full .modal-inner .modal-header {
+    padding-bottom: 1.6em;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    background-color: transparent;
+    font-size: 145%;
+    font-weight: 400;
 }
 
 .modal .modal-header h2 {
@@ -1309,8 +1342,8 @@ a:active {
     line-height: 1.4em;
     color: #414141;
     position: absolute;
-    right: .6em;
-    top: .25em;
+    right: .2em;
+    top: .425em;
     font-size: 200%;
 }
 
@@ -1342,7 +1375,7 @@ a:active {
 }
 
 .modal .modal-body {
-    max-height: 540px;
+    max-height: 620px;
     padding: 1.2em;
     line-height: 1.6;
     color: #777777;
@@ -1350,11 +1383,51 @@ a:active {
     overflow-y: auto;
 }
 
+.modal.modal-full .modal-inner .modal-body {
+    max-height: 100%;
+    padding: 4em 0;
+}
+
 .modal .modal-footer {
     padding: .6em 1.2em;
     background-color: #fafafa;
     border-top: 1px solid #eaeaea;
     text-align: right;
+}
+
+.modal .modal-footer a span,
+.modal .modal-footer a i {
+    vertical-align: middle;
+}
+
+.modal .modal-footer .disabled {
+    opacity: .3;
+    cursor: not-allowed;
+}
+
+.modal.modal-full .modal-inner .modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    padding: 1.6em 0 0;
+    background-color: transparent;
+    text-align: center;
+}
+
+.modal.modal-full .modal-inner .modal-footer a {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    height: 3.2em;
+    font-size: 130%;
+    margin: 0 .6em;
+    padding: 0 1em;
+    color: #555555;
+    vertical-align: middle;
+    line-height: 3em;
+}
+
+.modal.modal-full .modal-inner .modal-footer a:hover {
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: 3px;
 }
 
 .works-login-loader {
@@ -3047,12 +3120,14 @@ pre {
 }
 
 .table thead {
-    background-color: #f4f4f5;
+    display: table-header-group;
+    overflow: hidden;
 }
 
 .table thead th {
     border-bottom: 1px solid rgba(0, 0, 0, .125);
     font-weight: 600;
+    background-color: #f4f4f5;
 }
 
 .table thead tr:first-child th {
@@ -3189,9 +3264,13 @@ pre {
     position: fixed;
     bottom: 20%;
     left: 50%;
-    z-index: 5000;
+    z-index: 5000000;
     font-size: 0;
     text-align: center;
+    filter: none !important;
+    -o-filter: none !important;
+    -moz-filter: none !important;
+    -webkit-filter: none !important;
     trperspective: 300;
     -webkit-perspective: 300;
     transform-origin: center bottom;
@@ -3504,6 +3583,11 @@ pre {
     color: #4e4e4e;
 }
 
+.works-input-label.works-input-disabled .works-input-placeholder {
+    color: #bcbcbc !important;
+    color: rgba(0, 0, 0, .375) !important;
+}
+
 .works-input-label:after {
     display: block;
     content: '';
@@ -3568,6 +3652,14 @@ pre {
 .works-input-label input,
 .works-input-label.works-input-focus input {
     border-bottom-color: #c1c1c1;
+    border-bottom-color: rgba(0, 0, 0, .2);
+}
+
+.works-input-label.works-input-disabled input {
+    border-bottom-color: #e2e2e2 !important;
+    border-bottom-color: rgba(0, 0, 0, .1) !important;
+    color: #a2a2a2 !important;
+    color: rgba(0, 0, 0, .5) !important;
 }
 
 .works-input-label .works-input-placeholder {
@@ -3577,6 +3669,7 @@ pre {
     top: 0;
     left: 0;
     color: #999999;
+    color: rgba(0, 0, 0, .6);
     -moz-transform: translate3d(.4em, 1.6em, 0);
     -ms-transform: translate3d(.4em, 1.6em, 0);
     -o-transform: translate3d(.4em, 1.6em, 0);
@@ -3889,7 +3982,7 @@ pre {
     -webkit-transition: opacity .3s ease-in;
     overflow: hidden;
     overflow-y: auto;
-    z-index: 100000;
+    z-index: 100002;
 }
 
 .dropdown.anim-start,
