@@ -6,7 +6,7 @@
 
 > IGAWorks Front End-Side Framework.
 
-## Getting Start
+## Getting Started
 
 - [가이드라인 바로가기](http://homeworks.igaworks.com/main/docs/index.html)
 - 자세한 내용은 [HomeWorks WIKI](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)를 이용해주시기 바랍니다.
