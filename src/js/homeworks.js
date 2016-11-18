@@ -1,11 +1,11 @@
 ﻿/*==========================================================
  *= [                   HOMEWORKS JS                     ] =
  *==========================================================
- *= @ UPDATE  2016-10-10                                   =
+ *= @ UPDATE  2016-11-08                                   =
  *= @ AUTHOR  Kenneth                                      =
  *=========================================================*/
 
-window.HOMEWORKS_VERSION = '2.0.5';
+window.HOMEWORKS_VERSION = '2.0.6';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -455,7 +455,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     if ($parent.is($body) === false) {
                         e.appendTo($body);
                     }
-                    e.siblings(':visible').addClass('modal-opner');
+
+                    e.siblings('.' + e.attr('class').split(' ').join('.')).remove();
+                    e.siblings(':visible').not('.modal').addClass('modal-opener');
 
                     if (e.hasClass('modal-full')) {
                         e.css({display : 'table'});
@@ -492,7 +494,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     var _this = this;
                     this.data._visible = false;
 
-                    $('.modal-opner').removeClass('modal-opner');
+                    $('.modal-opener').removeClass('modal-opener');
 
                     e.removeClass('anim-start');
                     e.hide();
@@ -659,6 +661,14 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     e.parent().removeClass('works-input-focus');
                 }, true);
 
+                e.unbind('update').bind('update', function () {
+                    var placeholder = e.attr('placeholder');
+                    if (placeholder !== '') {
+                        e.siblings('.works-input-placeholder').text(placeholder);
+                        e.attr('placeholder', '');
+                    }
+                });
+
                 _this.$helper.bind(e, 'update', function (event) {
                     if (e.val() === '') {
                         $label.removeClass('works-input-lock');
@@ -818,20 +828,6 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
                 e.prependTo($toggle.find('.toggle'));
 
-                if (typeof _opt.placeholder !== 'undefined' && _opt.placeholder !== null) {
-                    var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
-                    var placeholder_default = ['Off', 'On'];
-                    for (idx in placeholder_class) {
-                        if (typeof _opt.placeholder[idx] !== 'undefined' && _opt.placeholder[idx] !== '') {
-                            $toggle.find('.' + placeholder_class[idx]).text(_opt.placeholder[idx]);
-                        } else {
-                            $toggle.find('.' + placeholder_class[idx]).text(placeholder_default[idx]);
-                        }
-                    }
-                } else {
-                    $toggle.find('.toggle-label').remove();
-                }
-
                 _this.$helper.bind($toggle.find('.toggle'), 'click', function (event) {
                     if (typeof event.namespace === 'undefined' && e.prop('checked') === true && e.attr('type') === 'radio') {
                         event.preventDefault();
@@ -840,10 +836,32 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 });
 
                 _this.$helper.bind(e, 'change', function (event) {
+                    _this.$helper.triggerHandler('update');
+                }, true);
+
+                _this.$helper.bind(e, 'update', function (event, extra) {
                     if (e.prop('checked') === false) {
                         $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-left').addClass('toggle-label-active');
                     } else {
                         $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-right').addClass('toggle-label-active');
+                    }
+
+                    if (typeof extra !== 'undefined') {
+                        $.extend(_opt, extra);
+                    }
+
+                    if (typeof _opt.placeholder !== 'undefined' && _opt.placeholder !== null) {
+                        var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
+                        var placeholder_default = ['Off', 'On'];
+                        for (idx in placeholder_class) {
+                            if (typeof _opt.placeholder[idx] !== 'undefined' && _opt.placeholder[idx] !== '') {
+                                $toggle.find('.' + placeholder_class[idx]).text(_opt.placeholder[idx]);
+                            } else {
+                                $toggle.find('.' + placeholder_class[idx]).text(placeholder_default[idx]);
+                            }
+                        }
+                    } else {
+                        $toggle.find('.toggle-label').hide();
                     }
                 });
 
@@ -1440,7 +1458,18 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
                 _this.$helper.bind(e, 'update', function (event) {
                     var $this = $(this);
-                    $spinner.find('.spinner-txt').text($this.find(':selected').text());
+                    var $target = $this.find('option:selected');
+
+                    if ($target.length < 1) {
+                        $target = $this.find('option:first');
+                    }
+
+                    var text = $target.text();
+
+                    if (text !== '') {
+                        console.log($spinner, text);
+                        $spinner.find('.spinner-txt').text(text);
+                    }
 
                     if (e.prop('disabled')) {
                         $spinner.addClass('spinner-disabled');
@@ -1449,6 +1478,10 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     if (e.prop('readonly')) {
                         $spinner.addClass('spinner-readonly');
                     }
+
+                    $spinner.css({
+                        minWidth: e.outerWidth()
+                    });
                 });
 
                 _this.$helper.bind($spinner, 'click', function (event) {

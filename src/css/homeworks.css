@@ -1214,7 +1214,7 @@ a:active {
     float: right;
 }
 
-.modal-opner {
+.modal-opener {
     filter: blur(3px);
     -o-filter: blur(3px);
     -moz-filter: blur(3px);
@@ -4001,6 +4001,7 @@ pre {
     -o-transition: background-color .2s ease, color .2s ease;
     -moz-transition: background-color .2s ease, color .2s ease;
     -webkit-transition: background-color .2s ease, color .2s ease;
+    text-align: left;
 }
 
 .dropdown .dropdown-menu i,
