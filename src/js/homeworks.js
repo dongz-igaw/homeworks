@@ -1,11 +1,11 @@
 ﻿/*==========================================================
  *= [                   HOMEWORKS JS                     ] =
  *==========================================================
- *= @ UPDATE  2016-11-08                                   =
+ *= @ UPDATE  2016-12-02                                   =
  *= @ AUTHOR  Kenneth                                      =
  *=========================================================*/
 
-window.HOMEWORKS_VERSION = '2.0.6';
+window.HOMEWORKS_VERSION = '2.0.7';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -292,7 +292,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     }
                 };
 
-                if (arg.length > 0 && self == window) {
+                if (arg.length > 0 && self === window) {
                     // Global basic function type - Function()
                     var _localVariables = this.data;
                     if (typeof this === 'object') {
@@ -521,7 +521,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 return e.each(function () {
                     var e = $(this);
                     e.addClass('btn-ripple');
-                    if ($.inArray(_this.local.theme, _this.global.supportThemes) != -1) {
+                    if ($.inArray(_this.local.theme, _this.global.supportThemes) !== -1) {
                         e.addClass('btn-ripple-' + _this.local.theme);
                     }
 
@@ -532,7 +532,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                         var $this = $(this);
                         if (!$this.hasClass('btn-ripple')) {
                             e.addClass('btn-ripple');
-                            if ($.inArray(_this.local.theme, _this.global.supportThemes) != -1) {
+                            if ($.inArray(_this.local.theme, _this.global.supportThemes) !== -1) {
                                 e.addClass('btn-ripple-' + _this.local.theme);
                             }
                         }
@@ -642,7 +642,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 });
 
                 _this.$helper.bind(e, 'blur', function (event) {
-                    if (type == 'number') {
+                    if (type === 'number') {
                         e.val(e.val().replace(/[^\d.]+/gi, ''));
                     }
 
@@ -705,9 +705,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     var allowedType = ['success', 'error', 'clear'];
                     e.parent().find('.works-input-validation').remove();
 
-                    if (typeof type === 'undefined' || allowedType.indexOf(type) == -1) {
+                    if (typeof type === 'undefined' || allowedType.indexOf(type) === -1) {
                         if (e.val() === '') {
-                            if (typeof _this.local.rule.notnull === false) {
+                            if (typeof _this.local.rule.notnull === 'undefined' || _this.local.rule.notnull === false) {
                                 type = 'success';
                             } else {
                                 type = 'error';
@@ -719,11 +719,11 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     }
 
                     var $validator = null;
-                    if (type == 'success') {
+                    if (type === 'success') {
                         e.parent().removeClass('works-input-label-validation-error').addClass('works-input-label-validation-success');
                         $validator = $(_this.$helper.parseTemplate('validationSuccess'));
                         $validator.insertAfter(e);
-                    } else if (type == 'error') {
+                    } else if (type === 'error') {
                         e.parent().addClass('works-input-label-validation-error').removeClass('works-input-label-validation-success');
                         $validator = $(_this.$helper.parseTemplate('validationError'));
                         $validator.insertAfter(e);
@@ -731,7 +731,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                         e.parent().removeClass('works-input-label-validation-error').removeClass('works-input-label-validation-success').removeClass('works-input-label-validation-active');
                     }
 
-                    if (type == 'success' || type == 'error') {
+                    if (type === 'success' || type === 'error') {
                         _this.$helper.promise(function () {
                             e.parent().addClass('works-input-label-validation-active');
                         }, 25);
@@ -836,7 +836,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 });
 
                 _this.$helper.bind(e, 'change', function (event) {
-                    _this.$helper.triggerHandler('update');
+                    _this.$helper.triggerHandler(e, 'update');
                 }, true);
 
                 _this.$helper.bind(e, 'update', function (event, extra) {
@@ -916,13 +916,13 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
                     $tooltip.appendTo('body');
 
-                    if (_opt.direction == 'left') {
+                    if (_opt.direction === 'left') {
                         pos.left -= ($tooltip.outerWidth() + _opt.margin);
-                    } else if (_opt.direction == 'top') {
+                    } else if (_opt.direction === 'top') {
                         pos.top -= ($tooltip.outerHeight() + _opt.margin);
-                    } else if (_opt.direction == 'right') {
+                    } else if (_opt.direction === 'right') {
                         pos.left += ($this.width() + _opt.margin);
-                    } else if (_opt.direction == 'bottom') {
+                    } else if (_opt.direction === 'bottom') {
                         pos.top += ($this.height() + _opt.margin);
                     }
 
@@ -931,9 +931,8 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                         top: pos.top
                     });
 
-                    if (_opt.type == 'show' || _opt.type == 'queue') {
-
-
+                    if (_opt.type === 'show' || _opt.type === 'queue') {
+                        // Write some codes here.
                     }
                 });
             },
@@ -967,20 +966,22 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     if (e.hasClass('input-number')) {
                         _this.$helper.bind(e, 'keydown keyup', function (event) {
                             setTimeout(function () {
-                                if (event.type == 'keyup' && event.keyCode == 17) {
+                                if (event.type === 'keyup' && event.keyCode === 17) {
                                     ctrlLock = true;
                                     try {
                                         clearTimeout(ctrlTimer);
-                                    } catch (e) {}
+                                    } catch (e) {
+                                        // Write some codes here.
+                                    }
                                     setTimeout(function () {
                                         ctrlLock = false;
                                     }, 150);
                                 }
 
-                                if ($.inArray(event.keyCode, preventKeyCode) == -1 && (typeof event.ctrlKey === 'undefined' || event.ctrlKey === false) && ctrlLock === false) {
+                                if ($.inArray(event.keyCode, preventKeyCode) === -1 && (typeof event.ctrlKey === 'undefined' || event.ctrlKey === false) && ctrlLock === false) {
                                     var selectPosition = 0;
                                     var oldLength = e[0].value.length;
-                                    if (e[0].selectionStart || e[0].selectionStart == '0') {
+                                    if (e[0].selectionStart || e[0].selectionStart === '0') {
                                         selectPosition = e[0].selectionStart;
                                     } else {
                                         var ran = document.selection.createRange();
@@ -997,9 +998,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
                                     var diffLength = Math.max(0, val.length - oldLength);
                                     selectPosition += diffLength;
-                                    if (e[0].selectionStart || e[0].selectionStart == '0') {
+                                    if (e[0].selectionStart || e[0].selectionStart === '0') {
                                         e[0].setSelectionRange(selectPosition, selectPosition);
-                                    } else if (e[0].createTextRange != 'undefined') {
+                                    } else if (e[0].createTextRange !== 'undefined') {
                                         var cursor = e[0].createTextRange();
                                         cursor.move('character', selectPosition);
                                         cursor.select();
@@ -1012,7 +1013,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                             }, 25);
                         }, true);
                     } else if (e.hasClass('input-datetime')) {
+                        // Write some codes here.
                     } else if (e.hasClass('input-decimal')) {
+                        // Write some codes here.
                     }
                 });
             }
@@ -1122,6 +1125,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                         try {
                             clearTimeout(_t);
                         } catch (e) {
+                            // Write some codes here.
                         }
 
                         $real.removeClass('notification-anim-start');
@@ -1239,10 +1243,10 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                         }
                     };
                     if (typeof o !== 'undefined' && typeof o.type !== 'undefined' && o.type !== null) {
-                        if ($.inArray(o.type, Object.keys(exts)) != -1) {
-                            if ($.inArray(info.type.toUpperCase(), exts[o.type]) != -1) {
+                        if ($.inArray(o.type, Object.keys(exts)) !== -1) {
+                            if ($.inArray(info.type.toUpperCase(), exts[o.type]) !== -1) {
                                 var idx = null;
-                                if($.inArray(info.exts.toUpperCase(), exts[o.type]) != -1) {
+                                if($.inArray(info.exts.toUpperCase(), exts[o.type]) !== -1) {
                                     var form = new FormData();
                                     form.append('file', file, file.name);
                                     if (typeof o.type !== 'undefined' && o.type !== null) {
@@ -1285,10 +1289,10 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                                         timeout: 30000,
                                         complete: o.complete,
                                         success: function (d, s, x) {
-                                            if (d.code == 200) {
+                                            if (d.code === 200) {
                                                 var data = d.data;
                                                 e.val('');
-                                                if (o.type == 'img') {
+                                                if (o.type === 'img') {
                                                     if (typeof o.isBtn !== 'undefined' && o.isBtn === true) {
                                                         e.siblings('.btn, img').remove();
                                                         e.before('<img src="' + data.data + '" />');
@@ -1328,6 +1332,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                             alert(o.type + '은 허용하는 확장자 옵션 정의가 아닙니다.');
                         }
                     } else {
+                        // Write some codes here.
                     }
                 }
             }
@@ -1340,7 +1345,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 var direction = e.data('direction') || 'left';
                 try {
                     $target = $(e.data('pen'));
-                } catch (exception) { }
+                } catch (exception) {
+                    // Write some codes here.
+                }
 
                 if($target === null || $target.length < 1) {
                     return false;
@@ -1391,15 +1398,15 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                         e.show();
                         var leftOffset = 0, topOffset = 0;
                         _this.$helper.bind(_this.element.$window, 'resize', function (event) {
-                            if (direction == 'right') {
+                            if (direction === 'right') {
                                 leftOffset = ($target.outerWidth() - e.outerWidth()) / 2;
-                            } else if (direction == 'center') {
+                            } else if (direction === 'center') {
                                 leftOffset = 0;
                             } else {
                                 leftOffset = -($target.outerWidth() - e.outerHeight()) / 2;
                             }
 
-                            if (direction == 'top') {
+                            if (direction === 'top') {
                                 topOffset = -($target.outerHeight() + 20);
                             } else {
                                 topOffset = $target.outerHeight() + 20;
@@ -1467,7 +1474,6 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     var text = $target.text();
 
                     if (text !== '') {
-                        console.log($spinner, text);
                         $spinner.find('.spinner-txt').text(text);
                     }
 
