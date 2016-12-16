@@ -1,6 +1,6 @@
 # HomeWorksFramework
 
-[![Build Status](https://travis-ci.com/IGAWorksDev/HomeWorksFramework.svg?token=x98k8HzDc3zdfP6gvssV&branch=master)](https://travis-ci.com/IGAWorksDev/HomeWorksFramework)
+[![Build Status](https://travis-ci.com/IGAWorksDev/homeworks.svg?token=x98k8HzDc3zdfP6gvssV&branch=master)](https://travis-ci.com/IGAWorksDev/homeworks)
 
 ![HomeWorks Framework](https://s3-ap-northeast-1.amazonaws.com/campaign.intelligence/static/resources/homeworks/homeworks.png)
 
