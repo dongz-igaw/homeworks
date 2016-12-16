@@ -368,7 +368,7 @@ a:active {
     margin: 0 .2em;
 }
 
-.works-content .works-top {
+.works-top {
     background-color: #ffffff;
     padding: 0;
     border-bottom: 1px solid #c2c2c2;
@@ -385,7 +385,7 @@ a:active {
     overflow: hidden;
 }
 
-.works-content .works-top h1 {
+.works-top h1 {
     float: left;
     width: 50%;
     margin: 0;
@@ -403,7 +403,7 @@ a:active {
     -webkit-box-sizing: border-box;
 }
 
-.works-content .works-top .works-top-action {
+.works-top .works-top-action {
     float: right;
     width: 50%;
     padding: .6em 30px;
@@ -415,7 +415,7 @@ a:active {
     -webkit-box-sizing: border-box;
 }
 
-.works-content .works-top .works-menu {
+.works-top .works-menu {
     float: left;
     padding: 0 30px;
     box-sizing: border-box;
@@ -424,7 +424,7 @@ a:active {
     -webkit-box-sizing: border-box;
 }
 
-.works-content .works-top .works-menu a {
+.works-top .works-menu a {
     display: inline-block;
     *display: inline;
     *zoom: 1;
@@ -440,16 +440,16 @@ a:active {
     -webkit-box-sizing: border-box;
 }
 
-.works-content .works-top .works-menu a.active {
+.works-top .works-menu a.active {
     color: #5369e3;
     border-bottom-color: #5369e3;
 }
 
-.works-content .works-top .works-menu a:first-child {
+.works-top .works-menu a:first-child {
     margin-left: 0;
 }
 
-.works-content .works-top .works-menu a:last-child {
+.works-top .works-menu a:last-child {
     margin-right: 0;
 }
 
@@ -899,15 +899,11 @@ a:active {
 
 .works-content .works-container {
     padding: 30px;
-    padding-top: 30px;
+    padding-top: 95px;
     box-sizing: border-box;
     -o-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-}
-
-.works-content .works-top + .works-container {
-    padding-top: 95px;
 }
 
 .works-content h1 {

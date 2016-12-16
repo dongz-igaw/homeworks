@@ -5,7 +5,7 @@
  *= @ AUTHOR  Kenneth                                      =
  *=========================================================*/
 
-window.HOMEWORKS_VERSION = '2.0.7';
+window.HOMEWORKS_VERSION = '2.0.8';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -518,6 +518,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
         new HomeWorksMethod('ripple', {
             init: function (e, o) {
                 var _this = this;
+
+                o = o || {};
+
                 return e.each(function () {
                     var e = $(this);
                     e.addClass('btn-ripple');
@@ -811,11 +814,24 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     e.wrap('<label></label>');
                 }
 
-                if (typeof e.attr('class') !== 'undefined' && e.attr('class').match(/input-(\w+)/gi)) {
-                    var class_names = e.attr('class').match(/input-(\w+)/gi);
-                    for (idx in class_names) {
-                        var class_name = class_names[idx];
-                        $toggle.addClass('works-' + class_name);
+                var regex = /input-(\w+)/gi;
+                if (typeof e.attr('class') !== 'undefined' && e.attr('class').match(regex)) {
+                    var matches = [];
+                    var match = null;
+                    var className = e.attr('class');
+
+                    /* jshint ignore:start */
+	                /* @DATE 2016. 12. 16 */
+	                /* @USER Kenneth */
+	                /* @NOTE Condition expression escaping. */
+                    while (match = regex.exec(className)) {
+                        matches.push(match[1]);
+                    }
+                    /* jshint ignore:end */
+
+                    for (idx in matches) {
+                        var word = matches[idx];
+                        $toggle.addClass('works-' + word);
                     }
                 }
 
@@ -850,18 +866,19 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                         $.extend(_opt, extra);
                     }
 
-                    if (typeof _opt.placeholder !== 'undefined' && _opt.placeholder !== null) {
-                        var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
-                        var placeholder_default = ['Off', 'On'];
-                        for (idx in placeholder_class) {
-                            if (typeof _opt.placeholder[idx] !== 'undefined' && _opt.placeholder[idx] !== '') {
-                                $toggle.find('.' + placeholder_class[idx]).text(_opt.placeholder[idx]);
-                            } else {
-                                $toggle.find('.' + placeholder_class[idx]).text(placeholder_default[idx]);
-                            }
+                    var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
+                    var placeholder_default = ['Off', 'On'];
+                    for (idx in placeholder_class) {
+                        if (
+                            typeof _opt.placeholder !== 'undefined' &&
+                            _opt.placeholder !== null &&
+                            typeof _opt.placeholder[idx] !== 'undefined' &&
+                            _opt.placeholder[idx] !== ''
+                        ) {
+                            $toggle.find('.' + placeholder_class[idx]).text(_opt.placeholder[idx]);
+                        } else {
+                            $toggle.find('.' + placeholder_class[idx]).text(placeholder_default[idx]);
                         }
-                    } else {
-                        $toggle.find('.toggle-label').hide();
                     }
                 });
 
@@ -971,7 +988,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                                     try {
                                         clearTimeout(ctrlTimer);
                                     } catch (e) {
-                                        // Write some codes here.
+                                        console.trace(e.stack);
                                     }
                                     setTimeout(function () {
                                         ctrlLock = false;
@@ -981,9 +998,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                                 if ($.inArray(event.keyCode, preventKeyCode) === -1 && (typeof event.ctrlKey === 'undefined' || event.ctrlKey === false) && ctrlLock === false) {
                                     var selectPosition = 0;
                                     var oldLength = e[0].value.length;
-                                    if (e[0].selectionStart || e[0].selectionStart === '0') {
+                                    if (e[0].selectionStart || e[0].selectionStart === 0) {
                                         selectPosition = e[0].selectionStart;
-                                    } else {
+                                    } else if(document.selection && document.selection.createRange) {
                                         var ran = document.selection.createRange();
                                         ran.moveStart('character', -e[0].value.length);
                                         selectPosition = ran.text.length;
@@ -998,7 +1015,8 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
                                     var diffLength = Math.max(0, val.length - oldLength);
                                     selectPosition += diffLength;
-                                    if (e[0].selectionStart || e[0].selectionStart === '0') {
+
+                                    if (e[0].selectionStart || e[0].selectionStart === 0) {
                                         e[0].setSelectionRange(selectPosition, selectPosition);
                                     } else if (e[0].createTextRange !== 'undefined') {
                                         var cursor = e[0].createTextRange();
@@ -1437,7 +1455,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 var _this = this;
                 var $selected = e.find(':selected');
                 var $spinner = $(_this.$helper.parseTemplate('spinner', {
-                    option: $selected.length > 0 ? $selected.text() : this.data.global.empty
+                    option: $selected.length > 0 ? $selected.text() : this.global.empty
                 }));
 
                 var attrs = e.prop("attributes");
