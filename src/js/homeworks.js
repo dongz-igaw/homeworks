@@ -1,11 +1,11 @@
 ﻿/*==========================================================
  *= [                   HOMEWORKS JS                     ] =
  *==========================================================
- *= @ UPDATE  2016-12-02                                   =
+ *= @ UPDATE  2017-01-09                                   =
  *= @ AUTHOR  Kenneth                                      =
  *=========================================================*/
 
-window.HOMEWORKS_VERSION = '2.0.8';
+window.HOMEWORKS_VERSION = '2.0.9';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -124,8 +124,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     try {
                         delete _promiseVariables[_this.framework + '.' + name];
                     } catch (e) {
-                        self.log(e);
+                        self.log(e.stack);
                     }
+
                     if (typeof callback === 'function') {
                         callback();
                     }
@@ -142,7 +143,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                         clearTimeout(_promiseVariables[_this.framework + '.' + name]);
                         delete _promiseVariables[_this.framework + '.' + name];
                     } catch (e) {
-                        return false;
+                        self.log(e.stack);
                     }
                 }
                 return true;
@@ -154,7 +155,12 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     if (typeof c !== 'undefined' && c !== null) {
                         t = '[' + c + '] ' + t;
                     }
-                    console.error(t);
+
+                    if (typeof m !== 'undefined' && typeof m.stack !== 'undefined') {
+                        console.error(m.stack);
+                    } else {
+                        console.error(t);
+                    }
                 }
             };
 
@@ -235,21 +241,21 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             $.extend(this.method, settings.method);
             $.extend(this.template, settings.template);
 
-            this.route = function () {
+            this.route = function (id) {
                 var self = this;
                 var arg = [];
-                if (arguments.length > 0) {
-                    $.map(arguments, function (e, i) {
+                if (arguments.length > 1) {
+                    $.map(Array.prototype.slice.call(arguments, 1), function (e, i) {
                         arg.push(e);
                     });
                 }
 
                 var ElementBinder = function () {
                     var _localVariables = this.data;
-
                     if (typeof this === 'object') {
                         if (typeof _localVariables === 'undefined') {
                             _localVariables = {
+                                '_id': id,
                                 '_init': false,
                                 '_prototype': {},
                             };
@@ -285,7 +291,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                             }
                             return _this.method[arg[0]].apply(context, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
                         } catch (e) {
-                            console.error(e);
+                            console.error(e.stack);
                         }
                     } else {
                         _componentVariables.$helper.log('파라미터 유효성 경고');
@@ -298,6 +304,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     if (typeof this === 'object') {
                         if (typeof _localVariables === 'undefined') {
                             _localVariables = {
+                                '_id': id,
                                 '_init': false,
                                 '_prototype': {},
                             };
@@ -324,8 +331,20 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 name = name.split(',');
                 for (var idx in name) {
                     var id = $.trim(name[idx]);
-                    $.fn[id] = this.route;
-                    window[id] = this.route;
+
+                    /* jshint ignore:start */
+                    /* @DATE 2017. 01. 09 */
+                    /* @USER Kenneth */
+                    /* @NOTE 런타임 매개변수 독립 사용을 위한 IIFE 설정. */
+                    !(function () {
+                        var _id = id;
+                        var bindFunc = function () {
+                            return _this.route.apply(this, [_id].concat(Array.prototype.slice.call(arguments)));
+                        };
+                        $.fn[_id] = bindFunc;
+                        window[_id] = bindFunc;
+                    } ());
+                    /* jshint ignore:end */
 
                     /* jshint ignore:start */
                     /* @DATE 2016. 02. 22 */
@@ -333,25 +352,30 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     /* @NOTE 함수 동적반영을 위한 jshint Escape 처리. */
                     for (var key in this.method) {
                         if (typeof $.fn[key] === 'undefined') {
-                            if (typeof this === 'object') {
-                                var _localVariables = this.data;
-                                if (typeof _localVariables === 'undefined') {
-                                    _localVariables = {
-                                        '_init': false,
-                                        '_prototype': {},
-                                    };
-                                    this.data = _localVariables;
-                                    $.extend(_localVariables._prototype, _this.method);
-                                }
+                            !(function () {
+                                var method = key;
+                                $.fn[method] = function () {
+                                    var _localVariables;
+                                    var element = this[0];
+                                     if (typeof element === 'object') {
+                                        _localVariables = element.data;
+                                        if (typeof _localVariables === 'undefined') {
+                                            _localVariables = {
+                                                '_id': key,
+                                                '_init': false,
+                                                '_prototype': {},
+                                            };
+                                            element.data = _localVariables;
+                                            $.extend(_localVariables._prototype, _this.method);
+                                        }
 
-                                var context = $.extend(_this, {
-                                    local: _localVariables,
-                                }, _componentVariables);
-
-                                $.fn[key] = function () {
-                                    return _this.method[key].apply(context, [this].concat(Array.prototype.slice.call(arguments)));
+                                        var context = $.extend(_this, {
+                                            local: _localVariables,
+                                        }, _componentVariables);
+                                    }
+                                    return _this.method[method].apply(context, [this].concat(Array.prototype.slice.call(arguments)));
                                 };
-                            }
+                            }());
                         }
                     }
                     /* jshint ignore:end */
@@ -369,7 +393,15 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             init: function (e, o) {
                 var _this = this;
                 var $btn = e.find('.modal-footer .btn');
+                var options = $.extend({
+                    animation: false
+                });
                 this.local._visible = false;
+                this.local.options = options;
+
+                if (typeof o === 'object') {
+                    $.extend(options, o);
+                }
 
                 if (e.hasClass('modal-full') === false) {
                     this.$helper.bind(this.element.$window, 'resize update', function (event) {
@@ -437,7 +469,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 show: function (e, o) {
                     var _this = this;
                     if (typeof o === 'object') {
-                        this.local.opt = $.extend({}, o);
+                        this.local.options = $.extend(this.local.options, o);
                     }
 
                     _this.local._prototype.open.call(this, e);
@@ -457,7 +489,10 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     }
 
                     e.siblings('.' + e.attr('class').split(' ').join('.')).remove();
-                    e.siblings(':visible').not('.modal').addClass('modal-opener');
+
+                    if (_this.local.options.animation === true) {
+                        e.siblings(':visible').not('.modal').addClass('modal-opener');
+                    }
 
                     if (e.hasClass('modal-full')) {
                         e.css({display : 'table'});
@@ -494,7 +529,9 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     var _this = this;
                     this.data._visible = false;
 
-                    $('.modal-opener').removeClass('modal-opener');
+                    if (_this.local.options.animation === true) {
+                        $('.modal-opener').removeClass('modal-opener');
+                    }
 
                     e.removeClass('anim-start');
                     e.hide();
@@ -1143,7 +1180,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                         try {
                             clearTimeout(_t);
                         } catch (e) {
-                            // Write some codes here.
+                            console.trace(e.stack);
                         }
 
                         $real.removeClass('notification-anim-start');
@@ -1357,96 +1394,119 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
         });
 
         new HomeWorksMethod('dropdown', {
-            init: function (e, o) {
+            init: function (element, options) {
                 var _this = this;
                 var $target = null;
-                var direction = e.data('direction') || 'left';
+
+                $.extend(_this.local, {
+                    direction: element.data('direction') || 'left'
+                }, options);
+
                 try {
-                    $target = $(e.data('pen'));
+                    $target = $(element.data('pen'));
                 } catch (exception) {
-                    // Write some codes here.
+                    console.trace(exception.stack);
                 }
+
+                element.appendTo('body');
+                element.hide();
 
                 if($target === null || $target.length < 1) {
                     return false;
                 }
 
-                e.appendTo('body');
-                e.hide();
-                _this.$helper.unbind(_this.element.$window, 'resize');
+                element.addHandler($target);
+            },
+            method: {
+                addHandler: function (element, target) {
+                    var _this = this;
+                    var options = _this.local;
 
-                _this.$helper.bind(_this.element.$document, 'mousedown', function (event) {
-                    $target.removeClass('works-dropdown-active');
-                    e.css('opacity', 0);
+                    element.find('.dropdown-menu').ripple({
+                        theme: 'dark'
+                    });
+
+                    _this.$helper.bind(element.find('.dropdown-menu'), 'click', function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        _this.local._prototype.removeDropdown.call(_this, element, target);
+                    });
+
+                    _this.$helper.bind(element.find('.dropdown-menu'), 'mousedown', function (event) {
+                        event.stopPropagation();
+                    });
+
+                    _this.$helper.unbind(_this.element.$window, 'resize');
+
+                    _this.$helper.bind(_this.element.$document, 'mousedown', function (event) {
+                        _this.local._prototype.removeDropdown.call(_this, element, target);
+                    });
+
+                    _this.$helper.bind(
+                        target.ripple({
+                            theme: 'dark'
+                        }),
+                        'click',
+                        function (event) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            var $this = $(this);
+                            var $scrollParent = $this.scrollParent();
+
+                            if ($this.hasClass('works-dropdown-active')) {
+                                _this.local._prototype.removeDropdown.call(_this, element, target);
+                            } else {
+                                $this.addClass('works-dropdown-active');
+
+                                element.show();
+
+                                var leftOffset = 0, topOffset = 0;
+                                _this.$helper.bind(_this.element.$window, 'resize', function (event) {
+                                    if (options.direction === 'right') {
+                                        leftOffset = (target.outerWidth() - element.outerWidth()) / 2;
+                                    } else if (options.direction === 'center') {
+                                        leftOffset = 0;
+                                    } else {
+                                        leftOffset = -(target.outerWidth() - element.outerHeight()) / 2;
+                                    }
+
+                                    if (options.direction === 'top') {
+                                        topOffset = -(target.outerHeight() + 20);
+                                    } else {
+                                        topOffset = target.outerHeight() + 20;
+                                    }
+
+                                    element.css({
+                                        position: 'absolute',
+                                        left: target.offset().left + ((target.outerWidth() - element.outerWidth()) / 2) + leftOffset,
+                                        top: target.offset().top + topOffset
+                                    });
+                                }, true);
+
+                                _this.$helper.bind($scrollParent, 'scroll', function (event) {
+                                    _this.$helper.triggerHandler(_this.element.$window, 'resize');
+                                });
+
+                                _this.$helper.promise(function () {
+                                    element.css('opacity', 1);
+                                    _this.$helper.triggerHandler(_this.element.$window, 'resize');
+                                }, 25, true);
+                            }
+                        });
+
+                    _this.$helper.bind(target, 'mousedown', function (event) {
+                        event.stopPropagation();
+                    });
+                },
+                removeDropdown: function(element, target) {
+                    var _this = this;
+                    element.css('opacity', 0);
+                    target.removeClass('works-dropdown-active');
                     _this.$helper.promise(function () {
-                        e.hide();
+                        element.hide();
                     }, 300, true);
                     _this.$helper.unbind(_this.element.$window, 'resize');
-                });
-
-                _this.$helper.unbind(e.find('.dropdown-menu').ripple({theme: 'dark'}));
-                _this.$helper.bind(e.find('.dropdown-menu'), 'click', function (event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    $target.removeClass('works-dropdown-active');
-                    e.css('opacity', 0);
-                    _this.$helper.promise(function () {
-                        e.hide();
-                    }, 300, true);
-                    _this.$helper.unbind(_this.element.$window, 'resize');
-                });
-
-                _this.$helper.bind(e.find('.dropdown-menu'), 'mousedown', function (event) {
-                    event.stopPropagation();
-                });
-
-                _this.$helper.bind($target.ripple({theme: 'dark'}), 'click', function (event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    var $this = $(this);
-                    if ($this.hasClass('works-dropdown-active')) {
-                        $this.removeClass('works-dropdown-active');
-                        e.css('opacity', 0);
-                        _this.$helper.promise(function () {
-                            e.hide();
-                        }, 300, true);
-                        _this.$helper.unbind(_this.element.$window, 'resize');
-                    } else {
-                        $this.addClass('works-dropdown-active');
-                        e.show();
-                        var leftOffset = 0, topOffset = 0;
-                        _this.$helper.bind(_this.element.$window, 'resize', function (event) {
-                            if (direction === 'right') {
-                                leftOffset = ($target.outerWidth() - e.outerWidth()) / 2;
-                            } else if (direction === 'center') {
-                                leftOffset = 0;
-                            } else {
-                                leftOffset = -($target.outerWidth() - e.outerHeight()) / 2;
-                            }
-
-                            if (direction === 'top') {
-                                topOffset = -($target.outerHeight() + 20);
-                            } else {
-                                topOffset = $target.outerHeight() + 20;
-                            }
-
-                            e.css({
-                                position: 'absolute',
-                                left: $target.offset().left + (($target.outerWidth() - e.outerWidth()) / 2) + leftOffset,
-                                top: $target.offset().top + topOffset
-                            });
-                        }, true);
-
-                        _this.$helper.promise(function () {
-                            e.css('opacity', 1);
-                            _this.$helper.triggerHandler(_this.element.$window, 'resize');
-                        }, 25, true);
-                    }
-                });
-
-                _this.$helper.bind($target, 'mousedown', function (event) {
-                    event.stopPropagation();
-                });
+                }
             }
         });
 
@@ -1584,48 +1644,50 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             }
         });
 
-        new HomeWorksMethod('step', {
+        new HomeWorksMethod('tab, step', {
             init: function (e, o) {
                 var _this = this;
                 var _index = 0;
                 var _length = 0;
                 var $container = e.next();
-                _length = e.find('.step-item').length;
-                if (e.hasClass('step') && $container.length > 0 && $container.hasClass('step-container')) {
-                    e.unbind('step.next').bind('step.next', function () {
+                var id = _this.local._id;
+
+                _length = e.find('.' + id + '-item').length;
+                if (e.hasClass(id) && $container.length > 0 && $container.hasClass(id + '-container')) {
+                    e.unbind(id + '.next').bind(id + '.next', function () {
                         if (_index + 1 <= _length) {
-                            _this.$helper.triggerHandler(e.find('.step-item').eq(_index + 1), 'click');
+                            _this.$helper.triggerHandler(e.find('.' + id + '-item').eq(_index + 1), 'click');
                         } else {
                             return false;
                         }
                     });
-                    e.unbind('step.prev').bind('step.prev', function () {
+                    e.unbind(id + '.prev').bind(id + '.prev', function () {
                         if (_index - 1 >= 0) {
-                            _this.$helper.triggerHandler(e.find('.step-item').eq(_index - 1), 'click');
+                            _this.$helper.triggerHandler(e.find('.' + id + '-item').eq(_index - 1), 'click');
                         } else {
                             return false;
                         }
                     });
-                    e.unbind('step.move').bind('step.move', function (event, index) {
-                        _this.$helper.triggerHandler(e.find('.step-item').eq(index), 'click');
+                    e.unbind(id + '.move').bind(id + '.move', function (event, index) {
+                        _this.$helper.triggerHandler(e.find('.' + id + '-item').eq(index), 'click');
                     });
-                    _this.$helper.bind(e.find('.step-item'), 'click', function (event) {
+                    _this.$helper.bind(e.find('.' + id + '-item'), 'click', function (event) {
                         event.preventDefault();
                         var $this = $(this);
                         var index = $this.index();
                         _index = index;
                         $this.addClass('active').siblings('.active').removeClass('active');
-                        $container.find('.step-container-item').eq(index).addClass('active').siblings('.active').removeClass('active');
+                        $container.find('.' + id + '-container-item').eq(index).addClass('active').siblings('.active').removeClass('active');
 
-                        e.triggerHandler('step.move', {
+                        e.triggerHandler(id + '.move', {
                             index: _index,
                             length: _length,
-                            header: e.find('.step-item')
+                            header: e.find('.' + id + '-item')
                         });
                     });
-                    _this.$helper.triggerHandler(e.find('.step-item').eq(_index), 'click');
+                    _this.$helper.triggerHandler(e.find('.' + id + '-item').eq(_index), 'click');
                 } else {
-                    _this.$helper.log('You need to add <div class="step-container"></div> at next of your step element.');
+                    _this.$helper.log('You need to add <div class="' + id + '-container"></div> at next of your step element.');
                 }
             },
             method: {
@@ -1634,7 +1696,6 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             }
         });
     }(jQuery));
-
 
     /*******************************
      * NOTE - HomeWorks 플러그인 호출부
@@ -1692,6 +1753,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 }
             } catch (e) {
                 placeholder = null;
+                console.trace(e.stack);
             }
 
             this.toggle({
@@ -1719,11 +1781,23 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             this.checkbox();
         }).hook('checkbox');
 
-        // 드롭다운 관련 설정
+        // 스피너 관련 설정
         (function ($e, f) {
             this.spinner({
             });
         }).hook('spinner');
+
+        // 드롭다운 관련 설정
+        (function ($e, f) {
+            this.dropdown({
+            });
+        }).hook('dropdown');
+
+        // 탭 관련 설정
+        (function ($e, f) {
+            this.tab({
+            });
+        }).hook('tab');
 
         // 스탭 관련 설정
         (function ($e, f) {
@@ -1731,6 +1805,29 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             });
         }).hook('step');
     });
+
+    
+    /*******************************
+     * NOTE - Additional jquery functions
+     * DATE - 2017-01-09
+     *******************************/
+    if(typeof $.fn.scrollParent === 'undefined') {
+        $.fn.scrollParent = function() {
+            var overflowRegex = /(auto|scroll)/;
+            var position = this.css('position');
+            var excludeStaticParent = (position === 'absolute');
+            var scrollParent = this.parents().filter(function() {
+                var $parent = $(this);
+                if (excludeStaticParent === true && $parent.css('position') === 'static') {
+                    return false;
+                }
+                var overflowState = $parent.css(['overflow', 'overflowX', 'overflowY']);
+                return (overflowRegex).test(overflowState.overflow + overflowState.overflowX + overflowState.overflowY);
+            }).eq(0);
+
+            return position === "fixed" || !scrollParent.length ? $( this[ 0 ].ownerDocument || document ) : scrollParent;
+        };
+    }
 
     $(function () {
         $('.works-footer .floating-top').bind('click', function (event) {

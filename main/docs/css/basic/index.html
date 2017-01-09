@@ -1168,6 +1168,66 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="forms-dropdown" name="forms-dropdown" class="works-section works-section-padding">
+                            <h2>
+                                <a href="#forms-dropdown">
+                                    <span>DROPDOWN</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;btn btn-default btn-dropdown-default&quot;&gt;DROPDOWN&lt;/a&gt;
+&lt;a href=&quot;#&quot; class=&quot;btn btn-default btn-dropdown-advanced&quot;&gt;DROPDOWN (advanced)&lt;/a&gt;
+&lt;div class=&quot;dropdown&quot; data-dropdown=&quot;true&quot; data-pen=&quot;.btn-dropdown-default&quot; data-direction=&quot;center&quot;&gt;
+    &lt;a href=&quot;#&quot; class=&quot;dropdown-menu&quot; onClick=&quot;toast('Dropdown 1');&quot;&gt;Dropdown Menu 1&lt;/a&gt;
+    &lt;a href=&quot;#&quot; class=&quot;dropdown-menu&quot; onClick=&quot;toast('Dropdown 2');&quot;&gt;Dropdown Menu 2&lt;/a&gt;
+    &lt;a href=&quot;#&quot; class=&quot;dropdown-menu&quot; onClick=&quot;toast('Dropdown 3');&quot;&gt;Dropdown Menu 3&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dropdown&quot; data-dropdown=&quot;true&quot; data-pen=&quot;.btn-dropdown-advanced&quot; data-direction=&quot;center&quot;&gt;
+    &lt;a href=&quot;#&quot; class=&quot;dropdown-menu&quot; onClick=&quot;toast('Dropdown 1');&quot;&gt;
+        &lt;i class=&quot;fa fa-info-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+        &lt;span&gt;Dropdown Menu 1&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;#&quot; class=&quot;dropdown-menu&quot; onClick=&quot;toast('Dropdown 2');&quot;&gt;
+        &lt;i class=&quot;fa fa-heart&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+        &lt;span&gt;Dropdown Menu 2&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;div class=&quot;dropdown-divider&quot;&gt;&amp;nbsp;&lt;/div&gt;
+    &lt;a href=&quot;#&quot; class=&quot;dropdown-menu&quot; onClick=&quot;toast('Dropdown 3');&quot;&gt;
+        &lt;i class=&quot;fa fa-cog&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+        &lt;span&gt;Dropdown Menu 3&lt;/span&gt;
+    &lt;/a&gt;
+&lt;/div&gt;</code></pre>
+                            <div class="code-description">
+                                Use a class
+                                <span class="label label-code">.input</span>
+                                for one radio or checkbox type elements, Also put <span class="label label-code">data-toggle=&quot;true&quot;</span> and <span class="label label-code">data-togglePlaceholder=&quot;['inacetive title', 'active title']&quot;</span> attributes for setup a scripts.
+                            </div>
+                            <div class="preview">
+                                <a href="#" class="btn btn-default btn-dropdown-default">DROPDOWN</a>
+                                <a href="#" class="btn btn-default btn-dropdown-advanced">DROPDOWN (advanced)</a>
+                                <div class="dropdown" data-dropdown="true" data-pen=".btn-dropdown-default" data-direction="center">
+                                    <a href="#" class="dropdown-menu" onClick="toast('Dropdown 1');">Dropdown Menu 1</a>
+                                    <a href="#" class="dropdown-menu" onClick="toast('Dropdown 2');">Dropdown Menu 2</a>
+                                    <a href="#" class="dropdown-menu" onClick="toast('Dropdown 3');">Dropdown Menu 3</a>
+                                </div>
+                                <div class="dropdown" data-dropdown="true" data-pen=".btn-dropdown-advanced" data-direction="center">
+                                    <a href="#" class="dropdown-menu" onClick="toast('Dropdown 1');">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        <span>Dropdown Menu 1</span>
+                                    </a>
+                                    <a href="#" class="dropdown-menu" onClick="toast('Dropdown 2');">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                        <span>Dropdown Menu 2</span>
+                                    </a>
+                                    <div class="dropdown-divider">&nbsp;</div>
+                                    <a href="#" class="dropdown-menu" onClick="toast('Dropdown 3');">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                        <span>Dropdown Menu 3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="works-section works-section-transparent">
                         <h1 id="tables" name="tables" class="header-divider">
@@ -1523,6 +1583,76 @@
                                     <a href="#" data-ripple="dark">8</a>
                                     <a href="#" data-ripple="dark">9</a>
                                     <a href="#" data-ripple="dark" class="arrow">Next</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="works-section works-section-transparent">
+                        <h1 id="tabs" name="tabs" class="header-divider">
+                            <a href="#tabs">
+                                <span>Tabs</span>
+                                <i class="pe-7s-link"></i>
+                            </a>
+                        </h1>
+                        <div class="works-section works-section-padding">
+                            <h2 id="tab-default">
+                                <a href="#tab-default">
+                                    <span>DEFAULT TAB</span>
+                                    <i class="pe-7s-link"></i>
+                                </a>
+                            </h2>
+                            <a href="#" class="view-source"></a>
+                            <pre><code class="language-html">&lt;div class=&quot;tab&quot; data-tab=&quot;true&quot;&gt;
+    &lt;a href=&quot;#&quot; class=&quot;tab-item active&quot; data-ripple=&quot;dark&quot;&gt;Title 1&lt;/a&gt;
+    &lt;a href=&quot;#&quot; class=&quot;tab-item&quot; data-ripple=&quot;dark&quot;&gt;Title 2&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;tab-container&quot;&gt;
+    &lt;div class=&quot;tab-container-item&quot;&gt;
+        &lt;h2 class=&quot;section-title&quot;&gt;
+            &lt;span class=&quot;pull-left&quot;&gt;Sub title 1&lt;/span&gt;
+        &lt;/h2&gt;
+        &lt;div class=&quot;guide&quot;&gt;
+            Tab 1 contents
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tab-container-item&quot;&gt;
+        &lt;h2 class=&quot;section-title&quot;&gt;
+            &lt;span class=&quot;pull-left&quot;&gt;Sub title 2&lt;/span&gt;
+        &lt;/h2&gt;
+        &lt;div class=&quot;guide&quot;&gt;
+            Tab 2 contents
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                            <div class="code-description">
+                                Set a class
+                                <span class="label label-code">.tab</span>
+                                to tab element,
+                                And set <span class="label label-code">data-tab="true""</span>
+                                to tab wrapper element.
+                            </div>
+                            <div class="preview">
+                                <div class="tab" data-tab="true">
+                                    <a href="#" class="tab-item active" data-ripple="dark">Title 1</a>
+                                    <a href="#" class="tab-item" data-ripple="dark">Title 2</a>
+                                </div>
+                                <div class="tab-container">
+                                    <div class="tab-container-item">
+                                        <h2 class="section-title">
+                                            <span class="pull-left">Sub title 1</span>
+                                        </h2>
+                                        <div class="guide">
+                                            Tab 1 contents
+                                        </div>
+                                    </div>
+                                    <div class="tab-container-item">
+                                        <h2 class="section-title">
+                                            <span class="pull-left">Sub title 2</span>
+                                        </h2>
+                                        <div class="guide">
+                                            Tab 2 contents
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
