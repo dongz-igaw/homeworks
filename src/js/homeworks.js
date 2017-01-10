@@ -1825,7 +1825,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
 
         //===========================
-        // TAB VIEW HOOK
+        // STEP VIEW HOOK
         //===========================
         (function () {
             this.step();
