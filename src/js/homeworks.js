@@ -5,14 +5,13 @@
  *= @ AUTHOR  Kenneth                                      =
  *=========================================================*/
 
-window.HOMEWORKS_VERSION = '2.0.9';
+window.HOMEWORKS_VERSION = '2.0.9.1';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
 }
 
 (function () {
-    var _standardVariables = {}; // Works standard global variables.
     var _promiseVariables  = {}; // Promise standard global variables.
     var _superVariables   = {}; // Plugin option standard global variables.
     /*=================================================
@@ -35,16 +34,16 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
      *= NOTE - Component biding feature.
      *= DATE - 2016-01-19
      *================================================*/
-    Function.prototype.hook = function (n, args) {
+    Function.prototype.hook = function (name, args) {
         try {
             var format = '[data-{data-name}]';
             var _this = this;
             $(format.getFormat({
-                'data-name': n
+                'data-name': name
             })).each(function () {
                 var $this = $(this);
                 var t = $this.data('pen');
-                var p = $this.data(n);
+                var p = $this.data(name);
                 if (p === false) return true;
                 if (typeof _this === 'function') {
                     if (typeof t === 'undefined') {
@@ -149,25 +148,26 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 return true;
             };
 
-            this.log = function (m, c) {
+            this.log = function (message, code) {
                 if (_this._debug === true) {
-                    var t = m;
-                    if (typeof c !== 'undefined' && c !== null) {
-                        t = '[' + c + '] ' + t;
-                    }
+                    var template = message;
 
-                    if (typeof m !== 'undefined' && typeof m.stack !== 'undefined') {
-                        console.error(m.stack);
+                    if (typeof message !== 'undefined' && typeof message.stack !== 'undefined') {
+                        console.error(message.stack);
                     } else {
-                        console.error(t);
+                        if (typeof code !== 'undefined' && code !== null) {
+                            template = '[' + code + '] ' + template;
+                        }
+
+                        console.error(template);
                     }
                 }
             };
 
-            this.parseTemplate = function (n, map) {
-                var data = _this.template[n];
+            this.parseTemplate = function (name, map) {
+                var data = _this.template[name];
                 if (typeof data === 'undefined') {
-                    this.log("'" + n + "' 이름의 템플릿이 확인되지 않습니다.");
+                    this.log("'" + name + "' 이름의 템플릿이 확인되지 않습니다.");
                     return false;
                 }
                 return data.getFormat(map);
@@ -180,42 +180,45 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                 return data.framework + id;
             };
 
-            this.bind = function (e, t, c, i) {
+            this.bind = function (element, type, callback, initialize) {
                 try {
-                    var f = t.toString().split(' ');
-                    for (var n in f) {
-                        f[n] = f[n] + '.' + this.getIdentifier();
+                    var forms = type.toString().split(' ');
+                    for (var name in forms) {
+                        forms[name] = forms[name] + '.' + this.getIdentifier();
                     }
-                    f = f.join(' ');
-                    e.bind(f, function (e, v) {
-                        if (typeof v === 'object') {
-                            $.extend(e, v);
+
+                    forms = forms.join(' ');
+
+                    element.bind(forms, function (event, value) {
+                        if (typeof value === 'object') {
+                            $.extend(event, value);
                         }
-                        if (typeof c === 'function') {
-                            c.apply(this, Array.prototype.slice.call(arguments));
+
+                        if (typeof callback === 'function') {
+                            callback.apply(this, Array.prototype.slice.call(arguments));
                         }
                     });
 
-                    if (typeof i !== 'undefined' && i === true) {
-                        this.triggerHandler(e, t);
+                    if (typeof initialize !== 'undefined' && initialize === true) {
+                        this.triggerHandler(element, type);
                     }
                 } catch (exception) {
                     this.log(exception);
                 }
             };
 
-            this.unbind = function (e, t) {
-                e.unbind(t + '.' + this.getIdentifier());
+            this.unbind = function (element, type) {
+                element.unbind(type + '.' + this.getIdentifier());
             };
 
-            this.trigger = function (e, t, v) {
-                var f = (t.toString().split(' '))[0];
-                e.trigger(v === true ? f : (f + '.' + this.getIdentifier()), v);
+            this.trigger = function (element, type, value) {
+                var forms = (type.toString().split(' '))[0];
+                element.trigger(value === true ? forms : (forms + '.' + this.getIdentifier()), value);
             };
 
-            this.triggerHandler = function (e, t, v) {
-                var f = (t.toString().split(' '))[0];
-                e.triggerHandler(v === true? f : (f + '.' + this.getIdentifier()));
+            this.triggerHandler = function (element, type, value) {
+                var forms = (type.toString().split(' '))[0];
+                element.triggerHandler(value === true? forms : (forms + '.' + this.getIdentifier()), value);
             };
         }
 
@@ -238,15 +241,23 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             };
             this.template = {
             };
+            this.options = {
+            };
+
             $.extend(this.method, settings.method);
             $.extend(this.template, settings.template);
+            $.extend(this.options, settings.options);
 
+            /*=================================================
+             *= NOTE - HOMEWORKS ROUTE START
+             *= DATE - 2017-01-10
+             *================================================*/
             this.route = function (id) {
                 var self = this;
-                var arg = [];
+                var args = [];
                 if (arguments.length > 1) {
                     $.map(Array.prototype.slice.call(arguments, 1), function (e, i) {
-                        arg.push(e);
+                        args.push(e);
                     });
                 }
 
@@ -258,38 +269,40 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                                 '_id': id,
                                 '_init': false,
                                 '_prototype': {},
+                                '_options': _this.options
                             };
                             this.data = _localVariables;
                             $.extend(_localVariables._prototype, _this.method);
                         }
                     }
+
                     var context = $.extend(this, {
                         local: _localVariables,
                     }, _componentVariables);
 
-                    if (arg.length === 0 || typeof arg[0] === 'object') {
+                    if (args.length === 0 || typeof args[0] === 'object') {
                         // Function(obj) or Function() pattern.
-                        if (typeof arg[0] === 'object') {
+                        if (typeof args[0] === 'object') {
                             // Function(obj) pattern.
-                            $.extend(_localVariables, arg[0]);
+                            $.extend(_localVariables._options, args[0]);
                         }
 
                         if (_localVariables._init === false) {
                             _localVariables._init = true;
-                            _this.init.apply(context, [$(this)].concat(Array.prototype.slice.call(arg)));
+                            _this.init.apply(context, [$(this)].concat(Array.prototype.slice.call(args)));
                         }
-                    } else if (typeof arg[0] === 'string') {
+                    } else if (typeof args[0] === 'string') {
                         // Function(Method Name) pattern.
                         try {
                             if (_localVariables._init === false) {
                                 _localVariables._init = true;
                                 if (typeof _this.method.init !== 'undefined') {
-                                    _this.method.init.apply(context, [$(this)].concat(Array.prototype.slice.call(arg)));
+                                    _this.method.init.apply(context, [$(this)].concat(Array.prototype.slice.call(args, 1)));
                                 } else {
-                                    _this.init.apply(context, [$(this)].concat(Array.prototype.slice.call(arg)));
+                                    _this.init.apply(context, [$(this)].concat(Array.prototype.slice.call(args, 1)));
                                 }
                             }
-                            return _this.method[arg[0]].apply(context, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
+                            return _this.method[args[0]].apply(context, [$(this)].concat(Array.prototype.slice.call(args, 1)));
                         } catch (e) {
                             console.error(e.stack);
                         }
@@ -298,7 +311,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     }
                 };
 
-                if (arg.length > 0 && self === window) {
+                if (args.length > 0 && self === window) {
                     // Global basic function type - Function()
                     var _localVariables = this.data;
                     if (typeof this === 'object') {
@@ -307,6 +320,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                                 '_id': id,
                                 '_init': false,
                                 '_prototype': {},
+                                '_options': _this.options
                             };
                             this.data = _localVariables;
                             $.extend(_localVariables._prototype, _this.method);
@@ -315,7 +329,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     var context = $.extend(window, {
                         local: _localVariables,
                     }, _componentVariables);
-                    _this.method.init.apply(context, Array.prototype.slice.call(arg));
+                    _this.method.init.apply(context, Array.prototype.slice.call(args));
                 } else {
                     // By element channing method type - Elem.method()
                     if (typeof self !== 'undefined') {
@@ -323,6 +337,10 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                     }
                 }
             };
+            /*=================================================
+             *= NOTE - HOMEWORKS ROUTE END
+             *= DATE - 2017-01-10
+             *================================================*/
 
             //============================================================================
 
@@ -364,6 +382,7 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                                                 '_id': key,
                                                 '_init': false,
                                                 '_prototype': {},
+                                                '_options': {}
                                             };
                                             element.data = _localVariables;
                                             $.extend(_localVariables._prototype, _this.method);
@@ -373,6 +392,16 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                                             local: _localVariables,
                                         }, _componentVariables);
                                     }
+
+                                    if (_localVariables._init === false) {
+                                        _localVariables._init = true;
+                                        if (typeof _this.method.init !== 'undefined') {
+                                            _this.method.init.apply(context, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
+                                        } else {
+                                            _this.init.apply(context, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
+                                        }
+                                    }
+
                                     return _this.method[method].apply(context, [this].concat(Array.prototype.slice.call(arguments)));
                                 };
                             }());
@@ -390,200 +419,196 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
         // HomeWorks - Modal Component
         new HomeWorksMethod('modal, popup', {
-            init: function (e, o) {
-                var _this = this;
-                var $btn = e.find('.modal-footer .btn');
-                var options = $.extend({
-                    animation: false
-                });
+            init: function (element) {
+                var context = this;
+                var $btn = element.find('.modal-footer .btn');
+
                 this.local._visible = false;
-                this.local.options = options;
 
-                if (typeof o === 'object') {
-                    $.extend(options, o);
-                }
-
-                if (e.hasClass('modal-full') === false) {
+                if (element.hasClass('modal-full') === false) {
                     this.$helper.bind(this.element.$window, 'resize update', function (event) {
-                        e.css({
+                        element.css({
                             left: 0,
                             top: 0
                         });
 
-                        e.css({
+                        element.css({
                             left: '50%',
                             top: '50%',
-                            marginLeft: -e.outerWidth() / 2,
-                            marginTop: -e.outerHeight() / 2
+                            marginLeft: -element.outerWidth() / 2,
+                            marginTop: -element.outerHeight() / 2
                         });
                     }, true);
                 } else {
-                    if (e.children('.modal-inner').children('.modal-scroller').length < 1) {
+                    if (element.children('.modal-inner').children('.modal-scroller').length < 1) {
                         var $scoller = $('<div class="modal-scroller"></div>');
-                        $scoller.append(e.children('.modal-inner').children());
-                        $scoller.appendTo(e.children('.modal-inner'));
+                        $scoller.append(element.children('.modal-inner').children());
+                        $scoller.appendTo(element.children('.modal-inner'));
                     }
 
                     this.$helper.bind(this.element.$window, 'resize update', function (event) {
-                        e.find('> .modal-inner > .modal-scroller').css({
-                            maxWidth: _this.element.$window.outerWidth(),
-                            maxHeight: _this.element.$window.outerHeight()
+                        element.find('> .modal-inner > .modal-scroller').css({
+                            maxWidth: context.element.$window.outerWidth(),
+                            maxHeight: context.element.$window.outerHeight()
                         });
                     }, true);
                 }
 
-                this.$helper.unbind($btn.add(e.find('.btn-close')), 'click');
+                this.$helper.unbind($btn.add(element.find('.btn-close')), 'click');
 
-                this.$helper.bind($btn.add(e.find('.btn-close')), 'click', function (event) {
+                this.$helper.bind($btn.add(element.find('.btn-close')), 'click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     var $this = $(this);
-                    _this.local._prototype.close.call(_this, e);
+                    context.local._prototype.close.call(context, element);
                 });
 
                 this.$helper.bind($btn.filter('.btn-submit'), 'click', function (event) {
                     event.stopPropagation();
-                    e.triggerHandler('modal.submit');
+                    element.triggerHandler('modal.submit');
                 });
 
-                this.$helper.bind(e.find('.btn-close'), 'click', function (event) {
+                this.$helper.bind(element.find('.btn-close'), 'click', function (event) {
                     event.stopPropagation();
-                    e.triggerHandler('modal.cancel');
+                    element.triggerHandler('modal.cancel');
                 });
 
                 $btn.ripple();
             },
             method: {
                 update: function () {
-                    var _this = this;
-                    _this.$helper.triggerHandler(_this.element.$window, 'update');
+                    var context = this;
+                    context.$helper.triggerHandler(_this.element.$window, 'update');
                 },
-                toggle: function (e) {
-                    var _this = this;
-                    if (this.data._visible === true) {
-                        _this.local._prototype.close.call(this, e);
+                toggle: function (element) {
+                    var context = this;
+                    if (context.data._visible === true) {
+                        context.local._prototype.close.call(context, element);
                     } else {
-                        _this.local._prototype.open.call(this, e);
+                        context.local._prototype.open.call(context, element);
                     }
                 },
-                show: function (e, o) {
-                    var _this = this;
-                    if (typeof o === 'object') {
-                        this.local.options = $.extend(this.local.options, o);
-                    }
+                show: function (element) {
+                    var context = this;
+                    context.local._prototype.open.call(context, element);
+                },
+                hide: function (element) {
+                    var context = this;
+                    context.local._prototype.close.call(context, element);
+                },
+                open: function (element) {
+                    var context = this;
 
-                    _this.local._prototype.open.call(this, e);
-                },
-                hide: function (e) {
-                    var _this = this;
-                    _this.local._prototype.close.call(this, e);
-                },
-                open: function (e) {
-                    var _this = this;
-                    this.data._visible = true;
+                    context.data._visible = true;
 
                     var $body = $('body:first');
-                    var $parent = e.parent();
+                    var $parent = element.parent();
                     if ($parent.is($body) === false) {
-                        e.appendTo($body);
+                        element.appendTo($body);
                     }
 
-                    e.siblings('.' + e.attr('class').split(' ').join('.')).remove();
+                    element.siblings('.' + element.attr('class').split(' ').join('.')).remove();
 
-                    if (_this.local.options.animation === true) {
-                        e.siblings(':visible').not('.modal').addClass('modal-opener');
+                    if (context.local._options.animation === true) {
+                        element.siblings(':visible').not('.modal').addClass('modal-opener');
                     }
 
-                    if (e.hasClass('modal-full')) {
-                        e.css({display : 'table'});
+                    if (element.hasClass('modal-full')) {
+                        element.css({ display: 'table' });
                     } else {
-                        e.show();
+                        element.show();
                     }
 
-                    _this.$helper.triggerHandler(_this.element.$window, 'update');
+                    context.$helper.triggerHandler(context.element.$window, 'update');
 
-                    _this.$helper.bind(e, 'click', function (event) {
+                    context.$helper.bind(element, 'click', function (event) {
                         event.stopPropagation();
                     });
 
-                    e.triggerHandler('modal.open');
+                    element.triggerHandler('modal.open');
 
                     var $overlay = $('.modal-overlay');
                     if ($overlay.length < 1) {
-                        $overlay = $(_this.$helper.parseTemplate('overlay'));
+                        $overlay = $(context.$helper.parseTemplate('overlay'));
                     }
 
-                    $overlay.insertAfter(e);
+                    $overlay.insertAfter(element);
                     $overlay.show();
 
-                    _this.$helper.promise(function () {
-                        e.addClass('anim-start');
+                    context.$helper.promise(function () {
+                        element.addClass('anim-start');
                         $overlay.css('opacity', 0.6);
                     }, 25);
 
-                    _this.$helper.bind($overlay, 'click', function (event) {
-                        _this.local._prototype.close.call(_this, e);
+                    context.$helper.bind($overlay, 'click', function (event) {
+                        context.local._prototype.close.call(context, element);
                     });
                 },
-                close: function (e) {
-                    var _this = this;
-                    this.data._visible = false;
+                close: function (element) {
+                    var context = this;
 
-                    if (_this.local.options.animation === true) {
+                    context.data._visible = false;
+
+                    if (context.local._options.animation === true) {
                         $('.modal-opener').removeClass('modal-opener');
                     }
 
-                    e.removeClass('anim-start');
-                    e.hide();
-                    e.triggerHandler('modal.close');
+                    element.removeClass('anim-start');
+                    element.hide();
+                    element.triggerHandler('modal.close');
 
                     var $overlay = $('.modal-overlay');
                     $overlay.css('opacity', 0);
-                    _this.$helper.promise(function () {
+
+                    context.$helper.promise(function () {
                         $overlay.hide();
                     }, 300);
 
-                    _this.$helper.unbind(e, 'click');
-                    _this.$helper.unbind($overlay, 'click');
+                    context.$helper.unbind(element, 'click');
+                    context.$helper.unbind($overlay, 'click');
                 }
             },
             template: {
                 overlay: '<div class="modal-overlay"></div>'
+            },
+            options: {
+                animation: false
             }
         });
 
         new HomeWorksMethod('ripple', {
-            init: function (e, o) {
-                var _this = this;
+            init: function (element) {
+                var context = this;
+                var options = context.local._options;
 
-                o = o || {};
+                return element.each(function () {
+                    var $child = $(this);
 
-                return e.each(function () {
-                    var e = $(this);
-                    e.addClass('btn-ripple');
-                    if ($.inArray(_this.local.theme, _this.global.supportThemes) !== -1) {
-                        e.addClass('btn-ripple-' + _this.local.theme);
+                    $child.addClass('btn-ripple');
+                    if ($.inArray(options.theme, options.supportThemes) !== -1) {
+                        $child.addClass('btn-ripple-' + options.theme);
                     }
 
-                    _this.$helper.bind(e, 'click', function (event) {
-                        if (typeof event.originalEvent === 'undefined' && (typeof o !== 'undefined' || o.passive === false)) {
+                    context.$helper.bind($child, 'click', function (event) {
+                        if (typeof event.originalEvent === 'undefined' && options.passive === false) {
                             return false;
                         }
                         var $this = $(this);
                         if (!$this.hasClass('btn-ripple')) {
-                            e.addClass('btn-ripple');
-                            if ($.inArray(_this.local.theme, _this.global.supportThemes) !== -1) {
-                                e.addClass('btn-ripple-' + _this.local.theme);
+                            $child.addClass('btn-ripple');
+                            if ($.inArray(options.theme, options.supportThemes) !== -1) {
+                                $child.addClass('btn-ripple-' + options.theme);
                             }
                         }
                         var offset = this.getClientRects()[0] || {left: 0, top: 0};
-                        var $ripple = $(_this.$helper.parseTemplate('effect'));
+                        var $ripple = $(context.$helper.parseTemplate('effect'));
                         var size = Math.min($this.width(), $this.height());
                         var scale = Math.max($this.width(), $this.height()) / size * 2;
                         var point = {
                             x: 0,
                             y: 0
                         };
+
                         if (typeof event.x !== 'undefined' && typeof event.y !== 'undefined') {
                             point = {
                                 x: event.x - size / 2,
@@ -596,43 +621,54 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                             };
                         }
 
-                        if (o.over) {
-                            e.css({ overflow: 'visible' });
+                        if (options.over === true) {
+                            $child.css({
+                                overflow: 'visible'
+                            });
                         }
 
                         $ripple.css({ width: size, height: size, left: point.x, top: point.y });
                         $ripple.appendTo($this);
                         $this.addClass('btn-ripple-start');
-                        _this.$helper.promise(function () {
-                            _this.$helper.promise(function () {
-                                _this.$helper.promise(function () {
+                        context.$helper.promise(function () {
+                            context.$helper.promise(function () {
+                                context.$helper.promise(function () {
                                     $ripple.remove();
                                     $this.removeClass('btn-ripple-start');
                                 }, 500);
                                 $ripple.addClass('anim-end').css({ opacity: 0 });
                             }, 150);
-                            $ripple.css({ transform: 'scale(' + scale + ')', opacity: 1 });
+
+                            $ripple.css({
+                                transform: 'scale(' + scale + ')',
+                                opacity: 1
+                            });
                         }, 50);
                     });
                 });
             },
             method: {
-                start: function (e, v) {
-                    var _this = this;
-                    if (typeof v === 'undefined') {
-                        v = {
-                            x: e.width() / 2,
-                            y: e.height() / 2
+                start: function (element, value) {
+                    var context = this;
+
+                    if (typeof value === 'undefined') {
+                        value = {
+                            x: element.width() / 2,
+                            y: element.height() / 2
                         };
                     }
-                    _this.$helper.triggerHandler(e, 'click', v);
+
+                    context.$helper.triggerHandler(element, 'click', value);
                 }
             },
             template: {
                 effect: '<div class="btn-ripple-effect"></div>'
             },
             options: {
-                supportThemes: ['light', 'dark']
+                supportThemes: [
+                    'light',
+                    'dark'
+                ]
             }
         });
 
@@ -1077,159 +1113,151 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
         });
 
         new HomeWorksMethod('toast', {
-            init: function (e, o) {
-            },
-            method: {
-                init: function (msg) {
-                    var _this = this;
+            init: function (message) {
+                var context = this;
 
-                    if (typeof msg === 'undefined') {
-                        return false;
-                    } else if (typeof msg === 'object') {
-                        msg = JSON.stringify(msg);
-                    }
-
-                    var $toastBox = $('.toast-box');
-                    if ($toastBox.length <= 0) {
-                        $toastBox = $(_this.$helper.parseTemplate('toastBox'));
-                        $toastBox.appendTo('body');
-                        $toastBox.css({
-                            marginLeft: -$toastBox.width() / 2
-                        });
-                    }
-
-                    var $toast = $(_this.$helper.parseTemplate('toast', {
-                        msg: msg.replace(/\r?\n/gi, '<br />')
-                    }));
-                    var $real = $($toast.clone()).add('<br />');
-                    $toast.addClass('toast-empty');
-                    $toast.appendTo('.toast-box');
-                    $real.addClass('toast-real');
-                    var height = $toast.height();
-                    $toast.addClass('toast-anim');
-                    setTimeout(function () {
-                        $toast.addClass('toast-anim-start').stop().animate({
-                            paddingTop: '1em',
-                            paddingBottom: '1em',
-                            marginBottom: '1em',
-                        }, 300);
-                        $toast.height(height);
-                        setTimeout(function () {
-                            $toast.remove();
-                            $real.appendTo($toastBox);
-                            setTimeout(function () {
-                                $real.addClass('toast-anim-start');
-                                var t = Math.min(Math.max(1000 / 20 * msg.length, 1500), 5000);
-                                setTimeout(function () {
-                                    $real.removeClass('toast-anim-start');
-                                    setTimeout(function () {
-                                        $real.remove();
-                                    }, 300);
-                                }, t);
-                            }, 25);
-                        }, 300);
-                    }, 25);
+                if (typeof message === 'undefined') {
+                    return false;
+                } else if (typeof message === 'object') {
+                    message = JSON.stringify(message);
                 }
+
+                var $toastBox = $('.toast-box');
+                if ($toastBox.length <= 0) {
+                    $toastBox = $(context.$helper.parseTemplate('toastBox'));
+                    $toastBox.appendTo('body');
+                    $toastBox.css({
+                        marginLeft: -$toastBox.width() / 2
+                    });
+                }
+
+                var $toast = $(context.$helper.parseTemplate('toast', {
+                    message: message.replace(/\r?\n/gi, '<br />')
+                }));
+                var $real = $($toast.clone()).add('<br />');
+                $toast.addClass('toast-empty');
+                $toast.appendTo('.toast-box');
+                $real.addClass('toast-real');
+
+                var height = $toast.height();
+                $toast.addClass('toast-anim');
+                setTimeout(function () {
+                    $toast.addClass('toast-anim-start').stop().animate({
+                        paddingTop: '1em',
+                        paddingBottom: '1em',
+                        marginBottom: '1em',
+                    }, 300);
+                    $toast.height(height);
+                    setTimeout(function () {
+                        $toast.remove();
+                        $real.appendTo($toastBox);
+                        setTimeout(function () {
+                            $real.addClass('toast-anim-start');
+                            var t = Math.min(Math.max(1000 / 20 * message.length, 1500), 5000);
+                            setTimeout(function () {
+                                $real.removeClass('toast-anim-start');
+                                setTimeout(function () {
+                                    $real.remove();
+                                }, 300);
+                            }, t);
+                        }, 25);
+                    }, 300);
+                }, 25);
             },
             template: {
-                toast: '<div class="toast">{msg}</div>',
+                toast: '<div class="toast">{message}</div>',
                 toastBox: '<div class="toast-box"></div>'
             }
         });
 
         new HomeWorksMethod('notification', {
-            init: function (e, o) {
-            },
-            method: {
-                init: function (title, content, url, status) {
-                    var _this = this;
+            init: function (title, content, url, status) {
+                var context = this;
 
-                    if (typeof url === 'undefined' || url === null || $.trim(url) === '') {
-                        url = null;
-                    }
-
-                    status = status || 'primary';
-
-                    if (typeof title === 'undefined' || typeof content === 'undefined') {
-                        return false;
-                    } else if (typeof content === 'object') {
-                        content = JSON.stringify(content);
-                    }
-
-                    var $notificationBox = $('.notification-box');
-                    if ($notificationBox.length <= 0) {
-                        $notificationBox = $(_this.$helper.parseTemplate('notificationBox'));
-                        $notificationBox.appendTo('body');
-                    }
-
-                    var $notification = $(_this.$helper.parseTemplate('notificationTypeDefault', {
-                        status: status,
-                        title: title,
-                        content: content.replace(/\r?\n/gi, '<br />')
-                    }));
-                    var $real = $notification.clone();
-                    $notification.addClass('notification-empty');
-                    $notification.appendTo('.notification-box');
-                    $real.addClass('notification-real');
-                    var height = $notification.height();
-                    $notification.height(0);
-                    $notification.addClass('notification-anim');
-
-                    var _t = null;
-                    var removeProc = function () {
-                        try {
-                            clearTimeout(_t);
-                        } catch (e) {
-                            console.trace(e.stack);
-                        }
-
-                        $real.removeClass('notification-anim-start');
-                        setTimeout(function () {
-                            $real.stop().animate({
-                                height: 0,
-                                paddingTop: 0,
-                                paddingBottom: 0
-                            }, 300, 'easeInOutQuad', function () {
-                                $real.remove();
-                            });
-                        }, 300);
-                    };
-                    setTimeout(function () {
-                        $notification.addClass('notification-anim-start').stop().animate({
-                            height: height,
-                            padding: '30px'
-                        }, 300, 'easeInOutQuad');
-                        setTimeout(function () {
-                            $notification.remove();
-                            $real.appendTo($notificationBox);
-                            setTimeout(function () {
-                                var t = Math.min(Math.max(1000 / 10 * (title.length + content.length), 3000), 15000);
-                                $real.find('.notification-bar').css({
-                                    transitionDuration: t + 'ms'
-                                });
-                                $real.addClass('notification-anim-start');
-                                _t = setTimeout(removeProc, t);
-                            }, 25);
-                        }, 300);
-                    }, 25);
-
-                    _this.$helper.bind($real.add($real.find('.notification-btn-ok, .notification-btn-cancel')), 'click', function (event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        var $this = $(this);
-                        removeProc.call();
-                    });
-
-                    _this.$helper.bind($real.add($real.find('.notification-btn-ok')), 'click', function (event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        var $this = $(this);
-                        if (url !== null) {
-                            location.href = url;
-                        }
-                    });
-                    //$real.find('.notification-btn-ok').bind('click');
+                if (typeof url === 'undefined' || url === null || $.trim(url) === '') {
+                    url = null;
                 }
+
+                status = status || 'primary';
+
+                if (typeof title === 'undefined' || typeof content === 'undefined') {
+                    return false;
+                } else if (typeof content === 'object') {
+                    content = JSON.stringify(content);
+                }
+
+                var $notificationBox = $('.notification-box');
+                if ($notificationBox.length <= 0) {
+                    $notificationBox = $(context.$helper.parseTemplate('notificationBox'));
+                    $notificationBox.appendTo('body');
+                }
+
+                var $notification = $(context.$helper.parseTemplate('notificationTypeDefault', {
+                    status: status,
+                    title: title,
+                    content: content.replace(/\r?\n/gi, '<br />')
+                }));
+                var $real = $notification.clone();
+                $notification.addClass('notification-empty');
+                $notification.appendTo('.notification-box');
+                $real.addClass('notification-real');
+                var height = $notification.height();
+                $notification.height(0);
+                $notification.addClass('notification-anim');
+
+                var _t = null;
+                var removeProc = function () {
+                    try {
+                        clearTimeout(_t);
+                    } catch (e) {
+                        console.trace(e.stack);
+                    }
+
+                    $real.removeClass('notification-anim-start');
+                    setTimeout(function () {
+                        $real.stop().animate({
+                            height: 0,
+                            paddingTop: 0,
+                            paddingBottom: 0
+                        }, 300, 'easeInOutQuad', function () {
+                            $real.remove();
+                        });
+                    }, 300);
+                };
+                setTimeout(function () {
+                    $notification.addClass('notification-anim-start').stop().animate({
+                        height: height,
+                        padding: '30px'
+                    }, 300, 'easeInOutQuad');
+                    setTimeout(function () {
+                        $notification.remove();
+                        $real.appendTo($notificationBox);
+                        setTimeout(function () {
+                            var t = Math.min(Math.max(1000 / 10 * (title.length + content.length), 3000), 15000);
+                            $real.find('.notification-bar').css({
+                                transitionDuration: t + 'ms'
+                            });
+                            $real.addClass('notification-anim-start');
+                            _t = setTimeout(removeProc, t);
+                        }, 25);
+                    }, 300);
+                }, 25);
+
+                context.$helper.bind($real.add($real.find('.notification-btn-ok, .notification-btn-cancel')), 'click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var $this = $(this);
+                    removeProc.call();
+                });
+
+                context.$helper.bind($real.add($real.find('.notification-btn-ok')), 'click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var $this = $(this);
+                    if (url !== null) {
+                        location.href = url;
+                    }
+                });
             },
             template: {
                 /* jshint ignore:start */
@@ -1395,10 +1423,10 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
 
         new HomeWorksMethod('dropdown', {
             init: function (element, options) {
-                var _this = this;
+                var context = this;
                 var $target = null;
 
-                $.extend(_this.local, {
+                $.extend(context.local, {
                     direction: element.data('direction') || 'left'
                 }, options);
 
@@ -1419,30 +1447,30 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             },
             method: {
                 addHandler: function (element, target) {
-                    var _this = this;
-                    var options = _this.local;
+                    var context = this;
+                    var options = context.local;
 
                     element.find('.dropdown-menu').ripple({
                         theme: 'dark'
                     });
 
-                    _this.$helper.bind(element.find('.dropdown-menu'), 'click', function (event) {
+                    context.$helper.bind(element.find('.dropdown-menu'), 'click', function (event) {
                         event.preventDefault();
                         event.stopPropagation();
-                        _this.local._prototype.removeDropdown.call(_this, element, target);
+                        context.local._prototype.removeDropdown.call(context, element, target);
                     });
 
-                    _this.$helper.bind(element.find('.dropdown-menu'), 'mousedown', function (event) {
+                    context.$helper.bind(element.find('.dropdown-menu'), 'mousedown', function (event) {
                         event.stopPropagation();
                     });
 
-                    _this.$helper.unbind(_this.element.$window, 'resize');
+                    context.$helper.unbind(context.element.$window, 'resize');
 
-                    _this.$helper.bind(_this.element.$document, 'mousedown', function (event) {
-                        _this.local._prototype.removeDropdown.call(_this, element, target);
+                    context.$helper.bind(context.element.$document, 'mousedown', function (event) {
+                        context.local._prototype.removeDropdown.call(context, element, target);
                     });
 
-                    _this.$helper.bind(
+                    context.$helper.bind(
                         target.ripple({
                             theme: 'dark'
                         }),
@@ -1454,14 +1482,14 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                             var $scrollParent = $this.scrollParent();
 
                             if ($this.hasClass('works-dropdown-active')) {
-                                _this.local._prototype.removeDropdown.call(_this, element, target);
+                                context.local._prototype.removeDropdown.call(context, element, target);
                             } else {
                                 $this.addClass('works-dropdown-active');
 
                                 element.show();
 
                                 var leftOffset = 0, topOffset = 0;
-                                _this.$helper.bind(_this.element.$window, 'resize', function (event) {
+                                context.$helper.bind(context.element.$window, 'resize', function (event) {
                                     if (options.direction === 'right') {
                                         leftOffset = (target.outerWidth() - element.outerWidth()) / 2;
                                     } else if (options.direction === 'center') {
@@ -1483,29 +1511,30 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
                                     });
                                 }, true);
 
-                                _this.$helper.bind($scrollParent, 'scroll', function (event) {
-                                    _this.$helper.triggerHandler(_this.element.$window, 'resize');
+                                context.$helper.bind($scrollParent, 'scroll', function (event) {
+                                    context.$helper.triggerHandler(context.element.$window, 'resize');
                                 });
 
-                                _this.$helper.promise(function () {
+                                context.$helper.promise(function () {
                                     element.css('opacity', 1);
-                                    _this.$helper.triggerHandler(_this.element.$window, 'resize');
+                                    context.$helper.triggerHandler(context.element.$window, 'resize');
                                 }, 25, true);
                             }
                         });
 
-                    _this.$helper.bind(target, 'mousedown', function (event) {
+                    context.$helper.bind(target, 'mousedown', function (event) {
                         event.stopPropagation();
                     });
                 },
                 removeDropdown: function(element, target) {
-                    var _this = this;
+                    var context = this;
+
                     element.css('opacity', 0);
                     target.removeClass('works-dropdown-active');
-                    _this.$helper.promise(function () {
+                    context.$helper.promise(function () {
                         element.hide();
                     }, 300, true);
-                    _this.$helper.unbind(_this.element.$window, 'resize');
+                    context.$helper.unbind(context.element.$window, 'resize');
                 }
             }
         });
@@ -1695,54 +1724,34 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             template: {
             }
         });
-    }(jQuery));
 
-    /*******************************
-     * NOTE - HomeWorks 플러그인 호출부
-     * DATE - 2016-01-19
-     *******************************/
-    $(function () {
-        // 버튼 Material Ripple 설정
-        (function ($e, f) {
+        /*=================================================
+         *= NOTE - HOMEWORKS VIEW HOOKS START
+         *= DATE - 2017-01-10
+         *================================================*/
+
+        //===========================
+        // RIPPLE VIEW HOOK
+        //===========================
+        (function (target, value) {
             this.ripple({
-                theme: f
+                theme: value
             });
         }).hook('ripple');
 
-        (function ($e, a) {
-            var $document = $(document);
-            var $wrapper = $('.works-wrapper');
-            var $sider = $('.works-sider');
-            $sider.bind('click', function (event) {
-                event.stopPropagation();
-            });
-            this.bind('click', function (event) {
-                event.stopPropagation();
-                var $this = $(this);
-                if ($sider.hasClass('works-sider-active')) {
-                    $sider.removeClass('works-sider-active');
-                    $wrapper.removeClass('works-sider-active');
-                    $document.unbind('click.worksMenuHandler');
-                } else {
-                    $sider.addClass('works-sider-active');
-                    $wrapper.addClass('works-sider-active');
-                    $document.unbind('click.worksMenuHandler').bind('click.worksMenuHandler', function (event) {
-                        event.preventDefault();
-                        $sider.removeClass('works-sider-active');
-                        $wrapper.removeClass('works-sider-active');
-                        $document.unbind('click.worksMenuHandler');
-                    });
-                }
-            });
-        }).hook('menu');
 
-        // 인풋 관련 설정
-        (function ($e) {
+        //===========================
+        // INPUT VIEW HOOK
+        //===========================
+        (function () {
             this.input();
         }).hook('input');
 
-        // 토글 관련 설정
-        (function ($e) {
+
+        //===========================
+        // TOGGLE VIEW HOOK
+        //===========================
+        (function () {
             var placeholder = this.data('toggleplaceholder');
             try {
                 if (typeof placeholder !== 'undefined' && placeholder !== null && placeholder !== '') {
@@ -1761,51 +1770,72 @@ if (VERSION.replace(/@/g, '') !== 'VERSION') {
             });
         }).hook('toggle');
 
-        // 모달 관련 설정
-        (function ($e) {
+
+        //===========================
+        // MODAL VIEW HOOK
+        //===========================
+        (function (target) {
             this.bind('click', function (event) {
                 event.preventDefault();
-                $e.modal('toggle');
+                target.modal('toggle');
             });
         }).hook('modal');
 
-        // 툴팁 관련 설정
-        (function ($e, f) {
+
+        //===========================
+        // TOOLTIP VIEW HOOK
+        //===========================
+        (function (target, value) {
             this.tooltip({
-                type: f
+                type: value
             });
         }).hook('tooltip');
 
-        // 체크박스 관련 설정
-        (function ($e, f) {
+
+        //===========================
+        // CHECKBOX VIEW HOOK
+        //===========================
+        (function () {
             this.checkbox();
         }).hook('checkbox');
 
-        // 스피너 관련 설정
-        (function ($e, f) {
-            this.spinner({
-            });
+
+        //===========================
+        // SPINNER VIEW HOOK
+        //===========================
+        (function () {
+            this.spinner();
         }).hook('spinner');
 
-        // 드롭다운 관련 설정
-        (function ($e, f) {
-            this.dropdown({
-            });
+
+        //===========================
+        // DROPDOWN VIEW HOOK
+        //===========================
+        (function () {
+            this.dropdown();
         }).hook('dropdown');
 
-        // 탭 관련 설정
-        (function ($e, f) {
-            this.tab({
-            });
+
+        //===========================
+        // TAB VIEW HOOK
+        //===========================
+        (function () {
+            this.tab();
         }).hook('tab');
 
-        // 스탭 관련 설정
-        (function ($e, f) {
-            this.step({
-            });
-        }).hook('step');
-    });
 
+        //===========================
+        // TAB VIEW HOOK
+        //===========================
+        (function () {
+            this.step();
+        }).hook('step');
+
+        /*=================================================
+         *= NOTE - HOMEWORKS VIEW HOOKS END
+         *= DATE - 2017-01-10
+         *================================================*/
+    }(jQuery));
     
     /*******************************
      * NOTE - Additional jquery functions
