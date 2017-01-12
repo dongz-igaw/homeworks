@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/IGAWorksDev/homeworks.svg?token=x98k8HzDc3zdfP6gvssV&branch=master)](https://travis-ci.com/IGAWorksDev/homeworks)
 
-![HomeWorks Framework](https://s3-ap-northeast-1.amazonaws.com/campaign.intelligence/static/resources/homeworks/homeworks.png)
+![HomeWorks Framework](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/homeworks.png)
 
 > IGAWorks Front End-Side Framework.
 
@@ -10,6 +10,10 @@
 
 - [가이드라인](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)
 - [공식페이지](http://homeworks.igaworks.com/main/docs/index.html)
+
+## Structures
+
+![Structure](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/Introduction.png)
 
 ## Note
 
