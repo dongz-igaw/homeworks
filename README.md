@@ -8,8 +8,8 @@
 
 ## Getting Started
 
-- [가이드라인 바로가기](http://homeworks.igaworks.com/main/docs/index.html)
-- 자세한 내용은 [HomeWorks WIKI](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)를 이용해주시기 바랍니다.
+- [가이드라인](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)
+- [공식페이지](http://homeworks.igaworks.com/main/docs/index.html)
 
 ## Note
 
