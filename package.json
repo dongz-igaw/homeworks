@@ -1,7 +1,7 @@
 {
-  "name": "HomeWorksFramework",
-  "version": "2.0.7",
-  "description": "> IGAWorks Inc, Front End-side framework.",
+  "name": "homeworks",
+  "version": "2.0.9",
+  "description": "> IGAWorks Inc, Front End framework.",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "grunt test",
@@ -19,15 +19,16 @@
   "author": "PIGNOSE",
   "license": "Check the LICENSE file",
   "bugs": {
-    "url": "https://github.com/IGAWorksDev/HomeWorksFramework/issues"
+    "url": "https://github.com/IGAWorksDev/homeworks/issues"
   },
-  "homepage": "https://github.com/IGAWorksDev/HomeWorksFramework#readme",
+  "homepage": "https://github.com/IGAWorksDev/homeworks#readme",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-coffee": "^0.13.0",
     "grunt-contrib-compass": "^1.0.4",
     "grunt-contrib-compress": "^0.14.0",
+    "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-copy": "^0.8.2",
     "grunt-contrib-csslint": "^0.5.0",
     "grunt-contrib-cssmin": "^0.14.0",

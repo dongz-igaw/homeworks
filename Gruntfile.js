@@ -6,6 +6,8 @@ module.exports = function(grunt) {
   // ===========================================================================
   // CONFIGURE GRUNT ===========================================================
   // ===========================================================================
+  var cwd = process.cwd();
+
   grunt.initConfig({
 
     // get the configuration info from package.json ----------------------------
@@ -13,6 +15,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
       options: {
+        sourceMap: true,
         banner: '//================================================================================\n' +
                 '// [<%= pkg.name %>]\n' +
                 '// version: <%= pkg.version %>\n' +
@@ -29,7 +32,7 @@ module.exports = function(grunt) {
       files: ['sample/**/*.html']
     },
     jshint: {
-      files: ['Gruntfile.js', 'src/js/**.js'],
+      files: ['Gruntfile.js', 'src/js/**/**.js'],
       options: {
         // options here to override JSHint defaults
         globals: {
@@ -40,6 +43,25 @@ module.exports = function(grunt) {
         }
       }
     },
+    csslint: {
+      dist: ['src/css/**.css']
+    },
+    concat: {
+        options: {
+            sourceMap: true
+        },
+        dist: {
+            src: [
+                'src/js/core/index.js',
+                'src/js/core/**/**.js',
+                'src/js/components/**/index.js',
+                'src/js/components/**/hook.js',
+                'src/js/components/**/**.js',
+                '!src/js/homeworks.js'
+            ],
+            dest: 'src/js/homeworks.js'
+        }
+    },
     copy: {
       options: {},
       files: [
@@ -49,6 +71,7 @@ module.exports = function(grunt) {
     },
     cssmin: {
       options: {
+        sourceMap: true,
         banner: '//================================================================================\n' +
                 '// [<%= pkg.name %>]\n' +
                 '// version: <%= pkg.version %>\n' +
@@ -60,9 +83,6 @@ module.exports = function(grunt) {
           'dist/homeworks.min.css': ['src/css/**.css']
         }
       }
-    },
-    csslint: {
-      dist: ['src/css/**.css']
     },
     replace: {
       dist: {
@@ -85,8 +105,11 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: ['jshint']
+      options: {
+        cliArgs: ['--gruntfile', require('path').join(cwd, 'Gruntfile.js')],
+      },
+      files: ['src/**/**.js'],
+      tasks: ['default']
     }
   });
 
@@ -98,14 +121,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-csslint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default', ['jshint', 'csslint', 'uglify', 'cssmin', 'replace']);
+  grunt.registerTask('default', ['jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'replace']);
   grunt.registerTask('replacement', ['replace']);
   grunt.registerTask('test', ['jshint', 'csslint']);
   grunt.registerTask('copy', ['copy']);
+  grunt.registerTask('init', ['watch']);
 };

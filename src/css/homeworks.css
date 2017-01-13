@@ -1837,6 +1837,7 @@ a:active {
     line-height: 2.4em;
     margin: 0 1.6em;
     padding: .4em 1.4em;
+    vertical-align: bottom;
     border-bottom: 2px solid transparent;
     transition: box-shadow .2s ease;
     -o-transition: box-shadow .2s ease;

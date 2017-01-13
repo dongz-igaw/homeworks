@@ -1,0 +1,155 @@
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT UPLOAD
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/upload.html
+//
+//=========================================================
+
+(function($) {
+    new ComponentMethod('upload', {
+        init: function (element) {
+            var context = this;
+
+            element.bind('change', function() {
+                var $this = $(this);
+
+                if ($this.val() !== '') {
+                    context.local._prototype.upload.apply(context, [].concat($this, o, Array.prototype.slice.call(arguments, 2)));
+                }
+            });
+        },
+        method: {
+            upload: function (element) {
+                var context = this;
+
+                var options = context.local._options;
+                var file = element[0].files[0];
+                var info = {
+                    name: file.name,
+                    size: file.size,
+                    type: (file.type.split('/'))[(file.type.split('/')).length - 1],
+                    exts: (file.name.split('.'))[(file.name.split('.')).length - 1],
+                };
+                var exts = {
+                    txt: ['TXT', 'LOG'],
+                    img: ['JPEG', 'JPG', 'JPE', 'PJPEG', 'PNG', 'GIF', 'BMP', 'RAW'],
+                    doc: ['DOC', 'DOCX', 'PPT', 'PPTX', 'HWP', 'XLS', 'XLSX', 'PDF', 'CSV'],
+                    flag: {
+                        txt: 'Text',
+                        img: 'Image',
+                        doc: 'Doc',
+                        spread: 'Spread'
+                    },
+                    dest: {
+                        local: 'Local',
+                        s3: 'AWSS3'
+                    }
+                };
+
+                if (typeof options.type !== 'undefined' && options.type !== null) {
+                    if ($.inArray(options.type, Object.keys(exts)) !== -1) {
+                        if ($.inArray(info.type.toUpperCase(), exts[options.type]) !== -1) {
+                            var idx = null;
+                            if($.inArray(info.exts.toUpperCase(), exts[options.type]) !== -1) {
+                                var form = new FormData();
+                                form.append('file', file, file.name);
+                                if (typeof options.type !== 'undefined' && options.type !== null) {
+                                    form.append('type', exts.flag[options.type]);
+                                }
+
+                                if (typeof options.dest !== 'undefined' && options.dest !== null) {
+                                    form.append('dest', exts.dest[options.dest]);
+                                }
+
+                                if (typeof options.data !== 'undefined') {
+                                    for (idx in options.data) {
+                                        form.append(idx, options.data[idx]);
+                                    }
+                                }
+
+                                if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
+                                    e.siblings('.btn').text('업로드 중').addClass('btn-default').removeClass('btn-success btn-danger');
+                                }
+
+                                if (typeof options.beforeStart === 'function') {
+                                    options.beforeStart.apply(e, Array.prototype.slice.call(arguments));
+                                }
+
+                                if (typeof options.extensions !== 'undefined') {
+                                    for (idx in options.extensions) {
+                                        var item = options.extensions[idx];
+                                        form.append(idx, item);
+                                    }
+                                }
+
+                                $.ajax({
+                                    url: options.url,
+                                    data: form,
+                                    type: 'POST',
+                                    contentType: false,
+                                    processData: false,
+                                    mimeType: 'multipart/form-data',
+                                    dataType: 'json',
+                                    timeout: 30000,
+                                    complete: options.complete,
+                                    success: function (data, status, xhr) {
+                                        if (data.code === 200) {
+                                            var result = data.data;
+                                            element.val('');
+
+                                            if (options.type === 'img') {
+                                                if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
+                                                    options.siblings('.btn, img').remove();
+                                                    options.before('<img src="' + result.data + '" />');
+                                                }
+                                            } else {
+                                                if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
+                                                    options.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
+                                                }
+                                            }
+                                            options.data('value', result);
+                                            if (typeof options.success === 'function') {
+                                                options.success.apply(element, Array.prototype.slice.call(arguments));
+                                            }
+                                        } else {
+                                            if (typeof data.msg !== 'undefined') {
+                                                toast(data.msg);
+                                            }
+                                        }
+                                    },
+                                    error: function (xhr, status, error) {
+                                        toast('Unexpected error are occured when uploading.');
+                                        if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
+                                            element
+                                                .siblings('.btn')
+                                                .text('Error')
+                                                .removeClass('btn-default btn-success')
+                                                .addClass('btn-danger');
+                                        }
+                                        if (typeof options.error === 'function') {
+                                            options.error.apply(element, Array.prototype.slice.call(arguments));
+                                        }
+                                    }
+                                });
+                            } else {
+                                toast('.' + info.exts + '은 업로드를 지원하는 확장자가 아닙니다.');
+                            }
+                        } else {
+                            toast('.' + info.exts + '은 업로드를 지원하는 확장자가 아닙니다.');
+                        }
+                    } else {
+                        toast(options.type + '은 허용하는 확장자 옵션 정의가 아닙니다.');
+                    }
+                } else {
+                    // Write some codes here.
+                }
+            }
+        }
+    });
+}(jQuery));
