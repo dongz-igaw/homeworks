@@ -64,3 +64,13 @@
 ## [Deployment](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/DEPLOY.html)
 
 ![Deployment](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/deploy.png)
+
+----
+
+## Contribution
+
+### Docs
+ 
+ This project is using [JSDoc](http://usejsdoc.org/) for create doc files.
+ 
+ You can decleare information of component by follow JSDoc rules.
