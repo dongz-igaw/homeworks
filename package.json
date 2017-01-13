@@ -1,16 +1,17 @@
 {
   "name": "homeworks",
   "version": "2.0.9",
-  "description": "> IGAWorks Inc, Front End framework.",
+  "description": "IGAWorks Inc, Front End framework.",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "grunt test & mocha src/**/test/*.js",
+    "start": "lite-server -c configs/lite-server.json",
     "report-coverage": "codecov",
     "jsdoc": "./node_modules/.bin/jsdoc src/ -r -c jsdoc.json -d docs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IGAWorksDev/HomeWorksFramework.git"
+    "url": "git+https://github.com/IGAWorksDev/homeworks.git"
   },
   "keywords": [
     "Frontend-Framework",
@@ -49,6 +50,7 @@
     "jsdoc-to-markdown": "^2.0.1",
     "jsdom": "9.9.1",
     "jsdom-global": "2.1.1",
+    "lite-server": "^2.2.2",
     "mocha": "^3.1.0",
     "mochawesome": "^1.5.5"
   }
