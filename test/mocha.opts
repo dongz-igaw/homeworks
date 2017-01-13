@@ -1,4 +1,2 @@
 --recursive
---reporter mochawesome
 --timeout 10000
--r jsdom-global/register

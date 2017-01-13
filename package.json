@@ -4,7 +4,7 @@
   "description": "IGAWorks Inc, Front End framework.",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "grunt test & mocha src/**/test/*.js",
+    "test": "grunt test & mocha --require jsdom-global/register --reporter mochawesome src/js/**/test/*.js",
     "start": "lite-server -c configs/lite-server.json",
     "report-coverage": "codecov",
     "jsdoc": "./node_modules/.bin/jsdoc src/ -r -c jsdoc.json -d docs"
@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/IGAWorksDev/homeworks#readme",
   "devDependencies": {
+    "blanket": "^1.2.3",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-coffee": "^0.13.0",

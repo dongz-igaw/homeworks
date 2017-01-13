@@ -9,13 +9,14 @@ before_install:
  - sh -e /etc/init.d/xvfb start
 
 install:
- - npm install -g istanbul
  - npm install -g grunt-cli
  - npm install -g codecov
+ - npm install -g istanbul
  - npm install --save-dev
 
 script: 
  - npm test
 
 after_success:
- - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- src/js/**/test/**.js -R spec && codecov
+ - istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./src/js/**/test/**.js
+ - codecov

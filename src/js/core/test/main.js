@@ -2,8 +2,8 @@ var assert = require('assert');
 
 describe('HOMEWORKS CORE TEST', function() {
 	before(function() {
-		global.$ = global.jQuery = require('jquery');
 		this.jsdom = require('jsdom-global')();
+		global.$ = global.jQuery = require('jquery');
 		this.core = require('../index');
 
 		$('body').html(`
