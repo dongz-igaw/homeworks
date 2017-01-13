@@ -12,7 +12,7 @@ install:
  - npm install --save-dev
 
 script: 
- - grunt test
+ - npm test
 
 after_success:
  - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- test/** -R spec && codecov

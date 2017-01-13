@@ -14,9 +14,12 @@
     "url": "git+https://github.com/IGAWorksDev/homeworks.git"
   },
   "keywords": [
-    "Frontend-Framework",
+    "Frontend Framework",
     "Material",
-    "IGAWorks"
+    "IGAWorks",
+    "homeworks",
+    "framework",
+    "PIGNOSE"
   ],
   "author": "PIGNOSE",
   "license": "Check the LICENSE file",
