@@ -1,4 +1,4 @@
-# HomeWorksFramework
+# HOMEWORKS FRAMEWORK
 
 [![Build Status](https://travis-ci.com/IGAWorksDev/homeworks.svg?token=x98k8HzDc3zdfP6gvssV&branch=master)](https://travis-ci.com/IGAWorksDev/homeworks)
 
@@ -74,3 +74,9 @@
  This project is using [JSDoc](http://usejsdoc.org/) for create doc files.
  
  You can decleare information of component by follow JSDoc rules.
+ 
+### Flow
+
+ ![Flow](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/flow.png)
+ 
+ [설명참고](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/FLOW.html)
