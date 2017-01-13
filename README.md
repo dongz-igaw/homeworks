@@ -1,4 +1,4 @@
-# HomeWorksFramework
+# HOMEWORKS FRAMEWORK
 
 [![Build Status](https://travis-ci.com/IGAWorksDev/homeworks.svg?token=x98k8HzDc3zdfP6gvssV&branch=master)](https://travis-ci.com/IGAWorksDev/homeworks)
 
