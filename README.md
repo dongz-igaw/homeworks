@@ -77,8 +77,6 @@ git pull origin master
 
 ----
 
-- Docs 페이지 [`homeworks/index.html`](http://homeworks.igaworks.com/main/docs/index.html) 참고하여 주시기 바랍니다.
-
 ```html
   ─┬ homeworks repository
    │
