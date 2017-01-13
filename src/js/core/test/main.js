@@ -49,8 +49,6 @@ describe('HOMEWORKS CORE TEST', function() {
 				var context = this;
 				var local = context.local;
 				var options = local._options;
-
-				console.log('test');
 				
 				try {
 					assert.equal(local._id, 'component', 'COMPONENT ID is \'component\'.');
