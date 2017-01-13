@@ -2,14 +2,24 @@
 
 [![Build Status](https://travis-ci.com/IGAWorksDev/homeworks.svg?token=x98k8HzDc3zdfP6gvssV&branch=master)](https://travis-ci.com/IGAWorksDev/homeworks)
 
-![HomeWorks Framework](https://s3-ap-northeast-1.amazonaws.com/campaign.intelligence/static/resources/homeworks/homeworks.png)
+![HomeWorks Framework](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/homeworks.png)
 
 > IGAWorks Front End-Side Framework.
 
 ## Getting Started
 
-- [가이드라인 바로가기](http://homeworks.igaworks.com/main/docs/index.html)
-- 자세한 내용은 [HomeWorks WIKI](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)를 이용해주시기 바랍니다.
+- [가이드라인](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)
+- [공식페이지](http://homeworks.igaworks.com/main/docs/index.html)
+
+## Structures
+
+- [JAVASCRIPT](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/)
+
+ ![Structure](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/Introduction.png)
+ 
+- [STYLE](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/STYLE/)
+
+ ![CSS Structure](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/css_structure.png)
 
 ## Note
 
@@ -48,3 +58,9 @@
      └┬ js
       └─ jquery-1.12.2.min.js
 ```
+
+----
+
+## [Deployment](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/DEPLOY.html)
+
+![Deployment](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/deploy.png)
