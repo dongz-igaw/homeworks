@@ -11,6 +11,60 @@
 - [가이드라인](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)
 - [공식페이지](http://homeworks.igaworks.com/main/docs/index.html)
 
+## Installation
+
+#
+### Git을 통한 설치
+
+1. 작업하시는 프로젝트의 원하는 폴더에서 아래 명령줄을 실행합니다.
+
+```shell
+git clone git@github.com:IGAWorksDev/homeworks.git
+cd homeworks
+```
+
+2. 프로젝트에서 Git을 사용하신다면 프로젝트 루트 폴더에서 서브 프로젝트로 지정합니다.
+
+```shell
+git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
+```
+
+#### Release를 통한 설치
+
+> [HOMEWORKS Release](https://github.com/IGAWorksDev/homeworks/releases)를 확인합니다.
+>
+> 원하는 파일을 zip파일로 다운받아 특정 폴더에 압축을 해제합니다.
+
+#### 코드조각 삽입
+
+- 개발하시는 웹 페이지 헤더에 아래 코드조각을 삽입해주세요.
+
+```html
+<script type="text/javascript" src="homeworks/dist/js/homeworks.min.js"></script>
+<link type="text/css" href="homeworks/dist/css/homeworks.min.css" />
+```
+
+#### 데모페이지 확인
+
+- 설치된 경로에서 아래 명령줄을 실행합니다.
+
+```shell
+npm install
+npm start
+```
+
+----
+
+### Update
+
+- 설치된 경로에서 아래 명령줄을 실행합니다.
+
+ ```shell
+git pull origin master
+```
+
+----
+ 
 ## Structures
 
 - [JAVASCRIPT](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/)
