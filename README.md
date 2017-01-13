@@ -69,7 +69,7 @@
 
 ## Contribution
 
- ### Docs
+### Docs
  
  This project is using [JSDoc](http://usejsdoc.org/) for create doc files.
  
