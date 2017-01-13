@@ -126,7 +126,7 @@ function ComponentData(context, id) {
     this.store = {
         $self: this,
         $super: context,
-        $helper: new ComponentHelper(context, this.store),
+        $helper: null,
         _init: false,
         _anim: false,
         _bind: false,
@@ -144,6 +144,7 @@ function ComponentData(context, id) {
         },
         global: _superVariables[id] || {}
     };
+    this.store.$helper = new ComponentHelper(context, this.store);
 }
 
 /**
