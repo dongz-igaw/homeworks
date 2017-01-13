@@ -44,7 +44,13 @@ module.exports = function(grunt) {
       }
     },
     csslint: {
-      dist: ['src/css/**.css']
+      options: {
+        csslintrc: 'test/csslintrc.json',
+        quiet: false
+      },
+      dist: [
+        'src/css/**.css'
+      ]
     },
     concat: {
         options: {

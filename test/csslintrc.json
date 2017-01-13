@@ -1,0 +1,16 @@
+{
+	"adjoining-classes": false,
+	"qualified-headings": false,
+	"unique-headings": false,
+	"known-properties": false,
+	"box-sizing": false,
+	"star-property-hack": false,
+	"outline-none": false,
+	"fallback-colors": false,
+	"display-property-grouping": false,
+	"universal-selector": false,
+	"box-model": false,
+	"font-sizes": false,
+	"important": false,
+	"unqualified-attributes": false
+}

@@ -4,7 +4,7 @@
   "description": "> IGAWorks Inc, Front End framework.",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "grunt test",
+    "test": "grunt test & mocha src/**/test/*.js",
     "report-coverage": "codecov",
     "jsdoc": "./node_modules/.bin/jsdoc src/ -r -c jsdoc.json -d docs"
   },
@@ -44,6 +44,9 @@
     "grunt-jsdoc": "^2.1.0",
     "grunt-replace": "^1.0.1",
     "jsdoc": "^3.4.3",
+    "jsdoc-to-markdown": "^2.0.1",
+    "jsdom": "9.9.1",
+    "jsdom-global": "2.1.1",
     "mocha": "^3.1.0"
   }
 }

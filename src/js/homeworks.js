@@ -646,6 +646,7 @@ function ComponentMethod(name, settings) {
         });
     });
 }(jQuery));
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT CHECKBOX
