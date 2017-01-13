@@ -18,14 +18,14 @@
 
 1. 작업하시는 프로젝트의 원하는 폴더에서 아래 명령줄을 실행합니다.
 
-```shell
+ ```shell
 git clone git@github.com:IGAWorksDev/homeworks.git
 cd homeworks
 ```
 
 2. 프로젝트에서 Git을 사용하신다면 프로젝트 루트 폴더에서 서브 프로젝트로 지정합니다.
 
-```shell
+ ```shell
 git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 ```
 
