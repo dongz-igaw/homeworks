@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: homeworks.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: homeworks.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//==========================================================
+//
+//       ___           ___           ___           ___           ___           ___           ___           ___           ___     
+//      /\__\         /\  \         /\__\         /\  \         /\__\         /\  \         /\  \         /\__\         /\  \    
+//     /:/  /        /::\  \       /::|  |       /::\  \       /:/ _/_       /::\  \       /::\  \       /:/  /        /::\  \   
+//    /:/__/        /:/\:\  \     /:|:|  |      /:/\:\  \     /:/ /\__\     /:/\:\  \     /:/\:\  \     /:/__/        /:/\ \  \  
+//   /::\  \ ___   /:/  \:\  \   /:/|:|__|__   /::\~\:\  \   /:/ /:/ _/_   /:/  \:\  \   /::\~\:\  \   /::\__\____   _\:\~\ \  \ 
+//  /:/\:\  /\__\ /:/__/ \:\__\ /:/ |::::\__\ /:/\:\ \:\__\ /:/_/:/ /\__\ /:/__/ \:\__\ /:/\:\ \:\__\ /:/\:::::\__\ /\ \:\ \ \__\
+//  \/__\:\/:/  / \:\  \ /:/  / \/__/~~/:/  / \:\~\:\ \/__/ \:\/:/ /:/  / \:\  \ /:/  / \/_|::\/:/  / \/_|:|~~|~    \:\ \:\ \/__/
+//       \::/  /   \:\  /:/  /        /:/  /   \:\ \:\__\    \::/_/:/  /   \:\  /:/  /     |:|::/  /     |:|  |      \:\ \:\__\  
+//       /:/  /     \:\/:/  /        /:/  /     \:\ \/__/     \:\/:/  /     \:\/:/  /      |:|\/__/      |:|  |       \:\/:/  /  
+//      /:/  /       \::/  /        /:/  /       \:\__\        \::/  /       \::/  /       |:|  |        |:|  |        \::/  /   
+//      \/__/         \/__/         \/__/         \/__/         \/__/         \/__/         \|__|         \|__|         \/__/    
+//
+//
+//
+// @ HOMEWORKS FRAMEWORK
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE  2017-01-13                          
+// @ AUTHOR  Kenneth                                      
+//
+//=========================================================
+
+window.HOMEWORKS_VERSION = '2.0.9.3';
+var VERSION = '@@VERSION';
+if (VERSION.replace(/@/g, '') !== 'VERSION') {
+    window.HOMEWORKS_VERSION = VERSION;
+}
+
+var _promiseVariables  = {}; // Promise standard global variables.
+var _superVariables   = {}; // Plugin option standard global variables.
+
+/*=================================================
+ *= NOTE - String formatter.
+ *= DATE - 2016-01-19
+ *================================================*/
+String.prototype.getFormat = function (options) {
+    var string = this;
+    for (var idx in options) {
+        var value = options[idx];
+        idx = idx.replace(/\\/gi, '\\\\')
+                 .replace(/-/gi, '\\-');
+        var regexp = new RegExp("{" + idx + "}", "gi");
+        string = string.replace(regexp, value);
+    }
+    return string.toString();
+};
+
+/*=================================================
+ *= NOTE - Component biding feature.
+ *= DATE - 2016-01-19
+ *================================================*/
+Function.prototype.hook = function (name, args) {
+    var context = this;
+
+    try {
+        jQuery(document).ready(function() {
+            var format = '[data-{data-name}]';
+
+            jQuery(format.getFormat({
+                'data-name': name
+            })).each(function () {
+                var element = $(this);
+                var target = element.data('pen');
+                var plugin = element.data(name);
+
+                if (plugin === false)
+                    return true;
+
+                if (typeof context === 'function') {
+                    if (typeof target === 'undefined') {
+                        context.call(element, null, plugin, args);
+                    } else {
+                        context.call(element, $(target), plugin, args);
+                    }
+                }
+            });
+        });
+    } catch (e) {
+        console.trace(e.stack);
+    }
+};
+
+/*=================================================
+ *= NOTE - HOMEWORKS Component define region.
+ *= DATE - 2016-01-19
+ *================================================*/
+
+/**
+ * @constructor
+ * @see Refer an example document {@link https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/ComponentData.html|here}.
+ * @author Kenneth &lt;kenneth@igaworks.com>
+ * @param {ComponentMethod} context - HOMEWORKS ComponentMethod Context.
+ * @param {string} id -  HOMEWORKS Component Unique ID
+ * @returns {ComponentData}
+ */
+function ComponentData(context, id) {
+    /*=================================================
+     *= NOTE - HOMEWORKS Compoent storagy variables region.
+     *= DATE - 2016-01-19
+     *================================================*/
+    if (typeof _superVariables[id] === 'undefined') {
+        _superVariables[id] = {};
+    }
+
+    this.preference = {
+        $self: this,
+        $super: context,
+        $helper: null,
+        _anim: false,
+        _bind: false,
+        _debug: true,
+
+
+        _init: false,
+        anim: {
+            time: 300,
+            effect: 'swing'
+        },
+        framework: 'homeworks',
+        prefix: 'works',
+        id: '',
+        element: {
+            $window: $(window),
+            $document: $(document)
+        },
+        global: {}
+    };
+
+    this.preference.id = id;
+    this.preference.global = _superVariables[id];
+    this.preference.$helper = new ComponentHelper(context, this.preference);
+}
+
+/**
+ * @constructor
+ * @see Refer an example document {@link https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/ComponentHelper.html|here}.
+ * @author Kenneth &lt;kenneth@igaworks.com>
+ * @param {ComponentMethod} context - HOMEWORKS ComponentMethod Context.
+ * @returns {ComponentHelper}
+ */
+function ComponentHelper(context) {
+    /*=================================================
+     *= NOTE - HOMEWORKS Component shared feature.
+     *= DATE - 2016-01-19
+     *================================================*/
+    this.promise = function (name, callback, time, invoke) {
+        var self = this;
+        if (typeof name === 'function' &amp;&amp; typeof callback === 'number') {
+            time = callback;
+            callback = name;
+            name = context.id;
+        }
+
+        if (typeof invoke !== 'undefined' &amp;&amp; invoke === true) {
+            this.invoke(name);
+        }
+
+        _promiseVariables[context.framework + '.' + name] = setTimeout(function () {
+            try {
+                delete _promiseVariables[context.framework + '.' + name];
+            } catch (e) {
+                self.log(e.stack);
+            }
+
+            if (typeof callback === 'function') {
+                callback();
+            }
+        }, time);
+        return _promiseVariables;
+    };
+
+    this.invoke = function (name) {
+        if (typeof name === 'undefined') {
+            name = context.id;
+        }
+        if (typeof _promiseVariables[_this.framework + '.' + name] !== 'undefined') {
+            try {
+                clearTimeout(_promiseVariables[_this.framework + '.' + name]);
+                delete _promiseVariables[_this.framework + '.' + name];
+            } catch (e) {
+                self.log(e.stack);
+            }
+        }
+        return true;
+    };
+
+    this.log = function (message, code) {
+        if (context._debug === true) {
+            var template = message;
+
+            if (typeof message !== 'undefined' &amp;&amp; typeof message.stack !== 'undefined') {
+                console.error(message.stack);
+            } else {
+                if (typeof code !== 'undefined' &amp;&amp; code !== null) {
+                    template = '[' + code + '] ' + template;
+                }
+
+                console.error(template);
+            }
+        }
+    };
+
+    this.parseTemplate = function (name, map) {
+        var data = context.template[name];
+        if (typeof data === 'undefined') {
+            this.log("'" + name + "' 이름의 템플릿이 확인되지 않습니다.");
+            return false;
+        }
+        return data.getFormat(map);
+    };
+
+    this.getIdentifier = function () {
+        var id = data.id.replace(/,?\s/g, '-');
+        var id_arr = id.split('');
+        id = [id_arr[0].toUpperCase()].concat(id_arr.splice(1, id.length)).join('');
+        return data.framework + id;
+    };
+
+    this.bind = function (element, type, callback, initialize) {
+        try {
+            var forms = type.toString().split(' ');
+            for (var name in forms) {
+                forms[name] = forms[name] + '.' + this.getIdentifier();
+            }
+
+            forms = forms.join(' ');
+
+            element.bind(forms, function (event, value) {
+                if (typeof value === 'object') {
+                    $.extend(event, value);
+                }
+
+                if (typeof callback === 'function') {
+                    callback.apply(this, Array.prototype.slice.call(arguments));
+                }
+            });
+
+            if (typeof initialize !== 'undefined' &amp;&amp; initialize === true) {
+                this.triggerHandler(element, type);
+            }
+        } catch (exception) {
+            this.log(exception);
+        }
+    };
+
+    this.unbind = function (element, type) {
+        element.unbind(type + '.' + this.getIdentifier());
+    };
+
+    this.trigger = function (element, type, value) {
+        var forms = (type.toString().split(' '))[0];
+        element.trigger(value === true ? forms : (forms + '.' + this.getIdentifier()), value);
+    };
+
+    this.triggerHandler = function (element, type, value) {
+        var forms = (type.toString().split(' '))[0];
+        element.triggerHandler(value === true? forms : (forms + '.' + this.getIdentifier()), value);
+    };
+}
+
+function ComponentMethod(name, settings) {
+    /*=================================================
+     *= NOTE - HOMEWORKS Component settings region.
+     *= DATE - 2016-01-19
+     *================================================*/
+    var _this = this;
+    var _componentVariables = (new ComponentData(this, name)).preference;
+    var _globalVariables = _componentVariables.global;
+
+    if (typeof settings.options !== 'undefined' &amp;&amp; settings.options !== null) {
+        $.extend(_superVariables[name], settings.options);
+    }
+
+    this.init = settings.init;
+    this.method = {
+        init: this.init
+    };
+    this.template = {
+    };
+    this.options = {
+    };
+
+    $.extend(this.method, settings.method);
+    $.extend(this.template, settings.template);
+    $.extend(this.options, settings.options);
+
+    /*=================================================
+     *= NOTE - HOMEWORKS ROUTE START
+     *= DATE - 2017-01-10
+     *================================================*/
+    this.route = function (id) {
+        var self = this;
+        var args = [];
+        if (arguments.length > 1) {
+            $.map(Array.prototype.slice.call(arguments, 1), function (e, i) {
+                args.push(e);
+            });
+        }
+
+        var ElementBinder = function () {
+            var _localVariables = this.data;
+            if (typeof this === 'object') {
+                if (typeof _localVariables === 'undefined') {
+                    _localVariables = {
+                        '_id': id,
+                        '_init': false,
+                        '_prototype': {},
+                        '_options': $.extend({}, _this.options)
+                    };
+                    this.data = _localVariables;
+                    $.extend(_localVariables._prototype, _this.method);
+                }
+            }
+
+            var context = $.extend(this, {
+                local: _localVariables,
+            }, _componentVariables);
+
+            if (args.length === 0 || typeof args[0] === 'object') {
+                // Function(obj) or Function() pattern.
+                if (typeof args[0] === 'object') {
+                    // Function(obj) pattern.
+                    $.extend(_localVariables._options, args[0]);
+                }
+
+                if (_localVariables._init === false) {
+                    _localVariables._init = true;
+                    _this.init.apply(context, [$(this)].concat(Array.prototype.slice.call(args)));
+                }
+            } else if (typeof args[0] === 'string') {
+                // Function(Method Name) pattern.
+                try {
+                    if (_localVariables._init === false) {
+                        _localVariables._init = true;
+                        if (typeof _this.method.init !== 'undefined') {
+                            _this.method.init.apply(context, [$(this)].concat(Array.prototype.slice.call(args, 1)));
+                        } else {
+                            _this.init.apply(context, [$(this)].concat(Array.prototype.slice.call(args, 1)));
+                        }
+                    }
+                    return _this.method[args[0]].apply(context, [$(this)].concat(Array.prototype.slice.call(args, 1)));
+                } catch (e) {
+                    _componentVariables.$helper.log(e.stack);
+                }
+            } else {
+                _componentVariables.$helper.log('Compnent has been got invalid parameters.');
+            }
+        };
+
+        if (args.length > 0 &amp;&amp; self === window) {
+            // Global basic function type - Function()
+            var _localVariables = this.data;
+            if (typeof this === 'object') {
+                if (typeof _localVariables === 'undefined') {
+                    _localVariables = {
+                        '_id': id,
+                        '_init': false,
+                        '_prototype': {},
+                        '_options': $.extend({}, _this.options)
+                    };
+                    this.data = _localVariables;
+                    $.extend(_localVariables._prototype, _this.method);
+                }
+            }
+            var context = $.extend(window, {
+                local: _localVariables,
+            }, _componentVariables);
+            _this.method.init.apply(context, Array.prototype.slice.call(args));
+        } else {
+            // By element channing method type - Elem.method()
+            if (typeof self !== 'undefined') {
+                return self.each(ElementBinder);
+            }
+        }
+    };
+    /*=================================================
+     *= NOTE - HOMEWORKS ROUTE END
+     *= DATE - 2017-01-10
+     *================================================*/
+
+    //============================================================================
+
+    if (_componentVariables._bind === false) {
+        _componentVariables._bind = true;
+        name = name.split(',');
+        for (var idx in name) {
+            var id = $.trim(name[idx]);
+
+            /* jshint ignore:start */
+            /* @DATE 2017. 01. 09 */
+            /* @USER Kenneth */
+            /* @NOTE 런타임 매개변수 독립 사용을 위한 IIFE 설정. */
+            !(function () {
+                var _id = id;
+                var bindFunc = function () {
+                    return _this.route.apply(this, [_id].concat(Array.prototype.slice.call(arguments)));
+                };
+                $.fn[_id] = bindFunc;
+                window[_id] = bindFunc;
+            } ());
+            /* jshint ignore:end */
+
+            /* jshint ignore:start */
+            /* @DATE 2016. 02. 22 */
+            /* @USER Kenneth */
+            /* @NOTE 함수 동적반영을 위한 jshint Escape 처리. */
+            for (var key in this.method) {
+                if (typeof $.fn[key] === 'undefined') {
+                    !(function () {
+                        var method = key;
+                        $.fn[method] = function () {
+                            var _localVariables;
+                            var element = this[0];
+                             if (typeof element === 'object') {
+                                _localVariables = element.data;
+                                if (typeof _localVariables === 'undefined') {
+                                    _localVariables = {
+                                        '_id': key,
+                                        '_init': false,
+                                        '_prototype': {},
+                                        '_options': {}
+                                    };
+                                    element.data = _localVariables;
+                                    $.extend(_localVariables._prototype, _this.method);
+                                }
+
+                                var context = $.extend(_this, {
+                                    local: _localVariables,
+                                }, _componentVariables);
+                            }
+
+                            if (_localVariables._init === false) {
+                                _localVariables._init = true;
+                                if (typeof _this.method.init !== 'undefined') {
+                                    _this.method.init.apply(context, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
+                                } else {
+                                    _this.init.apply(context, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
+                                }
+                            }
+
+                            return _this.method[method].apply(context, [this].concat(Array.prototype.slice.call(arguments)));
+                        };
+                    }());
+                }
+            }
+            /* jshint ignore:end */
+        }
+    }
+}
+
+(function($) {
+    /*******************************
+     * NOTE - Additional jquery functions
+     * DATE - 2017-01-09
+     *******************************/
+    if(typeof $.fn.scrollParent === 'undefined') {
+        $.fn.scrollParent = function() {
+            var overflowRegex = /(auto|scroll)/;
+            var position = this.css('position');
+            var excludeStaticParent = (position === 'absolute');
+            var scrollParent = this.parents().filter(function() {
+                var $parent = $(this);
+                if (excludeStaticParent === true &amp;&amp; $parent.css('position') === 'static') {
+                    return false;
+                }
+                var overflowState = $parent.css(['overflow', 'overflowX', 'overflowY']);
+                return (overflowRegex).test(overflowState.overflow + overflowState.overflowX + overflowState.overflowY);
+            }).eq(0);
+
+            return position === 'fixed' || !scrollParent.length ? $( this[ 0 ].ownerDocument || document ) : scrollParent;
+        };
+    }
+}(jQuery));
+(function($) {
+    $(function () {
+        $('.works-footer .floating-top').bind('click', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            $('.works-body .works-content').stop().animate({ scrollTop: 0 }, 1200);
+        });
+
+        $('.works-sider a.works-sider-group-menu').bind('click', function () {
+            var $this = $(this);
+            var $next = $this.next();
+            if ($next.is('.works-sider-group')) {
+                $this.toggleClass('active');
+                $next.stop();
+                if ($this.hasClass('active')) {
+                    $this.siblings('.active').removeClass('active');
+                    $next.slideDown(300);
+                } else {
+                    $next.slideUp(300);
+                }
+            }
+        }).filter('.active').each(function () {
+            var $this = $(this);
+            var $next = $this.next();
+            if ($next.is('.works-sider-group')) {
+                $next.show();
+            }
+        });
+
+        $('.works-sider a.works-sider-sub-group-menu').bind('click', function () {
+            var $this = $(this);
+            var $next = $this.next();
+            if ($next.is('.works-sider-sub-group')) {
+                $this.toggleClass('active');
+                $next.stop();
+                if ($this.hasClass('active')) {
+                    $this.siblings('.active').removeClass('active');
+                    $next.slideDown(300);
+                } else {
+                    $next.slideUp(300);
+                }
+            }
+        }).filter('.active').each(function () {
+            var $this = $(this);
+            var $next = $this.next();
+            if ($next.is('.works-sider-sub-group')) {
+                $next.show();
+            }
+        });
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT CHECKBOX
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/checkbox.html                   
+//
+//=========================================================
+
+(function($) {
+	new ComponentMethod('checkbox', {
+        init: function (element) {
+            var context = this;
+
+            var $checkbox = $(context.$helper.parseTemplate('checkbox'));
+            if (element.closest('label').length &lt; 1) {
+                element.wrap('&lt;label>&lt;/label>');
+            }
+
+            $checkbox.insertAfter(element).ripple({
+                theme: 'dark',
+                over: true,
+                passive: true
+            });
+
+            context.$helper.bind(element.closest('label'), 'click', function (event) {
+                event.stopPropagation();
+            });
+
+            context.$helper.bind(element, 'change', function (event) {
+                var $this = $(this);
+
+                context.$helper.triggerHandler(element, 'update');
+                $checkbox.ripple('start');
+            });
+
+            context.$helper.bind(element, 'update', function (event) {
+                var $this = $(this);
+
+                if ($this.prop('checked') === true) {
+                    $checkbox.addClass('works-checkbox-checked');
+                } else {
+                    $checkbox.removeClass('works-checkbox-checked');
+                }
+            }, true);
+
+            if (typeof element.attr('class') !== 'undefined' &amp;&amp; element.attr('class').match(/input-(\w+)/gi)) {
+                var class_names = element.attr('class').match(/input-(\w+)/gi);
+                for (var idx in class_names) {
+                    var class_name = class_names[idx];
+                    $checkbox.addClass('works-checkbox-' + class_name);
+                }
+            }
+
+            element.hide();
+        },
+        template: {
+            checkbox: '&lt;span href="#" class="works-checkbox">&lt;/span>'
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT CONVERTER
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/converter.html
+//
+//=========================================================
+
+(function($) {
+    new ComponentMethod('converter', {
+        init: function (element) {
+            var context = this;
+
+            var preventKeyCode = [37, 38, 39, 40, 9, 13, 17, 46];
+            var ctrlLock = false;
+            var ctrlTimer = null;
+
+            element.each(function () {
+                var $this = $(this);
+                if ($this.hasClass('input-number')) {
+                    context.$helper.bind($this, 'keydown keyup', function (event) {
+                        setTimeout(function () {
+                            if (event.type === 'keyup' &amp;&amp; event.keyCode === 17) {
+                                ctrlLock = true;
+                                try {
+                                    clearTimeout(ctrlTimer);
+                                } catch ($this) {
+                                    console.trace($this.stack);
+                                }
+                                setTimeout(function () {
+                                    ctrlLock = false;
+                                }, 150);
+                            }
+
+                            if (
+                                $.inArray(event.keyCode, preventKeyCode) === -1 &amp;&amp;
+                                ctrlLock === false &amp;&amp;
+                                (
+                                    typeof event.ctrlKey === 'undefined' ||
+                                    event.ctrlKey === false
+                                )
+                            ) {
+                                var selectPosition = 0;
+                                var oldLength = $this[0].value.length;
+                                if ($this[0].selectionStart || $this[0].selectionStart === 0) {
+                                    selectPosition = $this[0].selectionStart;
+                                } else if(document.selection &amp;&amp; document.selection.createRange) {
+                                    var ran = document.selection.createRange();
+                                    ran.moveStart('character', -$this[0].value.length);
+                                    selectPosition = ran.text.length;
+                                }
+
+                                var value = $this.val();
+                                if (typeof value !== 'undefined' &amp;&amp; value !== null) {
+                                    value = (value.toString().split('.'))[0];
+                                }
+                                value = value.toString().replace(/[^\d]*/gi, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                                $this.val(value);
+
+                                var diffLength = Math.max(0, value.length - oldLength);
+                                selectPosition += diffLength;
+
+                                if ($this[0].selectionStart || $this[0].selectionStart === 0) {
+                                    $this[0].setSelectionRange(selectPosition, selectPosition);
+                                } else if ($this[0].createTextRange !== 'undefined') {
+                                    var cursor = $this[0].createTextRange();
+                                    cursor.move('character', selectPosition);
+                                    cursor.select();
+                                }
+
+                                if (!event.isTrigger) {
+                                    $this.triggerHandler('change');
+                                }
+                            }
+                        }, 25);
+                    }, true);
+                } else if ($this.hasClass('input-datetime')) {
+                    // Write some codes here.
+                } else if ($this.hasClass('input-decimal')) {
+                    // Write some codes here.
+                }
+            });
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT DROPDOWN
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/dropdown.html
+//
+//=========================================================
+
+(function($) {
+	new ComponentMethod('dropdown', {
+        init: function (element) {
+            var context = this;
+
+            var options = context.local._options;
+            
+            var $target = null;
+
+            if (typeof options.target !== 'undefined' &amp;&amp; options.target !== null) {
+                $target = options.target;
+            }
+
+            element.appendTo('body');
+            element.hide();
+
+            if($target === null || $target.length &lt; 1) {
+                return false;
+            }
+
+            element.addHandler($target);
+        },
+        method: {
+            addHandler: function (element, target) {
+                var context = this;
+                var options = context.local;
+
+                element.find('.dropdown-menu').ripple({
+                    theme: 'dark'
+                });
+
+                context.$helper.bind(element.find('.dropdown-menu'), 'click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    context.local._prototype.removeDropdown.call(context, element, target);
+                });
+
+                context.$helper.bind(element.find('.dropdown-menu'), 'mousedown', function (event) {
+                    event.stopPropagation();
+                });
+
+                context.$helper.unbind(context.element.$window, 'resize');
+
+                context.$helper.bind(context.element.$document, 'mousedown', function (event) {
+                    context.local._prototype.removeDropdown.call(context, element, target);
+                });
+
+                context.$helper.bind(
+                    target.ripple({
+                        theme: 'dark'
+                    }),
+                    'click',
+                    function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        var $this = $(this);
+                        var $scrollParent = $this.scrollParent();
+
+                        if ($this.hasClass('works-dropdown-active')) {
+                            context.local._prototype.removeDropdown.call(context, element, target);
+                        } else {
+                            $this.addClass('works-dropdown-active');
+
+                            element.show();
+
+                            var leftOffset = 0, topOffset = 0;
+                            context.$helper.bind(context.element.$window, 'resize', function (event) {
+                                if (options.direction === 'right') {
+                                    leftOffset = (target.outerWidth() - element.outerWidth()) / 2;
+                                } else if (options.direction === 'center') {
+                                    leftOffset = 0;
+                                } else {
+                                    leftOffset = -(target.outerWidth() - element.outerHeight()) / 2;
+                                }
+
+                                if (options.direction === 'top') {
+                                    topOffset = -(target.outerHeight() + 20);
+                                } else {
+                                    topOffset = target.outerHeight() + 20;
+                                }
+
+                                element.css({
+                                    position: 'absolute',
+                                    left: target.offset().left + ((target.outerWidth() - element.outerWidth()) / 2) + leftOffset,
+                                    top: target.offset().top + topOffset
+                                });
+                            }, true);
+
+                            context.$helper.bind($scrollParent, 'scroll', function (event) {
+                                context.$helper.triggerHandler(context.element.$window, 'resize');
+                            });
+
+                            context.$helper.promise(function () {
+                                element.css('opacity', 1);
+                                context.$helper.triggerHandler(context.element.$window, 'resize');
+                            }, 25, true);
+                        }
+                    });
+
+                context.$helper.bind(target, 'mousedown', function (event) {
+                    event.stopPropagation();
+                });
+            },
+            removeDropdown: function(element, target) {
+                var context = this;
+
+                element.css('opacity', 0);
+                target.removeClass('works-dropdown-active');
+                context.$helper.promise(function () {
+                    element.hide();
+                }, 300, true);
+                context.$helper.unbind(context.element.$window, 'resize');
+            }
+        },
+        options: {
+            direction: 'center',
+            target: null
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT INPUT
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/input.html
+//
+//=========================================================
+
+(function($) {
+	new ComponentMethod('input', {
+        init: function (element) {
+            var context = this;
+            var options = context.local._options;
+            var $label = $(context.$helper.parseTemplate('label')).insertAfter(element);
+            var type = element.data('type') || ((typeof options !== 'undefined') ? options.type : '');
+            var validation = false;
+
+            /* jshint ignore:start */
+            /* @DATE 2016. 06. 28 */
+            /* @USER Kenneth */
+            /* @NOTE dataset에서 받아오는 boolean 타입 보정 !!구문 유효성문제로 인해 escape 처리. */
+            if (!!options.validation.disable !== true) {
+                validation = true;
+            }
+            /* jshint ignore:end */
+
+            rule = {
+                notnull: element.attr('notnull') || true,
+                minlen:  element.attr('minlen') || 0,
+                maxlen:  element.attr('maxlen') || 10,
+                numeric: element.attr('numeric') || false,
+            };
+
+            context.local.type = type;
+            context.local.rule = rule;
+
+            if (element.is(':visible') === true &amp;&amp; options.static === true) {
+                $label.width(element.outerWidth());
+            }
+            element.appendTo($label);
+            $(context.$helper.parseTemplate('placeholder')).text(element.attr('placeholder') || element.attr('title')).insertBefore(element);
+
+            context.$helper.bind(element, 'focus', function () {
+                $label.addClass('works-input-lock').addClass('works-input-focus');
+                if (validation === true) {
+                    context.local._prototype.validation.call(context, element, 'clear');
+                }
+            });
+
+            context.$helper.bind(element, 'blur', function (event) {
+                if (type === 'number') {
+                    element.val(element.val().replace(/[^\d.]+/gi, ''));
+                }
+
+                if (typeof event.originalEvent !== 'undefined') {
+                    if (validation === true) {
+                        context.local._prototype.validation.call(context, element);
+                    }
+                }
+
+                if (element.val() === '') {
+                    $label.removeClass('works-input-lock');
+                } else {
+                    $label.addClass('works-input-lock');
+                }
+
+                element.parent().removeClass('works-input-focus');
+            }, true);
+
+            element.unbind('update').bind('update', function () {
+                var placeholder = element.attr('placeholder');
+                if (placeholder !== '') {
+                    element.siblings('.works-input-placeholder').text(placeholder);
+                    element.attr('placeholder', '');
+                }
+            });
+
+            context.$helper.bind(element, 'update', function (event) {
+                if (element.val() === '') {
+                    $label.removeClass('works-input-lock');
+                } else {
+                    $label.addClass('works-input-lock');
+                }
+            });
+
+            if (typeof element.attr('class') !== 'undefined' &amp;&amp; element.attr('class').match(/input-(\w+)/gi)) {
+                var class_names = element.attr('class').match(/input-(\w+)/gi);
+                for (var idx in class_names) {
+                    var class_name = class_names[idx];
+                    $label.addClass('works-' + class_name);
+                }
+            }
+
+            if (element.prop('disabled') === true) {
+                $label.addClass('works-input-disabled');
+            }
+
+            if (validation === true) {
+                element.parent().addClass('works-input-label-validation');
+            }
+
+            context.$helper.promise(function () {
+                context.$helper.triggerHandler(element, 'blur');
+            }, 25);
+
+            element.attr('placeholder', '');
+        },
+        method: {
+            validation: function (element, type) {
+                var context = this;
+                var allowedType = ['success', 'error', 'clear'];
+                element.parent().find('.works-input-validation').remove();
+
+                if (typeof type === 'undefined' || allowedType.indexOf(type) === -1) {
+                    if (element.val() === '') {
+                        if (typeof context.local.rule.notnull === 'undefined' || context.local.rule.notnull === false) {
+                            type = 'success';
+                        } else {
+                            type = 'error';
+                        }
+                    } else {
+                        if (context.local.rule.notnull)
+                        type = 'success';
+                    }
+                }
+
+                var $validator = null;
+                if (type === 'success') {
+                    element.parent().removeClass('works-input-label-validation-error').addClass('works-input-label-validation-success');
+                    $validator = $(context.$helper.parseTemplate('validationSuccess'));
+                    $validator.insertAfter(element);
+                } else if (type === 'error') {
+                    element.parent().addClass('works-input-label-validation-error').removeClass('works-input-label-validation-success');
+                    $validator = $(context.$helper.parseTemplate('validationError'));
+                    $validator.insertAfter(element);
+                } else {
+                    element.parent().removeClass('works-input-label-validation-error').removeClass('works-input-label-validation-success').removeClass('works-input-label-validation-active');
+                }
+
+                if (type === 'success' || type === 'error') {
+                    context.$helper.promise(function () {
+                        element.parent().addClass('works-input-label-validation-active');
+                    }, 25);
+                }
+            }
+        },
+        template: {
+            label: '&lt;label class="works-input-label">&lt;/label>',
+            placeholder: '&lt;span class="works-input-placeholder">&lt;/span>',
+            validationSuccess: '&lt;span class="works-input-validation works-input-validation-success">&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">&lt;path class="works-input-validation-first" d="M 10 15 l -4 -4" stroke-dasharray="5.6568" stroke-width="2" />&lt;path class="works-input-validation-last" d="M 9 15 l 8 -7" stroke-dasharray="10.6301" stroke-width="2" />&lt;/svg>&lt;/span>',
+            validationError: '&lt;span class="works-input-validation works-input-validation-error">&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">&lt;path class="works-input-validation-first" d="M 8 8 L 16 16" stroke-dasharray="11.3137" stroke-width="2" />&lt;path class="works-input-validation-last" d="M 16 8 L 8 16" stroke-dasharray="11.3137" stroke-width="2" />&lt;/svg>&lt;/span>'
+        },
+        options: {
+            static: true,
+            validation: {
+                disable: false
+            }
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT MODAL
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/modal.html
+//
+//=========================================================
+
+(function($) {
+    new ComponentMethod('modal, popup', {
+        init: function (element) {
+            var context = this;
+            var $btn = element.find('.modal-footer .btn');
+
+            this.local._visible = false;
+
+            if (element.hasClass('modal-full') === false) {
+                this.$helper.bind(this.element.$window, 'resize update', function (event) {
+                    element.css({
+                        left: 0,
+                        top: 0
+                    });
+
+                    element.css({
+                        left: '50%',
+                        top: '50%',
+                        marginLeft: -element.outerWidth() / 2,
+                        marginTop: -element.outerHeight() / 2
+                    });
+                }, true);
+            } else {
+                if (element.children('.modal-inner').children('.modal-scroller').length &lt; 1) {
+                    var $scoller = $('&lt;div class="modal-scroller">&lt;/div>');
+                    $scoller.append(element.children('.modal-inner').children());
+                    $scoller.appendTo(element.children('.modal-inner'));
+                }
+
+                this.$helper.bind(this.element.$window, 'resize update', function (event) {
+                    element.find('> .modal-inner > .modal-scroller').css({
+                        maxWidth: context.element.$window.outerWidth(),
+                        maxHeight: context.element.$window.outerHeight()
+                    });
+                }, true);
+            }
+
+            this.$helper.unbind($btn.add(element.find('.btn-close')), 'click');
+
+            this.$helper.bind($btn.add(element.find('.btn-close')), 'click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var $this = $(this);
+                context.local._prototype.close.call(context, element);
+            });
+
+            this.$helper.bind($btn.filter('.btn-submit'), 'click', function (event) {
+                event.stopPropagation();
+                element.triggerHandler('modal.submit');
+            });
+
+            this.$helper.bind(element.find('.btn-close'), 'click', function (event) {
+                event.stopPropagation();
+                element.triggerHandler('modal.cancel');
+            });
+
+            $btn.ripple();
+        },
+        method: {
+            update: function () {
+                var context = this;
+                context.$helper.triggerHandler(_this.element.$window, 'update');
+            },
+            toggle: function (element) {
+                var context = this;
+                if (context.data._visible === true) {
+                    context.local._prototype.close.call(context, element);
+                } else {
+                    context.local._prototype.open.call(context, element);
+                }
+            },
+            show: function (element) {
+                var context = this;
+                context.local._prototype.open.call(context, element);
+            },
+            hide: function (element) {
+                var context = this;
+                context.local._prototype.close.call(context, element);
+            },
+            open: function (element) {
+                var context = this;
+
+                context.data._visible = true;
+
+                var $body = $('body:first');
+                var $parent = element.parent();
+                if ($parent.is($body) === false) {
+                    element.appendTo($body);
+                }
+
+                element.siblings('.' + element.attr('class').split(' ').join('.')).remove();
+
+                if (context.local._options.animation === true) {
+                    element.siblings(':visible').not('.modal').addClass('modal-opener');
+                }
+
+                if (element.hasClass('modal-full')) {
+                    element.css({ display: 'table' });
+                } else {
+                    element.show();
+                }
+
+                context.$helper.triggerHandler(context.element.$window, 'update');
+
+                context.$helper.bind(element, 'click', function (event) {
+                    event.stopPropagation();
+                });
+
+                element.triggerHandler('modal.open');
+
+                var $overlay = $('.modal-overlay');
+                if ($overlay.length &lt; 1) {
+                    $overlay = $(context.$helper.parseTemplate('overlay'));
+                }
+
+                $overlay.insertAfter(element);
+                $overlay.show();
+
+                context.$helper.promise(function () {
+                    element.addClass('anim-start');
+                    $overlay.css('opacity', 0.6);
+                }, 25);
+
+                context.$helper.bind($overlay, 'click', function (event) {
+                    context.local._prototype.close.call(context, element);
+                });
+            },
+            close: function (element) {
+                var context = this;
+
+                context.data._visible = false;
+
+                if (context.local._options.animation === true) {
+                    $('.modal-opener').removeClass('modal-opener');
+                }
+
+                element.removeClass('anim-start');
+                element.hide();
+                element.triggerHandler('modal.close');
+
+                var $overlay = $('.modal-overlay');
+                $overlay.css('opacity', 0);
+
+                context.$helper.promise(function () {
+                    $overlay.hide();
+                }, 300);
+
+                context.$helper.unbind(element, 'click');
+                context.$helper.unbind($overlay, 'click');
+            }
+        },
+        template: {
+            overlay: '&lt;div class="modal-overlay">&lt;/div>'
+        },
+        options: {
+            animation: false
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT NOTIFICATION
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/notification.html
+//
+//=========================================================
+
+(function($) {
+    new ComponentMethod('notification', {
+        init: function (title, content, url, status) {
+            var context = this;
+
+            if (typeof url === 'undefined' || url === null || $.trim(url) === '') {
+                url = null;
+            }
+
+            status = status || 'primary';
+
+            if (typeof title === 'undefined' || typeof content === 'undefined') {
+                return false;
+            } else if (typeof content === 'object') {
+                content = JSON.stringify(content);
+            }
+
+            var $notificationBox = $('.notification-box');
+            if ($notificationBox.length &lt;= 0) {
+                $notificationBox = $(context.$helper.parseTemplate('notificationBox'));
+                $notificationBox.appendTo('body');
+            }
+
+            var $notification = $(context.$helper.parseTemplate('notificationTypeDefault', {
+                status: status,
+                title: title,
+                content: content.replace(/\r?\n/gi, '&lt;br />')
+            }));
+            var $real = $notification.clone();
+            $notification.addClass('notification-empty');
+            $notification.appendTo('.notification-box');
+            $real.addClass('notification-real');
+            var height = $notification.height();
+            $notification.height(0);
+            $notification.addClass('notification-anim');
+
+            var _t = null;
+            var removeProc = function () {
+                try {
+                    clearTimeout(_t);
+                } catch (e) {
+                    console.trace(e.stack);
+                }
+
+                $real.removeClass('notification-anim-start');
+                setTimeout(function () {
+                    $real.stop().animate({
+                        height: 0,
+                        paddingTop: 0,
+                        paddingBottom: 0
+                    }, 300, 'easeInOutQuad', function () {
+                        $real.remove();
+                    });
+                }, 300);
+            };
+            setTimeout(function () {
+                $notification.addClass('notification-anim-start').stop().animate({
+                    height: height,
+                    padding: '30px'
+                }, 300, 'easeInOutQuad');
+                setTimeout(function () {
+                    $notification.remove();
+                    $real.appendTo($notificationBox);
+                    setTimeout(function () {
+                        var t = Math.min(Math.max(1000 / 10 * (title.length + content.length), 3000), 15000);
+                        $real.find('.notification-bar').css({
+                            transitionDuration: t + 'ms'
+                        });
+                        $real.addClass('notification-anim-start');
+                        _t = setTimeout(removeProc, t);
+                    }, 25);
+                }, 300);
+            }, 25);
+
+            context.$helper.bind($real.add($real.find('.notification-btn-ok, .notification-btn-cancel')), 'click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var $this = $(this);
+                removeProc.call();
+            });
+
+            context.$helper.bind($real.add($real.find('.notification-btn-ok')), 'click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var $this = $(this);
+                if (url !== null) {
+                    location.href = url;
+                }
+            });
+        },
+        template: {
+            /* jshint ignore:start */
+            /* @DATE 2016. 10. 04 */
+            /* @USER Kenneth */
+            /* @NOTE Template escaping. */
+            notificationTypeDefault: '&lt;div class="notification notification-{status}">\
+                                        &lt;div class="notification-bar">&lt;/div>\
+                                        &lt;div class="notification-content">\
+                                            &lt;h4 class="notification-header">{title}&lt;/h4>\
+                                            &lt;div class="notification-body">\
+                                                {content}\
+                                            &lt;/div>\
+                                        &lt;/div>\
+                                        &lt;div class="notification-btn-group">\
+                                            &lt;a href="#" class="notification-btn notification-btn-ok">\
+                                                &lt;span class="notification-btn-inner">\
+                                                    &lt;i class="pe-7s-check">&lt;/i>\
+                                                &lt;/span>\
+                                            &lt;/a>\
+                                            &lt;a href="#" class="notification-btn notification-btn-close">\
+                                                &lt;span class="notification-btn-inner">\
+                                                    &lt;i class="pe-7s-close">&lt;/i>\
+                                                &lt;/span>\
+                                            &lt;/a>\
+                                        &lt;/div>\
+                                    &lt;/div>',
+            notificationBox: '&lt;div class="notification-box">&lt;/div>'
+            /* jshint ignore:end */
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT RIPPLE
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/ripple.html
+//
+//=========================================================
+
+(function($) {
+    new ComponentMethod('ripple', {
+        init: function (element) {
+            var context = this;
+            var options = context.local._options;
+
+            return element.each(function () {
+                var $child = $(this);
+
+                $child.addClass('btn-ripple');
+                if ($.inArray(options.theme, options.supportThemes) !== -1) {
+                    $child.addClass('btn-ripple-' + options.theme);
+                }
+
+                context.$helper.bind($child, 'click', function (event) {
+                    if (typeof event.originalEvent === 'undefined' &amp;&amp; options.passive === false) {
+                        return false;
+                    }
+                    var $this = $(this);
+                    if (!$this.hasClass('btn-ripple')) {
+                        $child.addClass('btn-ripple');
+                        if ($.inArray(options.theme, options.supportThemes) !== -1) {
+                            $child.addClass('btn-ripple-' + options.theme);
+                        }
+                    }
+                    var offset = this.getClientRects()[0] || {left: 0, top: 0};
+                    var $ripple = $(context.$helper.parseTemplate('effect'));
+                    var size = Math.min($this.width(), $this.height());
+                    var scale = Math.max($this.width(), $this.height()) / size * 2;
+                    var point = {
+                        x: 0,
+                        y: 0
+                    };
+
+                    if (typeof event.x !== 'undefined' &amp;&amp; typeof event.y !== 'undefined') {
+                        point = {
+                            x: event.x - size / 2,
+                            y: event.y - size / 2
+                        };
+                    } else {
+                        point = {
+                            x: (event.clientX - offset.left) - size / 2,
+                            y: (event.clientY - offset.top) - size / 2
+                        };
+                    }
+
+                    if (options.over === true) {
+                        $child.css({
+                            overflow: 'visible'
+                        });
+                    }
+
+                    $ripple.css({ width: size, height: size, left: point.x, top: point.y });
+                    $ripple.appendTo($this);
+                    $this.addClass('btn-ripple-start');
+                    context.$helper.promise(function () {
+                        context.$helper.promise(function () {
+                            context.$helper.promise(function () {
+                                $ripple.remove();
+                                $this.removeClass('btn-ripple-start');
+                            }, 500);
+                            $ripple.addClass('anim-end').css({ opacity: 0 });
+                        }, 150);
+
+                        $ripple.css({
+                            transform: 'scale(' + scale + ')',
+                            opacity: 1
+                        });
+                    }, 50);
+                });
+            });
+        },
+        method: {
+            start: function (element, value) {
+                var context = this;
+
+                if (typeof value === 'undefined') {
+                    value = {
+                        x: element.width() / 2,
+                        y: element.height() / 2
+                    };
+                }
+
+                context.$helper.triggerHandler(element, 'click', value);
+            }
+        },
+        template: {
+            effect: '&lt;div class="btn-ripple-effect">&lt;/div>'
+        },
+        options: {
+            supportThemes: [
+                'light',
+                'dark'
+            ],
+            over: false,
+            passive: false
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT SPINNER
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/spinner.html
+//
+//=========================================================
+
+(function($) {
+    new ComponentMethod('spinner', {
+        init: function (element) {
+            var context = this;
+            var $selected = element.find(':selected');
+            var $spinner = $(context.$helper.parseTemplate('spinner', {
+                option: $selected.length > 0 ? $selected.text() : this.global.empty
+            }));
+
+            var attrs = element.prop("attributes");
+            for (var idx in attrs) {
+                var attr = attrs[idx];
+                if (attr.name !== 'class' &amp;&amp; attr.name !== 'style') {
+                    $spinner.attr(attr.name, attr.value);
+                }
+            }
+            element.after($spinner);
+            $spinner.ripple({
+                theme: 'dark'
+            }).css({
+                minWidth: element.outerWidth()
+            });
+            element.hide();
+
+            context.$helper.bind(element, 'focus', function (event) {
+                $spinner.focus();
+            });
+
+            context.$helper.bind(element, 'change', function (event) {
+                context.$helper.triggerHandler(element, 'update');
+            });
+
+            context.$helper.bind(element, 'update', function (event) {
+                var $this = $(this);
+                var $target = $this.find('option:selected');
+
+                if ($target.length &lt; 1) {
+                    $target = $this.find('option:first');
+                }
+
+                var text = $target.text();
+
+                if (text !== '') {
+                    $spinner.find('.spinner-txt').text(text);
+                }
+
+                if (element.prop('disabled')) {
+                    $spinner.addClass('spinner-disabled');
+                }
+
+                if (element.prop('readonly')) {
+                    $spinner.addClass('spinner-readonly');
+                }
+
+                $spinner.css({
+                    minWidth: element.outerWidth()
+                });
+            });
+
+            context.$helper.bind($spinner, 'click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                context.$helper.triggerHandler(context.element.$document, 'click');
+                var $this = $(this);
+                if ($this.hasClass('spinner-disabled') || $this.hasClass('spinner-readonly')) {
+                    return false;
+                }
+                var $spinnerWrapper = $(context.$helper.parseTemplate('spinnerWrapper'));
+                element.find('option').each(function () {
+                    var $this = $(this);
+                    var $option = $(context.$helper.parseTemplate('spinnerOptions', {
+                        value: $this.val(),
+                        option: $this.text(),
+                        type: ($this.prop('selected') === true &amp;&amp; $this.text() !== '')? 'selected':'default'
+                    }));
+                    if ($this.prop('selected') === true) {
+                        $spinner.find('.spinner-txt').text($this.text());
+                    }
+                    $option.ripple({
+                        theme: 'dark'
+                    }).appendTo($spinnerWrapper);
+                });
+                $spinnerWrapper.appendTo('body').css('position', 'absolute');
+                $spinnerWrapper.addClass('anim-start');
+
+                context.$helper.bind(context.element.$window, 'resize', function () {
+                    $spinnerWrapper.css({
+                        top: $spinner.offset().top,
+                        left: $spinner.offset().left + (($spinner.outerWidth() - $spinnerWrapper.outerWidth()) / 2)
+                    });
+                    if ($spinnerWrapper.offset().top + $spinnerWrapper.outerHeight() > context.element.$window.scrollTop() + context.element.$window.height()) {
+                        $spinnerWrapper.children('.spinner-option').each(function () {
+                            var $this = $(this);
+                            $this.prependTo($spinnerWrapper);
+                        });
+                        $spinnerWrapper.css({
+                            top: $spinner.offset().top + $spinner.outerHeight() - $spinnerWrapper.outerHeight()
+                        });
+                    }
+                }, true);
+
+                context.$helper.bind(context.element.$document, 'click', function () {
+                    $spinnerWrapper.removeClass('anim-start');
+                    context.$helper.promise(function () {
+                        $spinnerWrapper.remove();
+                    }, 300);
+                    context.$helper.unbind(context.element.$window, 'resize');
+                    context.$helper.unbind(context.element.$document, 'click');
+                });
+
+                context.$helper.bind($spinnerWrapper.find('.spinner-option'), 'click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var $this = $(this);
+                    $spinnerWrapper.removeClass('anim-start');
+                    context.$helper.promise(function () {
+                        $spinnerWrapper.remove();
+                    }, 300);
+                    element.val($this.data('value'));
+                    context.$helper.triggerHandler(element, 'change', true);
+                    context.$helper.unbind(context.element.$window, 'resize');
+                    context.$helper.unbind(context.element.$document, 'click');
+                });
+            });
+        },
+        template: {
+            spinner: '&lt;a href="#" class="spinner">&lt;span class="spinner-txt">{option}&lt;/span>&lt;i class="spinner-arrow pe-7s-angle-down">&lt;/i>&lt;/a>',
+            spinnerWrapper: '&lt;div class="spinner-wrapper">&lt;/div>',
+            spinnerOptions: '&lt;a href="#" class="spinner-option spinner-{type}" data-value="{value}">{option}&lt;/a>'
+        },
+        options: {
+            empty: '선택'
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT TAB
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/tab.html
+//
+//=========================================================
+
+(function($) {
+    new ComponentMethod('tab, step', {
+        init: function (element) {
+            var context = this;
+            var _index = 0;
+            var _length = 0;
+            var $container = element.next();
+            var id = context.local._id;
+
+            _length = element.find('.' + id + '-item').length;
+            if (element.hasClass(id) &amp;&amp; $container.length > 0 &amp;&amp; $container.hasClass(id + '-container')) {
+                element.unbind(id + '.next').bind(id + '.next', function () {
+                    if (_index + 1 &lt;= _length) {
+                        context.$helper.triggerHandler(element.find('.' + id + '-item').eq(_index + 1), 'click');
+                    } else {
+                        return false;
+                    }
+                });
+
+                element.unbind(id + '.prev').bind(id + '.prev', function () {
+                    if (_index - 1 >= 0) {
+                        context.$helper.triggerHandler(element.find('.' + id + '-item').eq(_index - 1), 'click');
+                    } else {
+                        return false;
+                    }
+                });
+
+                element.unbind(id + '.move').bind(id + '.move', function (event, index) {
+                    context.$helper.triggerHandler(element.find('.' + id + '-item').eq(index), 'click');
+                });
+
+                context.$helper.bind(element.find('.' + id + '-item'), 'click', function (event) {
+                    event.preventDefault();
+                    var $this = $(this);
+                    var index = $this.index();
+                    _index = index;
+                    $this.addClass('active').siblings('.active').removeClass('active');
+                    $container.find('.' + id + '-container-item').eq(index).addClass('active').siblings('.active').removeClass('active');
+
+                    element.triggerHandler(id + '.move', {
+                        index: _index,
+                        length: _length,
+                        header: element.find('.' + id + '-item')
+                    });
+                });
+                context.$helper.triggerHandler(element.find('.' + id + '-item').eq(_index), 'click');
+            } else {
+                context.$helper.log('You need to add &lt;div class="' + id + '-container">&lt;/div> at next of your step element.');
+            }
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT TOAST
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/toast.html
+//
+//=========================================================
+
+(function($) {
+    new ComponentMethod('toast', {
+        init: function (message) {
+            var context = this;
+
+            if (typeof message === 'undefined') {
+                return false;
+            } else if (typeof message === 'object') {
+                message = JSON.stringify(message);
+            }
+
+            var $toastBox = $('.toast-box');
+            if ($toastBox.length &lt;= 0) {
+                $toastBox = $(context.$helper.parseTemplate('toastBox'));
+                $toastBox.appendTo('body');
+                $toastBox.css({
+                    marginLeft: -$toastBox.width() / 2
+                });
+            }
+
+            var $toast = $(context.$helper.parseTemplate('toast', {
+                message: message.replace(/\r?\n/gi, '&lt;br />')
+            }));
+            var $real = $($toast.clone()).add('&lt;br />');
+            $toast.addClass('toast-empty');
+            $toast.appendTo('.toast-box');
+            $real.addClass('toast-real');
+
+            var height = $toast.height();
+            $toast.addClass('toast-anim');
+            setTimeout(function () {
+                $toast.addClass('toast-anim-start').stop().animate({
+                    paddingTop: '1em',
+                    paddingBottom: '1em',
+                    marginBottom: '1em',
+                }, 300);
+                $toast.height(height);
+                setTimeout(function () {
+                    $toast.remove();
+                    $real.appendTo($toastBox);
+                    setTimeout(function () {
+                        $real.addClass('toast-anim-start');
+                        var t = Math.min(Math.max(1000 / 20 * message.length, 1500), 5000);
+                        setTimeout(function () {
+                            $real.removeClass('toast-anim-start');
+                            setTimeout(function () {
+                                $real.remove();
+                            }, 300);
+                        }, t);
+                    }, 25);
+                }, 300);
+            }, 25);
+        },
+        template: {
+            toast: '&lt;div class="toast">{message}&lt;/div>',
+            toastBox: '&lt;div class="toast-box">&lt;/div>'
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT TOGGLE
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/toggle.html
+//
+//=========================================================
+
+(function($) {
+    new ComponentMethod('toggle', {
+        init: function (element) {
+            var context = this;
+            var options = context.local._options;
+            var idx = 0;
+            var name = element.attr('name') || '';
+            var type = element.attr('type') || 'chekcbox';
+
+            var $toggle = $(context.$helper.parseTemplate('toggle'));
+            if (element.closest('label').length &lt; 1) {
+                element.wrap('&lt;label>&lt;/label>');
+            }
+
+            var regex = /input-(\w+)/gi;
+            if (typeof element.attr('class') !== 'undefined' &amp;&amp; element.attr('class').match(regex)) {
+                var matches = [];
+                var match = null;
+                var className = element.attr('class');
+
+                /* jshint ignore:start */
+                /* @DATE 2016. 12. 16 */
+                /* @USER Kenneth */
+                /* @NOTE Condition expression escaping. */
+                while (match = regex.exec(className)) {
+                    matches.push(match[1]);
+                }
+                /* jshint ignore:end */
+
+                for (idx in matches) {
+                    var word = matches[idx];
+                    $toggle.addClass('works-' + word);
+                }
+            }
+
+            $toggle.find('.switch .switch-ball').ripple({
+                theme: 'dark',
+                over: true,
+                passive: true
+            });
+            $toggle.insertAfter(element);
+
+            element.prependTo($toggle.find('.toggle'));
+
+            context.$helper.bind($toggle.find('.toggle'), 'click', function (event) {
+                if (typeof event.namespace === 'undefined' &amp;&amp; element.prop('checked') === true &amp;&amp; element.attr('type') === 'radio') {
+                    event.preventDefault();
+                    element.prop('checked', false).triggerHandler('change');
+                }
+            });
+
+            context.$helper.bind(element, 'change', function (event) {
+                context.$helper.triggerHandler(element, 'update');
+            }, true);
+
+            context.$helper.bind(element, 'update', function (event, extra) {
+                if (element.prop('checked') === false) {
+                    $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-left').addClass('toggle-label-active');
+                } else {
+                    $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-right').addClass('toggle-label-active');
+                }
+
+                if (typeof extra !== 'undefined') {
+                    $.extend(_opt, extra);
+                }
+
+                var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
+                var placeholder_default = ['Off', 'On'];
+                for (idx in placeholder_class) {
+                    if (
+                        typeof options.placeholder !== 'undefined' &amp;&amp;
+                        options.placeholder !== null &amp;&amp;
+                        typeof options.placeholder[idx] !== 'undefined' &amp;&amp;
+                        options.placeholder[idx] !== ''
+                    ) {
+                        $toggle.find('.' + placeholder_class[idx]).text(options.placeholder[idx]);
+                    } else {
+                        $toggle.find('.' + placeholder_class[idx]).text(placeholder_default[idx]);
+                    }
+                }
+            }, true);
+
+            if (element.prop('checked') === false) {
+                $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-left').addClass('toggle-label-active');
+            } else {
+                $toggle.find('.toggle-label').removeClass('toggle-label-active').filter('.toggle-label-right').addClass('toggle-label-active');
+            }
+
+            context.$helper.bind($toggle.find('input'), 'click', function (event) {
+                event.stopPropagation();
+            });
+
+            element.hide();
+        },
+        template: {
+            toggle: '&lt;span class="toggle-wrapper">&lt;span class="toggle-label toggle-label-left">Off&lt;/span>&lt;label class="toggle">&lt;span class="switch">&lt;span class="switch-ball">&lt;/span>&lt;span class="switch-bg">&lt;/span>&lt;/span>&lt;/label>&lt;span class="toggle-label toggle-label-right">On&lt;/span>&lt;/span>'
+        },
+        options: {
+            placeholder: null
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT TOOLTIP
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/tooltip.html
+//
+//=========================================================
+
+(function($) {
+	new ComponentMethod('tooltip', {
+        init: function (e, o) {
+            var _this = this;
+            var _opt = {
+                type: 'toggle',
+                margin: 20,
+                direction: 'left'
+            };
+            $.extend(_opt, o);
+            e.each(function () {
+                var $this = $(this);
+                if ($this.data('title') === '') {
+                    $this.data('title', $this.attr('title') || '');
+                }
+                if (_opt.type === null || _opt.type === '' || $.inArray(_opt.type, _this.data.global.supportThemes) === -1) {
+                    //_this.data.i.type = _this.data.g.supportTypes[0];
+                    _opt.type = 'show';
+                }
+                var $tooltip = $(_this.$helper.parseTemplate('tooltip', {
+                    content: $this.data('title')
+                }));
+                if ($this.data('header') !== '') {
+                    $tooltip.find('.works-tooltip-header').remove();
+                }
+                var pos = {
+                    top: $this.offset().top,
+                    left: $this.offset().left
+                };
+
+                $tooltip.appendTo('body');
+
+                if (_opt.direction === 'left') {
+                    pos.left -= ($tooltip.outerWidth() + _opt.margin);
+                } else if (_opt.direction === 'top') {
+                    pos.top -= ($tooltip.outerHeight() + _opt.margin);
+                } else if (_opt.direction === 'right') {
+                    pos.left += ($this.width() + _opt.margin);
+                } else if (_opt.direction === 'bottom') {
+                    pos.top += ($this.height() + _opt.margin);
+                }
+
+                $tooltip.css({
+                    left: pos.left,
+                    top: pos.top
+                });
+
+                if (_opt.type === 'show' || _opt.type === 'queue') {
+                    // Write some codes here.
+                }
+            });
+        },
+        method: {
+            show: function() {
+                $tooltip.addClass('active');
+                _this.$helper.promise(function () {
+                    $tooltip.addClass('animate-in');
+                }, 25);
+            },
+            queue: function () {
+
+            }
+        },
+        template: {
+            tooltip: '&lt;div class="works-tooltip">&lt;div class="works-tooltip-header">{title}&lt;/div>&lt;div class="works-tooltip-body">{content}&lt;/div>&lt;span class="works-tooltip-arrow">&lt;/span>&lt;/div>'
+        },
+        options: {
+            supportTypes: ['toogle', 'show', 'hide']
+        }
+    });
+}(jQuery));
+//==========================================================
+//
+// @ HOMEWORKS COMPONENT UPLOAD
+// @ All Rights Reserved IGAWorks Inc.
+//
+//==========================================================
+//
+// @ UPDATE    2017-01-13                          
+// @ AUTHOR    Kenneth
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/upload.html
+//
+//=========================================================
+
+(function($) {
+    new ComponentMethod('upload', {
+        init: function (element) {
+            var context = this;
+
+            element.bind('change', function() {
+                var $this = $(this);
+
+                if ($this.val() !== '') {
+                    context.local._prototype.upload.apply(context, [].concat($this, o, Array.prototype.slice.call(arguments, 2)));
+                }
+            });
+        },
+        method: {
+            upload: function (element) {
+                var context = this;
+
+                var options = context.local._options;
+                var file = element[0].files[0];
+                var info = {
+                    name: file.name,
+                    size: file.size,
+                    type: (file.type.split('/'))[(file.type.split('/')).length - 1],
+                    exts: (file.name.split('.'))[(file.name.split('.')).length - 1],
+                };
+                var exts = {
+                    txt: ['TXT', 'LOG'],
+                    img: ['JPEG', 'JPG', 'JPE', 'PJPEG', 'PNG', 'GIF', 'BMP', 'RAW'],
+                    doc: ['DOC', 'DOCX', 'PPT', 'PPTX', 'HWP', 'XLS', 'XLSX', 'PDF', 'CSV'],
+                    flag: {
+                        txt: 'Text',
+                        img: 'Image',
+                        doc: 'Doc',
+                        spread: 'Spread'
+                    },
+                    dest: {
+                        local: 'Local',
+                        s3: 'AWSS3'
+                    }
+                };
+
+                if (typeof options.type !== 'undefined' &amp;&amp; options.type !== null) {
+                    if ($.inArray(options.type, Object.keys(exts)) !== -1) {
+                        if ($.inArray(info.type.toUpperCase(), exts[options.type]) !== -1) {
+                            var idx = null;
+                            if($.inArray(info.exts.toUpperCase(), exts[options.type]) !== -1) {
+                                var form = new FormData();
+                                form.append('file', file, file.name);
+                                if (typeof options.type !== 'undefined' &amp;&amp; options.type !== null) {
+                                    form.append('type', exts.flag[options.type]);
+                                }
+
+                                if (typeof options.dest !== 'undefined' &amp;&amp; options.dest !== null) {
+                                    form.append('dest', exts.dest[options.dest]);
+                                }
+
+                                if (typeof options.data !== 'undefined') {
+                                    for (idx in options.data) {
+                                        form.append(idx, options.data[idx]);
+                                    }
+                                }
+
+                                if (typeof options.isBtn !== 'undefined' &amp;&amp; options.isBtn === true) {
+                                    e.siblings('.btn').text('업로드 중').addClass('btn-default').removeClass('btn-success btn-danger');
+                                }
+
+                                if (typeof options.beforeStart === 'function') {
+                                    options.beforeStart.apply(e, Array.prototype.slice.call(arguments));
+                                }
+
+                                if (typeof options.extensions !== 'undefined') {
+                                    for (idx in options.extensions) {
+                                        var item = options.extensions[idx];
+                                        form.append(idx, item);
+                                    }
+                                }
+
+                                $.ajax({
+                                    url: options.url,
+                                    data: form,
+                                    type: 'POST',
+                                    contentType: false,
+                                    processData: false,
+                                    mimeType: 'multipart/form-data',
+                                    dataType: 'json',
+                                    timeout: 30000,
+                                    complete: options.complete,
+                                    success: function (data, status, xhr) {
+                                        if (data.code === 200) {
+                                            var result = data.data;
+                                            element.val('');
+
+                                            if (options.type === 'img') {
+                                                if (typeof options.isBtn !== 'undefined' &amp;&amp; options.isBtn === true) {
+                                                    options.siblings('.btn, img').remove();
+                                                    options.before('&lt;img src="' + result.data + '" />');
+                                                }
+                                            } else {
+                                                if (typeof options.isBtn !== 'undefined' &amp;&amp; options.isBtn === true) {
+                                                    options.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
+                                                }
+                                            }
+                                            options.data('value', result);
+                                            if (typeof options.success === 'function') {
+                                                options.success.apply(element, Array.prototype.slice.call(arguments));
+                                            }
+                                        } else {
+                                            if (typeof data.msg !== 'undefined') {
+                                                toast(data.msg);
+                                            }
+                                        }
+                                    },
+                                    error: function (xhr, status, error) {
+                                        toast('Unexpected error are occured when uploading.');
+                                        if (typeof options.isBtn !== 'undefined' &amp;&amp; options.isBtn === true) {
+                                            element
+                                                .siblings('.btn')
+                                                .text('Error')
+                                                .removeClass('btn-default btn-success')
+                                                .addClass('btn-danger');
+                                        }
+                                        if (typeof options.error === 'function') {
+                                            options.error.apply(element, Array.prototype.slice.call(arguments));
+                                        }
+                                    }
+                                });
+                            } else {
+                                toast('.' + info.exts + '은 업로드를 지원하는 확장자가 아닙니다.');
+                            }
+                        } else {
+                            toast('.' + info.exts + '은 업로드를 지원하는 확장자가 아닙니다.');
+                        }
+                    } else {
+                        toast(options.type + '은 허용하는 확장자 옵션 정의가 아닙니다.');
+                    }
+                } else {
+                    // Write some codes here.
+                }
+            }
+        }
+    });
+}(jQuery));
+//===========================
+// CHECKBOX VIEW HOOK
+//===========================
+(function () {
+    this.checkbox();
+}).hook('checkbox');
+//===========================
+// DROPDOWN VIEW HOOK
+//===========================
+(function (target) {
+    var direction = this.data('direction');
+
+    this.dropdown({
+        target: target,
+        direction: direction
+    });
+}).hook('dropdown');
+//===========================
+// INPUT VIEW HOOK
+//===========================
+(function () {
+    this.input();
+}).hook('input');
+//===========================
+// MENU VIEW HOOK
+//===========================
+(function () {
+    var $document = $(document);
+    var $wrapper = $('.works-wrapper');
+    var $sider = $('.works-sider');
+    $sider.bind('click', function (event) {
+        event.stopPropagation();
+    });
+    this.bind('click', function (event) {
+        event.stopPropagation();
+        var $this = $(this);
+        if ($sider.hasClass('works-sider-active')) {
+            $sider.removeClass('works-sider-active');
+            $wrapper.removeClass('works-sider-active');
+            $document.unbind('click.worksMenuHandler');
+        } else {
+            $sider.addClass('works-sider-active');
+            $wrapper.addClass('works-sider-active');
+            $document.unbind('click.worksMenuHandler').bind('click.worksMenuHandler', function (event) {
+                event.preventDefault();
+                $sider.removeClass('works-sider-active');
+                $wrapper.removeClass('works-sider-active');
+                $document.unbind('click.worksMenuHandler');
+            });
+        }
+    });
+}).hook('menu');
+//===========================
+// MODAL VIEW HOOK
+//===========================
+(function (target) {
+    this.bind('click', function (event) {
+        event.preventDefault();
+        target.modal('toggle');
+    });
+}).hook('modal');
+//===========================
+// RIPPLE VIEW HOOK
+//===========================
+(function (target, value) {
+    this.ripple({
+        theme: value
+    });
+}).hook('ripple');
+//===========================
+// SPINNER VIEW HOOK
+//===========================
+(function () {
+    this.spinner();
+}).hook('spinner');
+//===========================
+// TAB VIEW HOOK
+//===========================
+(function () {
+    this.tab();
+}).hook('tab');
+
+//===========================
+// STEP VIEW HOOK
+//===========================
+(function () {
+    this.step();
+}).hook('step');
+//===========================
+// TOGGLE VIEW HOOK
+//===========================
+(function () {
+    var placeholder = this.data('toggleplaceholder');
+    try {
+        if (typeof placeholder !== 'undefined' &amp;&amp; placeholder !== null &amp;&amp; placeholder !== '') {
+            placeholder = placeholder.replace(/\'/gi, "\"");
+            placeholder = JSON.parse(placeholder);
+        } else {
+            placeholder = null;
+        }
+    } catch (e) {
+        placeholder = null;
+        console.trace(e.stack);
+    }
+
+    this.toggle({
+        placeholder: placeholder
+    });
+}).hook('toggle');
+//===========================
+// TOOLTIP VIEW HOOK
+//===========================
+(function (target, value) {
+    this.tooltip({
+        type: value
+    });
+}).hook('tooltip');
+//# sourceMappingURL=homeworks.js.map</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ComponentData.html">ComponentData</a></li><li><a href="ComponentHelper.html">ComponentHelper</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Jan 13 2017 17:29:30 GMT+0900 (대한민국 표준시)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

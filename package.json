@@ -5,7 +5,8 @@
   "main": "Gruntfile.js",
   "scripts": {
     "test": "grunt test",
-    "report-coverage": "codecov"
+    "report-coverage": "codecov",
+    "jsdoc": "./node_modules/.bin/jsdoc src/ -r -c jsdoc.json -d docs"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,9 @@
     "grunt-contrib-qunit": "^0.7.0",
     "grunt-contrib-uglify": "^0.11.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-jsdoc": "^2.1.0",
     "grunt-replace": "^1.0.1",
+    "jsdoc": "^3.4.3",
     "mocha": "^3.1.0"
   }
 }
