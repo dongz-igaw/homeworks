@@ -18,4 +18,4 @@ script:
  - npm test
 
 after_success:
- - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- test/** -R spec && codecov
+ - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- src/js/**/test/**.js -R spec && codecov
