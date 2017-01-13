@@ -24,7 +24,7 @@
 //
 //=========================================================
 
-window.HOMEWORKS_VERSION = '2.0.9.3';
+window.HOMEWORKS_VERSION = '2.0.9.4';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -152,9 +152,10 @@ function ComponentData(context, id) {
  * @see Refer an example document {@link https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/ComponentHelper.html|here}.
  * @author Kenneth <kenneth@igaworks.com>
  * @param {ComponentMethod} context - HOMEWORKS ComponentMethod Context.
+ * @param {ComponentData.store} data - HOMEWORKS ComponentData store for get unique id.
  * @returns {ComponentHelper}
  */
-function ComponentHelper(context) {
+function ComponentHelper(context, data) {
     /*=================================================
      *= NOTE - HOMEWORKS Component shared feature.
      *= DATE - 2016-01-19
