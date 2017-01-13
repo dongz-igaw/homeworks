@@ -75,19 +75,6 @@ git pull origin master
 
  ![CSS Structure](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/css_structure.png)
 
-## Note
-
-- 설치 가이드가 아직 가이드문서에 포함되지 않아 이곳에 간략히 정리합니다.
-```html
-  <!-- HomeWorks에서는 jQuery 라이브러리를 요구합니다. 1.11.1 이상으로 불러와주시기 바랍니다. -->
-  <script src="vender/js/jquery-1.12.2.min.js"></script>
-  
-
-  <!-- 아래 두가지 파일이 HomeWorks에서 사용되는 최소 파일입니다. -->
-  <script src="dist/homeworks.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="dist/homeworks.min.css" />
-```
-
 ----
 
 - Docs 페이지 [`homeworks/index.html`](http://homeworks.igaworks.com/main/docs/index.html) 참고하여 주시기 바랍니다.
