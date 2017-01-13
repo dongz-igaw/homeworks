@@ -6,6 +6,7 @@ module.exports = function(grunt) {
   // ===========================================================================
   // CONFIGURE GRUNT ===========================================================
   // ===========================================================================
+  var path = require('path');
   var cwd = process.cwd();
 
   grunt.initConfig({
@@ -24,7 +25,10 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/homeworks.min.js': ['src/js/**.js']
+          'dist/homeworks.min.js': [
+          'src/js/homeworks.js',
+          '!src/js/**/test/**.js'
+          ]
         }
       },
     },
@@ -32,9 +36,12 @@ module.exports = function(grunt) {
       files: ['sample/**/*.html']
     },
     jshint: {
-      files: ['Gruntfile.js', 'src/js/**/**.js'],
+      files: [
+        'Gruntfile.js',
+         'src/js/**/**.js',
+         '!src/js/**/test/**.js'
+      ],
       options: {
-        // options here to override JSHint defaults
         globals: {
           jQuery: true,
           console: true,
@@ -63,7 +70,8 @@ module.exports = function(grunt) {
                 'src/js/components/**/index.js',
                 'src/js/components/**/hook.js',
                 'src/js/components/**/**.js',
-                '!src/js/homeworks.js'
+                '!src/js/homeworks.js',
+                '!src/js/**/test/**.js'
             ],
             dest: 'src/js/homeworks.js'
         }
@@ -71,8 +79,6 @@ module.exports = function(grunt) {
     copy: {
       options: {},
       files: [
-        {expand: true, src: 'homeworks.js', dest: 'src/js/**', cwd: 'C:/Users/User/Documents/visual studio 2015/Projects/CampaignIntelligence/CampaignIntelligence/Content/scripts/'},
-        {expand: true, src: 'homeworks.css', dest: 'src/css/**', cwd: 'C:/Users/User/Documents/visual studio 2015/Projects/CampaignIntelligence/CampaignIntelligence/Content/styles/homeworks/'},
       ]
     },
     cssmin: {
@@ -110,9 +116,22 @@ module.exports = function(grunt) {
         ]
       }
     },
+    strip_code: {
+      options: {
+        blocks: {
+          start_block: '/* TEST CODE START */',
+          end_block: '/* TEST CODE END */'
+        }
+      },
+      dist: {
+        src: [
+          'src/js/homeworks.js'
+        ]
+      }
+    },
     watch: {
       options: {
-        cliArgs: ['--gruntfile', require('path').join(cwd, 'Gruntfile.js')],
+        cliArgs: ['--gruntfile', path.join(cwd, 'Gruntfile.js')],
       },
       files: ['src/**/**.js'],
       tasks: ['default']
@@ -133,10 +152,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-strip-code');
 
-  grunt.registerTask('default', ['jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'replace']);
+  grunt.registerTask('default', ['jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'replace', 'strip_code']);
   grunt.registerTask('replacement', ['replace']);
   grunt.registerTask('test', ['jshint', 'csslint']);
-  grunt.registerTask('copy', ['copy']);
   grunt.registerTask('init', ['watch']);
 };

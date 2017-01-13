@@ -362,8 +362,7 @@ function ComponentMethod(name, settings) {
      *================================================*/
     var context = this;
 
-    var _componentVariables = (new ComponentData(this, name)).store;
-    var _globalVariables = _componentVariables.global;
+    $.extend(context, (new ComponentData(this, name)).store);
 
     if (typeof settings.options !== 'undefined' && settings.options !== null) {
         $.extend(_superVariables[name], settings.options);
@@ -436,9 +435,9 @@ function ComponentMethod(name, settings) {
                 }
             }
 
-            var componentContext = $.extend(this, {
+            var componentContext = $.extend(this[context.$helper.getIdentifier()], {
                 local: _localVariables,
-            }, _componentVariables);
+            }, context);
 
             if (args.length === 0 || typeof args[0] === 'object') {
                 // Function(obj) or Function() pattern.
@@ -464,10 +463,10 @@ function ComponentMethod(name, settings) {
                     }
                     return context.method[args[0]].apply(componentContext, [$(this)].concat(Array.prototype.slice.call(args, 1)));
                 } catch (e) {
-                    _componentVariables.$helper.log(e.stack);
+                    context.$helper.log(e.stack);
                 }
             } else {
-                _componentVariables.$helper.log('Compnent has been got invalid parameters.');
+                context.$helper.log('Compnent has been got invalid parameters.');
             }
         };
 
@@ -486,9 +485,9 @@ function ComponentMethod(name, settings) {
                     $.extend(_localVariables._prototype, context.method);
                 }
             }
-            var componentContext = $.extend(window, {
+            var componentContext = $.extend(window[context.$helper.getIdentifier()], {
                 local: _localVariables,
-            }, _componentVariables);
+            }, context);
             context.method.init.apply(componentContext, Array.prototype.slice.call(args));
         } else {
             // By element channing method type - Elem.method()
@@ -504,8 +503,8 @@ function ComponentMethod(name, settings) {
 
     //============================================================================
 
-    if (_componentVariables._bind === false) {
-        _componentVariables._bind = true;
+    if (context._bind === false) {
+        context._bind = true;
         name = name.split(',');
         for (var idx in name) {
             var id = $.trim(name[idx]);
@@ -548,9 +547,9 @@ function ComponentMethod(name, settings) {
                                     $.extend(_localVariables._prototype, context.method);
                                 }
 
-                                var componentContext = $.extend(context, {
+                                var componentContext = $.extend(element[context.$helper.getIdentifier()], {
                                     local: _localVariables,
-                                }, _componentVariables);
+                                }, context);
                             }
 
                             if (_localVariables._init === false) {
@@ -595,6 +594,7 @@ function ComponentMethod(name, settings) {
         };
     }
 }(jQuery));
+
 (function($) {
     $(function () {
         $('.works-footer .floating-top').bind('click', function (event) {
@@ -646,7 +646,6 @@ function ComponentMethod(name, settings) {
         });
     });
 }(jQuery));
-
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT CHECKBOX
