@@ -1,8 +1,9 @@
 # HOMEWORKS FRAMEWORK
 
 [![Build Status](https://travis-ci.com/IGAWorksDev/homeworks.svg?token=x98k8HzDc3zdfP6gvssV&branch=master)](https://travis-ci.com/IGAWorksDev/homeworks)
+[![codecov](https://codecov.io/gh/IGAWorksDev/homeworks/branch/master/graph/badge.svg?token=viTgpBkL7A)](https://codecov.io/gh/IGAWorksDev/homeworks)
 
-![HomeWorks Framework](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/homeworks.png)
+![HomeWorks Framework](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/homeworks_cover.png)
 
 > IGAWorks Front End-Side Framework.
 
