@@ -13,72 +13,59 @@
 
 (function($) {
 	new ComponentMethod('tooltip', {
-        init: function (e, o) {
-            var _this = this;
-            var _opt = {
-                type: 'toggle',
-                margin: 20,
-                direction: 'left'
-            };
-            $.extend(_opt, o);
-            e.each(function () {
-                var $this = $(this);
-                if ($this.data('title') === '') {
-                    $this.data('title', $this.attr('title') || '');
-                }
-                if (_opt.type === null || _opt.type === '' || $.inArray(_opt.type, _this.data.global.supportThemes) === -1) {
-                    //_this.data.i.type = _this.data.g.supportTypes[0];
-                    _opt.type = 'show';
-                }
-                var $tooltip = $(_this.$helper.parseTemplate('tooltip', {
-                    content: $this.data('title')
-                }));
-                if ($this.data('header') !== '') {
-                    $tooltip.find('.works-tooltip-header').remove();
-                }
-                var pos = {
-                    top: $this.offset().top,
-                    left: $this.offset().left
-                };
+        init: function (element) {
+            var context = this;
+            var promise = null;
+            var options = context.local._options;
 
-                $tooltip.appendTo('body');
+            if (options.value === '') {
+                options.value = element.attr('title') || '';
+            }
 
-                if (_opt.direction === 'left') {
-                    pos.left -= ($tooltip.outerWidth() + _opt.margin);
-                } else if (_opt.direction === 'top') {
-                    pos.top -= ($tooltip.outerHeight() + _opt.margin);
-                } else if (_opt.direction === 'right') {
-                    pos.left += ($this.width() + _opt.margin);
-                } else if (_opt.direction === 'bottom') {
-                    pos.top += ($this.height() + _opt.margin);
+            element.addClass('works-tooltip-wrapper');
+
+            var $tooltip = $(context.$helper.parseTemplate('tooltip', options));
+            $tooltip.appendTo(element);
+
+            context.$helper.bind(element, 'mouseover focus', function(event) {
+                $tooltip.addClass('anim-ready');
+
+                if(
+                    options.direction === 'left' ||
+                    options.direction === 'right'
+                ) {
+                    $tooltip.css({
+                        top: (element.outerHeight() - $tooltip.outerHeight()) / 2,
+                        bottom: 'auto'
+                    });
+                } else {
+                    $tooltip.css({
+                        left: (element.outerWidth() - $tooltip.outerWidth()) / 2,
+                        right: 'auto'
+                    });
                 }
 
-                $tooltip.css({
-                    left: pos.left,
-                    top: pos.top
-                });
+                context.$helper.invoke(promise);
+                promise = context.$helper.promise(function() {
+                    $tooltip.addClass('anim-start');
+                }, 25);
+            });
 
-                if (_opt.type === 'show' || _opt.type === 'queue') {
-                    // Write some codes here.
-                }
+            context.$helper.bind(element, 'mouseout blur', function(event) {
+                $tooltip.removeClass('anim-start');
+                context.$helper.invoke(promise);
+                promise = context.$helper.promise(function() {
+                    $tooltip.removeClass('anim-ready');
+                }, 25);
             });
         },
-        method: {
-            show: function() {
-                $tooltip.addClass('active');
-                _this.$helper.promise(function () {
-                    $tooltip.addClass('animate-in');
-                }, 25);
-            },
-            queue: function () {
-
-            }
-        },
         template: {
-            tooltip: '<div class="works-tooltip"><div class="works-tooltip-header">{title}</div><div class="works-tooltip-body">{content}</div><span class="works-tooltip-arrow"></span></div>'
+            tooltip: '<div class="works-tooltip works-tooltip-{direction}">{value}<span class="works-tooltip-arrow"></span></div>'
         },
         options: {
-            supportTypes: ['toogle', 'show', 'hide']
+            value: '',
+            margin: 20,
+            direction: 'left'
         }
     });
 }(jQuery));

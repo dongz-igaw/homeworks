@@ -1,5 +1,6 @@
 ﻿@import url('https://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
+@import url('https://cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css');
 
 @font-face {
  font-family: 'Nanum Square';
@@ -496,4 +497,42 @@ pre code .token.punctuation {
     -o-box-shadow: 0 2px 5px rgba(0, 0, 0, .375);
     -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .375);
     -wekit-box-shadow: 0 2px 5px rgba(0, 0, 0, .375);
+}
+
+.layout-row .col-pd,
+.layout-row .col-pd-1,
+.layout-row .col-pd-2,
+.layout-row .col-pd-3,
+.layout-row .col-pd-5,
+.layout-row .col-pd-6,
+.layout-row .col-pd-7,
+.layout-row .col-pd-8,
+.layout-row .col-pd-9,
+.layout-row .col-pd-10,
+.layout-row .col-pd-11,
+.layout-row .col-pd-12 {
+    padding: 20px;
+}
+
+.layout-row .col-pd-lg,
+.layout-row .col-pd-lg-1,
+.layout-row .col-pd-lg-2,
+.layout-row .col-pd-lg-3,
+.layout-row .col-pd-lg-5,
+.layout-row .col-pd-lg-6,
+.layout-row .col-pd-lg-7,
+.layout-row .col-pd-lg-8,
+.layout-row .col-pd-lg-9,
+.layout-row .col-pd-lg-10,
+.layout-row .col-pd-lg-11,
+.layout-row .col-pd-lg-12 {
+    padding: 40px;
+}
+
+.layout-row > * {
+    border-right: 1px solid #e2e2e2;
+}
+
+.layout-row > :last-child {
+    border-right: none;
 }

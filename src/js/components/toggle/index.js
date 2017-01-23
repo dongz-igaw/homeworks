@@ -64,6 +64,8 @@
 
             context.$helper.bind(element, 'change', function (event) {
                 context.$helper.triggerHandler(element, 'update');
+
+                $toggle.find('.switch .switch-ball').ripple('start');
             }, true);
 
             context.$helper.bind(element, 'update', function (event, extra) {

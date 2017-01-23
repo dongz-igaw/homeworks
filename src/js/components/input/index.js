@@ -88,7 +88,8 @@
                 }
             });
 
-            if (typeof element.attr('class') !== 'undefined' && element.attr('class').match(/input-(\w+)/gi)) {
+            var extracted_classes = element.attr('class').match(/input-(\w+)/gi);
+            if (typeof element.attr('class') !== 'undefined' && extracted_classes !== null && extracted_classes.length > 0) {
                 var class_names = element.attr('class').match(/input-(\w+)/gi);
                 for (var idx in class_names) {
                     var class_name = class_names[idx];

@@ -11,7 +11,7 @@
 //
 //=========================================================
 
-(function($) {
+(function ($) {
     new ComponentMethod('ripple', {
         init: function (element) {
             var context = this;
@@ -26,9 +26,10 @@
                 }
 
                 context.$helper.bind($child, 'click', function (event) {
-                    if (typeof event.originalEvent === 'undefined' && options.passive === false) {
+                    if (typeof event.originalEvent !== 'undefined' && options.passive === true) {
                         return false;
                     }
+
                     var $this = $(this);
                     if (!$this.hasClass('btn-ripple')) {
                         $child.addClass('btn-ripple');

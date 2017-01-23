@@ -133,7 +133,10 @@ module.exports = function(grunt) {
       options: {
         cliArgs: ['--gruntfile', path.join(cwd, 'Gruntfile.js')],
       },
-      files: ['src/**/**.js'],
+      files: [
+          'src/**/**.js',
+          '!src/homeworks.js'
+      ],
       tasks: ['default']
     }
   });

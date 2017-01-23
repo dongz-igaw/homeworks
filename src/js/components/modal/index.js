@@ -76,7 +76,7 @@
             },
             toggle: function (element) {
                 var context = this;
-                if (context.data._visible === true) {
+                if (context.local._visible === true) {
                     context.local._prototype.close.call(context, element);
                 } else {
                     context.local._prototype.open.call(context, element);
@@ -93,7 +93,7 @@
             open: function (element) {
                 var context = this;
 
-                context.data._visible = true;
+                context.local._visible = true;
 
                 var $body = $('body:first');
                 var $parent = element.parent();
@@ -113,13 +113,9 @@
                     element.show();
                 }
 
-                context.$helper.triggerHandler(context.element.$window, 'update');
-
                 context.$helper.bind(element, 'click', function (event) {
                     event.stopPropagation();
                 });
-
-                element.triggerHandler('modal.open');
 
                 var $overlay = $('.modal-overlay');
                 if ($overlay.length < 1) {
@@ -129,9 +125,13 @@
                 $overlay.insertAfter(element);
                 $overlay.show();
 
+                context.$helper.triggerHandler(context.element.$window, 'update');
+                element.triggerHandler('modal.open');
+
                 context.$helper.promise(function () {
                     element.addClass('anim-start');
                     $overlay.css('opacity', 0.6);
+                    context.$helper.triggerHandler(context.element.$window, 'update');
                 }, 25);
 
                 context.$helper.bind($overlay, 'click', function (event) {
@@ -141,7 +141,7 @@
             close: function (element) {
                 var context = this;
 
-                context.data._visible = false;
+                context.local._visible = false;
 
                 if (context.local._options.animation === true) {
                     $('.modal-opener').removeClass('modal-opener');

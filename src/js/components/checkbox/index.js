@@ -17,8 +17,11 @@
             var context = this;
 
             var $checkbox = $(context.$helper.parseTemplate('checkbox'));
-            if (element.closest('label').length < 1) {
-                element.wrap('<label></label>');
+            var $label = element.closest('label');
+            if ($label.length < 1) {
+                element.wrap('<label class="works-checkbox-wrapper"></label>');
+            } else {
+                $label.addClass('works-checkbox-wrapper');
             }
 
             $checkbox.insertAfter(element).ripple({

@@ -2,7 +2,10 @@
 // TOOLTIP VIEW HOOK
 //===========================
 (function (target, value) {
+	var direction = this.data('tooltip-direction');
+
     this.tooltip({
-        type: value
+        value: value,
+        direction: direction
     });
 }).hook('tooltip');

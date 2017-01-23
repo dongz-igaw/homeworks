@@ -19,31 +19,54 @@
 //
 //==========================================================
 //
-// @ UPDATE  2017-01-13                          
+// @ UPDATE  2017-01-23                          
 // @ AUTHOR  Kenneth                                      
 //
 //=========================================================
 
-window.HOMEWORKS_VERSION = '2.0.9.5';
+window.HOMEWORKS_VERSION = '2.0.9.6';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
 }
 
-var _promiseVariables  = {}; // Promise standard global variables.
-var _superVariables   = {}; // Plugin option standard global variables.
+var HOMEWORKS_PARAMS = {
+    framework: 'homeworks',
+    prefix: 'works',
+};
+var _promiseVariables = {}; // Promise standard global variables.
+var _superVariables = {}; // Plugin option standard global variables.
+
+/*=================================================
+ *= NOTE - String mapper.
+ *= DATE - 2016-01-19
+ *================================================*/
+String.prototype.mapping = function (data) {
+    var string = this;
+    for (var idx in data) {
+        var value = data[idx];
+        idx = idx.replace(/\\/gi, '\\\\')
+                 .replace(/-/gi, '\\-');
+        var regexp = new RegExp("\\{" + idx + "\\}", "gi");
+        string = string.replace(regexp, value);
+    }
+    return string.toString();
+};
 
 /*=================================================
  *= NOTE - String formatter.
- *= DATE - 2016-01-19
+ *= DATE - 2017-01-23
  *================================================*/
-String.prototype.getFormat = function (options) {
+String.prototype.format = function (data) {
     var string = this;
-    for (var idx in options) {
-        var value = options[idx];
-        idx = idx.replace(/\\/gi, '\\\\')
-                 .replace(/-/gi, '\\-');
-        var regexp = new RegExp("{" + idx + "}", "gi");
+
+    if(typeof data !== 'undefined' && typeof data !== null && typeof data !== 'object') {
+        data = [data];
+    }
+
+    for (var idx in data) {
+        var value = data[idx];
+        var regexp = new RegExp("\\{" + idx + "\\}", "g");
         string = string.replace(regexp, value);
     }
     return string.toString();
@@ -53,19 +76,20 @@ String.prototype.getFormat = function (options) {
  *= NOTE - Component biding feature.
  *= DATE - 2016-01-19
  *================================================*/
-Function.prototype.hook = function (name, args) {
+Function.prototype.hook = function (component, args) {
     var context = this;
 
     try {
         jQuery(document).ready(function() {
-            var format = '[data-{data-name}]';
+            var format = '{prefix}-{component}, [{component}], [data-{component}]';
 
-            jQuery(format.getFormat({
-                'data-name': name
+            jQuery(format.mapping({
+                prefix: HOMEWORKS_PARAMS.prefix,
+                component: component
             })).each(function () {
                 var element = $(this);
                 var target = element.data('pen');
-                var plugin = element.data(name);
+                var plugin = element.data(component);
 
                 if (plugin === false)
                     return true;
@@ -123,7 +147,7 @@ function ComponentData(context, id) {
      * @property {Array<jQuery>} element - Quick reference of jQuery objects that refered frequently.
      * @property {Object} global - Global properties each of Components.
      */
-    this.store = {
+    this.store = jQuery.extend(HOMEWORKS_PARAMS, {
         $self: this,
         $super: context,
         $helper: null,
@@ -135,15 +159,13 @@ function ComponentData(context, id) {
             time: 300,
             effect: 'swing'
         },
-        framework: 'homeworks',
-        prefix: 'works',
         id: id,
         element: {
             $window: $(window),
             $document: $(document)
         },
         global: _superVariables[id] || {}
-    };
+    });
     this.store.$helper = new ComponentHelper(context, this.store);
 }
 
@@ -162,6 +184,22 @@ function ComponentHelper(context, data) {
      *= DATE - 2016-01-19
      *================================================*/
 
+     /**
+     * @function
+     * @description Get random string that made 0-9 numbers, lower/upper case alphabets.
+     * @param {Number} length - Random string length.
+     * @returns {String} Random string.
+     */
+    this.randomString = function(length) {
+        length = length || 10;
+        var seed = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
+        var randomString = [];
+        for(var idx=0; idx<length; idx++) {
+            randomString.push(seed[Math.floor(Math.random() * seed.length)]);
+        }
+        return randomString.join('');
+    };
+
     /**
      * @function
      * @description Promiss is helping to make a schedule, It is similar like setTimeout.
@@ -176,7 +214,7 @@ function ComponentHelper(context, data) {
         if (typeof name === 'function' && typeof callback === 'number') {
             time = callback;
             callback = name;
-            name = context.id;
+            name = '{0}_{1}'.format([context.id, this.randomString(8)]);
         }
 
         if (typeof invoke !== 'undefined' && invoke === true) {
@@ -194,7 +232,8 @@ function ComponentHelper(context, data) {
                 callback();
             }
         }, time);
-        return _promiseVariables;
+
+        return name;
     };
 
     /**
@@ -207,13 +246,14 @@ function ComponentHelper(context, data) {
      * @returns {Boolean}
      */
     this.invoke = function (name) {
-        if (typeof name === 'undefined') {
+        if (typeof name === 'undefined' || name === null) {
             name = context.id;
         }
-        if (typeof _promiseVariables[_this.framework + '.' + name] !== 'undefined') {
+
+        if (typeof _promiseVariables[context.framework + '.' + name] !== 'undefined') {
             try {
-                clearTimeout(_promiseVariables[_this.framework + '.' + name]);
-                delete _promiseVariables[_this.framework + '.' + name];
+                clearTimeout(_promiseVariables[context.framework + '.' + name]);
+                delete _promiseVariables[context.framework + '.' + name];
             } catch (e) {
                 self.log(e.stack);
             }
@@ -257,7 +297,7 @@ function ComponentHelper(context, data) {
             this.log("'" + key + "' 이름의 템플릿이 확인되지 않습니다.");
             return false;
         }
-        return data.getFormat(map);
+        return data.mapping(map);
     };
 
     /**
@@ -362,10 +402,10 @@ function ComponentMethod(name, settings) {
      *================================================*/
     var context = this;
 
-    $.extend(context, (new ComponentData(this, name)).store);
+    jQuery.extend(context, (new ComponentData(this, name)).store);
 
     if (typeof settings.options !== 'undefined' && settings.options !== null) {
-        $.extend(_superVariables[name], settings.options);
+        jQuery.extend(_superVariables[name], settings.options);
     }
 
     /**
@@ -396,9 +436,9 @@ function ComponentMethod(name, settings) {
     this.options = {
     };
 
-    $.extend(this.method, settings.method);
-    $.extend(this.template, settings.template);
-    $.extend(this.options, settings.options);
+    jQuery.extend(this.method, settings.method);
+    jQuery.extend(this.template, settings.template);
+    jQuery.extend(this.options, settings.options);
 
     /*=================================================
      *= NOTE - HOMEWORKS ROUTE START
@@ -415,27 +455,30 @@ function ComponentMethod(name, settings) {
         var self = this;
         var args = [];
         if (arguments.length > 1) {
-            $.map(Array.prototype.slice.call(arguments, 1), function (e, i) {
+            jQuery.map(Array.prototype.slice.call(arguments, 1), function (e, i) {
                 args.push(e);
             });
         }
 
         var ElementBinder = function () {
-            var _localVariables = this.data;
-            if (typeof this === 'object') {
-                if (typeof _localVariables === 'undefined') {
-                    _localVariables = {
-                        '_id': id,
-                        '_init': false,
-                        '_prototype': {},
-                        '_options': $.extend({}, context.options)
-                    };
-                    this.data = _localVariables;
-                    $.extend(_localVariables._prototype, context.method);
-                }
+            if(typeof this.data === 'undefined') {
+                this.data = {};
             }
 
-            var componentContext = $.extend(this[context.$helper.getIdentifier()], {
+            var _localVariables = this.data[id]; 
+
+            if (typeof _localVariables === 'undefined') {
+                _localVariables = {
+                    '_id': id,
+                    '_init': false,
+                    '_prototype': {},
+                    '_options': jQuery.extend({}, context.options)
+                };
+                this.data[id] = _localVariables;
+                jQuery.extend(_localVariables._prototype, context.method);
+            }
+
+            var componentContext = jQuery.extend(this[context.$helper.getIdentifier()], {
                 local: _localVariables,
             }, context);
 
@@ -443,12 +486,12 @@ function ComponentMethod(name, settings) {
                 // Function(obj) or Function() pattern.
                 if (typeof args[0] === 'object') {
                     // Function(obj) pattern.
-                    $.extend(_localVariables._options, args[0]);
+                    jQuery.extend(_localVariables._options, args[0]);
                 }
 
                 if (_localVariables._init === false) {
                     _localVariables._init = true;
-                    context.init.apply(componentContext, [$(this)].concat(Array.prototype.slice.call(args)));
+                    context.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args)));
                 }
             } else if (typeof args[0] === 'string') {
                 // Function(Method Name) pattern.
@@ -456,36 +499,38 @@ function ComponentMethod(name, settings) {
                     if (_localVariables._init === false) {
                         _localVariables._init = true;
                         if (typeof context.method.init !== 'undefined') {
-                            context.method.init.apply(componentContext, [$(this)].concat(Array.prototype.slice.call(args, 1)));
+                            context.method.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args, 1)));
                         } else {
-                            context.init.apply(componentContext, [$(this)].concat(Array.prototype.slice.call(args, 1)));
+                            context.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args, 1)));
                         }
                     }
-                    return context.method[args[0]].apply(componentContext, [$(this)].concat(Array.prototype.slice.call(args, 1)));
+                    return context.method[args[0]].apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args, 1)));
                 } catch (e) {
                     context.$helper.log(e.stack);
                 }
             } else {
-                context.$helper.log('Compnent has been got invalid parameters.');
+                context.$helper.log('Component has been got invalid parameters.');
             }
         };
 
         if (args.length > 0 && self === window) {
             // Global basic function type - Function()
-            var _localVariables = this.data;
-            if (typeof this === 'object') {
-                if (typeof _localVariables === 'undefined') {
-                    _localVariables = {
-                        '_id': id,
-                        '_init': false,
-                        '_prototype': {},
-                        '_options': $.extend({}, context.options)
-                    };
-                    this.data = _localVariables;
-                    $.extend(_localVariables._prototype, context.method);
-                }
+            if(typeof this.data === 'undefined') {
+                this.data = {};
             }
-            var componentContext = $.extend(window[context.$helper.getIdentifier()], {
+
+            var _localVariables = this.data[id];
+            if (typeof _localVariables === 'undefined') {
+                _localVariables = {
+                    '_id': id,
+                    '_init': false,
+                    '_prototype': {},
+                    '_options': jQuery.extend({}, context.options)
+                };
+                this.data[id] = _localVariables;
+                jQuery.extend(_localVariables._prototype, context.method);
+            }
+            var componentContext = jQuery.extend(window[context.$helper.getIdentifier()], {
                 local: _localVariables,
             }, context);
             context.method.init.apply(componentContext, Array.prototype.slice.call(args));
@@ -507,18 +552,19 @@ function ComponentMethod(name, settings) {
         context._bind = true;
         name = name.split(',');
         for (var idx in name) {
-            var id = $.trim(name[idx]);
+            var id = jQuery.trim(name[idx]);
 
             /* jshint ignore:start */
             /* @DATE 2017. 01. 09 */
             /* @USER Kenneth */
             /* @NOTE 런타임 매개변수 독립 사용을 위한 IIFE 설정. */
-            !(function () {
+            (function () {
                 var _id = id;
                 var bindFunc = function () {
                     return context.route.apply(this, [_id].concat(Array.prototype.slice.call(arguments)));
                 };
-                $.fn[_id] = bindFunc;
+                
+                jQuery.fn[_id] = bindFunc;
                 window[_id] = bindFunc;
             } ());
             /* jshint ignore:end */
@@ -528,36 +574,39 @@ function ComponentMethod(name, settings) {
             /* @USER Kenneth */
             /* @NOTE 함수 동적반영을 위한 jshint Escape 처리. */
             for (var key in this.method) {
-                if (typeof $.fn[key] === 'undefined') {
-                    !(function () {
+                if (typeof jQuery.fn[key] === 'undefined') {
+                    (function () {
                         var method = key;
-                        $.fn[method] = function () {
+                        jQuery.fn[method] = function () {
                             var _localVariables;
                             var element = this[0];
-                             if (typeof element === 'object') {
-                                _localVariables = element.data;
-                                if (typeof _localVariables === 'undefined') {
-                                    _localVariables = {
-                                        '_id': key,
-                                        '_init': false,
-                                        '_prototype': {},
-                                        '_options': {}
-                                    };
-                                    element.data = _localVariables;
-                                    $.extend(_localVariables._prototype, context.method);
-                                }
 
-                                var componentContext = $.extend(element[context.$helper.getIdentifier()], {
-                                    local: _localVariables,
-                                }, context);
+                            if(typeof element.data === 'undefined') {
+                                element.data = {};
                             }
+
+                            _localVariables = element.data[key];
+                            if (typeof _localVariables === 'undefined') {
+                                _localVariables = {
+                                    '_id': key,
+                                    '_init': false,
+                                    '_prototype': {},
+                                    '_options': {}
+                                };
+                                element.data[key] = _localVariables;
+                                jQuery.extend(_localVariables._prototype, context.method);
+                            }
+
+                            var componentContext = jQuery.extend(element[context.$helper.getIdentifier()], {
+                                local: _localVariables,
+                            }, context);
 
                             if (_localVariables._init === false) {
                                 _localVariables._init = true;
                                 if (typeof context.method.init !== 'undefined') {
-                                    context.method.init.apply(componentContext, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
+                                    context.method.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(arguments, 1)));
                                 } else {
-                                    context.init.apply(componentContext, [$(this)].concat(Array.prototype.slice.call(arg, 1)));
+                                    context.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(arguments, 1)));
                                 }
                             }
 
@@ -665,8 +714,11 @@ function ComponentMethod(name, settings) {
             var context = this;
 
             var $checkbox = $(context.$helper.parseTemplate('checkbox'));
-            if (element.closest('label').length < 1) {
-                element.wrap('<label></label>');
+            var $label = element.closest('label');
+            if ($label.length < 1) {
+                element.wrap('<label class="works-checkbox-wrapper"></label>');
+            } else {
+                $label.addClass('works-checkbox-wrapper');
             }
 
             $checkbox.insertAfter(element).ripple({
@@ -839,7 +891,7 @@ function ComponentMethod(name, settings) {
         method: {
             addHandler: function (element, target) {
                 var context = this;
-                var options = context.local;
+                var options = context.local._options;
 
                 element.find('.dropdown-menu').ripple({
                     theme: 'dark'
@@ -854,8 +906,6 @@ function ComponentMethod(name, settings) {
                 context.$helper.bind(element.find('.dropdown-menu'), 'mousedown', function (event) {
                     event.stopPropagation();
                 });
-
-                context.$helper.unbind(context.element.$window, 'resize');
 
                 context.$helper.bind(context.element.$document, 'mousedown', function (event) {
                     context.local._prototype.removeDropdown.call(context, element, target);
@@ -1024,7 +1074,8 @@ function ComponentMethod(name, settings) {
                 }
             });
 
-            if (typeof element.attr('class') !== 'undefined' && element.attr('class').match(/input-(\w+)/gi)) {
+            var extracted_classes = element.attr('class').match(/input-(\w+)/gi);
+            if (typeof element.attr('class') !== 'undefined' && extracted_classes !== null && extracted_classes.length > 0) {
                 var class_names = element.attr('class').match(/input-(\w+)/gi);
                 for (var idx in class_names) {
                     var class_name = class_names[idx];
@@ -1177,7 +1228,7 @@ function ComponentMethod(name, settings) {
             },
             toggle: function (element) {
                 var context = this;
-                if (context.data._visible === true) {
+                if (context.local._visible === true) {
                     context.local._prototype.close.call(context, element);
                 } else {
                     context.local._prototype.open.call(context, element);
@@ -1194,7 +1245,7 @@ function ComponentMethod(name, settings) {
             open: function (element) {
                 var context = this;
 
-                context.data._visible = true;
+                context.local._visible = true;
 
                 var $body = $('body:first');
                 var $parent = element.parent();
@@ -1214,13 +1265,9 @@ function ComponentMethod(name, settings) {
                     element.show();
                 }
 
-                context.$helper.triggerHandler(context.element.$window, 'update');
-
                 context.$helper.bind(element, 'click', function (event) {
                     event.stopPropagation();
                 });
-
-                element.triggerHandler('modal.open');
 
                 var $overlay = $('.modal-overlay');
                 if ($overlay.length < 1) {
@@ -1230,9 +1277,13 @@ function ComponentMethod(name, settings) {
                 $overlay.insertAfter(element);
                 $overlay.show();
 
+                context.$helper.triggerHandler(context.element.$window, 'update');
+                element.triggerHandler('modal.open');
+
                 context.$helper.promise(function () {
                     element.addClass('anim-start');
                     $overlay.css('opacity', 0.6);
+                    context.$helper.triggerHandler(context.element.$window, 'update');
                 }, 25);
 
                 context.$helper.bind($overlay, 'click', function (event) {
@@ -1242,7 +1293,7 @@ function ComponentMethod(name, settings) {
             close: function (element) {
                 var context = this;
 
-                context.data._visible = false;
+                context.local._visible = false;
 
                 if (context.local._options.animation === true) {
                     $('.modal-opener').removeClass('modal-opener');
@@ -1418,7 +1469,7 @@ function ComponentMethod(name, settings) {
 //
 //=========================================================
 
-(function($) {
+(function ($) {
     new ComponentMethod('ripple', {
         init: function (element) {
             var context = this;
@@ -1433,9 +1484,10 @@ function ComponentMethod(name, settings) {
                 }
 
                 context.$helper.bind($child, 'click', function (event) {
-                    if (typeof event.originalEvent === 'undefined' && options.passive === false) {
+                    if (typeof event.originalEvent !== 'undefined' && options.passive === true) {
                         return false;
                     }
+
                     var $this = $(this);
                     if (!$this.hasClass('btn-ripple')) {
                         $child.addClass('btn-ripple');
@@ -1868,6 +1920,8 @@ function ComponentMethod(name, settings) {
 
             context.$helper.bind(element, 'change', function (event) {
                 context.$helper.triggerHandler(element, 'update');
+
+                $toggle.find('.switch .switch-ball').ripple('start');
             }, true);
 
             context.$helper.bind(element, 'update', function (event, extra) {
@@ -1932,72 +1986,59 @@ function ComponentMethod(name, settings) {
 
 (function($) {
 	new ComponentMethod('tooltip', {
-        init: function (e, o) {
-            var _this = this;
-            var _opt = {
-                type: 'toggle',
-                margin: 20,
-                direction: 'left'
-            };
-            $.extend(_opt, o);
-            e.each(function () {
-                var $this = $(this);
-                if ($this.data('title') === '') {
-                    $this.data('title', $this.attr('title') || '');
-                }
-                if (_opt.type === null || _opt.type === '' || $.inArray(_opt.type, _this.data.global.supportThemes) === -1) {
-                    //_this.data.i.type = _this.data.g.supportTypes[0];
-                    _opt.type = 'show';
-                }
-                var $tooltip = $(_this.$helper.parseTemplate('tooltip', {
-                    content: $this.data('title')
-                }));
-                if ($this.data('header') !== '') {
-                    $tooltip.find('.works-tooltip-header').remove();
-                }
-                var pos = {
-                    top: $this.offset().top,
-                    left: $this.offset().left
-                };
+        init: function (element) {
+            var context = this;
+            var promise = null;
+            var options = context.local._options;
 
-                $tooltip.appendTo('body');
+            if (options.value === '') {
+                options.value = element.attr('title') || '';
+            }
 
-                if (_opt.direction === 'left') {
-                    pos.left -= ($tooltip.outerWidth() + _opt.margin);
-                } else if (_opt.direction === 'top') {
-                    pos.top -= ($tooltip.outerHeight() + _opt.margin);
-                } else if (_opt.direction === 'right') {
-                    pos.left += ($this.width() + _opt.margin);
-                } else if (_opt.direction === 'bottom') {
-                    pos.top += ($this.height() + _opt.margin);
+            element.addClass('works-tooltip-wrapper');
+
+            var $tooltip = $(context.$helper.parseTemplate('tooltip', options));
+            $tooltip.appendTo(element);
+
+            context.$helper.bind(element, 'mouseover focus', function(event) {
+                $tooltip.addClass('anim-ready');
+
+                if(
+                    options.direction === 'left' ||
+                    options.direction === 'right'
+                ) {
+                    $tooltip.css({
+                        top: (element.outerHeight() - $tooltip.outerHeight()) / 2,
+                        bottom: 'auto'
+                    });
+                } else {
+                    $tooltip.css({
+                        left: (element.outerWidth() - $tooltip.outerWidth()) / 2,
+                        right: 'auto'
+                    });
                 }
 
-                $tooltip.css({
-                    left: pos.left,
-                    top: pos.top
-                });
+                context.$helper.invoke(promise);
+                promise = context.$helper.promise(function() {
+                    $tooltip.addClass('anim-start');
+                }, 25);
+            });
 
-                if (_opt.type === 'show' || _opt.type === 'queue') {
-                    // Write some codes here.
-                }
+            context.$helper.bind(element, 'mouseout blur', function(event) {
+                $tooltip.removeClass('anim-start');
+                context.$helper.invoke(promise);
+                promise = context.$helper.promise(function() {
+                    $tooltip.removeClass('anim-ready');
+                }, 25);
             });
         },
-        method: {
-            show: function() {
-                $tooltip.addClass('active');
-                _this.$helper.promise(function () {
-                    $tooltip.addClass('animate-in');
-                }, 25);
-            },
-            queue: function () {
-
-            }
-        },
         template: {
-            tooltip: '<div class="works-tooltip"><div class="works-tooltip-header">{title}</div><div class="works-tooltip-body">{content}</div><span class="works-tooltip-arrow"></span></div>'
+            tooltip: '<div class="works-tooltip works-tooltip-{direction}">{value}<span class="works-tooltip-arrow"></span></div>'
         },
         options: {
-            supportTypes: ['toogle', 'show', 'hide']
+            value: '',
+            margin: 20,
+            direction: 'left'
         }
     });
 }(jQuery));
@@ -2269,8 +2310,11 @@ function ComponentMethod(name, settings) {
 // TOOLTIP VIEW HOOK
 //===========================
 (function (target, value) {
+	var direction = this.data('tooltip-direction');
+
     this.tooltip({
-        type: value
+        value: value,
+        direction: direction
     });
 }).hook('tooltip');
 //# sourceMappingURL=homeworks.js.map

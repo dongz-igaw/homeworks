@@ -16,6 +16,28 @@
         }
     });
 
+    $('a[href^="#"]').bind('click', function(event) {
+        event.preventDefault();
+
+        var $this = $(this);
+        var $scroller = $('.works-wrapper .works-body .works-content');
+        var href = $this.attr('href');
+        var offset = $scroller.scrollTop() - $scroller.offset().top - 60;
+
+        if(href !== '#') {
+            var id = '#' + href.substring(1, href.length);
+            var $target = $(id);
+
+            if($target.length > 0) {
+                $scroller
+                    .stop()
+                    .animate({
+                        scrollTop: offset + $target.offset().top
+                    }, 1200);
+            }
+        }
+    });
+
     var clipboard = new Clipboard('[data-clipboard]', {
         text: function (trigger) {
             var value = null;

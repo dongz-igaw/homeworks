@@ -36,7 +36,7 @@
         method: {
             addHandler: function (element, target) {
                 var context = this;
-                var options = context.local;
+                var options = context.local._options;
 
                 element.find('.dropdown-menu').ripple({
                     theme: 'dark'
@@ -51,8 +51,6 @@
                 context.$helper.bind(element.find('.dropdown-menu'), 'mousedown', function (event) {
                     event.stopPropagation();
                 });
-
-                context.$helper.unbind(context.element.$window, 'resize');
 
                 context.$helper.bind(context.element.$document, 'mousedown', function (event) {
                     context.local._prototype.removeDropdown.call(context, element, target);
