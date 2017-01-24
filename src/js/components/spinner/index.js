@@ -5,7 +5,7 @@
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-24                          
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/spinner.html
 //
@@ -73,8 +73,10 @@
             context.$helper.bind($spinner, 'click', function (event) {
                 event.preventDefault();
                 event.stopPropagation();
-                context.$helper.triggerHandler(context.element.$document, 'click');
                 var $this = $(this);
+                var $scrollParent = $this.scrollParent();
+
+                context.$helper.triggerHandler(context.element.$document, 'click');
                 if ($this.hasClass('spinner-disabled') || $this.hasClass('spinner-readonly')) {
                     return false;
                 }
@@ -95,6 +97,10 @@
                 });
                 $spinnerWrapper.appendTo('body').css('position', 'absolute');
                 $spinnerWrapper.addClass('anim-start');
+
+                context.$helper.bind($scrollParent, 'scroll', function (event) {
+                    context.$helper.triggerHandler(context.element.$window, 'resize');
+                });
 
                 context.$helper.bind(context.element.$window, 'resize', function () {
                     $spinnerWrapper.css({

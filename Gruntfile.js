@@ -129,13 +129,22 @@ module.exports = function(grunt) {
         ]
       }
     },
+    less: {
+      dist: {
+        files: {
+          'src/css/homeworks.css': 'src/css/core/index.less'
+        }
+      }
+    },
     watch: {
       options: {
         cliArgs: ['--gruntfile', path.join(cwd, 'Gruntfile.js')],
       },
       files: [
+          'src/**/**.less',
           'src/**/**.js',
-          '!src/homeworks.js'
+          '!src/js/homeworks.js',
+          'Gruntfile.js'
       ],
       tasks: ['default']
     }
@@ -155,9 +164,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-strip-code');
 
-  grunt.registerTask('default', ['jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'replace', 'strip_code']);
+  grunt.registerTask('default', ['less', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'replace', 'strip_code']);
   grunt.registerTask('replacement', ['replace']);
   grunt.registerTask('test', ['jshint', 'csslint']);
   grunt.registerTask('init', ['watch']);

@@ -11,6 +11,7 @@
 	"universal-selector": false,
 	"box-model": false,
 	"font-sizes": false,
+	"compatible-vendor-prefixes": false,
 	"important": false,
 	"unqualified-attributes": false
 }

@@ -19,12 +19,12 @@
 //
 //==========================================================
 //
-// @ UPDATE  2017-01-23                          
+// @ UPDATE  2017-01-24                          
 // @ AUTHOR  Kenneth                                      
 //
 //=========================================================
 
-window.HOMEWORKS_VERSION = '2.0.9.6';
+window.HOMEWORKS_VERSION = '2.0.9.7';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -1504,7 +1504,10 @@ function ComponentMethod(name, settings) {
                         y: 0
                     };
 
-                    if (typeof event.x !== 'undefined' && typeof event.y !== 'undefined') {
+                    if (
+                        typeof event.x !== 'undefined' &&
+                        typeof event.y !== 'undefined'
+                    ) {
                         point = {
                             x: event.x - size / 2,
                             y: event.y - size / 2
@@ -1526,18 +1529,21 @@ function ComponentMethod(name, settings) {
                     $ripple.appendTo($this);
                     $this.addClass('btn-ripple-start');
                     context.$helper.promise(function () {
-                        context.$helper.promise(function () {
-                            context.$helper.promise(function () {
-                                $ripple.remove();
-                                $this.removeClass('btn-ripple-start');
-                            }, 500);
-                            $ripple.addClass('anim-end').css({ opacity: 0 });
-                        }, 150);
-
                         $ripple.css({
                             transform: 'scale(' + scale + ')',
                             opacity: 1
                         });
+
+                        context.$helper.promise(function () {                            
+                            $ripple.addClass('anim-end').css({
+                                opacity: 0 
+                            });
+
+                            context.$helper.promise(function () {
+                                $ripple.remove();
+                                $this.removeClass('btn-ripple-start');
+                            }, 500);
+                        }, 150);
                     }, 50);
                 });
             });
@@ -1576,7 +1582,7 @@ function ComponentMethod(name, settings) {
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-24                          
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/spinner.html
 //
@@ -1644,8 +1650,10 @@ function ComponentMethod(name, settings) {
             context.$helper.bind($spinner, 'click', function (event) {
                 event.preventDefault();
                 event.stopPropagation();
-                context.$helper.triggerHandler(context.element.$document, 'click');
                 var $this = $(this);
+                var $scrollParent = $this.scrollParent();
+
+                context.$helper.triggerHandler(context.element.$document, 'click');
                 if ($this.hasClass('spinner-disabled') || $this.hasClass('spinner-readonly')) {
                     return false;
                 }
@@ -1666,6 +1674,10 @@ function ComponentMethod(name, settings) {
                 });
                 $spinnerWrapper.appendTo('body').css('position', 'absolute');
                 $spinnerWrapper.addClass('anim-start');
+
+                context.$helper.bind($scrollParent, 'scroll', function (event) {
+                    context.$helper.triggerHandler(context.element.$window, 'resize');
+                });
 
                 context.$helper.bind(context.element.$window, 'resize', function () {
                     $spinnerWrapper.css({

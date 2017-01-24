@@ -46,7 +46,10 @@
                         y: 0
                     };
 
-                    if (typeof event.x !== 'undefined' && typeof event.y !== 'undefined') {
+                    if (
+                        typeof event.x !== 'undefined' &&
+                        typeof event.y !== 'undefined'
+                    ) {
                         point = {
                             x: event.x - size / 2,
                             y: event.y - size / 2
@@ -68,18 +71,21 @@
                     $ripple.appendTo($this);
                     $this.addClass('btn-ripple-start');
                     context.$helper.promise(function () {
-                        context.$helper.promise(function () {
-                            context.$helper.promise(function () {
-                                $ripple.remove();
-                                $this.removeClass('btn-ripple-start');
-                            }, 500);
-                            $ripple.addClass('anim-end').css({ opacity: 0 });
-                        }, 150);
-
                         $ripple.css({
                             transform: 'scale(' + scale + ')',
                             opacity: 1
                         });
+
+                        context.$helper.promise(function () {                            
+                            $ripple.addClass('anim-end').css({
+                                opacity: 0 
+                            });
+
+                            context.$helper.promise(function () {
+                                $ripple.remove();
+                                $this.removeClass('btn-ripple-start');
+                            }, 500);
+                        }, 150);
                     }, 50);
                 });
             });
