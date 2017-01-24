@@ -14,14 +14,51 @@ module.exports = function(grunt) {
     // get the configuration info from package.json ----------------------------
     // this way we can use things like name and version (pkg.name)
     pkg: grunt.file.readJSON('package.json'),
+    usebanner: {
+      dist: {
+        options: {
+          position: 'top',
+          banner: '/*\n' +
+                  '//==========================================================\n' +
+                  '//\n' +
+                  '//       ___           ___           ___           ___           ___           ___           ___           ___           ___     \n' +
+                  '//      /\\__\\         /\\  \\         /\\__\\         /\\  \\         /\\__\\         /\\  \\         /\\  \\         /\\__\\         /\\  \\    \n' +
+                  '//     /:/  /        /::\\  \\       /::|  |       /::\\  \\       /:/ _/_       /::\\  \\       /::\\  \\       /:/  /        /::\\  \\   \n' +
+                  '//    /:/__/        /:/\\:\\  \\     /:|:|  |      /:/\\:\\  \\     /:/ /\\__\\     /:/\\:\\  \\     /:/\\:\\  \\     /:/__/        /:/\\ \\  \\  \n' +
+                  '//   /::\\  \\ ___   /:/  \\:\\  \\   /:/|:|__|__   /::\\~\\:\\  \\   /:/ /:/ _/_   /:/  \\:\\  \\   /::\\~\\:\\  \\   /::\\__\\____   _\\:\\~\\ \\  \\ \n' +
+                  '//  /:/\\:\\  /\\__\\ /:/__/ \\:\\__\\ /:/ |::::\\__\\ /:/\\:\\ \\:\\__\\ /:/_/:/ /\\__\\ /:/__/ \\:\\__\\ /:/\\:\\ \\:\\__\\ /:/\\:::::\\__\\ /\\ \\:\\ \\ \\__\\\n' +
+                  '//  \\/__\\:\\/:/  / \\:\\  \\ /:/  / \\/__/~~/:/  / \\:\\~\\:\\ \\/__/ \\:\\/:/ /:/  / \\:\\  \\ /:/  / \\/_|::\\/:/  / \\/_|:|~~|~    \\:\\ \\:\\ \\/__/\n' +
+                  '//       \\::/  /   \\:\\  /:/  /        /:/  /   \\:\\ \\:\\__\\    \\::/_/:/  /   \\:\\  /:/  /     |:|::/  /     |:|  |      \\:\\ \\:\\__\\  \n' +
+                  '//       /:/  /     \\:\\/:/  /        /:/  /     \\:\\ \\/__/     \\:\\/:/  /     \\:\\/:/  /      |:|\\/__/      |:|  |       \\:\\/:/  /  \n' +
+                  '//      /:/  /       \\::/  /        /:/  /       \\:\\__\\        \\::/  /       \\::/  /       |:|  |        |:|  |        \\::/  /   \n' +
+                  '//      \\/__/         \\/__/         \\/__/         \\/__/         \\/__/         \\/__/         \\|__|         \\|__|         \\/__/    \n' +
+                  '//\n' +
+                  '//\n' +
+                  '//\n' +
+                  '// @ HOMEWORKS FRAMEWORK\n' +
+                  '// @ All Rights Reserved IGAWorks Inc.\n' +
+                  '//\n' +
+                  '//==========================================================\n' +
+                  '//\n' +
+                  '// @ UPDATE  <%= grunt.template.today("yyyy.mm.dd") %>\n' +
+                  '// @ AUTHOR  Kenneth\n' +
+                  '//\n' +
+                  '//=========================================================\n' + 
+                  '*/\n\n',
+          linebreak: true
+        },
+        files: {
+          src: [
+            'src/js/homeworks.js',
+            'src/css/homeworks.css',
+            'dist/**.**'
+          ]
+        }
+      }
+    },
     uglify: {
       options: {
-        sourceMap: true,
-        banner: '//================================================================================\n' +
-                '// [<%= pkg.name %>]\n' +
-                '// version: <%= pkg.version %>\n' +
-                '// update: <%= grunt.template.today("yyyy.mm.dd") %>\n' +
-                '//================================================================================\n\n'
+        sourceMap: true,        
       },
       dist: {
         files: {
@@ -84,11 +121,6 @@ module.exports = function(grunt) {
     cssmin: {
       options: {
         sourceMap: true,
-        banner: '//================================================================================\n' +
-                '// [<%= pkg.name %>]\n' +
-                '// version: <%= pkg.version %>\n' +
-                '// update: <%= grunt.template.today("yyyy.mm.dd") %>\n' +
-                '//================================================================================\n\n'
       },
       dist: {
         files: {
@@ -110,8 +142,11 @@ module.exports = function(grunt) {
           {
             expand: true,
             flatten: true,
-            src: ['dist/**.js'],
-            dest: 'dist/'
+            src: [
+              'src/js/homeworks.js',
+              'src/css/homeworks.css'
+            ],
+            dest: './'
           }
         ]
       }
@@ -166,8 +201,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-strip-code');
+  grunt.loadNpmTasks('grunt-banner');
 
-  grunt.registerTask('default', ['less', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'replace', 'strip_code']);
+  grunt.registerTask('default', ['less', 'jshint', 'csslint', 'concat', 'replace', 'uglify', 'cssmin', 'strip_code', 'usebanner']);
   grunt.registerTask('replacement', ['replace']);
   grunt.registerTask('test', ['jshint', 'csslint']);
   grunt.registerTask('init', ['watch']);

@@ -1,30 +1,32 @@
-﻿.works-theme-dark .works-header {
-    background-color: #242831;
-    color: #ffffff;
-}
+﻿.works-wrapper.works-theme-dark {
+    .works-header {
+        background-color: @base-dark-color;
+        color: @color-white;
+    }
 
-.works-theme-dark .works-header * {
-    color: #ffffff;
-}
+    .works-header * {
+        color: @color-white;
+    }
 
-.works-theme-dark .works-top h1 {
-    color: #111c30;
-}
+    .works-top h1 {
+        color: @base-dark-color;
+    }
 
-.works-theme-dark .works.works-top .works-menu a.active {
-    border-bottom-color: #4e6de1;
-}
+    .works.works-top .works-menu a.active {
+        border-bottom-color: @base-important-color;
+    }
 
-.works-theme-dark .works-header .works-header-inner .works-header-action.works-header-menu .works-menu.active {
-    color: #e5e98b;
-}
+    .works-header .works-header-inner .works-header-action.works-header-menu .works-menu.active {
+        color: @font-active-color;
+    }
 
-.works-header .works-header-inner .btn-action:hover {
-    background-color: #ffffff;
-    border-color: #ffffff;
-    color: #242831;
-}
+    .works-header-inner .btn-action:hover {
+        background-color: @color-white;
+        border-color: @color-white;
+        color: @base-dark-color;
+    }
 
-.works-header .works-header-inner .btn-action:hover i {
-    color: #242831;
+    .works-header-inner .btn-action:hover i {
+        color: @base-dark-color;
+    }
 }

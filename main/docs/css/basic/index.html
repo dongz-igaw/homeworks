@@ -384,7 +384,7 @@
                                 </a>
                             </h2>
                             <a href="#" class="view-source"></a>
-                            <pre><code class="language-html">&lt;div class=&quot;row row-stech&quot;&gt;
+                            <pre><code class="language-html">&lt;div class=&quot;row row-compact&quot;&gt;
     &lt;div class=&quot;col col-pd col-auto&quot;&gt;contents&lt;/div&gt;
     &lt;div class=&quot;col col-pd col-auto&quot;&gt;contents&lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -861,15 +861,42 @@
                                 </a>
                             </h2>
                             <a href="#" class="view-source"></a>
-                            <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;btn&quot;&gt;NORMAL&lt;/a&gt;
-&lt;a href=&quot;#&quot; class=&quot;btn btn-default&quot;&gt;DEFAULT&lt;/a&gt;
-&lt;a href=&quot;#&quot; class=&quot;btn btn-force&quot;&gt;FORCE&lt;/a&gt;
-&lt;a href=&quot;#&quot; class=&quot;btn btn-primary&quot;&gt;PRIMARYT&lt;/a&gt;
-&lt;a href=&quot;#&quot; class=&quot;btn btn-notice&quot;&gt;NOTICE&lt;/a&gt;
-&lt;a href=&quot;#&quot; class=&quot;btn btn-cobalt&quot;&gt;COBALT&lt;/a&gt;
-&lt;a href=&quot;#&quot; class=&quot;btn btn-danger&quot;&gt;DANGER&lt;/a&gt;
-&lt;a href=&quot;#&quot; class=&quot;btn btn-alert&quot;&gt;ALERT&lt;/a&gt;
-&lt;a href=&quot;#&quot; class=&quot;btn btn-success&quot;&gt;SUCCESS&lt;/a&gt;</code></pre>
+                            <pre><code class="language-html">&lt;span class="btn btn-file" data-ripple="dark"&gt;
+    &lt;input type="file" class="file" /&gt;
+    &lt;span&gt;NORMAL&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class="btn btn-default btn-file" data-ripple="dark"&gt;
+    &lt;input type="file" class="file" /&gt;
+    &lt;span&gt;DEFAULT&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class="btn btn-force btn-file" data-ripple="dark"&gt;
+    &lt;input type="file" class="file" /&gt;
+    &lt;span&gt;FORCE&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class="btn btn-primary btn-file" data-ripple="dark"&gt;
+    &lt;input type="file" class="file" /&gt;
+    &lt;span&gt;PRIMARY *&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class="btn btn-notice btn-file" data-ripple="dark"&gt;
+    &lt;input type="file" class="file" /&gt;
+    &lt;span&gt;NOTICE&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class="btn btn-cobalt btn-file" data-ripple="dark"&gt;
+    &lt;input type="file" class="file" /&gt;
+    &lt;span&gt;COBALT&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class="btn btn-danger btn-file" data-ripple="dark"&gt;
+    &lt;input type="file" class="file" /&gt;
+    &lt;span&gt;DANGER&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class="btn btn-alert btn-file" data-ripple="dark"&gt;
+    &lt;input type="file" class="file" /&gt;
+    &lt;span&gt;ALERT&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class="btn btn-success btn-file" data-ripple="dark"&gt;
+    &lt;input type="file" class="file" /&gt;
+    &lt;span&gt;SUCCESS&lt;/span&gt;
+&lt;/span&gt;</code></pre>
                             <div class="code-description">
                                 Use a class
                                 <span class="label label-code">.btn</span>
@@ -896,31 +923,46 @@
                                         </span>
                                     </div>
                                     <div class="col col-md">
-                                        <a href="#" class="btn btn-force" data-ripple="dark">FORCE</a>
+                                        <span class="btn btn-primary btn-file" data-ripple="dark">
+                                            <input type="file" class="file" />
+                                            <span>PRIMARY *</span>
+                                        </span>
                                     </div>
                                     <div class="col col-md">
-                                        <a href="#" class="btn btn-primary" data-ripple="dark">PRIMARY *</a>
+                                        <span class="btn btn-notice btn-file" data-ripple="dark">
+                                            <input type="file" class="file" />
+                                            <span>NOTICE</span>
+                                        </span>
                                     </div>
                                     <div class="col col-md">
-                                        <a href="#" class="btn btn-notice" data-ripple="dark">NOTICE</a>
+                                        <span class="btn btn-cobalt btn-file" data-ripple="dark">
+                                            <input type="file" class="file" />
+                                            <span>COBALT</span>
+                                        </span>
                                     </div>
                                     <div class="col col-md">
-                                        <a href="#" class="btn btn-cobalt" data-ripple="dark">COBALT</a>
+                                        <span class="btn btn-danger btn-file" data-ripple="dark">
+                                            <input type="file" class="file" />
+                                            <span>DANGER</span>
+                                        </span>
                                     </div>
                                     <div class="col col-md">
-                                        <a href="#" class="btn btn-danger" data-ripple="dark">DANGER</a>
+                                        <span class="btn btn-alert btn-file" data-ripple="dark">
+                                            <input type="file" class="file" />
+                                            <span>ALERT</span>
+                                        </span>
                                     </div>
                                     <div class="col col-md">
-                                        <a href="#" class="btn btn-alert" data-ripple="dark">ALERT</a>
-                                    </div>
-                                    <div class="col col-md">
-                                        <a href="#" class="btn btn-success" data-ripple="dark">SUCCESS</a>
+                                        <span class="btn btn-success btn-file" data-ripple="dark">
+                                            <input type="file" class="file" />
+                                            <span>SUCCESS</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row row-stech">
+                        <div class="row row-compact">
                             <div class="col-6 col-pd">
                                 <div class="works-section works-section-padding">
                                     <h2 id="buttons-sizes" name="buttons-sizes">
@@ -2239,7 +2281,7 @@
                             </div>
                             <div class="preview">
                                 <div class="preview-color">
-                                    <div class="row row-stech">
+                                    <div class="row row-compact">
                                         <div class="col-4 col-pd">
                                             <div class="works-section works-section-padding">
                                                 <h2 class="section-title">DEFAULT</h2>
@@ -2337,7 +2379,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row row-stech">
+                                    <div class="row row-compact">
                                         <div class="col-4 col-pd">
                                             <div class="works-section works-section-padding">
                                                 <h2 class="section-title">FORCE</h2>
@@ -2435,7 +2477,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row row-stech">
+                                    <div class="row row-compact">
                                         <div class="col-4 col-pd">
                                             <div class="works-section works-section-padding">
                                                 <h2 class="section-title">ALERT</h2>
