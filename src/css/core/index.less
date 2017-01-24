@@ -406,7 +406,6 @@ a:active {
     padding: .6em 30px;
     text-align: right;
     overflow: hidden;
-
     .box-sizing(border-box);
 }
 
@@ -580,7 +579,7 @@ a:active {
 }
 
 .works-header .works-header-inner .btn-action:hover {
-    background-color: @base-cobalt-color;
+    background-color: rgba(255, 255, 255, .9);
     border-color: @base-cobalt-color;
     color: @base-white-color;
 }
@@ -1476,12 +1475,14 @@ a:active {
 .row {
     .flex-block();
 
-    &.row-stech > :first-child {
-        padding-left: 0;
-    }
+    &.row-compact > .col-pd {
+        &:first-child {
+            padding-left: 0;
+        }
 
-    &.row-stech > :last-child {
-        padding-right: 0;
+        &:last-child {
+            padding-right: 0;
+        }
     }
 
     .col-mixin {

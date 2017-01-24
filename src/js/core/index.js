@@ -19,12 +19,12 @@
 //
 //==========================================================
 //
-// @ UPDATE  2017-01-24                          
+// @ UPDATE  2017-01-25                          
 // @ AUTHOR  Kenneth                                      
 //
 //=========================================================
 
-window.HOMEWORKS_VERSION = '2.0.9.7';
+window.HOMEWORKS_VERSION = '2.0.9.8';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;

@@ -133,20 +133,20 @@ h6:hover i {
     background-color: #e3e6eB;
 }
 
+.preview .row > .preview-fill {
+    border-right: 1px solid #ffffff;
+}
+
+.preview .row > .preview-fill:last-child {
+    border-right: none;
+}
+
 .preview .row {
     border-bottom: 1px solid #ffffff;
 }
 
 .preview .row:last-child {
     border-bottom: none;
-}
-
-.preview .row > * {
-    border-right: 1px solid #ffffff;
-}
-
-.preview .row > :last-child {
-    border-right: none;
 }
 
 .preview .col,
@@ -229,6 +229,7 @@ h6:hover i {
 .preview .preview-color .color-group .color {
     padding: .6em 1em;
     position: relative;
+    text-align: left;
     border-bottom: 1px rgba(0, 0, 0, .25);
     color: #000000;
     cursor: pointer;
@@ -240,8 +241,6 @@ h6:hover i {
 
 .preview .preview-color .color-group .color .color-title {
     display: inline-block;
-    *display: inline;
-    *zoom: 1;
     min-width: 10em;
     font-weight: 600;
 }

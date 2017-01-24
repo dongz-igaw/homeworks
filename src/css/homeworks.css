@@ -530,7 +530,7 @@ a:active {
   font-size: 115%;
 }
 .works-header .works-header-inner .btn-action:hover {
-  background-color: #455370;
+  background-color: rgba(255, 255, 255, 0.9);
   border-color: #455370;
   color: #FFFFFF;
 }
@@ -1336,10 +1336,10 @@ a:active {
   display: -webkit-flex;
   display: flex;
 }
-.row.row-stech > :first-child {
+.row.row-compact > .col-pd:first-child {
   padding-left: 0;
 }
-.row.row-stech > :last-child {
+.row.row-compact > .col-pd:last-child {
   padding-right: 0;
 }
 .row .col-mixin {
