@@ -5,7 +5,7 @@
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-13
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/dropdown.html
 //
@@ -17,7 +17,7 @@
             var context = this;
 
             var options = context.local._options;
-            
+
             var $target = null;
 
             if (typeof options.target !== 'undefined' && options.target !== null) {

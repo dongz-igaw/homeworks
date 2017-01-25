@@ -5,7 +5,7 @@
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-13
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/tab.html
 //
@@ -58,7 +58,7 @@
                 });
                 context.$helper.triggerHandler(element.find('.' + id + '-item').eq(_index), 'click');
             } else {
-                context.$helper.log('You need to add <div class="' + id + '-container"></div> at next of your step element.');
+                context.$helper.log('Set <div class="' + id + '-container"></div> elements after <' + id + '> element for enable ' + id + ' component.');
             }
         }
     });

@@ -1,4 +1,4 @@
-window.HOMEWORKS_VERSION = '2.0.9.8';
+window.HOMEWORKS_VERSION = '2.0.9.10';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -425,11 +425,11 @@ function ComponentMethod(name, settings) {
      * @param {string} id - Component unique id for give to internel of Component.
      * @returns {jQuery}
      */
-    this.route = function (id) {
+    this.route = function (name, id) {
         var self = this;
         var args = [];
-        if (arguments.length > 1) {
-            jQuery.map(Array.prototype.slice.call(arguments, 1), function (e, i) {
+        if (arguments.length > 2) {
+            Array.prototype.slice.call(arguments, 2).map(function (e, i) {
                 args.push(e);
             });
         }
@@ -438,8 +438,7 @@ function ComponentMethod(name, settings) {
             if(typeof this.data === 'undefined') {
                 this.data = {};
             }
-
-            var _localVariables = this.data[id]; 
+            var _localVariables = this.data[name];
 
             if (typeof _localVariables === 'undefined') {
                 _localVariables = {
@@ -448,7 +447,7 @@ function ComponentMethod(name, settings) {
                     '_prototype': {},
                     '_options': jQuery.extend({}, context.options)
                 };
-                this.data[id] = _localVariables;
+                this.data[name] = _localVariables;
                 jQuery.extend(_localVariables._prototype, context.method);
             }
 
@@ -493,7 +492,7 @@ function ComponentMethod(name, settings) {
                 this.data = {};
             }
 
-            var _localVariables = this.data[id];
+            var _localVariables = this.data[name];
             if (typeof _localVariables === 'undefined') {
                 _localVariables = {
                     '_id': id,
@@ -501,7 +500,7 @@ function ComponentMethod(name, settings) {
                     '_prototype': {},
                     '_options': jQuery.extend({}, context.options)
                 };
-                this.data[id] = _localVariables;
+                this.data[name] = _localVariables;
                 jQuery.extend(_localVariables._prototype, context.method);
             }
             var componentContext = jQuery.extend(window[context.$helper.getIdentifier()], {
@@ -524,22 +523,21 @@ function ComponentMethod(name, settings) {
 
     if (context._bind === false) {
         context._bind = true;
-        name = name.split(',');
-        for (var idx in name) {
-            var id = jQuery.trim(name[idx]);
+        var names = name.split(',');
 
+        for (var idx in names) {
             /* jshint ignore:start */
             /* @DATE 2017. 01. 09 */
             /* @USER Kenneth */
             /* @NOTE 런타임 매개변수 독립 사용을 위한 IIFE 설정. */
             (function () {
-                var _id = id;
+                var id = jQuery.trim(names[idx]);
                 var bindFunc = function () {
-                    return context.route.apply(this, [_id].concat(Array.prototype.slice.call(arguments)));
+                    return context.route.apply(this, [name, id].concat(Array.prototype.slice.call(arguments)));
                 };
-                
-                jQuery.fn[_id] = bindFunc;
-                window[_id] = bindFunc;
+
+                jQuery.fn[id] = bindFunc;
+                window[id] = bindFunc;
             } ());
             /* jshint ignore:end */
 
@@ -550,6 +548,7 @@ function ComponentMethod(name, settings) {
             for (var key in this.method) {
                 if (typeof jQuery.fn[key] === 'undefined') {
                     (function () {
+                        var id = jQuery.trim(names[idx]);
                         var method = key;
                         jQuery.fn[method] = function () {
                             var _localVariables;
@@ -559,15 +558,15 @@ function ComponentMethod(name, settings) {
                                 element.data = {};
                             }
 
-                            _localVariables = element.data[key];
+                            _localVariables = element.data[name];
                             if (typeof _localVariables === 'undefined') {
                                 _localVariables = {
-                                    '_id': key,
+                                    '_id': id,
                                     '_init': false,
                                     '_prototype': {},
                                     '_options': {}
                                 };
-                                element.data[key] = _localVariables;
+                                element.data[name] = _localVariables;
                                 jQuery.extend(_localVariables._prototype, context.method);
                             }
 
@@ -584,7 +583,7 @@ function ComponentMethod(name, settings) {
                                 }
                             }
 
-                            return context.method[method].apply(componentContext, [this].concat(Array.prototype.slice.call(arguments)));
+                            return context.method[method].apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(arguments)));
                         };
                     }());
                 }

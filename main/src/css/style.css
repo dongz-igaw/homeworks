@@ -69,10 +69,12 @@ h6:hover i {
 
 .code-description {
     width: 100%;
-    background-color: #f2f4f6;
+    font-size: 110%;
+    font-weight: 600;
+    background-color: #f6f8fc;
     padding: 1.6em;
     margin-bottom: 2em;
-    line-height: 2;
+    line-height: 2.4;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
@@ -129,7 +131,7 @@ h6:hover i {
 }
 
 .preview .preview-fill {
-    padding: 15px 0;
+    padding: 20px 0;
     background-color: #e3e6eB;
 }
 
@@ -141,42 +143,21 @@ h6:hover i {
     border-right: none;
 }
 
-.preview .row {
+.preview.preview-grid .row {
     border-bottom: 1px solid #ffffff;
+    margin-bottom: 0;
 }
 
-.preview .row:last-child {
+.preview.preview-grid .row:last-child {
     border-bottom: none;
 }
 
-.preview .col,
-.preview .col-1,
-.preview .col-2,
-.preview .col-3,
-.preview .col-4,
-.preview .col-5,
-.preview .col-6,
-.preview .col-7,
-.preview .col-8,
-.preview .col-9,
-.preview .col-10,
-.preview .col-11,
-.preview .col-12,
-.preview .col-md,
-.preview .col-md-1,
-.preview .col-md-2,
-.preview .col-md-3,
-.preview .col-md-4,
-.preview .col-md-5,
-.preview .col-md-6,
-.preview .col-md-7,
-.preview .col-md-8,
-.preview .col-md-9,
-.preview .col-md-10,
-.preview .col-md-11,
-.preview .col-md-12 {
-    min-height: 35px;
-    text-align: center;
+.preview [class^="col-"] {
+    text-align: left;
+}
+
+.preview .row.row-table [class^="col-"] {
+    height: 56px;
 }
 
 .preview > :last-child {

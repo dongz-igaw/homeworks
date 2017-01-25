@@ -1308,18 +1308,43 @@ a:active {
   display: block;
 }
 .row {
+  margin-bottom: 20px;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
 }
-.row.row-compact > .col-pd:first-child {
+.row.row-table {
+  display: table;
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+}
+.row.row-table .col-1,
+.row.row-table .col-2,
+.row.row-table .col-3,
+.row.row-table .col-4,
+.row.row-table .col-5,
+.row.row-table .col-6,
+.row.row-table .col-7,
+.row.row-table .col-8,
+.row.row-table .col-9,
+.row.row-table .col-10,
+.row.row-table .col-11,
+.row.row-table .col-12,
+.row.row-table .col-auto {
+  display: table-cell;
+  vertical-align: top;
+}
+.row.row-compact > .col-pd:first-child,
+.row.row-compact > .col-pd-lg:first-child {
   padding-left: 0;
 }
-.row.row-compact > .col-pd:last-child {
+.row.row-compact > .col-pd:last-child,
+.row.row-compact > .col-pd-lg:last-child {
   padding-right: 0;
 }
-.row .col-mixin {
-  position: relative;
+.row:last-child {
+  margin-bottom: 0;
 }
 .row .col {
   -moz-flex: 1;
@@ -1359,6 +1384,10 @@ a:active {
 .row .col-11,
 .row .col-12 {
   position: relative;
+  text-align: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .row .col.col-pd,
 .row .col-1.col-pd,
@@ -1392,41 +1421,35 @@ a:active {
   padding-left: 40px;
   padding-right: 40px;
 }
-.row .col.col-md,
-.row .col-1.col-md,
-.row .col-2.col-md,
-.row .col-3.col-md,
-.row .col-4.col-md,
-.row .col-5.col-md,
-.row .col-6.col-md,
-.row .col-7.col-md,
-.row .col-8.col-md,
-.row .col-9.col-md,
-.row .col-10.col-md,
-.row .col-11.col-md,
-.row .col-12.col-md {
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: left;
-  -moz-box-pack: left;
-  -ms-flex-pack: left;
-  -webkit-justify-content: left;
-  justify-content: left;
-  -webkit-flex-wrap: wrap;
-  -moz-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -moz-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+.row .col.center,
+.row .col-1.center,
+.row .col-2.center,
+.row .col-3.center,
+.row .col-4.center,
+.row .col-5.center,
+.row .col-6.center,
+.row .col-7.center,
+.row .col-8.center,
+.row .col-9.center,
+.row .col-10.center,
+.row .col-11.center,
+.row .col-12.center {
+  text-align: center;
+}
+.row .col.middle,
+.row .col-1.middle,
+.row .col-2.middle,
+.row .col-3.middle,
+.row .col-4.middle,
+.row .col-5.middle,
+.row .col-6.middle,
+.row .col-7.middle,
+.row .col-8.middle,
+.row .col-9.middle,
+.row .col-10.middle,
+.row .col-11.middle,
+.row .col-12.middle {
+  vertical-align: middle;
 }
 .row .col-1 {
   width: 8.33%;
@@ -1623,12 +1646,16 @@ a:active {
 .panel {
   border-radius: 2px;
   background-color: #FFFFFF;
-  border: 1px solid #d8d8d8;
-  margin-bottom: 2em;
+  border: 1px solid #cccccc;
+  margin-bottom: 20px;
   line-height: 1.6;
   overflow: hidden;
-  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.125);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.125);
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.375);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.375);
+}
+.panel.panel-default .panel-header {
+  background-color: #9FA2A9;
+  color: #FFFFFF;
 }
 .panel.panel-primary .panel-header {
   background-color: #5369E3;
@@ -1661,23 +1688,25 @@ a:active {
 .panel:last-child {
   margin-bottom: 0;
 }
+.panel .panel-header {
+  border-bottom: 1px solid #cccccc;
+  padding: 12px 20px;
+  font-weight: 600;
+}
 .panel .panel-header h1,
 .panel .panel-header h2,
 .panel .panel-header h3,
-.panel .panel-header h4 {
+.panel .panel-header h4,
+.panel .panel-header h5,
+.panel .panel-header h6 {
   font: inherit;
   color: inherit;
   font-size: 115%;
   margin: 0;
   padding: 0;
 }
-.panel .panel-header {
-  border-bottom: 1px solid #e2e2e2;
-  padding: .6em 1em;
-  font-weight: 600;
-}
 .panel .panel-body {
-  padding: 1em;
+  padding: 20px;
 }
 .input {
   display: inline-block;
