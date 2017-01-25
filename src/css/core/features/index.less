@@ -1509,6 +1509,18 @@ a:active {
         }
     }
 
+    &.row-flex-start {
+        .justify-content(flex-start);
+    }
+
+    &.row-flex-center {
+        .justify-content(center);
+    }
+
+    &.row-flex-end {
+        .justify-content(flex-end);
+    }
+
     &:last-child {
         margin-bottom: 0;
     }
@@ -1564,11 +1576,27 @@ a:active {
             padding-right: @padding-default-size-2x;
         }
 
+        &.left {
+            text-align: left;
+        }
+
         &.center {
             text-align: center;
         }
 
+        &.right {
+            text-align: right;
+        }
+
+        &.top {
+            vertical-align: top;
+        }
+
         &.middle {
+            vertical-align: middle;
+        }
+
+        &.bottom {
             vertical-align: middle;
         }
     }

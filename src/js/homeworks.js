@@ -56,7 +56,7 @@
 */
 
 
-window.HOMEWORKS_VERSION = '2.0.9.10';
+window.HOMEWORKS_VERSION = '2.0.9.11';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -1362,7 +1362,7 @@ function ComponentMethod(name, settings) {
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-13
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/notification.html
 //
@@ -1418,7 +1418,7 @@ function ComponentMethod(name, settings) {
                         height: 0,
                         paddingTop: 0,
                         paddingBottom: 0
-                    }, 300, 'easeInOutQuad', function () {
+                    }, 300, function () {
                         $real.remove();
                     });
                 }, 300);
@@ -1427,7 +1427,7 @@ function ComponentMethod(name, settings) {
                 $notification.addClass('notification-anim-start').stop().animate({
                     height: height,
                     padding: '30px'
-                }, 300, 'easeInOutQuad');
+                }, 300);
                 setTimeout(function () {
                     $notification.remove();
                     $real.appendTo($notificationBox);
@@ -1489,6 +1489,7 @@ function ComponentMethod(name, settings) {
         }
     });
 }(jQuery));
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT RIPPLE

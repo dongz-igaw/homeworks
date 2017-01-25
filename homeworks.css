@@ -1343,6 +1343,27 @@ a:active {
 .row.row-compact > .col-pd-lg:last-child {
   padding-right: 0;
 }
+.row.row-flex-start {
+  -webkit-box-pack: flex-start;
+  -moz-box-pack: flex-start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+.row.row-flex-center {
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.row.row-flex-end {
+  -webkit-box-pack: flex-end;
+  -moz-box-pack: flex-end;
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
 .row:last-child {
   margin-bottom: 0;
 }
@@ -1421,6 +1442,21 @@ a:active {
   padding-left: 40px;
   padding-right: 40px;
 }
+.row .col.left,
+.row .col-1.left,
+.row .col-2.left,
+.row .col-3.left,
+.row .col-4.left,
+.row .col-5.left,
+.row .col-6.left,
+.row .col-7.left,
+.row .col-8.left,
+.row .col-9.left,
+.row .col-10.left,
+.row .col-11.left,
+.row .col-12.left {
+  text-align: left;
+}
 .row .col.center,
 .row .col-1.center,
 .row .col-2.center,
@@ -1436,6 +1472,36 @@ a:active {
 .row .col-12.center {
   text-align: center;
 }
+.row .col.right,
+.row .col-1.right,
+.row .col-2.right,
+.row .col-3.right,
+.row .col-4.right,
+.row .col-5.right,
+.row .col-6.right,
+.row .col-7.right,
+.row .col-8.right,
+.row .col-9.right,
+.row .col-10.right,
+.row .col-11.right,
+.row .col-12.right {
+  text-align: right;
+}
+.row .col.top,
+.row .col-1.top,
+.row .col-2.top,
+.row .col-3.top,
+.row .col-4.top,
+.row .col-5.top,
+.row .col-6.top,
+.row .col-7.top,
+.row .col-8.top,
+.row .col-9.top,
+.row .col-10.top,
+.row .col-11.top,
+.row .col-12.top {
+  vertical-align: top;
+}
 .row .col.middle,
 .row .col-1.middle,
 .row .col-2.middle,
@@ -1449,6 +1515,21 @@ a:active {
 .row .col-10.middle,
 .row .col-11.middle,
 .row .col-12.middle {
+  vertical-align: middle;
+}
+.row .col.bottom,
+.row .col-1.bottom,
+.row .col-2.bottom,
+.row .col-3.bottom,
+.row .col-4.bottom,
+.row .col-5.bottom,
+.row .col-6.bottom,
+.row .col-7.bottom,
+.row .col-8.bottom,
+.row .col-9.bottom,
+.row .col-10.bottom,
+.row .col-11.bottom,
+.row .col-12.bottom {
   vertical-align: middle;
 }
 .row .col-1 {

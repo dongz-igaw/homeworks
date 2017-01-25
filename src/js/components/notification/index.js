@@ -5,7 +5,7 @@
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-13
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/notification.html
 //
@@ -61,7 +61,7 @@
                         height: 0,
                         paddingTop: 0,
                         paddingBottom: 0
-                    }, 300, 'easeInOutQuad', function () {
+                    }, 300, function () {
                         $real.remove();
                     });
                 }, 300);
@@ -70,7 +70,7 @@
                 $notification.addClass('notification-anim-start').stop().animate({
                     height: height,
                     padding: '30px'
-                }, 300, 'easeInOutQuad');
+                }, 300);
                 setTimeout(function () {
                     $notification.remove();
                     $real.appendTo($notificationBox);

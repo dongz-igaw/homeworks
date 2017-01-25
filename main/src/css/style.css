@@ -505,6 +505,10 @@ pre code .token.punctuation {
     -wekit-box-shadow: 0 2px 5px rgba(0, 0, 0, .375);
 }
 
+.layout-row.row {
+    margin-bottom: 0;
+}
+
 .layout-row .col-pd,
 .layout-row .col-pd-1,
 .layout-row .col-pd-2,
