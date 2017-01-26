@@ -5,7 +5,7 @@
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-13
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/upload.html
 //
@@ -15,20 +15,20 @@
     new ComponentMethod('upload', {
         init: function (element) {
             var context = this;
+            var options = context.local._options;
 
             element.bind('change', function() {
                 var $this = $(this);
 
                 if ($this.val() !== '') {
-                    context.local._prototype.upload.apply(context, [].concat($this, o, Array.prototype.slice.call(arguments, 2)));
+                    context.local._prototype.upload.apply(context, [].concat($this, options, Array.prototype.slice.call(arguments, 2)));
                 }
             });
         },
         method: {
-            upload: function (element) {
+            upload: function (element, options) {
                 var context = this;
 
-                var options = context.local._options;
                 var file = element[0].files[0];
                 var info = {
                     name: file.name,
@@ -74,11 +74,15 @@
                                 }
 
                                 if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
-                                    e.siblings('.btn').text('업로드 중').addClass('btn-default').removeClass('btn-success btn-danger');
+                                    element
+                                        .siblings('.btn')
+                                        .text('업로드 중')
+                                        .addClass('btn-default')
+                                        .removeClass('btn-success btn-danger');
                                 }
 
                                 if (typeof options.beforeStart === 'function') {
-                                    options.beforeStart.apply(e, Array.prototype.slice.call(arguments));
+                                    options.beforeStart.apply(element, Array.prototype.slice.call(arguments));
                                 }
 
                                 if (typeof options.extensions !== 'undefined') {
@@ -99,8 +103,9 @@
                                     timeout: 30000,
                                     complete: options.complete,
                                     success: function (data, status, xhr) {
-                                        if (data.code === 200) {
-                                            var result = data.data;
+                                        var result = data;
+
+                                        if (result.code === 200) {
                                             element.val('');
 
                                             if (options.type === 'img') {
@@ -113,13 +118,15 @@
                                                     options.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
                                                 }
                                             }
-                                            options.data('value', result);
+
+                                            element.data('value', result.data);
+
                                             if (typeof options.success === 'function') {
                                                 options.success.apply(element, Array.prototype.slice.call(arguments));
                                             }
                                         } else {
-                                            if (typeof data.msg !== 'undefined') {
-                                                toast(data.msg);
+                                            if (typeof result.msg !== 'undefined') {
+                                                toast(result.msg);
                                             }
                                         }
                                     },

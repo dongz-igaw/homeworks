@@ -1,4 +1,4 @@
-window.HOMEWORKS_VERSION = '2.0.9.11';
+window.HOMEWORKS_VERSION = '2.0.9.12';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -315,7 +315,9 @@ function ComponentHelper(context, data) {
             });
 
             if (typeof initialize !== 'undefined' && initialize === true) {
-                this.triggerHandler(element, type);
+                this.triggerHandler(element, type, {
+                    _init: true
+                });
             }
         } catch (exception) {
             this.log(exception);

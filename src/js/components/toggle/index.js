@@ -5,7 +5,7 @@
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13
+// @ UPDATE    2017-01-26
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/toggle.html
 //
@@ -62,10 +62,12 @@
                 }
             });
 
-            context.$helper.bind(element, 'change', function (event) {
+            context.$helper.bind(element, 'change', function (event, extra) {
                 context.$helper.triggerHandler(element, 'update');
 
-                $toggle.find('.switch .switch-ball').ripple('start');
+                if(typeof extra !== 'undefined' && typeof extra.init !== 'undefined' && extra.init === true) {
+                    $toggle.find('.switch .switch-ball').ripple('start');
+                }
             }, true);
 
             context.$helper.bind(element, 'update', function (event, extra) {
@@ -76,7 +78,7 @@
                 }
 
                 if (typeof extra !== 'undefined') {
-                    $.extend(_opt, extra);
+                    $.extend(options, extra);
                 }
 
                 var placeholder_class = ['toggle-label-left', 'toggle-label-right'];

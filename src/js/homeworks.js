@@ -20,14 +20,14 @@
 //
 //==========================================================
 //
-// @ UPDATE  2017.01.25
+// @ UPDATE  2017.01.26
 // @ AUTHOR  Kenneth
 //
 //=========================================================
 */
 
 
-window.HOMEWORKS_VERSION = '2.0.9.11';
+window.HOMEWORKS_VERSION = '2.0.9.12';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -344,7 +344,9 @@ function ComponentHelper(context, data) {
             });
 
             if (typeof initialize !== 'undefined' && initialize === true) {
-                this.triggerHandler(element, type);
+                this.triggerHandler(element, type, {
+                    _init: true
+                });
             }
         } catch (exception) {
             this.log(exception);
@@ -705,9 +707,9 @@ function ComponentMethod(name, settings) {
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-13
 // @ AUTHOR    Kenneth
-// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/checkbox.html                   
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/checkbox.html
 //
 //=========================================================
 
@@ -734,21 +736,18 @@ function ComponentMethod(name, settings) {
                 event.stopPropagation();
             });
 
-            context.$helper.bind(element, 'change', function (event) {
+            context.$helper.bind(element, 'change', function (event, extra) {
                 var $this = $(this);
 
-                context.$helper.triggerHandler(element, 'update');
-                $checkbox.ripple('start');
-            });
-
-            context.$helper.bind(element, 'update', function (event) {
-                var $this = $(this);
-
-                if ($this.prop('checked') === true) {
+				if ($this.prop('checked') === true) {
                     $checkbox.addClass('works-checkbox-checked');
                 } else {
                     $checkbox.removeClass('works-checkbox-checked');
                 }
+
+				if(typeof extra !== 'undefined' && typeof extra._init !== 'undefined' && extra._init === true) {
+                	$checkbox.ripple('start');
+				}
             }, true);
 
             if (typeof element.attr('class') !== 'undefined' && element.attr('class').match(/input-(\w+)/gi)) {
@@ -766,6 +765,7 @@ function ComponentMethod(name, settings) {
         }
     });
 }(jQuery));
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT CONVERTER
@@ -1879,7 +1879,7 @@ function ComponentMethod(name, settings) {
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13
+// @ UPDATE    2017-01-26
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/toggle.html
 //
@@ -1936,10 +1936,12 @@ function ComponentMethod(name, settings) {
                 }
             });
 
-            context.$helper.bind(element, 'change', function (event) {
+            context.$helper.bind(element, 'change', function (event, extra) {
                 context.$helper.triggerHandler(element, 'update');
 
-                $toggle.find('.switch .switch-ball').ripple('start');
+                if(typeof extra !== 'undefined' && typeof extra.init !== 'undefined' && extra.init === true) {
+                    $toggle.find('.switch .switch-ball').ripple('start');
+                }
             }, true);
 
             context.$helper.bind(element, 'update', function (event, extra) {
@@ -1950,7 +1952,7 @@ function ComponentMethod(name, settings) {
                 }
 
                 if (typeof extra !== 'undefined') {
-                    $.extend(_opt, extra);
+                    $.extend(options, extra);
                 }
 
                 var placeholder_class = ['toggle-label-left', 'toggle-label-right'];
@@ -2068,7 +2070,7 @@ function ComponentMethod(name, settings) {
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-13
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/upload.html
 //
@@ -2078,20 +2080,20 @@ function ComponentMethod(name, settings) {
     new ComponentMethod('upload', {
         init: function (element) {
             var context = this;
+            var options = context.local._options;
 
             element.bind('change', function() {
                 var $this = $(this);
 
                 if ($this.val() !== '') {
-                    context.local._prototype.upload.apply(context, [].concat($this, o, Array.prototype.slice.call(arguments, 2)));
+                    context.local._prototype.upload.apply(context, [].concat($this, options, Array.prototype.slice.call(arguments, 2)));
                 }
             });
         },
         method: {
-            upload: function (element) {
+            upload: function (element, options) {
                 var context = this;
 
-                var options = context.local._options;
                 var file = element[0].files[0];
                 var info = {
                     name: file.name,
@@ -2137,11 +2139,15 @@ function ComponentMethod(name, settings) {
                                 }
 
                                 if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
-                                    e.siblings('.btn').text('업로드 중').addClass('btn-default').removeClass('btn-success btn-danger');
+                                    element
+                                        .siblings('.btn')
+                                        .text('업로드 중')
+                                        .addClass('btn-default')
+                                        .removeClass('btn-success btn-danger');
                                 }
 
                                 if (typeof options.beforeStart === 'function') {
-                                    options.beforeStart.apply(e, Array.prototype.slice.call(arguments));
+                                    options.beforeStart.apply(element, Array.prototype.slice.call(arguments));
                                 }
 
                                 if (typeof options.extensions !== 'undefined') {
@@ -2162,8 +2168,9 @@ function ComponentMethod(name, settings) {
                                     timeout: 30000,
                                     complete: options.complete,
                                     success: function (data, status, xhr) {
-                                        if (data.code === 200) {
-                                            var result = data.data;
+                                        var result = data;
+
+                                        if (result.code === 200) {
                                             element.val('');
 
                                             if (options.type === 'img') {
@@ -2176,13 +2183,15 @@ function ComponentMethod(name, settings) {
                                                     options.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
                                                 }
                                             }
-                                            options.data('value', result);
+
+                                            element.data('value', result.data);
+
                                             if (typeof options.success === 'function') {
                                                 options.success.apply(element, Array.prototype.slice.call(arguments));
                                             }
                                         } else {
-                                            if (typeof data.msg !== 'undefined') {
-                                                toast(data.msg);
+                                            if (typeof result.msg !== 'undefined') {
+                                                toast(result.msg);
                                             }
                                         }
                                     },
@@ -2216,6 +2225,7 @@ function ComponentMethod(name, settings) {
         }
     });
 }(jQuery));
+
 //===========================
 // CHECKBOX VIEW HOOK
 //===========================

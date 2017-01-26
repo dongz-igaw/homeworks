@@ -117,9 +117,12 @@ h6:hover i {
     margin-bottom: 0;
 }
 
-.preview .col .btn,
-.preview .col-md .btn {
+.preview [class^="col"] .btn {
     width: 95%;
+}
+
+.preview [class^="col"] .btn-group .btn {
+    width: auto;
 }
 
 .preview:last-child {

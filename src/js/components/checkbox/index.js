@@ -5,9 +5,9 @@
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-13
 // @ AUTHOR    Kenneth
-// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/checkbox.html                   
+// @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/checkbox.html
 //
 //=========================================================
 
@@ -34,21 +34,18 @@
                 event.stopPropagation();
             });
 
-            context.$helper.bind(element, 'change', function (event) {
+            context.$helper.bind(element, 'change', function (event, extra) {
                 var $this = $(this);
 
-                context.$helper.triggerHandler(element, 'update');
-                $checkbox.ripple('start');
-            });
-
-            context.$helper.bind(element, 'update', function (event) {
-                var $this = $(this);
-
-                if ($this.prop('checked') === true) {
+				if ($this.prop('checked') === true) {
                     $checkbox.addClass('works-checkbox-checked');
                 } else {
                     $checkbox.removeClass('works-checkbox-checked');
                 }
+
+				if(typeof extra !== 'undefined' && typeof extra._init !== 'undefined' && extra._init === true) {
+                	$checkbox.ripple('start');
+				}
             }, true);
 
             if (typeof element.attr('class') !== 'undefined' && element.attr('class').match(/input-(\w+)/gi)) {
