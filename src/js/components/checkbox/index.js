@@ -36,17 +36,17 @@
 
             context.$helper.bind(element, 'change', function (event, extra) {
                 var $this = $(this);
+				$checkbox.ripple('start');
+            });
 
+			context.$helper.bind(element, 'update', function (event) {
+				var $this = $(this);
 				if ($this.prop('checked') === true) {
                     $checkbox.addClass('works-checkbox-checked');
                 } else {
                     $checkbox.removeClass('works-checkbox-checked');
                 }
-
-				if(typeof extra !== 'undefined' && typeof extra._init !== 'undefined' && extra._init === true) {
-                	$checkbox.ripple('start');
-				}
-            }, true);
+			}, true);
 
             if (typeof element.attr('class') !== 'undefined' && element.attr('class').match(/input-(\w+)/gi)) {
                 var class_names = element.attr('class').match(/input-(\w+)/gi);

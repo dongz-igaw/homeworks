@@ -68,7 +68,7 @@
                         var $scrollParent = $this.scrollParent();
 
                         if ($this.hasClass('works-dropdown-active')) {
-                            context.local._prototype.removeDropdown.call(context, element, target);
+                            context.local._prototype.removeDropdown.call(context, element, $this);
                         } else {
                             $this.addClass('works-dropdown-active');
 
@@ -77,23 +77,23 @@
                             var leftOffset = 0, topOffset = 0;
                             context.$helper.bind(context.element.$window, 'resize', function (event) {
                                 if (options.direction === 'right') {
-                                    leftOffset = (target.outerWidth() - element.outerWidth()) / 2;
+                                    leftOffset = ($this.outerWidth() - element.outerWidth()) / 2;
                                 } else if (options.direction === 'center') {
                                     leftOffset = 0;
                                 } else {
-                                    leftOffset = -(target.outerWidth() - element.outerHeight()) / 2;
+                                    leftOffset = -($this.outerWidth() - element.outerHeight()) / 2;
                                 }
 
                                 if (options.direction === 'top') {
-                                    topOffset = -(target.outerHeight() + 20);
+                                    topOffset = -($this.outerHeight() + 20);
                                 } else {
-                                    topOffset = target.outerHeight() + 20;
+                                    topOffset = $this.outerHeight() + 20;
                                 }
 
                                 element.css({
                                     position: 'absolute',
-                                    left: target.offset().left + ((target.outerWidth() - element.outerWidth()) / 2) + leftOffset,
-                                    top: target.offset().top + topOffset
+                                    left: $this.offset().left + (($this.outerWidth() - element.outerWidth()) / 2) + leftOffset,
+                                    top: $this.offset().top + topOffset
                                 });
                             }, true);
 

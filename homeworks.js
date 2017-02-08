@@ -714,17 +714,17 @@ exports.ComponentMethod = ComponentMethod;
 
             context.$helper.bind(element, 'change', function (event, extra) {
                 var $this = $(this);
+				$checkbox.ripple('start');
+            });
 
+			context.$helper.bind(element, 'update', function (event) {
+				var $this = $(this);
 				if ($this.prop('checked') === true) {
                     $checkbox.addClass('works-checkbox-checked');
                 } else {
                     $checkbox.removeClass('works-checkbox-checked');
                 }
-
-				if(typeof extra !== 'undefined' && typeof extra._init !== 'undefined' && extra._init === true) {
-                	$checkbox.ripple('start');
-				}
-            }, true);
+			}, true);
 
             if (typeof element.attr('class') !== 'undefined' && element.attr('class').match(/input-(\w+)/gi)) {
                 var class_names = element.attr('class').match(/input-(\w+)/gi);
@@ -902,7 +902,7 @@ exports.ComponentMethod = ComponentMethod;
                         var $scrollParent = $this.scrollParent();
 
                         if ($this.hasClass('works-dropdown-active')) {
-                            context.local._prototype.removeDropdown.call(context, element, target);
+                            context.local._prototype.removeDropdown.call(context, element, $this);
                         } else {
                             $this.addClass('works-dropdown-active');
 
@@ -911,23 +911,23 @@ exports.ComponentMethod = ComponentMethod;
                             var leftOffset = 0, topOffset = 0;
                             context.$helper.bind(context.element.$window, 'resize', function (event) {
                                 if (options.direction === 'right') {
-                                    leftOffset = (target.outerWidth() - element.outerWidth()) / 2;
+                                    leftOffset = ($this.outerWidth() - element.outerWidth()) / 2;
                                 } else if (options.direction === 'center') {
                                     leftOffset = 0;
                                 } else {
-                                    leftOffset = -(target.outerWidth() - element.outerHeight()) / 2;
+                                    leftOffset = -($this.outerWidth() - element.outerHeight()) / 2;
                                 }
 
                                 if (options.direction === 'top') {
-                                    topOffset = -(target.outerHeight() + 20);
+                                    topOffset = -($this.outerHeight() + 20);
                                 } else {
-                                    topOffset = target.outerHeight() + 20;
+                                    topOffset = $this.outerHeight() + 20;
                                 }
 
                                 element.css({
                                     position: 'absolute',
-                                    left: target.offset().left + ((target.outerWidth() - element.outerWidth()) / 2) + leftOffset,
-                                    top: target.offset().top + topOffset
+                                    left: $this.offset().left + (($this.outerWidth() - element.outerWidth()) / 2) + leftOffset,
+                                    top: $this.offset().top + topOffset
                                 });
                             }, true);
 
@@ -971,7 +971,7 @@ exports.ComponentMethod = ComponentMethod;
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-02-01
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/input.html
 //
@@ -983,8 +983,17 @@ exports.ComponentMethod = ComponentMethod;
             var context = this;
             var options = context.local._options;
             var $label = $(context.$helper.parseTemplate('label')).insertAfter(element);
+			var $placeholder = $(context.$helper.parseTemplate('placeholder')).text(element.attr('placeholder') || element.attr('title'));
             var type = element.data('type') || ((typeof options !== 'undefined') ? options.type : '');
             var validation = false;
+			var changeDetector = function() {
+				var placeholder = element.attr('placeholder') || element.attr('title');
+				if (typeof placeholder !== 'undefined' && placeholder !== null && placeholder !== '') {
+					$label.addClass('works-input-label-placeholder');
+					$placeholder.text(placeholder);
+					element.attr('placeholder', '');
+				}
+			};
 
             /* jshint ignore:start */
             /* @DATE 2016. 06. 28 */
@@ -1009,7 +1018,7 @@ exports.ComponentMethod = ComponentMethod;
                 $label.width(element.outerWidth());
             }
             element.appendTo($label);
-            $(context.$helper.parseTemplate('placeholder')).text(element.attr('placeholder') || element.attr('title')).insertBefore(element);
+			$placeholder.insertBefore(element);
 
             context.$helper.bind(element, 'focus', function () {
                 $label.addClass('works-input-lock').addClass('works-input-focus');
@@ -1039,11 +1048,7 @@ exports.ComponentMethod = ComponentMethod;
             }, true);
 
             element.unbind('update').bind('update', function () {
-                var placeholder = element.attr('placeholder');
-                if (placeholder !== '') {
-                    element.siblings('.works-input-placeholder').text(placeholder);
-                    element.attr('placeholder', '');
-                }
+				changeDetector();
             });
 
             context.$helper.bind(element, 'update', function (event) {
@@ -1075,7 +1080,7 @@ exports.ComponentMethod = ComponentMethod;
                 context.$helper.triggerHandler(element, 'blur');
             }, 25);
 
-            element.attr('placeholder', '');
+			changeDetector();
         },
         method: {
             validation: function (element, type) {
@@ -1130,6 +1135,7 @@ exports.ComponentMethod = ComponentMethod;
         }
     });
 }(jQuery));
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT MODAL
@@ -1137,7 +1143,7 @@ exports.ComponentMethod = ComponentMethod;
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-13
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/modal.html
 //
@@ -1227,11 +1233,14 @@ exports.ComponentMethod = ComponentMethod;
 
                 context.local._visible = true;
 
+                /*
                 var $body = $('body:first');
                 var $parent = element.parent();
+                
                 if ($parent.is($body) === false) {
                     element.appendTo($body);
                 }
+                */
 
                 element.siblings('.' + element.attr('class').split(' ').join('.')).remove();
 
@@ -1302,6 +1311,7 @@ exports.ComponentMethod = ComponentMethod;
         }
     });
 }(jQuery));
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT NOTIFICATION
@@ -1563,7 +1573,7 @@ exports.ComponentMethod = ComponentMethod;
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-24                          
+// @ UPDATE    2017-01-24
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/spinner.html
 //
@@ -1588,8 +1598,6 @@ exports.ComponentMethod = ComponentMethod;
             element.after($spinner);
             $spinner.ripple({
                 theme: 'dark'
-            }).css({
-                minWidth: element.outerWidth()
             });
             element.hide();
 
@@ -1622,10 +1630,6 @@ exports.ComponentMethod = ComponentMethod;
                 if (element.prop('readonly')) {
                     $spinner.addClass('spinner-readonly');
                 }
-
-                $spinner.css({
-                    minWidth: element.outerWidth()
-                });
             });
 
             context.$helper.bind($spinner, 'click', function (event) {
@@ -1710,6 +1714,7 @@ exports.ComponentMethod = ComponentMethod;
         }
     });
 }(jQuery));
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT TAB
@@ -2144,19 +2149,19 @@ exports.ComponentMethod = ComponentMethod;
                                     timeout: 30000,
                                     complete: options.complete,
                                     success: function (data, status, xhr) {
-                                        var result = data;
+                                        var result = data.data;
 
-                                        if (result.code === 200) {
+                                        if (data.code === 200) {
                                             element.val('');
 
                                             if (options.type === 'img') {
                                                 if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
-                                                    options.siblings('.btn, img').remove();
-                                                    options.before('<img src="' + result.data + '" />');
+                                                    element.siblings('.btn, img').remove();
+                                                    element.before('<img src="' + result.data + '" />');
                                                 }
                                             } else {
                                                 if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
-                                                    options.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
+                                                    element.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
                                                 }
                                             }
 
@@ -2174,11 +2179,10 @@ exports.ComponentMethod = ComponentMethod;
                                     error: function (xhr, status, error) {
                                         toast('Unexpected error are occured when uploading.');
                                         if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
-                                            element
-                                                .siblings('.btn')
-                                                .text('Error')
-                                                .removeClass('btn-default btn-success')
-                                                .addClass('btn-danger');
+                                            element.siblings('.btn')
+                                                    .text('Error')
+                                                    .removeClass('btn-default btn-success')
+                                                    .addClass('btn-danger');
                                         }
                                         if (typeof options.error === 'function') {
                                             options.error.apply(element, Array.prototype.slice.call(arguments));

@@ -5,7 +5,7 @@
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-01-13
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/modal.html
 //
@@ -95,11 +95,14 @@
 
                 context.local._visible = true;
 
+                /*
                 var $body = $('body:first');
                 var $parent = element.parent();
+                
                 if ($parent.is($body) === false) {
                     element.appendTo($body);
                 }
+                */
 
                 element.siblings('.' + element.attr('class').split(' ').join('.')).remove();
 

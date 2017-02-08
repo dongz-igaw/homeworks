@@ -1414,11 +1414,18 @@ a:active {
 .tab,
 .step {
     height: 3.3em;
-    margin-left: -@padding-default-size-2x;
-    margin-right: -@padding-default-size-2x;
-    padding: 0 @padding-default-size-2x;
-    margin-bottom: @padding-default-size-2x;
+    padding: @padding-default-size-2x @padding-default-size-2x 0;
+    margin: 0;
     border-bottom: 1px solid @color-dark-silver;
+}
+
+.works-section.works-section-padding {
+    .tab,
+    .step {
+        padding-top: 0;
+        margin-left: -@padding-default-size-2x;
+        margin-right: -@padding-default-size-2x;
+    }
 }
 
 .tab .tab-item,
@@ -1480,6 +1487,11 @@ a:active {
         border-collapse: collapse;
         width: 100%;
 
+        &.row-auto {
+            table-layout: auto;
+        }
+
+        .col,
         .col-1,
         .col-2,
         .col-3,
@@ -2155,6 +2167,7 @@ pre {
     margin: ceil(@font-default-size * .2) 0;
     cursor: pointer;
     font: inherit;
+    font-size: @font-default-size;
     border-radius: 2px;
     text-align: center;
     line-height: 1;
@@ -2387,6 +2400,7 @@ pre {
         float: left;
         border: 1px solid darken(@base-white-color, 10%);
         margin: 0;
+        border-radius: 0;
         margin-left: -1px;
         position: relative;
         z-index: 0;
@@ -2394,12 +2408,16 @@ pre {
         &:first-child {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
+            border-top-left-radius: 2px;
+            border-bottom-left-radius: 2px;
             margin-left: 0;
         }
 
         &:last-child {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
         }
 
         &.btn-default {
@@ -2753,8 +2771,6 @@ pre {
 
         th {
             border-bottom: 1px solid rgba(0, 0, 0, .125);
-            font-weight: 600;
-            background-color: @color-normal-bg;
         }
 
         tr:first-child {
@@ -2794,6 +2810,11 @@ pre {
         &:last-child {
             border-right: none;
         }
+    }
+
+    th {
+        font-weight: 600;
+        background-color: @color-normal-bg;
     }
 
     &.table-bordered {
@@ -2917,7 +2938,6 @@ INPUT COMPONENT
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    margin-bottom: 1.2em;
 
     &:before {
         display: block;
@@ -3031,10 +3051,20 @@ INPUT COMPONENT
 }
 
 .works-input-label input {
-    margin-top: 1.2em;
+    position: relative;
+    z-index: 5;
+    margin-top: 0;
     margin-bottom: 0;
     font-size: 100%;
     border-bottom: none;
+}
+
+.works-input-label.works-input-label-placeholder {
+    margin-bottom: 1.2em;
+}
+
+.works-input-label.works-input-label-placeholder input {
+    margin-top: 1.2em;
 }
 
 .works-input-label .works-input-placeholder {
@@ -3085,8 +3115,12 @@ INPUT COMPONENT
 
 .works-input-label .works-input-validation {
   position: absolute;
-  top: 1.4em;
+  top: .3em;
   right: .6em;
+}
+
+.works-input-label.works-input-label-placeholder  .works-input-validation {
+    top: 1.4em;
 }
 
 .works-input-label.works-input-label-validation-success .works-input-validation .works-input-validation-first,
@@ -3163,6 +3197,7 @@ CHECKBOX COMPONENT
     vertical-align: middle;
     cursor: pointer;
     overflow: hidden;
+    line-height: ceil(@font-default-size * 1.6) - 4;
     .box-sizing(border-box);
 }
 
@@ -3260,7 +3295,7 @@ TOGGLE COMPONENT
 ===============================================================
 */
 .toggle-wrapper .toggle-label {
-    font-size: 100%;
+    font-size: @font-default-size;
     color: @color-light-gray;
 }
 
@@ -4427,30 +4462,30 @@ MODAL COMPONENT
 
 @keyframes toggle-shuffle-out {
     0% {
-        width: 2em;
-        .transform(translate3d(1.15em, 0, 0));
+        width: ceil(@font-default-size * 2);
+        .transform(translate3d(ceil(@font-default-size * 1.15), 0, 0));
     }
     50% {
-        width: 2.4em;
+        width: ceil(@font-default-size * 2.4);
         .transform(translate3d(0, 0, 0));
     }
     100% {
-        width: 2em;
+        width: ceil(@font-default-size * 2);
         .transform(translate3d(0, 0, 0));
     }
 }
 
 @-webkit-keyframes toggle-shuffle-out {
     0% {
-        width: 2em;
-        .transform(translate3d(1.15em, 0, 0));
+        width: ceil(@font-default-size * 2);
+        .transform(translate3d(ceil(@font-default-size * 1.15), 0, 0));
     }
     50% {
-        width: 2.4em;
+        width: ceil(@font-default-size * 2.4);
         .transform(translate3d(0, 0, 0));
     }
     100% {
-        width: 2em;
+        width: ceil(@font-default-size * 2);
         .transform(translate3d(0, 0, 0));
     }
 }

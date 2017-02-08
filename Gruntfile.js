@@ -203,7 +203,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-strip-code');
   grunt.loadNpmTasks('grunt-banner');
 
-  grunt.registerTask('default', ['less', 'jshint', 'csslint', 'concat', 'replace', 'uglify', 'cssmin', 'strip_code', 'usebanner']);
+  grunt.registerTask('default', ['less', 'jshint', 'csslint', 'concat', 'replace', 'strip_code', 'uglify', 'cssmin', 'usebanner']);
   grunt.registerTask('replacement', ['replace']);
   grunt.registerTask('test', ['jshint', 'csslint']);
   grunt.registerTask('init', ['watch']);

@@ -5,7 +5,7 @@
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-24                          
+// @ UPDATE    2017-01-24
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/spinner.html
 //
@@ -30,8 +30,6 @@
             element.after($spinner);
             $spinner.ripple({
                 theme: 'dark'
-            }).css({
-                minWidth: element.outerWidth()
             });
             element.hide();
 
@@ -64,10 +62,6 @@
                 if (element.prop('readonly')) {
                     $spinner.addClass('spinner-readonly');
                 }
-
-                $spinner.css({
-                    minWidth: element.outerWidth()
-                });
             });
 
             context.$helper.bind($spinner, 'click', function (event) {

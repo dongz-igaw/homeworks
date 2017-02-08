@@ -5,7 +5,7 @@
 //
 //==========================================================
 //
-// @ UPDATE    2017-01-13                          
+// @ UPDATE    2017-02-01
 // @ AUTHOR    Kenneth
 // @ SEE ALSO  https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/input.html
 //
@@ -17,8 +17,17 @@
             var context = this;
             var options = context.local._options;
             var $label = $(context.$helper.parseTemplate('label')).insertAfter(element);
+			var $placeholder = $(context.$helper.parseTemplate('placeholder')).text(element.attr('placeholder') || element.attr('title'));
             var type = element.data('type') || ((typeof options !== 'undefined') ? options.type : '');
             var validation = false;
+			var changeDetector = function() {
+				var placeholder = element.attr('placeholder') || element.attr('title');
+				if (typeof placeholder !== 'undefined' && placeholder !== null && placeholder !== '') {
+					$label.addClass('works-input-label-placeholder');
+					$placeholder.text(placeholder);
+					element.attr('placeholder', '');
+				}
+			};
 
             /* jshint ignore:start */
             /* @DATE 2016. 06. 28 */
@@ -43,7 +52,7 @@
                 $label.width(element.outerWidth());
             }
             element.appendTo($label);
-            $(context.$helper.parseTemplate('placeholder')).text(element.attr('placeholder') || element.attr('title')).insertBefore(element);
+			$placeholder.insertBefore(element);
 
             context.$helper.bind(element, 'focus', function () {
                 $label.addClass('works-input-lock').addClass('works-input-focus');
@@ -73,11 +82,7 @@
             }, true);
 
             element.unbind('update').bind('update', function () {
-                var placeholder = element.attr('placeholder');
-                if (placeholder !== '') {
-                    element.siblings('.works-input-placeholder').text(placeholder);
-                    element.attr('placeholder', '');
-                }
+				changeDetector();
             });
 
             context.$helper.bind(element, 'update', function (event) {
@@ -109,7 +114,7 @@
                 context.$helper.triggerHandler(element, 'blur');
             }, 25);
 
-            element.attr('placeholder', '');
+			changeDetector();
         },
         method: {
             validation: function (element, type) {

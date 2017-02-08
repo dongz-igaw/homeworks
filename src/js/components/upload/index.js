@@ -103,19 +103,19 @@
                                     timeout: 30000,
                                     complete: options.complete,
                                     success: function (data, status, xhr) {
-                                        var result = data;
+                                        var result = data.data;
 
-                                        if (result.code === 200) {
+                                        if (data.code === 200) {
                                             element.val('');
 
                                             if (options.type === 'img') {
                                                 if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
-                                                    options.siblings('.btn, img').remove();
-                                                    options.before('<img src="' + result.data + '" />');
+                                                    element.siblings('.btn, img').remove();
+                                                    element.before('<img src="' + result.data + '" />');
                                                 }
                                             } else {
                                                 if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
-                                                    options.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
+                                                    element.siblings('.btn').text('완료').removeClass('btn-default btn-danger').addClass('btn-success');
                                                 }
                                             }
 
@@ -133,11 +133,10 @@
                                     error: function (xhr, status, error) {
                                         toast('Unexpected error are occured when uploading.');
                                         if (typeof options.isBtn !== 'undefined' && options.isBtn === true) {
-                                            element
-                                                .siblings('.btn')
-                                                .text('Error')
-                                                .removeClass('btn-default btn-success')
-                                                .addClass('btn-danger');
+                                            element.siblings('.btn')
+                                                    .text('Error')
+                                                    .removeClass('btn-default btn-success')
+                                                    .addClass('btn-danger');
                                         }
                                         if (typeof options.error === 'function') {
                                             options.error.apply(element, Array.prototype.slice.call(arguments));
