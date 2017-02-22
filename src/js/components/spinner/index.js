@@ -15,6 +15,11 @@
     new ComponentMethod('spinner', {
         init: function (element) {
             var context = this;
+
+            if (element.is('select') === false) {
+                return false;
+            }
+
             var $selected = element.find(':selected');
             var $spinner = $(context.$helper.parseTemplate('spinner', {
                 option: $selected.length > 0 ? $selected.text() : this.global.empty
@@ -27,7 +32,7 @@
                     $spinner.attr(attr.name, attr.value);
                 }
             }
-            element.after($spinner);
+            $spinner.insertAfter(element);
             $spinner.ripple({
                 theme: 'dark'
             });
@@ -75,6 +80,8 @@
                     return false;
                 }
                 var $spinnerWrapper = $(context.$helper.parseTemplate('spinnerWrapper'));
+
+                console.log('test', element, element.find('option'), $spinner, context);
                 element.find('option').each(function () {
                     var $this = $(this);
                     var $option = $(context.$helper.parseTemplate('spinnerOptions', {
@@ -82,9 +89,11 @@
                         option: $this.text(),
                         type: ($this.prop('selected') === true && $this.text() !== '')? 'selected':'default'
                     }));
+
                     if ($this.prop('selected') === true) {
                         $spinner.find('.spinner-txt').text($this.text());
                     }
+
                     $option.ripple({
                         theme: 'dark'
                     }).appendTo($spinnerWrapper);

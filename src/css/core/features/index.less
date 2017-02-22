@@ -177,7 +177,7 @@ a:active {
 }
 
 .works-wrapper.works-enable-sub-header .works-content {
-    top: 130px;
+    top: 108px;
 }
 
 .works-footer {
@@ -286,7 +286,7 @@ a:active {
     top: 0;
     left: 0;
     width: 100%;
-    height: 70px;
+    height: 56px;
     z-index: 2000;
     background-color: @base-white-color;
     text-align: center;
@@ -316,7 +316,7 @@ a:active {
     left: 0;
     right: 0;
     height: 100%;
-    padding: 0 30px;
+    padding: 0 20px;
     text-align: left;
     overflow: hidden;
     .box-sizing(border-box);
@@ -325,10 +325,10 @@ a:active {
 .works-header .works-header-inner .works-header-action {
     display: inline-block;
     vertical-align: middle;
-    height: 70px;
-    line-height: 70px;
+    height: 56px;
+    line-height: 56px;
     color: @font-normal-color;
-    font-size: 14px;
+    font-size: @font-default-size;
     text-align: center;
 }
 
@@ -375,20 +375,21 @@ a:active {
     border-bottom: 1px solid @color-light-gray;
     border-bottom: 1px solid rgba(0, 0, 0, .25);
     position: fixed;
-    top: 70px;
+    top: 56px;
     left: 0;
     right: 0;
     z-index: 50000;
     overflow: hidden;
     .box-shadow(0 1px 2px rgba(0, 0, 0, .075));
+    .box-sizing(border-box);
 }
 
 .works-top h1 {
     float: left;
     width: 50%;
     margin: 0;
-    padding: 20px 30px;
-    font-size: 130%;
+    padding: 18px 20px;
+    font-size: 115%;
     font-weight: 400;
     color: @font-default-color;
     word-break: break-all;
@@ -401,7 +402,7 @@ a:active {
 .works-top .works-top-action {
     float: right;
     width: 50%;
-    padding: .6em 30px;
+    padding: 8px 20px;
     text-align: right;
     overflow: hidden;
     .box-sizing(border-box);
@@ -409,14 +410,14 @@ a:active {
 
 .works-top .works-menu {
     float: left;
-    padding: 0 30px;
+    padding: 0 20px;
     .box-sizing(border-box);
 }
 
 .works-top .works-menu a {
     display: inline-block;
-    height: 59px;
-    padding: 21px 0;
+    height: 52px;
+    padding: 18px 0;
     margin: 0 1.6em;
     border-bottom: 3px solid transparent;
     font-size: ceil(@font-default-size * 1.05);
@@ -458,7 +459,7 @@ a:active {
 .works-header .works-header-inner .works-header-title h2 img {
     max-width: 360px;
     height: 28px;
-    margin: 20px 0;
+    margin: 14px 0;
 }
 
 .works-header .works-header-inner .works-header-title .logo {
@@ -572,10 +573,6 @@ a:active {
     width: 100%;
 }
 
-.works-header .works-header-inner .profile-name {
-    font-size: 115%;
-}
-
 .works-header .works-header-inner .btn-action:hover {
     background-color: rgba(255, 255, 255, .9);
     border-color: @base-cobalt-color;
@@ -643,6 +640,10 @@ a:active {
 
 .works-header .works-header-inner .btn-profile i {
     margin-left: .4em;
+}
+
+.works-header .works-header-inner .btn-profile .profile-name {
+    font-size: 115%;
 }
 
 .works-body {
@@ -810,7 +811,7 @@ a:active {
 
 .works-content {
     position: absolute;
-    top: 70px;
+    top: 56px;
     left: 0;
     width: 100%;
     bottom: 0;
@@ -1626,6 +1627,12 @@ a:active {
             width: auto;
             min-width: 8.33%;
         }
+
+        &.row-table {
+            .col-1 {
+                width: 8.33%;
+            }
+        }
     }
 
     &.row-weight {
@@ -1646,6 +1653,12 @@ a:active {
         .col-2 {
             width: auto;
             min-width: 16.66%;
+        }
+
+        &.row-table {
+            .col-2 {
+                width: 16.66%;
+            }
         }
     }
 
@@ -1668,6 +1681,12 @@ a:active {
             width: auto;
             min-width: 25%;
         }
+
+        &.row-table {
+            .col-3 {
+                width: 25%;
+            }
+        }
     }
 
     &.row-weight {
@@ -1688,6 +1707,12 @@ a:active {
         .col-4 {
             width: auto;
             min-width: 33.33%;
+        }
+
+        &.row-table {
+            .col-4 {
+                width: 33.33%;
+            }
         }
     }
 
@@ -1710,6 +1735,12 @@ a:active {
             width: auto;
             min-width: 41.65%;
         }
+
+        &.row-table {
+            .col-5 {
+                width: 41.65%;
+            }
+        }
     }
 
     &.row-weight {
@@ -1730,6 +1761,12 @@ a:active {
         .col-6 {
             width: auto;
             min-width: 50%;
+        }
+
+        &.row-table {
+            .col-6 {
+                width: 50%;
+            }
         }
     }
 
@@ -1752,6 +1789,12 @@ a:active {
             width: auto;
             min-width: 58.33%;
         }
+
+        &.row-table {
+            .col-7 {
+                width: 58.33%;
+            }
+        }
     }
 
     &.row-weight {
@@ -1772,6 +1815,12 @@ a:active {
         .col-8 {
             width: auto;
             min-width: 66.65%;
+        }
+
+        &.row-table {
+            .col-8 {
+                width: 66.65%;
+            }
         }
     }
 
@@ -1794,6 +1843,12 @@ a:active {
             width: auto;
             min-width: 75%;
         }
+
+        &.row-table {
+            .col-9 {
+                width: 75%;
+            }
+        }
     }
 
     &.row-weight {
@@ -1814,6 +1869,12 @@ a:active {
         .col-10 {
             width: auto;
             min-width: 83.33%;
+        }
+
+        &.row-table {
+            .col-10 {
+                width: 83.33%;
+            }
         }
     }
 
@@ -1836,6 +1897,12 @@ a:active {
             width: auto;
             min-width: 91.63%;
         }
+
+        &.row-table {
+            .col-11 {
+                width: 91.63%;
+            }
+        }
     }
 
     &.row-weight {
@@ -1856,6 +1923,12 @@ a:active {
         .col-12 {
             width: auto;
             min-width: 100%;
+        }
+
+        &.row-table {
+            .col-12 {
+                width: 100%;
+            }
         }
     }
 
@@ -2643,9 +2716,10 @@ pre {
 .badge,
 .label {
     display: inline-block;
-    margin-right: .2em;
+    margin-left: ceil(@font-default-size * .4);
     padding: ceil(@font-default-size * .4) ceil(@font-default-size * .6);
     border-radius: 2px;
+    font-size: @font-default-size;
     background-color: @color-semi-light-silver;
     color: @font-normal-color;
     line-height: 1;
@@ -2863,8 +2937,8 @@ pre {
 
     &.table-hover tbody tr:hover th,
     &.table-hover tbody tr:hover td,
-    &.table-striped tbody tr:nth-child(2n+1) th,
-    &.table-striped tbody tr:nth-child(2n+1) td {
+    &.table-striped tbody tr:nth-child(2n) th,
+    &.table-striped tbody tr:nth-child(2n) td {
         background-color: rgba(0, 0, 0, .05);
     }
 

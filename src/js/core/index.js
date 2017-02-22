@@ -436,11 +436,14 @@ function ComponentMethod(name, settings) {
             });
         }
 
-        var ElementBinder = function () {
-            if(typeof this.data === 'undefined') {
-                this.data = {};
+        var ElementBinder = function (index, element) {
+            var self = element;
+            var $this = jQuery(self);
+
+            if (typeof self.data === 'undefined') {
+                self.data = {};
             }
-            var _localVariables = this.data[name];
+            var _localVariables = self.data[name];
 
             if (typeof _localVariables === 'undefined') {
                 _localVariables = {
@@ -449,11 +452,10 @@ function ComponentMethod(name, settings) {
                     '_prototype': {},
                     '_options': jQuery.extend({}, context.options)
                 };
-                this.data[name] = _localVariables;
                 jQuery.extend(_localVariables._prototype, context.method);
             }
 
-            var componentContext = jQuery.extend(this[context.$helper.getIdentifier()], {
+            var componentContext = jQuery.extend(self[context.$helper.getIdentifier()], {
                 local: _localVariables,
             }, context);
 
@@ -466,7 +468,7 @@ function ComponentMethod(name, settings) {
 
                 if (_localVariables._init === false) {
                     _localVariables._init = true;
-                    context.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args)));
+                    context.init.apply(componentContext, [$this].concat(Array.prototype.slice.call(args)));
                 }
             } else if (typeof args[0] === 'string') {
                 // Function(Method Name) pattern.
@@ -474,18 +476,19 @@ function ComponentMethod(name, settings) {
                     if (_localVariables._init === false) {
                         _localVariables._init = true;
                         if (typeof context.method.init !== 'undefined') {
-                            context.method.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args, 1)));
+                            context.method.init.apply(componentContext, [$this].concat(Array.prototype.slice.call(args, 1)));
                         } else {
-                            context.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args, 1)));
+                            context.init.apply(componentContext, [$this].concat(Array.prototype.slice.call(args, 1)));
                         }
                     }
-                    return context.method[args[0]].apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args, 1)));
+                    return context.method[args[0]].apply(componentContext, [$this].concat(Array.prototype.slice.call(args, 1)));
                 } catch (e) {
                     context.$helper.log(e.stack);
                 }
             } else {
                 context.$helper.log('Component has been got invalid parameters.');
             }
+            self.data[name] = _localVariables;
         };
 
         if (args.length > 0 && self === window) {

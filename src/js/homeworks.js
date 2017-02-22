@@ -20,7 +20,7 @@
 //
 //==========================================================
 //
-// @ UPDATE  2017.02.08
+// @ UPDATE  2017.02.22
 // @ AUTHOR  Kenneth
 //
 //=========================================================
@@ -465,11 +465,14 @@ function ComponentMethod(name, settings) {
             });
         }
 
-        var ElementBinder = function () {
-            if(typeof this.data === 'undefined') {
-                this.data = {};
+        var ElementBinder = function (index, element) {
+            var self = element;
+            var $this = jQuery(self);
+
+            if (typeof self.data === 'undefined') {
+                self.data = {};
             }
-            var _localVariables = this.data[name];
+            var _localVariables = self.data[name];
 
             if (typeof _localVariables === 'undefined') {
                 _localVariables = {
@@ -478,11 +481,10 @@ function ComponentMethod(name, settings) {
                     '_prototype': {},
                     '_options': jQuery.extend({}, context.options)
                 };
-                this.data[name] = _localVariables;
                 jQuery.extend(_localVariables._prototype, context.method);
             }
 
-            var componentContext = jQuery.extend(this[context.$helper.getIdentifier()], {
+            var componentContext = jQuery.extend(self[context.$helper.getIdentifier()], {
                 local: _localVariables,
             }, context);
 
@@ -495,7 +497,7 @@ function ComponentMethod(name, settings) {
 
                 if (_localVariables._init === false) {
                     _localVariables._init = true;
-                    context.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args)));
+                    context.init.apply(componentContext, [$this].concat(Array.prototype.slice.call(args)));
                 }
             } else if (typeof args[0] === 'string') {
                 // Function(Method Name) pattern.
@@ -503,18 +505,19 @@ function ComponentMethod(name, settings) {
                     if (_localVariables._init === false) {
                         _localVariables._init = true;
                         if (typeof context.method.init !== 'undefined') {
-                            context.method.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args, 1)));
+                            context.method.init.apply(componentContext, [$this].concat(Array.prototype.slice.call(args, 1)));
                         } else {
-                            context.init.apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args, 1)));
+                            context.init.apply(componentContext, [$this].concat(Array.prototype.slice.call(args, 1)));
                         }
                     }
-                    return context.method[args[0]].apply(componentContext, [jQuery(this)].concat(Array.prototype.slice.call(args, 1)));
+                    return context.method[args[0]].apply(componentContext, [$this].concat(Array.prototype.slice.call(args, 1)));
                 } catch (e) {
                     context.$helper.log(e.stack);
                 }
             } else {
                 context.$helper.log('Component has been got invalid parameters.');
             }
+            self.data[name] = _localVariables;
         };
 
         if (args.length > 0 && self === window) {
@@ -1607,6 +1610,11 @@ function ComponentMethod(name, settings) {
     new ComponentMethod('spinner', {
         init: function (element) {
             var context = this;
+
+            if (element.is('select') === false) {
+                return false;
+            }
+
             var $selected = element.find(':selected');
             var $spinner = $(context.$helper.parseTemplate('spinner', {
                 option: $selected.length > 0 ? $selected.text() : this.global.empty
@@ -1619,7 +1627,7 @@ function ComponentMethod(name, settings) {
                     $spinner.attr(attr.name, attr.value);
                 }
             }
-            element.after($spinner);
+            $spinner.insertAfter(element);
             $spinner.ripple({
                 theme: 'dark'
             });
@@ -1667,6 +1675,8 @@ function ComponentMethod(name, settings) {
                     return false;
                 }
                 var $spinnerWrapper = $(context.$helper.parseTemplate('spinnerWrapper'));
+
+                console.log('test', element, element.find('option'), $spinner, context);
                 element.find('option').each(function () {
                     var $this = $(this);
                     var $option = $(context.$helper.parseTemplate('spinnerOptions', {
@@ -1674,9 +1684,11 @@ function ComponentMethod(name, settings) {
                         option: $this.text(),
                         type: ($this.prop('selected') === true && $this.text() !== '')? 'selected':'default'
                     }));
+
                     if ($this.prop('selected') === true) {
                         $spinner.find('.spinner-txt').text($this.text());
                     }
+
                     $option.ripple({
                         theme: 'dark'
                     }).appendTo($spinnerWrapper);
