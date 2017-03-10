@@ -326,7 +326,7 @@ a:active {
     display: inline-block;
     vertical-align: middle;
     height: 56px;
-    line-height: 56px;
+    line-height: 54px;
     color: @font-normal-color;
     font-size: @font-default-size;
     text-align: center;
@@ -440,17 +440,16 @@ a:active {
 
 .works-header .works-header-inner .works-header-title {
     display: inline-block;
-    height: 100%;
+    height: 56px;
     padding: 0;
     text-align: left;
-    vertical-align: top;
-    line-height: 69px;
+    vertical-align: middle;
 }
 
 .works-header .works-header-inner .works-header-title h2 {
     display: inline-block;
-    padding: 0;
     margin: 0;
+    padding: 14px 0;
     font-weight: 400;
     color: lighten(@base-primary-color, 5%);
     margin-right: 20px;
@@ -459,11 +458,15 @@ a:active {
 .works-header .works-header-inner .works-header-title h2 img {
     max-width: 360px;
     height: 28px;
-    margin: 14px 0;
 }
 
 .works-header .works-header-inner .works-header-title .logo {
     font-weight: 300;
+    font-size: 0;
+}
+
+.works-header .works-header-inner .works-header-title .logo .logo-text {
+    font-size: ceil(@font-default-size * 1.4);
 }
 
 .works-header .works-header-inner .works-header-title .logo strong {
@@ -3036,6 +3039,10 @@ INPUT COMPONENT
         border-bottom: 1px solid @color-semi-light-gray;
         z-index: 10;
         .transition(width .75s ease);
+    }
+
+    &.works-input-block {
+        width: 100%;
     }
 
     &.works-input-disabled {

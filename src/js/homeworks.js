@@ -20,7 +20,7 @@
 //
 //==========================================================
 //
-// @ UPDATE  2017.02.22
+// @ UPDATE  2017.03.10
 // @ AUTHOR  Kenneth
 //
 //=========================================================
@@ -1041,7 +1041,7 @@ function ComponentMethod(name, settings) {
             context.local.type = type;
             context.local.rule = rule;
 
-            if (element.is(':visible') === true && options.static === true) {
+            if (element.is(':visible') === true && options.static === true && element.hasClass('input-block') === false) {
                 $label.width(element.outerWidth());
             }
             element.appendTo($label);
@@ -1185,7 +1185,7 @@ function ComponentMethod(name, settings) {
             this.local._visible = false;
 
             if (element.hasClass('modal-full') === false) {
-                this.$helper.bind(this.element.$window, 'resize update', function (event) {
+                this.$helper.bind(element, 'update', function (event) {
                     element.css({
                         left: 0,
                         top: 0
@@ -1194,10 +1194,10 @@ function ComponentMethod(name, settings) {
                     element.css({
                         left: '50%',
                         top: '50%',
-                        marginLeft: -element.outerWidth() / 2,
-                        marginTop: -element.outerHeight() / 2
+                        marginLeft: -element[0].offsetWidth / 2,
+                        marginTop: -element[0].offsetHeight / 2
                     });
-                }, true);
+                });
             } else {
                 if (element.children('.modal-inner').children('.modal-scroller').length < 1) {
                     var $scoller = $('<div class="modal-scroller"></div>');
@@ -1205,7 +1205,7 @@ function ComponentMethod(name, settings) {
                     $scoller.appendTo(element.children('.modal-inner'));
                 }
 
-                this.$helper.bind(this.element.$window, 'resize update', function (event) {
+                this.$helper.bind(element, 'update', function (event) {
                     element.find('> .modal-inner > .modal-scroller').css({
                         maxWidth: context.element.$window.outerWidth(),
                         maxHeight: context.element.$window.outerHeight()
@@ -1213,9 +1213,13 @@ function ComponentMethod(name, settings) {
                 }, true);
             }
 
-            this.$helper.unbind($btn.add(element.find('.btn-close')), 'click');
+            context.$helper.bind(this.element.$window, 'resize', function (event) {
+                context.$helper.triggerHandler(element, 'update');
+            }, true);
 
-            this.$helper.bind($btn.add(element.find('.btn-close')), 'click', function (event) {
+            context.$helper.unbind($btn.add(element.find('.btn-close')), 'click');
+
+            context.$helper.bind($btn.add(element.find('.btn-close')), 'click', function (event) {
                 event.preventDefault();
                 event.stopPropagation();
                 var $this = $(this);
@@ -1260,15 +1264,6 @@ function ComponentMethod(name, settings) {
 
                 context.local._visible = true;
 
-                /*
-                var $body = $('body:first');
-                var $parent = element.parent();
-                
-                if ($parent.is($body) === false) {
-                    element.appendTo($body);
-                }
-                */
-
                 element.siblings('.' + element.attr('class').split(' ').join('.')).remove();
 
                 if (context.local._options.animation === true) {
@@ -1293,13 +1288,14 @@ function ComponentMethod(name, settings) {
                 $overlay.insertAfter(element);
                 $overlay.show();
 
-                context.$helper.triggerHandler(context.element.$window, 'update');
+                context.$helper.triggerHandler(element, 'update');
+
                 element.triggerHandler('modal.open');
 
                 context.$helper.promise(function () {
                     element.addClass('anim-start');
                     $overlay.css('opacity', 0.6);
-                    context.$helper.triggerHandler(context.element.$window, 'update');
+                    context.$helper.triggerHandler(element, 'update');
                 }, 25);
 
                 context.$helper.bind($overlay, 'click', function (event) {

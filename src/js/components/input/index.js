@@ -48,7 +48,7 @@
             context.local.type = type;
             context.local.rule = rule;
 
-            if (element.is(':visible') === true && options.static === true) {
+            if (element.is(':visible') === true && options.static === true && element.hasClass('input-block') === false) {
                 $label.width(element.outerWidth());
             }
             element.appendTo($label);
