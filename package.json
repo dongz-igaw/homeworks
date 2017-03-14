@@ -8,7 +8,7 @@
     "start": "lite-server -c configs/lite-server.json",
     "report-coverage": "codecov",
     "jsdoc": "./node_modules/.bin/jsdoc build/ -r -c jsdoc.json -d docs",
-    "coverage": "istanbul cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- -R spec src/js/**/test/**.js"
+    "coverage": "istanbul cover --hook-run-in-context ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec src/js/**/test/**.js"
   },
   "repository": {
     "type": "git",
