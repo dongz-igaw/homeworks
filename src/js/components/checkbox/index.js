@@ -1,3 +1,4 @@
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT CHECKBOX
@@ -11,8 +12,8 @@
 //
 //=========================================================
 
-(function($) {
-	new ComponentMethod('checkbox', {
+(function ($) {
+    new ComponentMethod('checkbox', {
         init: function (element) {
             var context = this;
 
@@ -36,17 +37,18 @@
 
             context.$helper.bind(element, 'change', function (event, extra) {
                 var $this = $(this);
-				$checkbox.ripple('start');
+                $checkbox.ripple('start');
+                context.$helper.triggerHandler(element, 'update');
             });
 
-			context.$helper.bind(element, 'update', function (event) {
-				var $this = $(this);
-				if ($this.prop('checked') === true) {
+            context.$helper.bind(element, 'update', function (event) {
+                var $this = $(this);
+                if ($this.prop('checked') === true) {
                     $checkbox.addClass('works-checkbox-checked');
                 } else {
                     $checkbox.removeClass('works-checkbox-checked');
                 }
-			}, true);
+            }, true);
 
             if (typeof element.attr('class') !== 'undefined' && element.attr('class').match(/input-(\w+)/gi)) {
                 var class_names = element.attr('class').match(/input-(\w+)/gi);

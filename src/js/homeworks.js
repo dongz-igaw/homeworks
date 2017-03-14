@@ -20,14 +20,14 @@
 //
 //==========================================================
 //
-// @ UPDATE  2017.03.10
+// @ UPDATE  2017.03.14
 // @ AUTHOR  Kenneth
 //
 //=========================================================
 */
 
 
-window.HOMEWORKS_VERSION = '2.0.9.12';
+window.HOMEWORKS_VERSION = '2.0.9.13';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -703,6 +703,7 @@ function ComponentMethod(name, settings) {
         });
     });
 }(jQuery));
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT CHECKBOX
@@ -716,8 +717,8 @@ function ComponentMethod(name, settings) {
 //
 //=========================================================
 
-(function($) {
-	new ComponentMethod('checkbox', {
+(function ($) {
+    new ComponentMethod('checkbox', {
         init: function (element) {
             var context = this;
 
@@ -741,17 +742,18 @@ function ComponentMethod(name, settings) {
 
             context.$helper.bind(element, 'change', function (event, extra) {
                 var $this = $(this);
-				$checkbox.ripple('start');
+                $checkbox.ripple('start');
+                context.$helper.triggerHandler(element, 'update');
             });
 
-			context.$helper.bind(element, 'update', function (event) {
-				var $this = $(this);
-				if ($this.prop('checked') === true) {
+            context.$helper.bind(element, 'update', function (event) {
+                var $this = $(this);
+                if ($this.prop('checked') === true) {
                     $checkbox.addClass('works-checkbox-checked');
                 } else {
                     $checkbox.removeClass('works-checkbox-checked');
                 }
-			}, true);
+            }, true);
 
             if (typeof element.attr('class') !== 'undefined' && element.attr('class').match(/input-(\w+)/gi)) {
                 var class_names = element.attr('class').match(/input-(\w+)/gi);
@@ -1747,6 +1749,7 @@ function ComponentMethod(name, settings) {
     });
 }(jQuery));
 
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT TAB
@@ -1760,7 +1763,7 @@ function ComponentMethod(name, settings) {
 //
 //=========================================================
 
-(function($) {
+(function ($) {
     new ComponentMethod('tab, step', {
         init: function (element) {
             var context = this;

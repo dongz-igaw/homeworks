@@ -1,4 +1,4 @@
-window.HOMEWORKS_VERSION = '2.0.9.12';
+window.HOMEWORKS_VERSION = '2.0.9.13';
 var VERSION = '2.0.9';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
@@ -679,6 +679,7 @@ exports.ComponentMethod = ComponentMethod;
         });
     });
 }(jQuery));
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT CHECKBOX
@@ -692,8 +693,8 @@ exports.ComponentMethod = ComponentMethod;
 //
 //=========================================================
 
-(function($) {
-	new ComponentMethod('checkbox', {
+(function ($) {
+    new ComponentMethod('checkbox', {
         init: function (element) {
             var context = this;
 
@@ -717,17 +718,18 @@ exports.ComponentMethod = ComponentMethod;
 
             context.$helper.bind(element, 'change', function (event, extra) {
                 var $this = $(this);
-				$checkbox.ripple('start');
+                $checkbox.ripple('start');
+                context.$helper.triggerHandler(element, 'update');
             });
 
-			context.$helper.bind(element, 'update', function (event) {
-				var $this = $(this);
-				if ($this.prop('checked') === true) {
+            context.$helper.bind(element, 'update', function (event) {
+                var $this = $(this);
+                if ($this.prop('checked') === true) {
                     $checkbox.addClass('works-checkbox-checked');
                 } else {
                     $checkbox.removeClass('works-checkbox-checked');
                 }
-			}, true);
+            }, true);
 
             if (typeof element.attr('class') !== 'undefined' && element.attr('class').match(/input-(\w+)/gi)) {
                 var class_names = element.attr('class').match(/input-(\w+)/gi);
@@ -1723,6 +1725,7 @@ exports.ComponentMethod = ComponentMethod;
     });
 }(jQuery));
 
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT TAB
@@ -1736,7 +1739,7 @@ exports.ComponentMethod = ComponentMethod;
 //
 //=========================================================
 
-(function($) {
+(function ($) {
     new ComponentMethod('tab, step', {
         init: function (element) {
             var context = this;

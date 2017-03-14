@@ -1,3 +1,4 @@
+
 //==========================================================
 //
 // @ HOMEWORKS COMPONENT TAB
@@ -11,7 +12,7 @@
 //
 //=========================================================
 
-(function($) {
+(function ($) {
     new ComponentMethod('tab, step', {
         init: function (element) {
             var context = this;

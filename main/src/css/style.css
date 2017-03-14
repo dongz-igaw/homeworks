@@ -1,17 +1,10 @@
-﻿@import url('https://fonts.googleapis.com/earlyaccess/nanumgothic.css');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
-@import url('https://cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css');
-
-@font-face {
- font-family: 'Nanum Square';
- src: url(../fonts/NanumSquareR.eot);
- src: url(../fonts/NanumSquareR.eot?#iefix) format('embedded-opentype'),
-      url(../fonts/NanumSquareR.woff) format('woff'),
-      url(../fonts/NanumSquareR.ttf) format('truetype');
-}
+﻿@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
+@import url(https://cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css);
+@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 html, body {
-    font-family: 'Open Sans', 'Nanum Square', sans-serif;
+    font-family: 'Open Sans', 'Noto Sans KR', sans-serif;
 }
 
 body {
@@ -69,8 +62,7 @@ h6:hover i {
 
 .code-description {
     width: 100%;
-    font-size: 110%;
-    font-weight: 600;
+    font-size: 13px;
     background-color: #f6f8fc;
     padding: 1.6em;
     margin-bottom: 2em;
