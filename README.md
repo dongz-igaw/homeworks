@@ -18,15 +18,22 @@
 
 1. 작업하시는 프로젝트의 원하는 폴더에서 아래 명령줄을 실행합니다.
 
- ```shell
-git clone git@github.com:IGAWorksDev/homeworks.git
-cd homeworks
+ ```bash
+$ git clone git@github.com:IGAWorksDev/homeworks.git
+$ cd homeworks
 ```
 
-2. 프로젝트에서 Git을 사용하신다면 프로젝트 루트 폴더에서 서브 프로젝트로 지정합니다.
+2. 아래의 방법으로 HOMEWORKS를 손쉽게 확인하실 수 있습니다.
 
- ```shell
-git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
+ ```bash
+$ npm install
+$ npm start
+```
+
+3. 프로젝트에서 Git을 사용하신다면 프로젝트 루트 폴더에서 서브 프로젝트로 지정합니다.
+
+ ```bash
+$ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 ```
 
 #### Release를 통한 설치
