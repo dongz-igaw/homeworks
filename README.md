@@ -7,15 +7,15 @@
 
 ![HomeWorks Framework](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/homeworks_cover.png)
 
-> This project helps develop the front end in a modern and cool way.
->
-> Yes!, This project may look similar to the purpose of Bootstrap or Foundation framework.
->
-> But this project has a plan more than bigger than one fundamentally.
->
-> Support for angular directives and reactive components is also under development.
->
-> We hope you enjoy this project!
+This project helps develop the front end in a modern and cool way.
+
+Yes!, This project may look similar to the purpose of Bootstrap or Foundation framework.
+
+But this project has a plan more than bigger than one fundamentally.
+
+Support for angular directives and reactive components is also under development.
+
+We hope you enjoy this project!
 
 ## Notice & Warnings
 
