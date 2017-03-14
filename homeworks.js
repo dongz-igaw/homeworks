@@ -1,5 +1,5 @@
-window.HOMEWORKS_VERSION = '2.0.9.13';
-var VERSION = '2.0.9';
+window.HOMEWORKS_VERSION = '1.0.0.0';
+var VERSION = '1.0.0';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
 }

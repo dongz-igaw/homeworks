@@ -1,8 +1,8 @@
 {
   "name": "homeworks",
-  "version": "2.0.9",
+  "version": "1.0.0",
   "description": "IGAWorks Inc, Front End framework.",
-  "main": "Gruntfile.js",
+  "main": "src/js/homeworks.js",
   "scripts": {
     "test": "grunt test & mocha --require jsdom-global/register --reporter mochawesome src/js/**/test/*.js",
     "start": "lite-server -c configs/lite-server.json",

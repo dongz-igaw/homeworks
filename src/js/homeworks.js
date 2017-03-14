@@ -27,7 +27,7 @@
 */
 
 
-window.HOMEWORKS_VERSION = '2.0.9.13';
+window.HOMEWORKS_VERSION = '1.0.0.0';
 var VERSION = '@@VERSION';
 if (VERSION.replace(/@/g, '') !== 'VERSION') {
     window.HOMEWORKS_VERSION = VERSION;
