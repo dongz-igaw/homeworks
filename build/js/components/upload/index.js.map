@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/js/components/upload/index.js"],"names":["define"],"mappings":";;AAAAA,OAAO,CACH,QADG,CAAP,EAEG,YAAM,CACR,CAHD","file":"index.js","sourcesContent":["define([\r\n    './core'\r\n], () => {\r\n});"]}

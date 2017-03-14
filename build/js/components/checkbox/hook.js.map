@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/js/components/checkbox/hook.js"],"names":["define","checkbox","hook"],"mappings":";;AAAAA,OAAO,YAAM;AACT,KAAC,YAAY;AACT,aAAKC,QAAL;AACH,KAFD,EAEGC,IAFH,CAEQ,UAFR;AAGH,CAJD","file":"hook.js","sourcesContent":["define(() => {\r\n    (function () {\r\n        this.checkbox();\r\n    }).hook('checkbox');\r\n});"]}

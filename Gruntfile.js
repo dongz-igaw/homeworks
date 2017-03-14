@@ -49,8 +49,8 @@ module.exports = function(grunt) {
         },
         files: {
           src: [
-            'src/js/homeworks.js',
-            'src/css/homeworks.css',
+            'build/js/homeworks.js',
+            'build/css/homeworks.css',
             'dist/**.**'
           ]
         }
@@ -63,8 +63,7 @@ module.exports = function(grunt) {
       dist: {
         files: {
           'dist/homeworks.min.js': [
-          'src/js/homeworks.js',
-          '!src/js/**/test/**.js'
+          'build/js/homeworks.js'
           ]
         }
       },
@@ -76,6 +75,7 @@ module.exports = function(grunt) {
       files: [
         'Gruntfile.js',
          'src/js/**/**.js',
+         '!src/js/homeworks.js',
          '!src/js/**/test/**.js'
       ],
       options: {
@@ -84,7 +84,8 @@ module.exports = function(grunt) {
           console: true,
           module: true,
           document: true
-        }
+        },
+        esversion: 6
       }
     },
     csslint: {
@@ -93,8 +94,30 @@ module.exports = function(grunt) {
         quiet: false
       },
       dist: [
-        'src/css/**.css'
+        'src/css/**.css',
+        '!src/css/homeworks.css'
       ]
+    },
+    babel: {
+      options: {
+        sourceMap: true,
+        presets: [
+            'es2015'
+        ]
+      },
+      dist: {
+        files: [
+          {
+            expand: true,
+            cwd: 'src/',
+            src: [
+                '**/**.js',
+                '!js/homeworks.js'
+            ],
+            dest: 'build/'
+          }
+        ]
+      }
     },
     concat: {
         options: {
@@ -114,9 +137,20 @@ module.exports = function(grunt) {
         }
     },
     copy: {
-      options: {},
-      files: [
-      ]
+      dist: {
+        files: [
+            {
+                src: ['build/js/homeworks.js'],
+                dest: 'src/js/homeworks.js',
+                filter: 'isFile'
+            },
+            {
+                src: ['build/css/homeworks.css'],
+                dest: 'src/css/homeworks.css',
+                filter: 'isFile'
+            }
+        ]
+      },
     },
     cssmin: {
       options: {
@@ -124,7 +158,9 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/homeworks.min.css': ['src/css/**.css']
+          'dist/homeworks.min.css': [
+            'build/css/homeworks.css'
+          ]
         }
       }
     },
@@ -143,12 +179,34 @@ module.exports = function(grunt) {
             expand: true,
             flatten: true,
             src: [
-              'src/js/homeworks.js',
-              'src/css/homeworks.css'
+              'build/js/homeworks.js',
+              'build/css/homeworks.css'
             ],
             dest: './'
           }
         ]
+      }
+    },
+    requirejs: {
+      dist: {
+         options: {
+          name: 'main',
+          baseUrl: 'build/js/',
+          optimize: 'none',
+          generateSourceMaps: true,
+          findNestedDependencies: true,
+          include: [
+            'almond'
+          ],
+          paths: {
+            almond: '../../node_modules/almond/almond'
+          },
+          out: 'build/js/homeworks.js',
+          wrap: {
+            startFile: 'wrapper/start.js',
+            endFile: 'wrapper/end.js'
+          }
+        }
       }
     },
     strip_code: {
@@ -160,14 +218,14 @@ module.exports = function(grunt) {
       },
       dist: {
         src: [
-          'src/js/homeworks.js'
+          'build/js/homeworks.js'
         ]
       }
     },
     less: {
       dist: {
         files: {
-          'src/css/homeworks.css': 'src/css/core/index.less'
+          'build/css/homeworks.css': 'src/css/core/index.less'
         }
       }
     },
@@ -176,9 +234,10 @@ module.exports = function(grunt) {
         cliArgs: ['--gruntfile', path.join(cwd, 'Gruntfile.js')],
       },
       files: [
-          'src/**/**.less',
           'src/**/**.js',
+          'src/**/**.less',
           '!src/js/homeworks.js',
+          '!src/css/homeworks.css',
           'Gruntfile.js'
       ],
       tasks: ['default']
@@ -200,10 +259,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-strip-code');
   grunt.loadNpmTasks('grunt-banner');
+  grunt.loadNpmTasks('grunt-babel');
 
-  grunt.registerTask('default', ['less', 'jshint', 'csslint', 'concat', 'replace', 'strip_code', 'uglify', 'cssmin', 'usebanner']);
+  grunt.registerTask('default', ['less', 'jshint', 'csslint', 'build', 'replace', 'strip_code', 'uglify', 'cssmin', 'usebanner', 'copy']);
+  grunt.registerTask('build', ['babel', 'requirejs']);
   grunt.registerTask('replacement', ['replace']);
   grunt.registerTask('test', ['jshint', 'csslint']);
   grunt.registerTask('init', ['watch']);

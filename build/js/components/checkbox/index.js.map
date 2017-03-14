@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/js/components/checkbox/index.js"],"names":["define"],"mappings":";;AAAAA,OAAO,CACH,QADG,EAEH,QAFG,CAAP,EAGG,YAAM,CACR,CAJD","file":"index.js","sourcesContent":["define([\r\n    './core',\r\n    './hook'\r\n], () => {\r\n});"]}

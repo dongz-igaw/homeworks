@@ -1,11 +1,10 @@
-//===========================
-// DROPDOWN VIEW HOOK
-//===========================
-(function (target) {
-    var direction = this.data('direction');
+define(() => {
+    (function (target) {
+        var direction = this.data('direction');
 
-    this.dropdown({
-        target: target,
-        direction: direction
-    });
-}).hook('dropdown');
+        this.dropdown({
+            target: target,
+            direction: direction
+        });
+    }).hook('dropdown');
+});

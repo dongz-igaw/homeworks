@@ -1,13 +1,9 @@
-//===========================
-// TAB VIEW HOOK
-//===========================
-(function () {
-    this.tab();
-}).hook('tab');
+define(() => {
+    (function () {
+        this.tab();
+    }).hook('tab');
 
-//===========================
-// STEP VIEW HOOK
-//===========================
-(function () {
-    this.step();
-}).hook('step');
+    (function () {
+        this.step();
+    }).hook('step');
+});

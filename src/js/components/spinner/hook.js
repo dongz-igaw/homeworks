@@ -1,6 +1,5 @@
-//===========================
-// SPINNER VIEW HOOK
-//===========================
-(function () {
-    this.spinner();
-}).hook('spinner');
+define(() => {
+    (function () {
+        this.spinner();
+    }).hook('spinner');
+});

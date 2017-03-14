@@ -1,6 +1,5 @@
-//===========================
-// INPUT VIEW HOOK
-//===========================
-(function () {
-    this.input();
-}).hook('input');
+define(() => {
+    (function () {
+        this.input();
+    }).hook('input');
+});

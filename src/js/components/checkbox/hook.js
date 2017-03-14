@@ -1,6 +1,5 @@
-//===========================
-// CHECKBOX VIEW HOOK
-//===========================
-(function () {
-    this.checkbox();
-}).hook('checkbox');
+define(() => {
+    (function () {
+        this.checkbox();
+    }).hook('checkbox');
+});

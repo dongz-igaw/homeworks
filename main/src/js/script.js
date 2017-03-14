@@ -25,7 +25,8 @@
         var offset = $scroller.scrollTop() - $scroller.offset().top - 60;
 
         if(href !== '#') {
-            var id = '#' + href.substring(1, href.length);
+            var hash = href.substring(1, href.length);;
+            var id = '#' + hash;
             var $target = $(id);
 
             if($target.length > 0) {
@@ -34,6 +35,7 @@
                     .animate({
                         scrollTop: offset + $target.offset().top
                     }, 1200);
+                window.location.hash = hash;
             }
         }
     });

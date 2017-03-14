@@ -1,8 +1,7 @@
-//===========================
-// RIPPLE VIEW HOOK
-//===========================
-(function (target, value) {
-    this.ripple({
-        theme: value
-    });
-}).hook('ripple');
+define(() => {
+    (function (target, value) {
+        this.ripple({
+            theme: value
+        });
+    }).hook('ripple');
+});

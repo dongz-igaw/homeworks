@@ -4,7 +4,7 @@
 	],
 	"source": {
 		"exclude": [
-			"src/js/homeworks.js"
+			"build/js/homeworks.js"
 		]
 	}
 }
