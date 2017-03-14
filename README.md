@@ -29,8 +29,8 @@ We hope you enjoy this project!
 
 ## Getting Started
 
-- [Developer Docs](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)
-- [Official Site](http://homeworks.igaworks.com/main/docs/index.html)
+- [Developer Docs (Korean)](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)
+- [Official Site (Korean)](http://homeworks.igaworks.com/main/docs/index.html)
 
 ----
 
