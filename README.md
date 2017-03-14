@@ -1,6 +1,7 @@
 # HOMEWORKS FRAMEWORK
 
 [![Build Status](https://travis-ci.com/IGAWorksDev/homeworks.svg?token=x98k8HzDc3zdfP6gvssV&branch=master)](https://travis-ci.com/IGAWorksDev/homeworks)
+[![Coverage Status](https://coveralls.io/repos/github/IGAWorksDev/homeworks/badge.svg?branch=master)](https://coveralls.io/github/IGAWorksDev/homeworks?branch=master)
 [![codecov](https://codecov.io/gh/IGAWorksDev/homeworks/branch/master/graph/badge.svg?token=viTgpBkL7A)](https://codecov.io/gh/IGAWorksDev/homeworks)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
