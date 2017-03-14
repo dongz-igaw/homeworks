@@ -51,23 +51,12 @@ $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 <link type="text/css" href="homeworks/dist/css/homeworks.min.css" />
 ```
 
-#### 데모페이지 확인
-
-- 설치된 경로에서 아래 명령줄을 실행합니다.
-
-```shell
-npm install
-npm start
-```
-
-----
-
 ### Update
 
-- 설치된 경로에서 아래 명령줄을 실행합니다.
+- 설치된 경로에서 아래 명령을 실행합니다.
 
  ```shell
-git pull origin master
+$ git pull origin master
 ```
 
 ----
