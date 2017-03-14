@@ -12,7 +12,7 @@ install:
  - npm install -g grunt-cli
  - npm install -g codecov
  - npm install -g istanbul
- - npm install --save-dev
+ - npm install
 
 script: 
  - npm test
