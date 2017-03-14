@@ -24,6 +24,8 @@
 - [Developer Docs](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)
 - [Official Site](http://homeworks.igaworks.com/main/docs/index.html)
 
+----
+
 ## Installation
 
 ### Install using Git
@@ -48,7 +50,9 @@ $ npm start
 $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 ```
 
-#### Install from release zip file.
+----
+
+### Install from release zip file.
 
 > Check [HOMEWORKS Release](https://github.com/IGAWorksDev/homeworks/releases)
 >
@@ -62,6 +66,8 @@ $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 <script type="text/javascript" src="homeworks/dist/js/homeworks.min.js"></script>
 <link type="text/css" href="homeworks/dist/css/homeworks.min.css" />
 ```
+
+----
 
 ### Update
 
