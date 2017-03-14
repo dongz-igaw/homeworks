@@ -136,6 +136,13 @@ module.exports = function(grunt) {
             dest: 'src/js/homeworks.js'
         }
     },
+    clean: {
+      dist: {
+        src: [
+            'build'
+        ]
+      }
+    },
     copy: {
       dist: {
         files: [
@@ -256,6 +263,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
@@ -264,7 +272,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-banner');
   grunt.loadNpmTasks('grunt-babel');
 
-  grunt.registerTask('default', ['less', 'jshint', 'csslint', 'build', 'replace', 'strip_code', 'uglify', 'cssmin', 'usebanner', 'copy']);
+  grunt.registerTask('default', ['less', 'jshint', 'csslint', 'build', 'replace', 'strip_code', 'uglify', 'cssmin', 'usebanner', 'copy', 'clean']);
   grunt.registerTask('build', ['babel', 'requirejs']);
   grunt.registerTask('replacement', ['replace']);
   grunt.registerTask('test', ['jshint', 'csslint']);

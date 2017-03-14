@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/js/components/spinner/hook.js"],"names":["define","spinner","hook"],"mappings":";;AAAAA,OAAO,YAAM;AACT,KAAC,YAAY;AACT,aAAKC,OAAL;AACH,KAFD,EAEGC,IAFH,CAEQ,SAFR;AAGH,CAJD","file":"hook.js","sourcesContent":["define(() => {\r\n    (function () {\r\n        this.spinner();\r\n    }).hook('spinner');\r\n});"]}
