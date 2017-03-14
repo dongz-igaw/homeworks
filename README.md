@@ -9,6 +9,13 @@
 
 > IGAWorks Front End-Side Framework.
 
+## Notice & Warnings
+
+> This project is under development yet.
+> Of course, There are many features available in the current version, And you can use it!
+> But also as many issues can be found.
+> If you get an error, please leave an issue [here](https://github.com/IGAWorksDev/homeworks/issues).
+
 ## Getting Started
 
 - [가이드라인](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)
