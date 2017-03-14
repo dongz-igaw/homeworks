@@ -20,3 +20,5 @@ script:
 after_success:
  - istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./src/js/**/test/**.js
  - codecov
+ - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+ - rm -rf ./coverage
