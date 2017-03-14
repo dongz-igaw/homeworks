@@ -12,48 +12,51 @@
 ## Notice & Warnings
 
 > This project is under development yet.
+>
 > Of course, There are many features available in the current version, And you can use it!
+>
 > But also as many issues can be found.
+>
 > If you get an error, please leave an issue [here](https://github.com/IGAWorksDev/homeworks/issues).
 
 ## Getting Started
 
-- [가이드라인](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)
-- [공식페이지](http://homeworks.igaworks.com/main/docs/index.html)
+- [Developer Docs](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/index.html)
+- [Official Site](http://homeworks.igaworks.com/main/docs/index.html)
 
 ## Installation
 
-### Git을 통한 설치
+### Install using Git
 
-1. 작업하시는 프로젝트의 원하는 폴더에서 아래 명령줄을 실행합니다.
+1. Type the following command on the directory that you want.
 
  ```bash
 $ git clone git@github.com:IGAWorksDev/homeworks.git
 $ cd homeworks
 ```
 
-2. 아래의 방법으로 HOMEWORKS를 손쉽게 확인하실 수 있습니다.
+2. You can open `HOMEWORKS` page in your browser easily by typing code below.
 
  ```bash
 $ npm install
 $ npm start
 ```
 
-3. 프로젝트에서 Git을 사용하신다면 프로젝트 루트 폴더에서 서브 프로젝트로 지정합니다.
+3. If you want to use `HOMEWORKS` to submodule of Git, Type the command like below.
 
  ```bash
 $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 ```
 
-#### Release를 통한 설치
+#### Install from release zip file.
 
-> [HOMEWORKS Release](https://github.com/IGAWorksDev/homeworks/releases)를 확인합니다.
+> Check [HOMEWORKS Release](https://github.com/IGAWorksDev/homeworks/releases)
 >
-> 원하는 파일을 zip파일로 다운받아 특정 폴더에 압축을 해제합니다.
+> Download the file that you want, And unzip it.
 
-#### 코드조각 삽입
+#### Add html snippets.
 
-- 개발하시는 웹 페이지 헤더에 아래 코드조각을 삽입해주세요.
+- Add this spinnet in `head` tag of your html file.
 
 ```html
 <script type="text/javascript" src="homeworks/dist/js/homeworks.min.js"></script>
@@ -62,7 +65,7 @@ $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 
 ### Update
 
-- 설치된 경로에서 아래 명령을 실행합니다.
+- Type this code on your current path of HOMEWORKS.
 
  ```shell
 $ git pull origin master
@@ -115,12 +118,14 @@ $ git pull origin master
 
 ### Docs
  
- This project is using [JSDoc](http://usejsdoc.org/) for create doc files.
- 
- You can decleare information of component by follow JSDoc rules.
+> This project uses [JSDoc](http://usejsdoc.org/) to provide a reference document.
+>
+> If you will contribute in the component development,
+>
+> You can use the JSDoc comment rules to create a reference document.
  
 ### Flow
 
  ![Flow](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/flow.png)
  
- [설명참고](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/FLOW.html)
+ [Check this description](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/FLOW.html)
