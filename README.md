@@ -93,24 +93,35 @@ $ git pull origin master
 ----
 
 ```html
-  ─┬ homeworks repository
+  ─┬ HOMEWORKS (/homeworks)
    │
    ├─┬ src
    │　│ 
    │　├┬ js
    │　│└─ `homeworks.js`     <!-- Original script file. -->
    │　└┬ css
-   │　　└─`homeworks.css`    <!-- Original style sheet file. -->
+   │　 └─`homeworks.css`     <!-- Original style sheet file. -->
    │
    ├─┬ dist
    │　│ 
-   │　├─ `homeworks.min.js`  <!-- Distributed script file. -->
-   │　└─ `homeworks.min.css` <!-- Distributed style sheet file. -->
+   │　├┬ js
+   │　│└─ `homeworks.min.js` <!-- Distributed script file. -->
+   │　└┬ css
+   │　 └─`homeworks.min.css` <!-- Distributed style sheet file. -->
    │
-   └─┬ vender
+   ├─ docs                   <!-- HTML documentation of homeworks. -->
+   │
+   ├─ main                   <!-- API reference docs for developer. -->
+   │
+   ├─ test                   <!-- The scripts for browse testing. -->
+   │
+   ├─ typings                <!-- Declaration of Typescript typing for Angular -->
+   │
+   └─┬ vender
      │
      └┬ js
-      └─ jquery-1.12.2.min.js
+      ├─ jquery-1.12.2.min.js
+      └─ jquery-3.1.1.min.js
 ```
 
 ----
