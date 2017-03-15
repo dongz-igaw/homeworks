@@ -7,11 +7,11 @@
 
 ![HomeWorks Framework](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/homeworks_cover.png)
 
-This project helps develop the front end in a modern and cool way.
+This project helps develop the front-end in a modern and cool way.
 
 Yes!, This project may look similar to the purpose of Bootstrap or Foundation framework.
 
-But this project has a plan more than bigger than one fundamentally.
+But this project has a plan more bigger than one fundamentally.
 
 Support for angular directives and reactive components is also under development.
 
@@ -21,11 +21,8 @@ We hope you enjoy this project!
 
 ```plaintext
 This project is under development yet.
-
 Of course, There are many features available in the current version, And you can use it!
-
 But also as many issues can be found.
-
 If you get an error, please leave an issue [here](https://github.com/IGAWorksDev/homeworks/issues).
 ```
 
