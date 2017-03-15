@@ -481,7 +481,7 @@ define('core/models/index',[],function () {
     window.HOMEWORKS_VERSION = '1.0.0.3';
 
     var HOMEWORKS_MODEL = {
-        VERSION: '@@VERSION',
+        VERSION: '1.0.0',
         PARAMS: {
             framework: 'homeworks',
             prefix: 'works'

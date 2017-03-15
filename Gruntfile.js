@@ -182,15 +182,16 @@ module.exports = function(grunt) {
           ]
         },
         files: [
-          {
-            expand: true,
-            flatten: true,
-            src: [
-              'build/js/homeworks.js',
-              'build/css/homeworks.css'
-            ],
-            dest: './'
-          }
+            {
+                src: ['build/js/homeworks.js'],
+                dest: 'build/js/homeworks.js',
+                filter: 'isFile'
+            },
+            {
+                src: ['build/css/homeworks.css'],
+                dest: 'build/css/homeworks.css',
+                filter: 'isFile'
+            }
         ]
       }
     },
