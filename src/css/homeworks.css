@@ -797,18 +797,8 @@ a:active {
   height: 0;
   clear: both;
 }
-.works-section .works-section-divider {
-  height: 0;
-  margin: 0;
-  border: 0;
-  border-bottom: 1px solid #e2e2e2;
-}
-.works-section.works-section-padding .works-section-divider {
-  margin: 0 -40px;
-}
-.works-section .works-section-divider.works-section-divider-padding {
-  margin-top: 40px;
-  margin-bottom: 40px;
+.works-section:last-child {
+  margin-bottom: 0;
 }
 .works-section.works-section-transparent {
   background-color: transparent;
@@ -816,6 +806,36 @@ a:active {
   overflow: visible;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+.works-section.works-section-padding {
+  padding: 40px;
+}
+.works-section.works-section-padding .works-section-divider {
+  margin: 0 -40px;
+}
+.works-section.works-section-padding .works-group {
+  margin-left: -40px;
+  margin-right: -40px;
+  padding: 40px;
+}
+.works-section.works-section-padding .works-group:first-child {
+  padding-top: 0;
+}
+.works-section.works-section-padding .works-group:last-child {
+  padding-bottom: 0;
+}
+.works-section > *:last-child {
+  margin-bottom: 0;
+}
+.works-section .works-section-divider {
+  height: 0;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid #e2e2e2;
+}
+.works-section .works-section-divider.works-section-divider-padding {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 .works-section .section-title {
   height: 2.8em;
@@ -829,17 +849,14 @@ a:active {
 .works-section .works-article:last-child {
   margin-bottom: 0;
 }
+.works-section .works-group {
+  border-bottom: 1px solid #e2e2e2;
+}
+.works-section .works-group:last-child {
+  border-bottom: none;
+}
 .works-section .header-buttons {
   font-size: 13px;
-}
-.works-section-padding {
-  padding: 40px;
-}
-.works-section:last-child {
-  margin-bottom: 0;
-}
-.works-section > *:last-child {
-  margin-bottom: 0;
 }
 .works-screen {
   display: table;
@@ -2270,11 +2287,19 @@ pre {
   border-bottom-left-radius: 2px;
   margin-left: 0;
 }
+.btn-group .btn:first-child.btn-rounded {
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+}
 .btn-group .btn:last-child {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
+}
+.btn-group .btn:last-child.btn-rounded {
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
 }
 .btn-group .btn.btn-default {
   border-color: #848891;

@@ -245,6 +245,8 @@ module.exports = function(grunt) {
           'src/**/**.less',
           '!src/js/homeworks.js',
           '!src/css/homeworks.css',
+          '!build',
+          '!dist',
           'Gruntfile.js'
       ],
       tasks: ['default']

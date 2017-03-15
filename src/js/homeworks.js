@@ -478,7 +478,7 @@ define("almond", function(){});
 
 
 define('core/models/index',[],function () {
-    window.HOMEWORKS_VERSION = '1.0.0.1';
+    window.HOMEWORKS_VERSION = '1.0.0.3';
 
     var HOMEWORKS_MODEL = {
         VERSION: '@@VERSION',

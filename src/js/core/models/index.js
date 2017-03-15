@@ -1,5 +1,5 @@
 define(() => {
-    window.HOMEWORKS_VERSION = '1.0.0.2';
+    window.HOMEWORKS_VERSION = '1.0.0.3';
 
     const HOMEWORKS_MODEL = {
         VERSION: '@@VERSION',
