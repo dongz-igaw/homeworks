@@ -1,22 +1,19 @@
 language: node_js
-
+group: table
+os: linux
 node_js:
  - "6"
-
 before_install:
  - export DISPLAY=:99.0
  - export export CODECOV_TOKEN="0c74d31e-bcf8-48c4-bb3b-cc7da491f5b3"
  - sh -e /etc/init.d/xvfb start
-
 install:
  - npm install -g grunt-cli
  - npm install -g codecov
  - npm install -g istanbul
  - npm install
-
 script: 
  - npm test
-
 after_success:
  - istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./src/js/**/test/**.js
  - codecov
