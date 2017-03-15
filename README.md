@@ -9,13 +9,9 @@
 
 This project helps develop the front-end in a modern and cool way.
 
-Yes!, This project may look similar to the purpose of Bootstrap or Foundation framework.
+Yes!, This project may look similar to the purpose of Bootstrap or Foundation framework. But this project has a plan more bigger than one fundamentally. Support for angular directives and reactive components is also under development. We hope you enjoy this project!
 
-But this project has a plan more bigger than one fundamentally.
-
-Support for angular directives and reactive components is also under development.
-
-We hope you enjoy this project!
+----
 
 ## Notice & Warnings
 
@@ -26,6 +22,8 @@ But also as many issues can be found.
 ```
 
 > If you get an error, please leave an issue [here](https://github.com/IGAWorksDev/homeworks/issues).
+
+----
 
 ## Getting Started
 
@@ -89,13 +87,8 @@ $ git pull origin master
  
 ## Structures
 
-- [JAVASCRIPT](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/)
-
- ![Structure](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/Introduction.png)
- 
+- [JAVASCRIPT](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/JAVASCRIPT/) 
 - [STYLE](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/STYLE/)
-
- ![CSS Structure](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/css_structure.png)
 
 ----
 
@@ -124,8 +117,6 @@ $ git pull origin master
 
 ## [Deployment](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/DEPLOY.html)
 
-![Deployment](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/deploy.png)
-
 ----
 
 ## Contribution
@@ -139,7 +130,5 @@ $ git pull origin master
 > You can use the JSDoc comment rules to create a reference document.
  
 ### Flow
-
- ![Flow](https://s3.ap-northeast-2.amazonaws.com/homeworks.igaworks.com/main/src/images/flow.png)
  
  [Check this description](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/FLOW.html)
