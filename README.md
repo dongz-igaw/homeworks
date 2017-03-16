@@ -58,6 +58,42 @@ $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 
 ----
 
+### Install using NPM
+
+1. Just type the command as follows.
+
+ ```bash
+npm install homeworks
+```
+
+2. Drink some tee, Yay!
+
+----
+
+### Install using Bower
+
+1. Just type the command as follows.
+
+ ```bash
+bower install homeworks
+```
+
+2. Drink some tee, Yay!
+
+----
+
+### Install using Yarn
+
+1. Just type the command as follows.
+
+ ```bash
+yarn install homeworks
+```
+
+2. Drink some tee, Yay!
+
+----
+
 ### Install from release zip file.
 
 > Check [HOMEWORKS Release](https://github.com/IGAWorksDev/homeworks/releases)
