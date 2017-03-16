@@ -2,3 +2,5 @@ node_modules
 coverage
 build
 mochaawesome-reports
+output
+*.log
