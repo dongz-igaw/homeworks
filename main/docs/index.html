@@ -105,12 +105,15 @@
     <div class="works-wrapper works-theme-dark">
         <div class="works-header">
             <div class="works-header-inner">
-                <div class="works-header-action">
-                    <a class="works-header-menu" href="#" data-menu="true" data-ripple="dark">
-                        <img src="../src/images/icon_menu_white.png" alt="" />
+                <div class="works-header-menu">
+                    <a class="works-menu" href="#" data-menu="true" data-ripple="dark">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </a>
+                    <a class="works-menu works-nav-menu" href="#" data-ripple="dark">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                     </a>
                 </div>
-                <div class="works-header-action pull-right">
+                <div class="works-navs">
                     <div class="works-header-button">
                         <a href="https://github.com/IGAWorksDev/HomeWorksFramework/archive/master.zip" target="_blank" class="btn btn-sm btn-primary btn-material" data-ripple="true">
                             Download
@@ -178,12 +181,15 @@
     &lt;div class=&quot;works-wrapper works-theme-dark&quot;&gt;
         &lt;div class=&quot;works-header&quot;&gt;
             &lt;div class=&quot;works-header-inner&quot;&gt;
-                &lt;div class=&quot;works-header-action&quot;&gt;
-                    &lt;a class=&quot;works-header-menu&quot; href=&quot;#&quot; data-menu=&quot;true&quot; data-ripple=&quot;dark&quot;&gt;
-                        &lt;img src=&quot;../src/images/icon_menu_white.png&quot; alt=&quot;&quot; /&gt;
+                &lt;div class="works-header-menu"&gt;
+                    &lt;a class="works-menu" href="#" data-menu="true" data-ripple="dark"&gt;
+                        &lt;i class="fa fa-bars" aria-hidden="true"&gt;&lt;/i&gt;
+                    &lt;/a&gt;
+                    &lt;a class="works-menu works-nav-menu" href="#" data-ripple="dark"&gt;
+                        &lt;i class="fa fa-ellipsis-h" aria-hidden="true"&gt;&lt;/i&gt;
                     &lt;/a&gt;
                 &lt;/div&gt;
-                &lt;div class=&quot;works-header-action pull-right&quot;&gt;
+                &lt;div class="works-navs"&gt;
                     &lt;div class=&quot;works-header-button&quot;&gt;
                         &lt;a href=&quot;#&quot; class=&quot;btn btn-sm btn-primary btn-material&quot;&gt;
                             &lt;!-- Header Quick Button1 --&gt;
@@ -266,35 +272,31 @@
                                 </a>
                             </h2>
                             <a href="#" class="view-source"></a>
-                            <pre><code class="language-html">&lt;div class=&quot;works-header&quot;&gt;
-    &lt;div class=&quot;works-header-inner&quot;&gt;
-        &lt;div class=&quot;works-header-action&quot;&gt;
-            &lt;a class=&quot;works-header-menu&quot; href=&quot;#&quot; data-ripple=&quot;dark&quot;&gt;
-                &lt;img src=&quot;../src/images/icon_menu_white.png&quot; alt=&quot;&quot; /&gt;
+                            <pre><code class="language-html">&lt;div class="works-header-inner"&gt;
+    &lt;div class="works-header-menu"&gt;
+        &lt;a class="works-menu" href="#" data-menu="true" data-ripple="dark"&gt;
+            &lt;i class="fa fa-bars" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;/a&gt;
+        &lt;a class="works-menu works-nav-menu" href="#" data-ripple="dark"&gt;
+            &lt;i class="fa fa-ellipsis-h" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="works-navs"&gt;
+        &lt;div class="works-header-button"&gt;
+            &lt;a href="https://github.com/IGAWorksDev/HomeWorksFramework/archive/master.zip" target="_blank" class="btn btn-sm btn-primary btn-material" data-ripple="true"&gt;
+                Download
+            &lt;/a&gt;
+            &lt;a href="https://github.com/IGAWorksDev/HomeWorksFramework" target="_blank" class="btn btn-sm btn-cobalt btn-material" data-ripple="true"&gt;
+                View on GitHub
             &lt;/a&gt;
         &lt;/div&gt;
-        &lt;div class=&quot;works-header-action works-header-menu&quot;&gt;
-            &lt;a href=&quot;#&quot; class=&quot;works-menu active&quot; data-ripple=&quot;dark&quot;&gt;MENU 1&lt;/a&gt;
-            &lt;a href=&quot;#&quot; class=&quot;works-menu&quot; data-ripple=&quot;dark&quot;&gt;MENU 2&lt;/a&gt;
-            &lt;a href=&quot;#&quot; class=&quot;works-menu&quot; data-ripple=&quot;dark&quot;&gt;MENU 3&lt;/a&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;works-header-action pull-right&quot;&gt;
-            &lt;div class=&quot;works-header-button&quot;&gt;
-                &lt;a href=&quot;#&quot; class=&quot;btn btn-sm btn-primary btn-material&quot; data-ripple=&quot;true&quot;&gt;
-                    PRIMARY BUTTON
-                &lt;/a&gt;
-                &lt;a href=&quot;#&quot; class=&quot;btn btn-sm btn-cobalt btn-material&quot; data-ripple=&quot;true&quot;&gt;
-                    SECOND BUTTON
-                &lt;/a&gt;
-            &lt;/div&gt;
-            &lt;a href=&quot;#&quot; class=&quot;btn-action&quot;&gt;
-                &lt;i class=&quot;pe-7s-search&quot;&gt;&lt;/i&gt;
-            &lt;/a&gt;
-            &lt;a href=&quot;#&quot; class=&quot;btn-action btn-bell&quot;&gt;
-                &lt;i class=&quot;pe-7s-bell&quot;&gt;&lt;/i&gt;
-                &lt;span class=&quot;bubble&quot;&gt;1&lt;/span&gt;
-            &lt;/a&gt;
-        &lt;/div&gt;
+        &lt;a href="#" class="btn-action"&gt;
+            &lt;i class="pe-7s-search"&gt;&lt;/i&gt;
+        &lt;/a&gt;
+        &lt;a href="#" class="btn-action btn-bell"&gt;
+            &lt;i class="pe-7s-bell"&gt;&lt;/i&gt;
+            &lt;span class="bubble"&gt;1&lt;/span&gt;
+        &lt;/a&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
                             <div class="code-description">
@@ -308,9 +310,12 @@
                             <div class="preview">
                                 <div class="works-header">
                                     <div class="works-header-inner">
-                                        <div class="works-header-action">
-                                            <a class="works-header-menu" href="#" data-ripple="dark">
-                                                <img src="../src/images/icon_menu_white.png" alt="" />
+                                        <div class="works-header-menu">
+                                            <a class="works-menu" href="#" data-menu="true" data-ripple="dark">
+                                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                            </a>
+                                            <a class="works-menu works-nav-menu" href="#" data-ripple="dark">
+                                                <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                                             </a>
                                         </div>
                                         <div class="works-header-action works-header-menu">
@@ -318,7 +323,7 @@
                                             <a href="#" class="works-menu" data-ripple="dark">MENU 2</a>
                                             <a href="#" class="works-menu" data-ripple="dark">MENU 3</a>
                                         </div>
-                                        <div class="works-header-action pull-right">
+                                        <div class="works-navs">
                                             <div class="works-header-button">
                                                 <a href="#" class="btn btn-sm btn-primary btn-material" data-ripple="true">
                                                     PRIMARY BUTTON

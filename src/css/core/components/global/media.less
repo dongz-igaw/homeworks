@@ -66,6 +66,9 @@
             background-color: #232A38;
             padding: @padding-default-size;
             overflow: hidden;
+            text-align: center;
+            z-index: 2000;
+            .box-sizing(border-box);
             .box-shadow(0 3px 8px rgba(0, 0, 0, .375));
 
             .works-header-button {
@@ -86,6 +89,14 @@
             .works-navs {
                 display: block;
             }
+        }
+    }
+
+    .works-footer {
+        .floating-top {
+            left: 50%;
+            right: auto;
+            margin-left: -2.1em;
         }
     }
 }
