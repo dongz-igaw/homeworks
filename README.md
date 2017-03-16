@@ -1,6 +1,7 @@
 # HOMEWORKS FRAMEWORK
 
 [![Build Status](https://travis-ci.org/IGAWorksDev/homeworks.svg?branch=master)](https://travis-ci.org/IGAWorksDev/homeworks)
+[![npm version](https://badge.fury.io/js/homeworks.svg)](https://badge.fury.io/js/homeworks)
 [![Coverage Status](https://coveralls.io/repos/github/IGAWorksDev/homeworks/badge.svg?branch=master)](https://coveralls.io/github/IGAWorksDev/homeworks?branch=master)
 [![codecov](https://codecov.io/gh/IGAWorksDev/homeworks/branch/master/graph/badge.svg?token=viTgpBkL7A)](https://codecov.io/gh/IGAWorksDev/homeworks)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -66,7 +67,7 @@ $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 npm install homeworks
 ```
 
-2. Drink some tee, Yay!
+2. Drink some tee :coffee: , Yay!
 
 ----
 
@@ -78,7 +79,7 @@ npm install homeworks
 bower install homeworks
 ```
 
-2. Drink some tee, Yay!
+2. Play Overwatch on the sly :unamused:, Yay!
 
 ----
 
@@ -90,7 +91,7 @@ bower install homeworks
 yarn install homeworks
 ```
 
-2. Drink some tee, Yay!
+2. Now postpone work to tomorrow and watch YouTube :arrow_forward:, Yay!
 
 ----
 
