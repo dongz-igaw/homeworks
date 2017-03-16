@@ -3,15 +3,15 @@
   "reportPageTitle": "Mochawesome Report Card",
   "stats": {
     "suites": 6,
-    "tests": 8,
-    "passes": 7,
+    "tests": 9,
+    "passes": 9,
     "pending": 0,
-    "failures": 1,
-    "start": "2017-03-14T16:23:52.447Z",
-    "end": "2017-03-14T16:23:52.606Z",
-    "duration": 159,
-    "testsRegistered": 8,
-    "passPercent": 87.5,
+    "failures": 0,
+    "start": "2017-03-16T09:43:40.771Z",
+    "end": "2017-03-16T09:43:40.900Z",
+    "duration": 129,
+    "testsRegistered": 9,
+    "passPercent": 100,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -34,20 +34,16 @@
                 "title": "@1 `component` METHOD DEFINITION.",
                 "fullTitle": "[core/utils/method] TEST #1 method() TEST @1 `component` METHOD DEFINITION.",
                 "timedOut": false,
-                "duration": 12,
-                "state": "failed",
-                "pass": false,
-                "fail": true,
+                "duration": 11,
+                "state": "passed",
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
                 "pending": false,
-                "code": "<span class=\"hljs-keyword\">new</span> method(<span class=\"hljs-string\">'component'</span>, {<br>    init: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">element, target</span>) </span>{<br>        <span class=\"hljs-keyword\">var</span> context = <span class=\"hljs-keyword\">this</span>;<br>        <span class=\"hljs-keyword\">var</span> local = context.local;<br>        <span class=\"hljs-keyword\">var</span> options = local._options;<br>        <br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._id, <span class=\"hljs-string\">'component1'</span>, <span class=\"hljs-string\">'COMPONENT ID is \\'component\\'.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._init, <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT INIT is true.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.key, <span class=\"hljs-string\">'value'</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS of key is \\'value\\'.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        done();<br>    }<br>});<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> args = {<br>        key: <span class=\"hljs-string\">'value'</span><br>    };          <br>    <span class=\"hljs-keyword\">this</span>.component(args);<br>}).hook(<span class=\"hljs-string\">'component'</span>);",
-                "err": {
-                  "name": "AssertionError",
-                  "message": "COMPONENT ID is 'component'.",
-                  "stack": "AssertionError: COMPONENT ID is <span class=\"hljs-string\">'component'</span>.<br>    at <span class=\"hljs-built_in\">Object</span>.init (src\\js\\core\\utils\\test\\method.js:<span class=\"hljs-number\">39</span>:<span class=\"hljs-number\">32</span>)<br>    at HTMLDivElement.ElementBinder (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">113</span>:<span class=\"hljs-number\">38</span>)<br>    at <span class=\"hljs-built_in\">Function</span>.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">368</span>:<span class=\"hljs-number\">19</span>)<br>    at jQuery.fn.init.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">157</span>:<span class=\"hljs-number\">17</span>)<br>    at jQuery.fn.init.Method.route (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">160</span>:<span class=\"hljs-number\">33</span>)<br>    at jQuery.fn.init.bindFunc [<span class=\"hljs-keyword\">as</span> component] (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">183</span>:<span class=\"hljs-number\">46</span>)<br>    at jQuery.fn.init.&lt;anonymous&gt; (src\\js\\core\\utils\\test\\method.js:<span class=\"hljs-number\">64</span>:<span class=\"hljs-number\">22</span>)<br>    at HTMLDivElement.&lt;anonymous&gt; (src\\js\\core\\utils\\prototype.js:<span class=\"hljs-number\">63</span>:<span class=\"hljs-number\">34</span>)<br>    at <span class=\"hljs-built_in\">Function</span>.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">368</span>:<span class=\"hljs-number\">19</span>)<br>    at jQuery.fn.init.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">157</span>:<span class=\"hljs-number\">17</span>)<br>    at Document.&lt;anonymous&gt; (src\\js\\core\\utils\\prototype.js:<span class=\"hljs-number\">51</span>:<span class=\"hljs-number\">18</span>)<br>    at mightThrow (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">3570</span>:<span class=\"hljs-number\">29</span>)<br>    at process (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">3638</span>:<span class=\"hljs-number\">12</span>)<br>    at Timeout.callback [<span class=\"hljs-keyword\">as</span> _onTimeout] (node_modules\\jsdom\\lib\\jsdom\\browser\\Window.js:<span class=\"hljs-number\">477</span>:<span class=\"hljs-number\">19</span>)"
-                },
+                "code": "<span class=\"hljs-keyword\">new</span> method(<span class=\"hljs-string\">'component'</span>, {<br>    init: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">element, args</span>) </span>{<br>        <span class=\"hljs-keyword\">var</span> context = <span class=\"hljs-keyword\">this</span>;<br>        <span class=\"hljs-keyword\">var</span> local = context.local;<br>        <span class=\"hljs-keyword\">var</span> global = context.global;<br>        <span class=\"hljs-keyword\">var</span> options = local._options;<br>        <br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._id, <span class=\"hljs-string\">'component'</span>, <span class=\"hljs-string\">'COMPONENT LOCAL ID MUST BE `component`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._init, <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT LOCAL INIT MUST BE `true`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(<span class=\"hljs-keyword\">typeof</span> local._prototype.init, <span class=\"hljs-string\">'function'</span>, <span class=\"hljs-string\">'COMPONENT LOCAL PROTOTYPE MUST HAVE `init` function.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.key, <span class=\"hljs-string\">'value'</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS OF KEY MUST BE `value`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.deepEqual(options, $.extend(args, {<br>                msg: <span class=\"hljs-string\">'Hello HOMEWORKS'</span><br>            }), <span class=\"hljs-string\">'COMPONENT LOCAL OPTIONS MATCH THE ARGUMENT THAT HOOK SAND.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.target.is($(<span class=\"hljs-string\">'#pen'</span>)), <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS.target MUST BE `pen` element.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.msg, <span class=\"hljs-string\">'Hello HOMEWORKS'</span>, <span class=\"hljs-string\">'COMPONENT GLOBAL OPTION KEY `msg` MUST BE `Hello HOMEWORKS`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        done();<br>    },<br>    options: {<br>        msg: <span class=\"hljs-string\">'Hello HOMEWORKS'</span><br>    }<br>});<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> args = {<br>        target: target,<br>        key: <span class=\"hljs-string\">'value'</span><br>    };          <br>    <span class=\"hljs-keyword\">this</span>.component(args);<br>}).hook(<span class=\"hljs-string\">'component'</span>);",
                 "isRoot": false,
-                "uuid": "1a88ade6-a46b-4831-9805-6f5e1655ace6",
-                "parentUUID": "f6a8b9bb-79de-408f-8385-af51b22b3c4a",
+                "uuid": "d144f2ec-b220-4ba5-99fd-81719fcbe457",
+                "parentUUID": "1d8c7c89-5af0-4508-abd6-4e6faf605764",
                 "skipped": false
               }
             ],
@@ -55,44 +51,40 @@
             "root": false,
             "_timeout": 10000,
             "file": "\\src\\js\\core\\utils\\test\\method.js",
-            "uuid": "f6a8b9bb-79de-408f-8385-af51b22b3c4a",
+            "uuid": "1d8c7c89-5af0-4508-abd6-4e6faf605764",
             "fullFile": "C:\\Users\\User\\Documents\\Visual Studio 2017\\Projects\\CampaignIntelligence\\CampaignIntelligence\\Content\\homeworks\\src\\js\\core\\utils\\test\\method.js",
-            "passes": [],
-            "failures": [
+            "passes": [
               {
                 "title": "@1 `component` METHOD DEFINITION.",
                 "fullTitle": "[core/utils/method] TEST #1 method() TEST @1 `component` METHOD DEFINITION.",
                 "timedOut": false,
-                "duration": 12,
-                "state": "failed",
-                "pass": false,
-                "fail": true,
+                "duration": 11,
+                "state": "passed",
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
                 "pending": false,
-                "code": "<span class=\"hljs-keyword\">new</span> method(<span class=\"hljs-string\">'component'</span>, {<br>    init: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">element, target</span>) </span>{<br>        <span class=\"hljs-keyword\">var</span> context = <span class=\"hljs-keyword\">this</span>;<br>        <span class=\"hljs-keyword\">var</span> local = context.local;<br>        <span class=\"hljs-keyword\">var</span> options = local._options;<br>        <br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._id, <span class=\"hljs-string\">'component1'</span>, <span class=\"hljs-string\">'COMPONENT ID is \\'component\\'.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._init, <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT INIT is true.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.key, <span class=\"hljs-string\">'value'</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS of key is \\'value\\'.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        done();<br>    }<br>});<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> args = {<br>        key: <span class=\"hljs-string\">'value'</span><br>    };          <br>    <span class=\"hljs-keyword\">this</span>.component(args);<br>}).hook(<span class=\"hljs-string\">'component'</span>);",
-                "err": {
-                  "name": "AssertionError",
-                  "message": "COMPONENT ID is 'component'.",
-                  "stack": "AssertionError: COMPONENT ID is <span class=\"hljs-string\">'component'</span>.<br>    at <span class=\"hljs-built_in\">Object</span>.init (src\\js\\core\\utils\\test\\method.js:<span class=\"hljs-number\">39</span>:<span class=\"hljs-number\">32</span>)<br>    at HTMLDivElement.ElementBinder (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">113</span>:<span class=\"hljs-number\">38</span>)<br>    at <span class=\"hljs-built_in\">Function</span>.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">368</span>:<span class=\"hljs-number\">19</span>)<br>    at jQuery.fn.init.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">157</span>:<span class=\"hljs-number\">17</span>)<br>    at jQuery.fn.init.Method.route (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">160</span>:<span class=\"hljs-number\">33</span>)<br>    at jQuery.fn.init.bindFunc [<span class=\"hljs-keyword\">as</span> component] (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">183</span>:<span class=\"hljs-number\">46</span>)<br>    at jQuery.fn.init.&lt;anonymous&gt; (src\\js\\core\\utils\\test\\method.js:<span class=\"hljs-number\">64</span>:<span class=\"hljs-number\">22</span>)<br>    at HTMLDivElement.&lt;anonymous&gt; (src\\js\\core\\utils\\prototype.js:<span class=\"hljs-number\">63</span>:<span class=\"hljs-number\">34</span>)<br>    at <span class=\"hljs-built_in\">Function</span>.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">368</span>:<span class=\"hljs-number\">19</span>)<br>    at jQuery.fn.init.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">157</span>:<span class=\"hljs-number\">17</span>)<br>    at Document.&lt;anonymous&gt; (src\\js\\core\\utils\\prototype.js:<span class=\"hljs-number\">51</span>:<span class=\"hljs-number\">18</span>)<br>    at mightThrow (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">3570</span>:<span class=\"hljs-number\">29</span>)<br>    at process (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">3638</span>:<span class=\"hljs-number\">12</span>)<br>    at Timeout.callback [<span class=\"hljs-keyword\">as</span> _onTimeout] (node_modules\\jsdom\\lib\\jsdom\\browser\\Window.js:<span class=\"hljs-number\">477</span>:<span class=\"hljs-number\">19</span>)"
-                },
+                "code": "<span class=\"hljs-keyword\">new</span> method(<span class=\"hljs-string\">'component'</span>, {<br>    init: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">element, args</span>) </span>{<br>        <span class=\"hljs-keyword\">var</span> context = <span class=\"hljs-keyword\">this</span>;<br>        <span class=\"hljs-keyword\">var</span> local = context.local;<br>        <span class=\"hljs-keyword\">var</span> global = context.global;<br>        <span class=\"hljs-keyword\">var</span> options = local._options;<br>        <br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._id, <span class=\"hljs-string\">'component'</span>, <span class=\"hljs-string\">'COMPONENT LOCAL ID MUST BE `component`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._init, <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT LOCAL INIT MUST BE `true`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(<span class=\"hljs-keyword\">typeof</span> local._prototype.init, <span class=\"hljs-string\">'function'</span>, <span class=\"hljs-string\">'COMPONENT LOCAL PROTOTYPE MUST HAVE `init` function.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.key, <span class=\"hljs-string\">'value'</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS OF KEY MUST BE `value`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.deepEqual(options, $.extend(args, {<br>                msg: <span class=\"hljs-string\">'Hello HOMEWORKS'</span><br>            }), <span class=\"hljs-string\">'COMPONENT LOCAL OPTIONS MATCH THE ARGUMENT THAT HOOK SAND.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.target.is($(<span class=\"hljs-string\">'#pen'</span>)), <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS.target MUST BE `pen` element.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.msg, <span class=\"hljs-string\">'Hello HOMEWORKS'</span>, <span class=\"hljs-string\">'COMPONENT GLOBAL OPTION KEY `msg` MUST BE `Hello HOMEWORKS`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        done();<br>    },<br>    options: {<br>        msg: <span class=\"hljs-string\">'Hello HOMEWORKS'</span><br>    }<br>});<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> args = {<br>        target: target,<br>        key: <span class=\"hljs-string\">'value'</span><br>    };          <br>    <span class=\"hljs-keyword\">this</span>.component(args);<br>}).hook(<span class=\"hljs-string\">'component'</span>);",
                 "isRoot": false,
-                "uuid": "1a88ade6-a46b-4831-9805-6f5e1655ace6",
-                "parentUUID": "f6a8b9bb-79de-408f-8385-af51b22b3c4a",
+                "uuid": "d144f2ec-b220-4ba5-99fd-81719fcbe457",
+                "parentUUID": "1d8c7c89-5af0-4508-abd6-4e6faf605764",
                 "skipped": false
               }
             ],
+            "failures": [],
             "skipped": [],
             "hasTests": true,
             "hasSuites": false,
             "totalTests": 1,
-            "totalPasses": 0,
-            "totalFailures": 1,
+            "totalPasses": 1,
+            "totalFailures": 0,
             "totalPending": 0,
             "totalSkipped": 0,
-            "hasPasses": false,
-            "hasFailures": true,
+            "hasPasses": true,
+            "hasFailures": false,
             "hasPending": false,
             "hasSkipped": false,
-            "duration": 12
+            "duration": 11
           }
         ],
         "tests": [],
@@ -100,7 +92,7 @@
         "root": false,
         "_timeout": 10000,
         "file": "\\src\\js\\core\\utils\\test\\method.js",
-        "uuid": "f2a810b1-0f81-43c2-abea-2ab612af0f1b",
+        "uuid": "aa4fa877-6ca6-42d5-8dcd-ca31e3e8acce",
         "fullFile": "C:\\Users\\User\\Documents\\Visual Studio 2017\\Projects\\CampaignIntelligence\\CampaignIntelligence\\Content\\homeworks\\src\\js\\core\\utils\\test\\method.js",
         "passes": [],
         "failures": [],
@@ -137,15 +129,15 @@
                 "pending": false,
                 "code": "assert.equal(<span class=\"hljs-string\">'{hello} {world}'</span>.mapping({<br>    hello: <span class=\"hljs-string\">'Hello'</span>,<br>    world: <span class=\"hljs-string\">'World'</span><br>}), <span class=\"hljs-string\">'Hello World'</span>);",
                 "isRoot": false,
-                "uuid": "9205dc94-de8e-488a-b513-b4f100c107ed",
-                "parentUUID": "3fbec78c-9f25-430a-818f-4547af01bf28",
+                "uuid": "37e775a3-ee5e-4aad-b22f-9ea555862449",
+                "parentUUID": "d5a8003d-393b-405e-a08f-335e727e4555",
                 "skipped": false
               },
               {
                 "title": "@2 STRING MUST BE `I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!`.",
                 "fullTitle": "[core/utils/prototype] TEST #1 String.prototype.mapping() TEST @2 STRING MUST BE `I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!`.",
                 "timedOut": false,
-                "duration": 1,
+                "duration": 0,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -153,8 +145,8 @@
                 "pending": false,
                 "code": "assert.equal(<span class=\"hljs-string\">'I think {name} is better than most modern framework ever, So I think you have to use {name} {when}!'</span>.mapping({<br>    name: <span class=\"hljs-string\">'Homeworks'</span>,<br>    when: <span class=\"hljs-string\">'right now'</span><br>}), <span class=\"hljs-string\">'I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!'</span>);",
                 "isRoot": false,
-                "uuid": "36c33258-2677-49e2-809a-21c390c1d721",
-                "parentUUID": "3fbec78c-9f25-430a-818f-4547af01bf28",
+                "uuid": "8b0c5323-a373-4095-b423-0e77a66bedcc",
+                "parentUUID": "d5a8003d-393b-405e-a08f-335e727e4555",
                 "skipped": false
               }
             ],
@@ -162,7 +154,7 @@
             "root": false,
             "_timeout": 10000,
             "file": "\\src\\js\\core\\utils\\test\\prototype.js",
-            "uuid": "3fbec78c-9f25-430a-818f-4547af01bf28",
+            "uuid": "d5a8003d-393b-405e-a08f-335e727e4555",
             "fullFile": "C:\\Users\\User\\Documents\\Visual Studio 2017\\Projects\\CampaignIntelligence\\CampaignIntelligence\\Content\\homeworks\\src\\js\\core\\utils\\test\\prototype.js",
             "passes": [
               {
@@ -177,15 +169,15 @@
                 "pending": false,
                 "code": "assert.equal(<span class=\"hljs-string\">'{hello} {world}'</span>.mapping({<br>    hello: <span class=\"hljs-string\">'Hello'</span>,<br>    world: <span class=\"hljs-string\">'World'</span><br>}), <span class=\"hljs-string\">'Hello World'</span>);",
                 "isRoot": false,
-                "uuid": "9205dc94-de8e-488a-b513-b4f100c107ed",
-                "parentUUID": "3fbec78c-9f25-430a-818f-4547af01bf28",
+                "uuid": "37e775a3-ee5e-4aad-b22f-9ea555862449",
+                "parentUUID": "d5a8003d-393b-405e-a08f-335e727e4555",
                 "skipped": false
               },
               {
                 "title": "@2 STRING MUST BE `I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!`.",
                 "fullTitle": "[core/utils/prototype] TEST #1 String.prototype.mapping() TEST @2 STRING MUST BE `I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!`.",
                 "timedOut": false,
-                "duration": 1,
+                "duration": 0,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -193,8 +185,8 @@
                 "pending": false,
                 "code": "assert.equal(<span class=\"hljs-string\">'I think {name} is better than most modern framework ever, So I think you have to use {name} {when}!'</span>.mapping({<br>    name: <span class=\"hljs-string\">'Homeworks'</span>,<br>    when: <span class=\"hljs-string\">'right now'</span><br>}), <span class=\"hljs-string\">'I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!'</span>);",
                 "isRoot": false,
-                "uuid": "36c33258-2677-49e2-809a-21c390c1d721",
-                "parentUUID": "3fbec78c-9f25-430a-818f-4547af01bf28",
+                "uuid": "8b0c5323-a373-4095-b423-0e77a66bedcc",
+                "parentUUID": "d5a8003d-393b-405e-a08f-335e727e4555",
                 "skipped": false
               }
             ],
@@ -211,7 +203,7 @@
             "hasFailures": false,
             "hasPending": false,
             "hasSkipped": false,
-            "duration": 1
+            "duration": 0
           },
           {
             "title": "#2 String.prototype.format() TEST",
@@ -229,8 +221,8 @@
                 "pending": false,
                 "code": "assert.equal(<span class=\"hljs-string\">'{0} {1}'</span>.format([<span class=\"hljs-string\">'Hello'</span>, <span class=\"hljs-string\">'World'</span>]), <span class=\"hljs-string\">'Hello World'</span>);",
                 "isRoot": false,
-                "uuid": "028a0546-cf65-4311-b021-864a02cdffc3",
-                "parentUUID": "db624ead-cfee-42a2-a374-78da264eb349",
+                "uuid": "0e507a29-b28a-4b48-be3e-b1b431f82f7d",
+                "parentUUID": "0814622d-33ba-449b-bf43-5121624b0cc3",
                 "skipped": false
               },
               {
@@ -245,8 +237,8 @@
                 "pending": false,
                 "code": "assert.equal(<span class=\"hljs-string\">'{0} of the {1}, by the {1}, for the {1}'</span>.format([<span class=\"hljs-string\">'Government'</span>, <span class=\"hljs-string\">'people'</span>]), <span class=\"hljs-string\">'Government of the people, by the people, for the people'</span>);",
                 "isRoot": false,
-                "uuid": "4b21a353-05c7-4ad4-82a4-2a42904d094f",
-                "parentUUID": "db624ead-cfee-42a2-a374-78da264eb349",
+                "uuid": "c3964d7b-8589-4836-a4d8-60bd77f92f79",
+                "parentUUID": "0814622d-33ba-449b-bf43-5121624b0cc3",
                 "skipped": false
               }
             ],
@@ -254,7 +246,7 @@
             "root": false,
             "_timeout": 10000,
             "file": "\\src\\js\\core\\utils\\test\\prototype.js",
-            "uuid": "db624ead-cfee-42a2-a374-78da264eb349",
+            "uuid": "0814622d-33ba-449b-bf43-5121624b0cc3",
             "fullFile": "C:\\Users\\User\\Documents\\Visual Studio 2017\\Projects\\CampaignIntelligence\\CampaignIntelligence\\Content\\homeworks\\src\\js\\core\\utils\\test\\prototype.js",
             "passes": [
               {
@@ -269,8 +261,8 @@
                 "pending": false,
                 "code": "assert.equal(<span class=\"hljs-string\">'{0} {1}'</span>.format([<span class=\"hljs-string\">'Hello'</span>, <span class=\"hljs-string\">'World'</span>]), <span class=\"hljs-string\">'Hello World'</span>);",
                 "isRoot": false,
-                "uuid": "028a0546-cf65-4311-b021-864a02cdffc3",
-                "parentUUID": "db624ead-cfee-42a2-a374-78da264eb349",
+                "uuid": "0e507a29-b28a-4b48-be3e-b1b431f82f7d",
+                "parentUUID": "0814622d-33ba-449b-bf43-5121624b0cc3",
                 "skipped": false
               },
               {
@@ -285,8 +277,8 @@
                 "pending": false,
                 "code": "assert.equal(<span class=\"hljs-string\">'{0} of the {1}, by the {1}, for the {1}'</span>.format([<span class=\"hljs-string\">'Government'</span>, <span class=\"hljs-string\">'people'</span>]), <span class=\"hljs-string\">'Government of the people, by the people, for the people'</span>);",
                 "isRoot": false,
-                "uuid": "4b21a353-05c7-4ad4-82a4-2a42904d094f",
-                "parentUUID": "db624ead-cfee-42a2-a374-78da264eb349",
+                "uuid": "c3964d7b-8589-4836-a4d8-60bd77f92f79",
+                "parentUUID": "0814622d-33ba-449b-bf43-5121624b0cc3",
                 "skipped": false
               }
             ],
@@ -313,7 +305,7 @@
                 "title": "@1 BINDED ELEMENT ID MUST BE `test`.",
                 "fullTitle": "[core/utils/prototype] TEST #3 Function.prototype.hook() TEST @1 BINDED ELEMENT ID MUST BE `test`.",
                 "timedOut": false,
-                "duration": 2,
+                "duration": 3,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -321,15 +313,15 @@
                 "pending": false,
                 "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> elementID = <span class=\"hljs-keyword\">this</span>.attr(<span class=\"hljs-string\">'id'</span>);<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(elementID, <span class=\"hljs-string\">'test'</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
                 "isRoot": false,
-                "uuid": "56ab356a-20cd-4a77-8aa1-bdeefd329031",
-                "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+                "uuid": "bbf975fc-2420-4bb2-aac6-2ed023c04fc1",
+                "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
                 "skipped": false
               },
               {
                 "title": "@2 TARGETED ELEMENT ID MUST BE `target`.",
                 "fullTitle": "[core/utils/prototype] TEST #3 Function.prototype.hook() TEST @2 TARGETED ELEMENT ID MUST BE `target`.",
                 "timedOut": false,
-                "duration": 2,
+                "duration": 1,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -337,8 +329,8 @@
                 "pending": false,
                 "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> targetID = target.attr(<span class=\"hljs-string\">'id'</span>);<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(targetID, <span class=\"hljs-string\">'target'</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
                 "isRoot": false,
-                "uuid": "2a282942-5181-478a-b902-4331e217efb6",
-                "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+                "uuid": "1748f30c-7279-42d8-af59-f930eec507b8",
+                "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
                 "skipped": false
               },
               {
@@ -353,8 +345,24 @@
                 "pending": false,
                 "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(value, <span class=\"hljs-literal\">true</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
                 "isRoot": false,
-                "uuid": "00a3afbd-5ba7-4eed-bd9c-17b271eb679a",
-                "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+                "uuid": "56cb83d1-df2c-4d1a-ba49-18a925088f63",
+                "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
+                "skipped": false
+              },
+              {
+                "title": "@4 HOOK CALLBACK MUST NOT BE CALLED.",
+                "fullTitle": "[core/utils/prototype] TEST #3 Function.prototype.hook() TEST @4 HOOK CALLBACK MUST NOT BE CALLED.",
+                "timedOut": false,
+                "duration": 2,
+                "state": "passed",
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "<span class=\"hljs-keyword\">let</span> error = <span class=\"hljs-literal\">false</span>;<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (error === <span class=\"hljs-literal\">false</span>) {<br>        done(<span class=\"hljs-string\">'Component that own data be gave `false` must not be called.'</span>);<br>    }<br>    error = <span class=\"hljs-literal\">true</span>;<br>}).hook(<span class=\"hljs-string\">'test2'</span>, <span class=\"hljs-literal\">null</span>, (err) =&gt; {<br>    <span class=\"hljs-keyword\">if</span> (error === <span class=\"hljs-literal\">false</span>) {<br>        <span class=\"hljs-keyword\">if</span>(err) {<br>            error = <span class=\"hljs-literal\">true</span>;<br>            done(err);<br>        } <span class=\"hljs-keyword\">else</span> {<br>            done();<br>        }<br>    }<br>});",
+                "isRoot": false,
+                "uuid": "435be656-d139-40a0-9e20-0028e393a5f6",
+                "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
                 "skipped": false
               }
             ],
@@ -362,14 +370,14 @@
             "root": false,
             "_timeout": 10000,
             "file": "\\src\\js\\core\\utils\\test\\prototype.js",
-            "uuid": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+            "uuid": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
             "fullFile": "C:\\Users\\User\\Documents\\Visual Studio 2017\\Projects\\CampaignIntelligence\\CampaignIntelligence\\Content\\homeworks\\src\\js\\core\\utils\\test\\prototype.js",
             "passes": [
               {
                 "title": "@1 BINDED ELEMENT ID MUST BE `test`.",
                 "fullTitle": "[core/utils/prototype] TEST #3 Function.prototype.hook() TEST @1 BINDED ELEMENT ID MUST BE `test`.",
                 "timedOut": false,
-                "duration": 2,
+                "duration": 3,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -377,15 +385,15 @@
                 "pending": false,
                 "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> elementID = <span class=\"hljs-keyword\">this</span>.attr(<span class=\"hljs-string\">'id'</span>);<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(elementID, <span class=\"hljs-string\">'test'</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
                 "isRoot": false,
-                "uuid": "56ab356a-20cd-4a77-8aa1-bdeefd329031",
-                "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+                "uuid": "bbf975fc-2420-4bb2-aac6-2ed023c04fc1",
+                "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
                 "skipped": false
               },
               {
                 "title": "@2 TARGETED ELEMENT ID MUST BE `target`.",
                 "fullTitle": "[core/utils/prototype] TEST #3 Function.prototype.hook() TEST @2 TARGETED ELEMENT ID MUST BE `target`.",
                 "timedOut": false,
-                "duration": 2,
+                "duration": 1,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -393,8 +401,8 @@
                 "pending": false,
                 "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> targetID = target.attr(<span class=\"hljs-string\">'id'</span>);<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(targetID, <span class=\"hljs-string\">'target'</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
                 "isRoot": false,
-                "uuid": "2a282942-5181-478a-b902-4331e217efb6",
-                "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+                "uuid": "1748f30c-7279-42d8-af59-f930eec507b8",
+                "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
                 "skipped": false
               },
               {
@@ -409,8 +417,24 @@
                 "pending": false,
                 "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(value, <span class=\"hljs-literal\">true</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
                 "isRoot": false,
-                "uuid": "00a3afbd-5ba7-4eed-bd9c-17b271eb679a",
-                "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+                "uuid": "56cb83d1-df2c-4d1a-ba49-18a925088f63",
+                "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
+                "skipped": false
+              },
+              {
+                "title": "@4 HOOK CALLBACK MUST NOT BE CALLED.",
+                "fullTitle": "[core/utils/prototype] TEST #3 Function.prototype.hook() TEST @4 HOOK CALLBACK MUST NOT BE CALLED.",
+                "timedOut": false,
+                "duration": 2,
+                "state": "passed",
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "<span class=\"hljs-keyword\">let</span> error = <span class=\"hljs-literal\">false</span>;<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (error === <span class=\"hljs-literal\">false</span>) {<br>        done(<span class=\"hljs-string\">'Component that own data be gave `false` must not be called.'</span>);<br>    }<br>    error = <span class=\"hljs-literal\">true</span>;<br>}).hook(<span class=\"hljs-string\">'test2'</span>, <span class=\"hljs-literal\">null</span>, (err) =&gt; {<br>    <span class=\"hljs-keyword\">if</span> (error === <span class=\"hljs-literal\">false</span>) {<br>        <span class=\"hljs-keyword\">if</span>(err) {<br>            error = <span class=\"hljs-literal\">true</span>;<br>            done(err);<br>        } <span class=\"hljs-keyword\">else</span> {<br>            done();<br>        }<br>    }<br>});",
+                "isRoot": false,
+                "uuid": "435be656-d139-40a0-9e20-0028e393a5f6",
+                "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
                 "skipped": false
               }
             ],
@@ -418,8 +442,8 @@
             "skipped": [],
             "hasTests": true,
             "hasSuites": false,
-            "totalTests": 3,
-            "totalPasses": 3,
+            "totalTests": 4,
+            "totalPasses": 4,
             "totalFailures": 0,
             "totalPending": 0,
             "totalSkipped": 0,
@@ -427,7 +451,7 @@
             "hasFailures": false,
             "hasPending": false,
             "hasSkipped": false,
-            "duration": 6
+            "duration": 8
           }
         ],
         "tests": [],
@@ -435,7 +459,7 @@
         "root": false,
         "_timeout": 10000,
         "file": "\\src\\js\\core\\utils\\test\\prototype.js",
-        "uuid": "3624f324-ada6-4859-a784-b590e145cbed",
+        "uuid": "2b5c31cc-bd29-47bf-aca7-de8274e8962d",
         "fullFile": "C:\\Users\\User\\Documents\\Visual Studio 2017\\Projects\\CampaignIntelligence\\CampaignIntelligence\\Content\\homeworks\\src\\js\\core\\utils\\test\\prototype.js",
         "passes": [],
         "failures": [],
@@ -458,7 +482,7 @@
     "pending": [],
     "root": true,
     "_timeout": 10000,
-    "uuid": "2910c599-bb59-4fe6-b8c8-e7756adbcbe0",
+    "uuid": "d7a96c0d-a887-4a58-aad2-b8e87f97ce7a",
     "fullFile": "",
     "file": "",
     "passes": [],
@@ -483,20 +507,16 @@
       "title": "@1 `component` METHOD DEFINITION.",
       "fullTitle": "#1 method() TEST @1 `component` METHOD DEFINITION.",
       "timedOut": false,
-      "duration": 12,
-      "state": "failed",
-      "pass": false,
-      "fail": true,
+      "duration": 11,
+      "state": "passed",
+      "speed": "fast",
+      "pass": true,
+      "fail": false,
       "pending": false,
-      "code": "<span class=\"hljs-keyword\">new</span> method(<span class=\"hljs-string\">'component'</span>, {<br>    init: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">element, target</span>) </span>{<br>        <span class=\"hljs-keyword\">var</span> context = <span class=\"hljs-keyword\">this</span>;<br>        <span class=\"hljs-keyword\">var</span> local = context.local;<br>        <span class=\"hljs-keyword\">var</span> options = local._options;<br>        <br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._id, <span class=\"hljs-string\">'component1'</span>, <span class=\"hljs-string\">'COMPONENT ID is \\'component\\'.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._init, <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT INIT is true.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.key, <span class=\"hljs-string\">'value'</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS of key is \\'value\\'.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        done();<br>    }<br>});<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> args = {<br>        key: <span class=\"hljs-string\">'value'</span><br>    };          <br>    <span class=\"hljs-keyword\">this</span>.component(args);<br>}).hook(<span class=\"hljs-string\">'component'</span>);",
-      "err": {
-        "name": "AssertionError",
-        "message": "COMPONENT ID is 'component'.",
-        "stack": "AssertionError: COMPONENT ID is <span class=\"hljs-string\">'component'</span>.<br>    at <span class=\"hljs-built_in\">Object</span>.init (src\\js\\core\\utils\\test\\method.js:<span class=\"hljs-number\">39</span>:<span class=\"hljs-number\">32</span>)<br>    at HTMLDivElement.ElementBinder (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">113</span>:<span class=\"hljs-number\">38</span>)<br>    at <span class=\"hljs-built_in\">Function</span>.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">368</span>:<span class=\"hljs-number\">19</span>)<br>    at jQuery.fn.init.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">157</span>:<span class=\"hljs-number\">17</span>)<br>    at jQuery.fn.init.Method.route (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">160</span>:<span class=\"hljs-number\">33</span>)<br>    at jQuery.fn.init.bindFunc [<span class=\"hljs-keyword\">as</span> component] (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">183</span>:<span class=\"hljs-number\">46</span>)<br>    at jQuery.fn.init.&lt;anonymous&gt; (src\\js\\core\\utils\\test\\method.js:<span class=\"hljs-number\">64</span>:<span class=\"hljs-number\">22</span>)<br>    at HTMLDivElement.&lt;anonymous&gt; (src\\js\\core\\utils\\prototype.js:<span class=\"hljs-number\">63</span>:<span class=\"hljs-number\">34</span>)<br>    at <span class=\"hljs-built_in\">Function</span>.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">368</span>:<span class=\"hljs-number\">19</span>)<br>    at jQuery.fn.init.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">157</span>:<span class=\"hljs-number\">17</span>)<br>    at Document.&lt;anonymous&gt; (src\\js\\core\\utils\\prototype.js:<span class=\"hljs-number\">51</span>:<span class=\"hljs-number\">18</span>)<br>    at mightThrow (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">3570</span>:<span class=\"hljs-number\">29</span>)<br>    at process (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">3638</span>:<span class=\"hljs-number\">12</span>)<br>    at Timeout.callback [<span class=\"hljs-keyword\">as</span> _onTimeout] (node_modules\\jsdom\\lib\\jsdom\\browser\\Window.js:<span class=\"hljs-number\">477</span>:<span class=\"hljs-number\">19</span>)"
-      },
+      "code": "<span class=\"hljs-keyword\">new</span> method(<span class=\"hljs-string\">'component'</span>, {<br>    init: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">element, args</span>) </span>{<br>        <span class=\"hljs-keyword\">var</span> context = <span class=\"hljs-keyword\">this</span>;<br>        <span class=\"hljs-keyword\">var</span> local = context.local;<br>        <span class=\"hljs-keyword\">var</span> global = context.global;<br>        <span class=\"hljs-keyword\">var</span> options = local._options;<br>        <br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._id, <span class=\"hljs-string\">'component'</span>, <span class=\"hljs-string\">'COMPONENT LOCAL ID MUST BE `component`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._init, <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT LOCAL INIT MUST BE `true`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(<span class=\"hljs-keyword\">typeof</span> local._prototype.init, <span class=\"hljs-string\">'function'</span>, <span class=\"hljs-string\">'COMPONENT LOCAL PROTOTYPE MUST HAVE `init` function.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.key, <span class=\"hljs-string\">'value'</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS OF KEY MUST BE `value`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.deepEqual(options, $.extend(args, {<br>                msg: <span class=\"hljs-string\">'Hello HOMEWORKS'</span><br>            }), <span class=\"hljs-string\">'COMPONENT LOCAL OPTIONS MATCH THE ARGUMENT THAT HOOK SAND.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.target.is($(<span class=\"hljs-string\">'#pen'</span>)), <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS.target MUST BE `pen` element.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.msg, <span class=\"hljs-string\">'Hello HOMEWORKS'</span>, <span class=\"hljs-string\">'COMPONENT GLOBAL OPTION KEY `msg` MUST BE `Hello HOMEWORKS`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        done();<br>    },<br>    options: {<br>        msg: <span class=\"hljs-string\">'Hello HOMEWORKS'</span><br>    }<br>});<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> args = {<br>        target: target,<br>        key: <span class=\"hljs-string\">'value'</span><br>    };          <br>    <span class=\"hljs-keyword\">this</span>.component(args);<br>}).hook(<span class=\"hljs-string\">'component'</span>);",
       "isRoot": false,
-      "uuid": "0034ec0b-5141-4608-aea9-7e19aad007db",
-      "parentUUID": "f6a8b9bb-79de-408f-8385-af51b22b3c4a",
+      "uuid": "4b07d2a2-2e6b-44d0-900b-9aa13bc57f1c",
+      "parentUUID": "1d8c7c89-5af0-4508-abd6-4e6faf605764",
       "skipped": false
     },
     {
@@ -511,15 +531,15 @@
       "pending": false,
       "code": "assert.equal(<span class=\"hljs-string\">'{hello} {world}'</span>.mapping({<br>    hello: <span class=\"hljs-string\">'Hello'</span>,<br>    world: <span class=\"hljs-string\">'World'</span><br>}), <span class=\"hljs-string\">'Hello World'</span>);",
       "isRoot": false,
-      "uuid": "01103d08-d64c-4a45-9fa5-a4ab5f75fccf",
-      "parentUUID": "3fbec78c-9f25-430a-818f-4547af01bf28",
+      "uuid": "6c0833f8-faa4-470d-bd05-d930bc008da2",
+      "parentUUID": "d5a8003d-393b-405e-a08f-335e727e4555",
       "skipped": false
     },
     {
       "title": "@2 STRING MUST BE `I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!`.",
       "fullTitle": "#1 String.prototype.mapping() TEST @2 STRING MUST BE `I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!`.",
       "timedOut": false,
-      "duration": 1,
+      "duration": 0,
       "state": "passed",
       "speed": "fast",
       "pass": true,
@@ -527,8 +547,8 @@
       "pending": false,
       "code": "assert.equal(<span class=\"hljs-string\">'I think {name} is better than most modern framework ever, So I think you have to use {name} {when}!'</span>.mapping({<br>    name: <span class=\"hljs-string\">'Homeworks'</span>,<br>    when: <span class=\"hljs-string\">'right now'</span><br>}), <span class=\"hljs-string\">'I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!'</span>);",
       "isRoot": false,
-      "uuid": "885cd9b2-4867-47a1-835e-bb56c282bd22",
-      "parentUUID": "3fbec78c-9f25-430a-818f-4547af01bf28",
+      "uuid": "a2da669b-000b-4321-9e92-4703c9c293a9",
+      "parentUUID": "d5a8003d-393b-405e-a08f-335e727e4555",
       "skipped": false
     },
     {
@@ -543,8 +563,8 @@
       "pending": false,
       "code": "assert.equal(<span class=\"hljs-string\">'{0} {1}'</span>.format([<span class=\"hljs-string\">'Hello'</span>, <span class=\"hljs-string\">'World'</span>]), <span class=\"hljs-string\">'Hello World'</span>);",
       "isRoot": false,
-      "uuid": "1556b8ab-225e-408b-b910-fc30e7640a5b",
-      "parentUUID": "db624ead-cfee-42a2-a374-78da264eb349",
+      "uuid": "29eebd44-52d8-40c8-99c9-f7cc791d9a91",
+      "parentUUID": "0814622d-33ba-449b-bf43-5121624b0cc3",
       "skipped": false
     },
     {
@@ -559,15 +579,15 @@
       "pending": false,
       "code": "assert.equal(<span class=\"hljs-string\">'{0} of the {1}, by the {1}, for the {1}'</span>.format([<span class=\"hljs-string\">'Government'</span>, <span class=\"hljs-string\">'people'</span>]), <span class=\"hljs-string\">'Government of the people, by the people, for the people'</span>);",
       "isRoot": false,
-      "uuid": "794ee3ec-3b3a-4460-83b3-da12d9e31526",
-      "parentUUID": "db624ead-cfee-42a2-a374-78da264eb349",
+      "uuid": "d3b68bf9-389a-41a4-a13b-ab2d2dacb7df",
+      "parentUUID": "0814622d-33ba-449b-bf43-5121624b0cc3",
       "skipped": false
     },
     {
       "title": "@1 BINDED ELEMENT ID MUST BE `test`.",
       "fullTitle": "#3 Function.prototype.hook() TEST @1 BINDED ELEMENT ID MUST BE `test`.",
       "timedOut": false,
-      "duration": 2,
+      "duration": 3,
       "state": "passed",
       "speed": "fast",
       "pass": true,
@@ -575,15 +595,15 @@
       "pending": false,
       "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> elementID = <span class=\"hljs-keyword\">this</span>.attr(<span class=\"hljs-string\">'id'</span>);<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(elementID, <span class=\"hljs-string\">'test'</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
       "isRoot": false,
-      "uuid": "ea6fc952-9a0e-4d42-af24-61a070e574c6",
-      "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+      "uuid": "64589d70-81f2-4eb8-824a-e77e46242f27",
+      "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
       "skipped": false
     },
     {
       "title": "@2 TARGETED ELEMENT ID MUST BE `target`.",
       "fullTitle": "#3 Function.prototype.hook() TEST @2 TARGETED ELEMENT ID MUST BE `target`.",
       "timedOut": false,
-      "duration": 2,
+      "duration": 1,
       "state": "passed",
       "speed": "fast",
       "pass": true,
@@ -591,8 +611,8 @@
       "pending": false,
       "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> targetID = target.attr(<span class=\"hljs-string\">'id'</span>);<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(targetID, <span class=\"hljs-string\">'target'</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
       "isRoot": false,
-      "uuid": "17633841-c656-4238-bf88-c6a1a3b5ccb2",
-      "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+      "uuid": "f020719d-a4e2-49f8-9b50-36a7948aadb3",
+      "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
       "skipped": false
     },
     {
@@ -607,14 +627,46 @@
       "pending": false,
       "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(value, <span class=\"hljs-literal\">true</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
       "isRoot": false,
-      "uuid": "c81676b9-6a6d-4f7e-b2de-09c65241e1f3",
-      "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+      "uuid": "89bc5c57-30b5-40ce-8d21-85f43b01c6dc",
+      "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
+      "skipped": false
+    },
+    {
+      "title": "@4 HOOK CALLBACK MUST NOT BE CALLED.",
+      "fullTitle": "#3 Function.prototype.hook() TEST @4 HOOK CALLBACK MUST NOT BE CALLED.",
+      "timedOut": false,
+      "duration": 2,
+      "state": "passed",
+      "speed": "fast",
+      "pass": true,
+      "fail": false,
+      "pending": false,
+      "code": "<span class=\"hljs-keyword\">let</span> error = <span class=\"hljs-literal\">false</span>;<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (error === <span class=\"hljs-literal\">false</span>) {<br>        done(<span class=\"hljs-string\">'Component that own data be gave `false` must not be called.'</span>);<br>    }<br>    error = <span class=\"hljs-literal\">true</span>;<br>}).hook(<span class=\"hljs-string\">'test2'</span>, <span class=\"hljs-literal\">null</span>, (err) =&gt; {<br>    <span class=\"hljs-keyword\">if</span> (error === <span class=\"hljs-literal\">false</span>) {<br>        <span class=\"hljs-keyword\">if</span>(err) {<br>            error = <span class=\"hljs-literal\">true</span>;<br>            done(err);<br>        } <span class=\"hljs-keyword\">else</span> {<br>            done();<br>        }<br>    }<br>});",
+      "isRoot": false,
+      "uuid": "111e0b65-00cd-4cf0-83c3-ed5cc9b2839c",
+      "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
       "skipped": false
     }
   ],
   "allPending": [],
   "allPasses": [
     {
+      "title": "@1 `component` METHOD DEFINITION.",
+      "fullTitle": "#1 method() TEST @1 `component` METHOD DEFINITION.",
+      "timedOut": false,
+      "duration": 11,
+      "state": "passed",
+      "speed": "fast",
+      "pass": true,
+      "fail": false,
+      "pending": false,
+      "code": "<span class=\"hljs-keyword\">new</span> method(<span class=\"hljs-string\">'component'</span>, {<br>    init: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">element, args</span>) </span>{<br>        <span class=\"hljs-keyword\">var</span> context = <span class=\"hljs-keyword\">this</span>;<br>        <span class=\"hljs-keyword\">var</span> local = context.local;<br>        <span class=\"hljs-keyword\">var</span> global = context.global;<br>        <span class=\"hljs-keyword\">var</span> options = local._options;<br>        <br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._id, <span class=\"hljs-string\">'component'</span>, <span class=\"hljs-string\">'COMPONENT LOCAL ID MUST BE `component`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._init, <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT LOCAL INIT MUST BE `true`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(<span class=\"hljs-keyword\">typeof</span> local._prototype.init, <span class=\"hljs-string\">'function'</span>, <span class=\"hljs-string\">'COMPONENT LOCAL PROTOTYPE MUST HAVE `init` function.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.key, <span class=\"hljs-string\">'value'</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS OF KEY MUST BE `value`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.deepEqual(options, $.extend(args, {<br>                msg: <span class=\"hljs-string\">'Hello HOMEWORKS'</span><br>            }), <span class=\"hljs-string\">'COMPONENT LOCAL OPTIONS MATCH THE ARGUMENT THAT HOOK SAND.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.target.is($(<span class=\"hljs-string\">'#pen'</span>)), <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS.target MUST BE `pen` element.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.msg, <span class=\"hljs-string\">'Hello HOMEWORKS'</span>, <span class=\"hljs-string\">'COMPONENT GLOBAL OPTION KEY `msg` MUST BE `Hello HOMEWORKS`.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        done();<br>    },<br>    options: {<br>        msg: <span class=\"hljs-string\">'Hello HOMEWORKS'</span><br>    }<br>});<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> args = {<br>        target: target,<br>        key: <span class=\"hljs-string\">'value'</span><br>    };          <br>    <span class=\"hljs-keyword\">this</span>.component(args);<br>}).hook(<span class=\"hljs-string\">'component'</span>);",
+      "isRoot": false,
+      "uuid": "7e3881ed-b7d5-4145-88c2-a6b70c427987",
+      "parentUUID": "1d8c7c89-5af0-4508-abd6-4e6faf605764",
+      "skipped": false
+    },
+    {
       "title": "@1 STRING MUST BE `Hello World`.",
       "fullTitle": "#1 String.prototype.mapping() TEST @1 STRING MUST BE `Hello World`.",
       "timedOut": false,
@@ -626,15 +678,15 @@
       "pending": false,
       "code": "assert.equal(<span class=\"hljs-string\">'{hello} {world}'</span>.mapping({<br>    hello: <span class=\"hljs-string\">'Hello'</span>,<br>    world: <span class=\"hljs-string\">'World'</span><br>}), <span class=\"hljs-string\">'Hello World'</span>);",
       "isRoot": false,
-      "uuid": "97e35fdc-9770-4ffa-b0c5-aa4fa9db31e9",
-      "parentUUID": "3fbec78c-9f25-430a-818f-4547af01bf28",
+      "uuid": "604313b5-c71c-414a-85f0-a60409270d66",
+      "parentUUID": "d5a8003d-393b-405e-a08f-335e727e4555",
       "skipped": false
     },
     {
       "title": "@2 STRING MUST BE `I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!`.",
       "fullTitle": "#1 String.prototype.mapping() TEST @2 STRING MUST BE `I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!`.",
       "timedOut": false,
-      "duration": 1,
+      "duration": 0,
       "state": "passed",
       "speed": "fast",
       "pass": true,
@@ -642,8 +694,8 @@
       "pending": false,
       "code": "assert.equal(<span class=\"hljs-string\">'I think {name} is better than most modern framework ever, So I think you have to use {name} {when}!'</span>.mapping({<br>    name: <span class=\"hljs-string\">'Homeworks'</span>,<br>    when: <span class=\"hljs-string\">'right now'</span><br>}), <span class=\"hljs-string\">'I think Homeworks is better than most modern framework ever, So I think you have to use Homeworks right now!'</span>);",
       "isRoot": false,
-      "uuid": "890bdaa9-0db9-4770-824e-443837ef0811",
-      "parentUUID": "3fbec78c-9f25-430a-818f-4547af01bf28",
+      "uuid": "99b679e1-c4d9-48b4-8f3c-77181a5c7323",
+      "parentUUID": "d5a8003d-393b-405e-a08f-335e727e4555",
       "skipped": false
     },
     {
@@ -658,8 +710,8 @@
       "pending": false,
       "code": "assert.equal(<span class=\"hljs-string\">'{0} {1}'</span>.format([<span class=\"hljs-string\">'Hello'</span>, <span class=\"hljs-string\">'World'</span>]), <span class=\"hljs-string\">'Hello World'</span>);",
       "isRoot": false,
-      "uuid": "0a2d7f0f-09de-45d0-98e6-1b9005080397",
-      "parentUUID": "db624ead-cfee-42a2-a374-78da264eb349",
+      "uuid": "6d4208a6-cd0a-423e-8d2c-93c5ffd53621",
+      "parentUUID": "0814622d-33ba-449b-bf43-5121624b0cc3",
       "skipped": false
     },
     {
@@ -674,15 +726,15 @@
       "pending": false,
       "code": "assert.equal(<span class=\"hljs-string\">'{0} of the {1}, by the {1}, for the {1}'</span>.format([<span class=\"hljs-string\">'Government'</span>, <span class=\"hljs-string\">'people'</span>]), <span class=\"hljs-string\">'Government of the people, by the people, for the people'</span>);",
       "isRoot": false,
-      "uuid": "a9fc97ab-99aa-4b85-96af-7b42a9e189d9",
-      "parentUUID": "db624ead-cfee-42a2-a374-78da264eb349",
+      "uuid": "410f0b8c-8c55-48cb-9600-76f066402df7",
+      "parentUUID": "0814622d-33ba-449b-bf43-5121624b0cc3",
       "skipped": false
     },
     {
       "title": "@1 BINDED ELEMENT ID MUST BE `test`.",
       "fullTitle": "#3 Function.prototype.hook() TEST @1 BINDED ELEMENT ID MUST BE `test`.",
       "timedOut": false,
-      "duration": 2,
+      "duration": 3,
       "state": "passed",
       "speed": "fast",
       "pass": true,
@@ -690,15 +742,15 @@
       "pending": false,
       "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> elementID = <span class=\"hljs-keyword\">this</span>.attr(<span class=\"hljs-string\">'id'</span>);<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(elementID, <span class=\"hljs-string\">'test'</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
       "isRoot": false,
-      "uuid": "9b8b77e7-aeb4-4bc8-9afd-df8efeea4e8d",
-      "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+      "uuid": "7640f9ed-0cd6-4284-9714-1f59da78f9a5",
+      "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
       "skipped": false
     },
     {
       "title": "@2 TARGETED ELEMENT ID MUST BE `target`.",
       "fullTitle": "#3 Function.prototype.hook() TEST @2 TARGETED ELEMENT ID MUST BE `target`.",
       "timedOut": false,
-      "duration": 2,
+      "duration": 1,
       "state": "passed",
       "speed": "fast",
       "pass": true,
@@ -706,8 +758,8 @@
       "pending": false,
       "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> targetID = target.attr(<span class=\"hljs-string\">'id'</span>);<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(targetID, <span class=\"hljs-string\">'target'</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
       "isRoot": false,
-      "uuid": "53530847-ec5b-4066-9eac-4c0ec0f92f14",
-      "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+      "uuid": "3df841ad-a719-4fc3-bb37-47478d30b57f",
+      "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
       "skipped": false
     },
     {
@@ -722,32 +774,27 @@
       "pending": false,
       "code": "(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">try</span> {<br>        assert.equal(value, <span class=\"hljs-literal\">true</span>);<br>    } <span class=\"hljs-keyword\">catch</span>(error) {<br>        <span class=\"hljs-keyword\">return</span> done(error);<br>    }                    <br>    done();<br>}).hook(<span class=\"hljs-string\">'test'</span>);",
       "isRoot": false,
-      "uuid": "ec107401-58bb-47f6-9122-a76233fcd82d",
-      "parentUUID": "fcbdd1d0-fd8a-496b-8e64-372bc51d0f60",
+      "uuid": "cacbdc2c-8570-4f7a-933e-6fe2df044a0e",
+      "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
       "skipped": false
-    }
-  ],
-  "allFailures": [
+    },
     {
-      "title": "@1 `component` METHOD DEFINITION.",
-      "fullTitle": "#1 method() TEST @1 `component` METHOD DEFINITION.",
+      "title": "@4 HOOK CALLBACK MUST NOT BE CALLED.",
+      "fullTitle": "#3 Function.prototype.hook() TEST @4 HOOK CALLBACK MUST NOT BE CALLED.",
       "timedOut": false,
-      "duration": 12,
-      "state": "failed",
-      "pass": false,
-      "fail": true,
+      "duration": 2,
+      "state": "passed",
+      "speed": "fast",
+      "pass": true,
+      "fail": false,
       "pending": false,
-      "code": "<span class=\"hljs-keyword\">new</span> method(<span class=\"hljs-string\">'component'</span>, {<br>    init: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">element, target</span>) </span>{<br>        <span class=\"hljs-keyword\">var</span> context = <span class=\"hljs-keyword\">this</span>;<br>        <span class=\"hljs-keyword\">var</span> local = context.local;<br>        <span class=\"hljs-keyword\">var</span> options = local._options;<br>        <br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._id, <span class=\"hljs-string\">'component1'</span>, <span class=\"hljs-string\">'COMPONENT ID is \\'component\\'.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(local._init, <span class=\"hljs-literal\">true</span>, <span class=\"hljs-string\">'COMPONENT INIT is true.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        <span class=\"hljs-keyword\">try</span> {<br>            assert.equal(options.key, <span class=\"hljs-string\">'value'</span>, <span class=\"hljs-string\">'COMPONENT OPTIONS of key is \\'value\\'.'</span>);<br>        } <span class=\"hljs-keyword\">catch</span>(error) {<br>            <span class=\"hljs-keyword\">return</span> done(error);<br>        }<br>        done();<br>    }<br>});<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">var</span> args = {<br>        key: <span class=\"hljs-string\">'value'</span><br>    };          <br>    <span class=\"hljs-keyword\">this</span>.component(args);<br>}).hook(<span class=\"hljs-string\">'component'</span>);",
-      "err": {
-        "name": "AssertionError",
-        "message": "COMPONENT ID is 'component'.",
-        "stack": "AssertionError: COMPONENT ID is <span class=\"hljs-string\">'component'</span>.<br>    at <span class=\"hljs-built_in\">Object</span>.init (src\\js\\core\\utils\\test\\method.js:<span class=\"hljs-number\">39</span>:<span class=\"hljs-number\">32</span>)<br>    at HTMLDivElement.ElementBinder (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">113</span>:<span class=\"hljs-number\">38</span>)<br>    at <span class=\"hljs-built_in\">Function</span>.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">368</span>:<span class=\"hljs-number\">19</span>)<br>    at jQuery.fn.init.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">157</span>:<span class=\"hljs-number\">17</span>)<br>    at jQuery.fn.init.Method.route (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">160</span>:<span class=\"hljs-number\">33</span>)<br>    at jQuery.fn.init.bindFunc [<span class=\"hljs-keyword\">as</span> component] (src\\js\\core\\utils\\method.js:<span class=\"hljs-number\">183</span>:<span class=\"hljs-number\">46</span>)<br>    at jQuery.fn.init.&lt;anonymous&gt; (src\\js\\core\\utils\\test\\method.js:<span class=\"hljs-number\">64</span>:<span class=\"hljs-number\">22</span>)<br>    at HTMLDivElement.&lt;anonymous&gt; (src\\js\\core\\utils\\prototype.js:<span class=\"hljs-number\">63</span>:<span class=\"hljs-number\">34</span>)<br>    at <span class=\"hljs-built_in\">Function</span>.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">368</span>:<span class=\"hljs-number\">19</span>)<br>    at jQuery.fn.init.each (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">157</span>:<span class=\"hljs-number\">17</span>)<br>    at Document.&lt;anonymous&gt; (src\\js\\core\\utils\\prototype.js:<span class=\"hljs-number\">51</span>:<span class=\"hljs-number\">18</span>)<br>    at mightThrow (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">3570</span>:<span class=\"hljs-number\">29</span>)<br>    at process (node_modules\\jquery\\dist\\jquery.js:<span class=\"hljs-number\">3638</span>:<span class=\"hljs-number\">12</span>)<br>    at Timeout.callback [<span class=\"hljs-keyword\">as</span> _onTimeout] (node_modules\\jsdom\\lib\\jsdom\\browser\\Window.js:<span class=\"hljs-number\">477</span>:<span class=\"hljs-number\">19</span>)"
-      },
+      "code": "<span class=\"hljs-keyword\">let</span> error = <span class=\"hljs-literal\">false</span>;<br>(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">target, value</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (error === <span class=\"hljs-literal\">false</span>) {<br>        done(<span class=\"hljs-string\">'Component that own data be gave `false` must not be called.'</span>);<br>    }<br>    error = <span class=\"hljs-literal\">true</span>;<br>}).hook(<span class=\"hljs-string\">'test2'</span>, <span class=\"hljs-literal\">null</span>, (err) =&gt; {<br>    <span class=\"hljs-keyword\">if</span> (error === <span class=\"hljs-literal\">false</span>) {<br>        <span class=\"hljs-keyword\">if</span>(err) {<br>            error = <span class=\"hljs-literal\">true</span>;<br>            done(err);<br>        } <span class=\"hljs-keyword\">else</span> {<br>            done();<br>        }<br>    }<br>});",
       "isRoot": false,
-      "uuid": "77af2a84-6e23-4304-b2f1-698b9a24f993",
-      "parentUUID": "f6a8b9bb-79de-408f-8385-af51b22b3c4a",
+      "uuid": "e81fb9e8-8c43-4dd1-9b49-68d5d4e0ba43",
+      "parentUUID": "286717bc-cad5-4a6e-867f-d7a4d27130ee",
       "skipped": false
     }
   ],
+  "allFailures": [],
   "copyrightYear": 2017
 }

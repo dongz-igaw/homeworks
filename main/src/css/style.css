@@ -158,6 +158,10 @@ h6:hover i {
     margin: 0 auto;
 }
 
+.preview .works-footer .floating-top {
+    margin-left: -2.1em;
+}
+
 .preview .floating i {
     margin-right: -.1em;
 }
@@ -253,6 +257,12 @@ h6:hover i {
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 20px;
+}
+
+.preview .row .preview-fill .badge,
+.preview .row .preview-fill .label,
+.preview .row .preview-fill .btn {
+    margin-bottom: 0;
 }
 
 .preview .row [class^="col"] label.toggle {

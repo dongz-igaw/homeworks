@@ -302,8 +302,10 @@
   margin-right: 0;
 }
 .works-header .works-header-inner .works-header-title {
-  display: inline-block;
+  float: left;
+  display: block;
   padding: 0;
+  margin-right: 20px;
   text-align: left;
   vertical-align: top;
   font-size: 0;

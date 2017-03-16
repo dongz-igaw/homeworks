@@ -9,6 +9,7 @@ describe('[core/utils/prototype] TEST', () => {
 
         $('body').html(`
             <div id="test" data-test="true" data-pen="#target">TEST</div>
+            <div id="test2" data-test2="false">TEST2</div>
             <div id="target">TARGET</div>
         `);
     
@@ -86,6 +87,26 @@ describe('[core/utils/prototype] TEST', () => {
 
                 done();
             }).hook('test');
+        });
+
+        it('@4 HOOK CALLBACK MUST NOT BE CALLED.', (done) => {
+            let error = false;
+
+            (function(target, value) {
+                if (error === false) {
+                    done('Component that own data be gave `false` must not be called.');
+                }
+                error = true;
+            }).hook('test2', null, (err) => {
+                if (error === false) {
+                    if(err) {
+                        error = true;
+                        done(err);
+                    } else {
+                        done();
+                    }
+                }
+            });
         });
     });
 });

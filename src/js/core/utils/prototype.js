@@ -38,7 +38,7 @@ define(['../models/index'], (model) => {
 	 *= NOTE - Component biding feature.
 	 *= DATE - 2016-01-19
 	 *================================================*/
-	Function.prototype.hook = function (component, args) {
+	Function.prototype.hook = function (component, args, callback) {
 	    var context = this;
 
 	    try {
@@ -64,9 +64,17 @@ define(['../models/index'], (model) => {
 	                    }
 	                }
 	            });
+
+                if (typeof callback === 'function') {
+                    callback.call();
+                }
 	        });
 	    } catch (e) {
 	        console.trace(e.stack);
+
+            if (typeof callback === 'function') {
+                callback(e);
+            }
 	    }
 	};
 });
