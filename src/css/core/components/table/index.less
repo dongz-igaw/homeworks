@@ -19,7 +19,6 @@
     }
 
     thead {
-        display: table-header-group;
         overflow: hidden;
 
         th,
@@ -63,6 +62,7 @@
         border-left: 1px solid rgba(255, 255, 255, .6);
         border-bottom: 1px solid @color-silver;
         vertical-align: middle;
+        word-break: break-all;
         line-height: 1.4;
 
         &:last-child {
@@ -130,3 +130,5 @@
         cursor: pointer;
     }
 }
+
+@import 'media.less';

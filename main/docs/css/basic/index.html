@@ -104,12 +104,15 @@
     <div class="works-wrapper works-theme-dark">
         <div class="works-header">
             <div class="works-header-inner">
-                <div class="works-header-action">
-                    <a class="works-header-menu" href="#" data-menu="true" data-ripple="dark">
-                        <img src="../../../src/images/icon_menu_white.png" alt="" />
+                <div class="works-header-menu">
+                    <a class="works-menu" href="#" data-menu="true" data-ripple="dark">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </a>
+                    <a class="works-menu works-nav-menu" href="#" data-ripple="dark">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                     </a>
                 </div>
-                <div class="works-header-action pull-right">
+                <div class="works-navs">
                     <div class="works-header-button">
                         <a href="https://github.com/IGAWorksDev/HomeWorksFramework/archive/master.zip" target="_blank" class="btn btn-sm btn-primary btn-material" data-ripple="true">
                             Download
@@ -2636,6 +2639,85 @@
                                                 <td>Contents1</td>
                                                 <td>Contents2</td>
                                                 <td>Contents3</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="works-section works-section-padding">
+                            <div class="works-group" id="tables-fixed-size" name="tables-fixed-size">
+                                <h2>
+                                    <a href="#tables-fixed-size">
+                                        <span>FIXED SIZE COLUMNS TABLE</span>
+                                        <i class="pe-7s-link"></i>
+                                    </a>
+                                </h2>
+                                <a href="#" class="view-source"></a>
+                                <pre><code class="language-html">&lt;table class="table table-bordered table-hover"&gt;
+    &lt;colgroup&gt;
+        &lt;col style="width: 80px;" /&gt;
+        &lt;col style="width: 240px;" /&gt;
+        &lt;col /&gt;
+    &lt;/colgroup&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;No&lt;/th&gt;
+            &lt;th&gt;Subject&lt;/th&gt;
+            &lt;th&gt;Description&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;Subject&lt;/td&gt;
+            &lt;td&gt;But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;Subject&lt;/td&gt;
+            &lt;td&gt;The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;Subject&lt;/td&gt;
+            &lt;td&gt;A.wonderful.serenity.has.taken.possession.of.my.entire.soul,.like.these.sweet.mornings.of.spring.which.I.enjoy.with.my.whole.heart..I.am.alone,.and.feel.the.charm.of.existence.in.this.spot,.which.was.created.for.the.bliss.of.souls.like.mine..I.am.so.happy,.my.dear.friend,.so.absorbed.in.the.exquisite.sense.of.mere.tranquil.existence,.that.I.neglect.my.talents..I.should.be.incapable.of.drawing.a.single.stroke.at.the.present.moment;.and.yet.I.feel.that.I.never.was.a.greater.artist.than.now..When,.while.the.lovely.valley.teems.with.vapour.around.me,.and.the.meridian.sun.strikes.the.upper.surface.of.the.impenetrable.foliage.of.my.trees,.and.but.a.few.stray.gleams.steal.into.the.inner.sanctuary,.I.throw.myself.down.among.the.tall.grass.by.the.trickling.stream;.and,.as.I.lie.close.to.the.earth,.a.thousand.unknown.plants.are.noticed.by.me:.when.I.hear.the.buzz.of.the.little.world.among.the.stalks,.and.grow.familiar.with.the.countless.indescribable.forms.of.the.insects.and.flies,.then.I.feel.the.presence.of.the.Almighty,.who.formed.us.in.his.own.image,.and.the.breath&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                                <div class="code-description">
+                                    <span class="label label-code">col-group</span>과 <span class="label label-code">col</span> 태그를 사용하여 칼럼의 각각의 너비를 지정하실 수 있습니다.<br />
+                                    칼럼에 너비를 지정하지 않는다면 해당 칼럼은 남은 너비를 나누어 가지게 됩니다.
+                                </div>
+                                <div class="preview">
+                                    <table class="table table-bordered table-hover">
+                                        <colgroup>
+                                            <col style="width: 80px;" />
+                                            <col style="width: 240px;" />
+                                            <col />
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Subject</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Subject</td>
+                                                <td>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Subject</td>
+                                                <td>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Subject</td>
+                                                <td>A.wonderful.serenity.has.taken.possession.of.my.entire.soul,.like.these.sweet.mornings.of.spring.which.I.enjoy.with.my.whole.heart..I.am.alone,.and.feel.the.charm.of.existence.in.this.spot,.which.was.created.for.the.bliss.of.souls.like.mine..I.am.so.happy,.my.dear.friend,.so.absorbed.in.the.exquisite.sense.of.mere.tranquil.existence,.that.I.neglect.my.talents..I.should.be.incapable.of.drawing.a.single.stroke.at.the.present.moment;.and.yet.I.feel.that.I.never.was.a.greater.artist.than.now..When,.while.the.lovely.valley.teems.with.vapour.around.me,.and.the.meridian.sun.strikes.the.upper.surface.of.the.impenetrable.foliage.of.my.trees,.and.but.a.few.stray.gleams.steal.into.the.inner.sanctuary,.I.throw.myself.down.among.the.tall.grass.by.the.trickling.stream;.and,.as.I.lie.close.to.the.earth,.a.thousand.unknown.plants.are.noticed.by.me:.when.I.hear.the.buzz.of.the.little.world.among.the.stalks,.and.grow.familiar.with.the.countless.indescribable.forms.of.the.insects.and.flies,.then.I.feel.the.presence.of.the.Almighty,.who.formed.us.in.his.own.image,.and.the.breath</td>
                                             </tr>
                                         </tbody>
                                     </table>

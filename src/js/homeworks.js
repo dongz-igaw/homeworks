@@ -478,7 +478,7 @@ define("almond", function(){});
 
 
 define('core/models/index',[],function () {
-    window.HOMEWORKS_VERSION = '1.0.0.3';
+    window.HOMEWORKS_VERSION = '1.0.0';
 
     var HOMEWORKS_MODEL = {
         VERSION: '1.0.0',
@@ -1125,6 +1125,7 @@ define('core/utils/prototype',['../models/index'], function (model) {
 define('core/exts/bind',[],function () {
     (function ($) {
         $(function () {
+            var $wrapper = $('.works-wrapper');
             $('.works-footer .floating-top').bind('click', function (event) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -1171,6 +1172,11 @@ define('core/exts/bind',[],function () {
                 if ($next.is('.works-sider-sub-group')) {
                     $next.show();
                 }
+            });
+
+            $('.works-header .works-header-menu .works-menu.works-nav-menu').bind('click', function () {
+                var $this = $(this);
+                $wrapper.toggleClass('works-navs-active');
             });
         });
     })(jQuery);

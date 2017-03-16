@@ -1,6 +1,7 @@
 define(() => {
     (function($) {
         $(function () {
+            var $wrapper = $('.works-wrapper');
             $('.works-footer .floating-top').bind('click', function (event) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -47,6 +48,11 @@ define(() => {
                 if ($next.is('.works-sider-sub-group')) {
                     $next.show();
                 }
+            });
+
+            $('.works-header .works-header-menu .works-menu.works-nav-menu').bind('click', function() {
+                var $this = $(this);
+                $wrapper.toggleClass('works-navs-active');
             });
         });
     }(jQuery));
