@@ -101,7 +101,15 @@ $ yarn install homeworks
 >
 > Download the file that you want, And unzip it.
 
-#### Add html snippets.
+----
+
+## Quick Start
+
+- Run homeworks on your browser by using NPM
+
+ ```bash
+$ npm start
+```
 
 - Add this spinnet in `head` tag of your html file.
 
