@@ -1,0 +1,100 @@
+.badge,
+.label {
+    display: inline-block;
+    margin-left: ceil(@font-default-size * .4);
+    padding: ceil(@font-default-size * .4) ceil(@font-default-size * .6);
+    border-radius: 2px;
+    font-size: @font-default-size;
+    background-color: @color-semi-light-silver;
+    color: @font-normal-color;
+    line-height: 1;
+
+    * {
+        vertical-align: middle;
+    }
+
+    span {
+        vertical-align: baseline;
+    }
+}
+
+.badge {
+    border-radius: ceil(@font-default-size * .9);
+}
+
+.badge-xg,
+.label-xg {
+    font-size: ceil(@font-default-size * 1.15);
+}
+
+.badge-lg,
+.label-lg {
+    font-size: ceil(@font-default-size * 1.05);
+}
+
+.badge-sm,
+.label-sm {
+    font-size: ceil(@font-default-size * .95);
+}
+
+.badge-xs,
+.label-xs {
+    font-size: ceil(@font-default-size * .85);
+}
+
+.badge-default,
+.label-default {
+    background-color: @base-default-color;
+    color: @base-white-color;
+}
+
+.badge-primary,
+.label-primary {
+    background-color: @base-primary-color;
+    color: @base-white-color;
+}
+
+.badge-cobalt,
+.label-cobalt {
+    background-color: @base-cobalt-color;
+    color: @base-white-color;
+}
+
+.badge-success,
+.label-success {
+    background-color: @base-success-color;
+    color: @base-white-color;
+}
+
+.badge-danger,
+.label-danger {
+    background-color: @base-danger-color;
+    color: @base-white-color;
+}
+
+.badge-alert,
+.label-alert {
+    background-color: @base-alert-color;
+    color: @base-white-color;
+}
+
+.badge-notice,
+.label-notice {
+    background-color: @base-notice-color;
+    color: @base-white-color;
+}
+
+.badge-force,
+.label-force {
+    background-color: @base-force-color;
+    color: @base-white-color;
+}
+
+.badge-code,
+.label-code {
+    color: @base-primary-color;
+    background-color: darken(@color-default-bg, 1.5%);
+    font-family: 'Hack', 'Consolas';
+    font-weight: 600;
+    padding: .3em;
+}

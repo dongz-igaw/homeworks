@@ -1,0 +1,57 @@
+.toast-box {
+    max-width: 480px;
+    width: 60%;
+    position: fixed;
+    bottom: 20%;
+    left: 50%;
+    z-index: 5000000;
+    font-size: 0;
+    text-align: center;
+    perspective: 300;
+    .transform-origin(center bottom);
+}
+
+.toast-box .toast {
+    display: inline-block;
+    margin: 0 auto 1em;
+    border-radius: 2px;
+    background-color: @font-default-color;
+    color: @base-white-color;
+    padding: 1em 1.6em;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    word-break: break-all;
+    overflow: hidden;
+    .box-shadow(0 0 8px rgba(0, 0, 0, .5));
+    .box-sizing(border-box);
+}
+
+.toast-box .toast.toast-real {
+    opacity: 0;
+    @complex-transition: opacity .3s ease, transform .6s ease;
+    .transition(@complex-transition);
+    .transform-style(preserve-3d);
+    .transform(rotateX(-60deg));
+}
+
+.toast-box .toast.toast-real.toast-anim-start {
+    opacity: 1;
+    .transform(rotateX(0deg));
+}
+
+.toast-box .toast.toast-empty {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+
+.toast-box .toast.toast-empty.toast-anim {
+    position: relative;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    .transition(height .3s ease);
+}

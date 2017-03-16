@@ -1,0 +1,76 @@
+.panel {
+    border-radius: 2px;
+    background-color: @base-white-color;
+    border: 1px solid @color-light-gray;
+    margin-bottom: @padding-default-size;
+    line-height: 1.6;
+    overflow: hidden;
+    .box-shadow(0 1px 5px rgba(0, 0, 0, .375));
+
+    &.panel-default .panel-header {
+        background-color: @base-default-color;
+        color: @base-white-color;
+    }
+
+    &.panel-primary .panel-header {
+        background-color: @base-primary-color;
+        color: @base-white-color;
+    }
+
+    &.panel-cobalt .panel-header {
+        background-color: @base-cobalt-color;
+        color: @base-white-color;
+    }
+
+    &.panel-success .panel-header {
+        background-color: @base-success-color;
+        color: @base-white-color;
+    }
+
+    &.panel-danger .panel-header {
+        background-color: @base-danger-color;
+        color: @base-white-color;
+    }
+
+    &.panel-alert .panel-header {
+        background-color: @base-alert-color;
+        color: @base-white-color;
+    }
+
+    &.panel-notice .panel-header {
+        background-color: @base-notice-color;
+        color: @base-white-color;
+    }
+
+    &.panel-force .panel-header {
+        background-color: @base-force-color;
+        color: @base-white-color;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    .panel-header {
+        border-bottom: 1px solid @color-light-gray;
+        padding: ceil(@padding-default-size * .6) @padding-default-size;
+        font-weight: 600;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font: inherit;
+            color: inherit;
+            font-size: 115%;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    .panel-body {
+        padding: @padding-default-size;
+    }
+}

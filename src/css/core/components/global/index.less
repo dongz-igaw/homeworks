@@ -1,0 +1,72 @@
+@import 'layout.less';
+@import 'anim.less';
+@import 'media.less';
+
+::-moz-selection {
+    background: rgba(0, 0, 0, .75);
+    color: #ffffff !important;
+}
+
+::selection {
+    background: rgba(0, 0, 0, .75);
+    color: #ffffff !important;
+}
+
+::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+    background: @color-white;
+    border-left: 1px solid fade(@base-dark-color, 25%);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: @color-light-cobalt-bg;
+}
+
+html, body, ul, li, a, span, p, div, h1, h2, h3, h4, h5, h6, button, input, select, textarea, label, table, tr, th, td, dd, dl, dt, section, article, footer, header, video, audio {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    position: relative;
+    font-size: @font-default-size;
+    color: @font-default-color;
+    height: 100%;
+}
+
+table {
+    border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+    color: @base-important-color;
+}
+
+a:hover {
+    color: lighten(@base-important-color, 5%);
+}
+
+a:active {
+    color: darken(@base-important-color, 5%);
+}
+
+.clearfix {
+    zoom: 1;
+    &:after,
+    &:before {
+        content: '';
+        display: table;
+        width: 100%;
+        clear: both;
+    }
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}

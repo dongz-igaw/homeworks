@@ -1,0 +1,159 @@
+@import 'anim.less';
+
+.notification-box {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    max-width: 480px;
+    width: 80%;
+    z-index: 1001;
+}
+
+.notification-box .notification {
+    padding: 30px;
+    background-color: @base-white-color;
+    margin-top: 20px;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    @complex-transition: background-color .3s ease, box-shadow .3s ease;
+    .transition(@complex-transition);
+    .box-shadow(0 3px 8px rgba(0, 0, 0, .375));
+}
+
+.notification-box .notification:hover {
+    background-color: @color-light-bg;
+    .box-shadow(0 5px 12px rgba(0, 0, 0, .5));
+}
+
+.notification-box .notification.notification-real {
+    opacity: 0;
+    .transition(opacity .3s ease);
+}
+
+.notification-box .notification .notification-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    z-index: 10;
+    width: 0;
+    background-color: @font-normal-color;
+    .transition-property(width);
+    .transition-timing-function(ease);
+}
+
+.notification-box .notification.notification-primary .notification-bar {
+    background-color: @base-primary-color;
+}
+
+.notification-box .notification.notification-cobalt .notification-bar {
+    background-color: @base-cobalt-color;
+}
+
+.notification-box .notification.notification-success .notification-bar {
+    background-color: @base-success-color;
+}
+
+.notification-box .notification.notification-danger .notification-bar {
+    background-color: @base-danger-color;
+}
+
+.notification-box .notification.notification-alert .notification-bar {
+    background-color: @base-alert-color;
+}
+
+.notification-box .notification.notification-notice .notification-bar {
+    background-color: @base-notice-color;
+}
+
+.notification-box .notification.notification-force .notification-bar {
+    background-color: @base-force-color;
+}
+
+.notification-box .notification.notification-real.notification-anim-start {
+    opacity: 1;
+}
+
+.notification-box .notification.notification-real.notification-anim-start .notification-bar {
+    width: 100%;
+}
+
+.notification-box .notification.notification-empty {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    left: -10000px;
+    top: -10000px;
+}
+
+.notification-box .notification.notification-empty.notification-anim {
+    position: relative;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    .transition(height .3s ease);
+}
+
+.notification-box .notification .notification-content {
+    margin-left: 50px;
+}
+
+.notification-box .notification .notification-btn-group {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 50px;
+    border-right: 1px solid @color-silver;
+}
+
+.notification-box .notification .notification-btn-group .notification-btn {
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    font-size: 200%;
+    border-bottom: 1px solid @color-silver;
+    .transition(background-color .3s ease);
+}
+
+.notification-box .notification .notification-btn-group .notification-btn:hover,
+.notification-box .notification .notification-btn-group .notification-btn:focus {
+    background-color: @color-normal-bg;
+}
+
+.notification-box .notification .notification-btn-group .notification-btn-close {
+    top: 50%;
+}
+
+.notification-box .notification .notification-btn-group .notification-btn-ok i {
+    margin-top: .125em;
+}
+
+.notification-box .notification .notification-btn-group .notification-btn-close i {
+    font-size: 130%;
+}
+
+.notification-box .notification .notification-btn-group .notification-btn .notification-btn-inner {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.notification-box .notification .notification-btn-group .notification-btn:last-child {
+    border-bottom: none;
+}
+
+.notification-box .notification .notification-header {
+    font-weight: 600;
+    color: @font-dark-color;
+}
+
+.notification-box .notification .notification-body {
+    line-height: 1.6;
+    color: @font-light-color;
+}

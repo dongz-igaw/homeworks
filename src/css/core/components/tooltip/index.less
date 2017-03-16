@@ -1,0 +1,110 @@
+.works-tooltip-wrapper {
+    position: relative;
+}
+
+.works-tooltip {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    border-radius: 2px;
+    font-size: 12px;
+    padding: .4em .6em;
+    color: @base-white-color;
+    background-color: @color-light-cobalt-bg;
+    opacity: 0;
+    @complex-transition: transform .6s cubic-bezier(.49,.75,.08,1.57), opacity .2s ease;
+    .transform(translate3d(0, 0, 0));
+    .transition(@complex-transition);
+    .box-shadow(0 1px 3px rgba(0, 16, 32, .375));
+}
+
+.works-tooltip.works-tooltip-left {
+    right: 100%;
+    margin-right: .6em;
+}
+
+.works-tooltip.works-tooltip-top {
+    bottom: 100%;
+    margin-bottom: .4em;
+}
+
+.works-tooltip.works-tooltip-bottom {
+    top: 100%;
+    margin-top: .4em;
+}
+
+.works-tooltip.works-tooltip-right {
+    left: 100%;
+    margin-left: .6em;
+}
+
+.works-tooltip.anim-ready {
+    display: block;
+}
+
+.works-tooltip.anim-start {
+    opacity: 1;
+}
+
+.works-tooltip.works-tooltip-left.anim-start {
+    .transform(translate3d(.4em, 0, 0));
+}
+
+.works-tooltip.works-tooltip-top.anim-start {
+    .transform(translate3d(0, .4em, 0));
+}
+
+.works-tooltip.works-tooltip-bottom.anim-start {
+    .transform(translate3d(0, -.4em, 0));
+}
+
+.works-tooltip.works-tooltip-right.anim-start {
+    .transform(translate3d(-.4em, 0, 0));
+}
+
+.works-tooltip .works-tooltip-arrow {
+    display: block;
+    border-color: transparent;
+    border-width: 6px;
+    position: absolute;
+}
+
+.works-tooltip.works-tooltip-left .works-tooltip-arrow {
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-style: solid;
+    border-left-color: @color-light-cobalt-bg;
+    margin-top: -4px;
+    top: 50%;
+    right: -12px;
+}
+
+.works-tooltip.works-tooltip-top .works-tooltip-arrow {
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-style: solid;
+    border-top-color: @color-light-cobalt-bg;
+    bottom: -12px;
+    left: 50%;
+    margin-left: -4px;
+}
+
+.works-tooltip.works-tooltip-bottom .works-tooltip-arrow {
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-style: solid;
+    border-bottom-color: @color-light-cobalt-bg;
+    top: -12px;
+    left: 50%;
+    margin-left: -4px;
+}
+
+.works-tooltip.works-tooltip-right .works-tooltip-arrow {
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-style: solid;
+    border-right-color: @color-light-cobalt-bg;
+    margin-top: -4px;
+    top: 50%;
+    left: -12px;
+}

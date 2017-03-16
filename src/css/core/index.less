@@ -1,4 +1,83 @@
-@import '../imports/prefixer.less';
+//==============================================================================
 
-@import './features/index.less';
-@import './themes/dark.less';
+@base-black-color:        #000000;
+@base-white-color:        #FFFFFF;
+
+@base-dark-color:         #242831;
+@base-default-color:      #9FA2A9;
+@base-primary-color:      #5369E3;
+@base-cobalt-color:       #455370;
+@base-force-color:        #42454a;
+@base-notice-color:       #4B98FF;
+@base-danger-color:       #F44747;
+@base-alert-color:        #FF8556;
+@base-success-color:      #008D8B;
+@base-important-color:    #4e6de1;
+
+//==============================================================================
+
+@color-black:             #000000;
+@color-white:             #FFFFFF;
+@color-dark-gray:         lighten(@color-black, 60%);             // #999999
+@color-gray:              lighten(@color-black, 65.75%);          // #A8A8A8
+@color-semi-light-gray:   lighten(@color-black, 69.75%);          // #B2B2B2
+@color-light-gray:        lighten(@color-black, 80%);             // #CCCCCC
+@color-dark-silver:       lighten(@color-black, 84.75%);          // #D8D8D8
+@color-silver:            lighten(@color-black, 88.5%);           // #E2E2E2
+@color-semi-light-silver: lighten(@color-black, 93.75%);          // #EFEFEF
+
+@color-default-bg:        #E3E6EB;
+@color-cobalt-bg:         #2D323E;
+@color-light-cobalt-bg:   lighten(@color-cobalt-bg, 5%);          // #383E4D
+@color-light-bg:          darken(@color-white, 2%);               // #FAFAFA
+@color-normal-bg:         darken(@color-white, 4.5%);             // #F4F4F4
+
+//==============================================================================
+
+@font-default-color:      lighten(@base-black-color, 20%);        // #333333
+@font-dark-color:         lighten(@base-black-color, 13.5%);      // #222222
+@font-black-color:        @base-black-color;                      // #000000
+@font-normal-color:       lighten(@base-black-color, 33.5%);      // #555555
+@font-semi-light-color:   lighten(@base-black-color, 40%);        // #666666
+@font-light-color:        lighten(@base-black-color, 46.5%);      // #777777
+@font-extra-light-color:  lighten(@base-black-color, 60%);        // #999999
+@font-active-color:       #E5E98B;
+
+@font-size-h1: ceil(@font-default-size * 2);                      // 26px
+@font-size-h2: ceil(@font-default-size * 1.5);                    // 20px
+@font-size-h3: ceil(@font-default-size * 1.17);                   // 16px
+@font-size-h4: ceil(@font-default-size * 1);                      // 13px
+@font-size-h5: ceil(@font-default-size * .83);                    // 11px
+@font-size-h6: ceil(@font-default-size * .67);                    // 9px
+
+@font-default-size: 13px;
+
+//==============================================================================
+
+@padding-default-size: 20px;
+@padding-default-size-2x: ceil(@padding-default-size * 2);
+
+//==============================================================================
+
+@import './components/global/index.less';
+@import './components/grid/index.less';
+@import './components/typography/index.less';
+@import './components/pagination/index.less';
+@import './components/button/index.less';
+@import './components/chart/index.less';
+@import './components/checkbox/index.less';
+@import './components/dropdown/index.less';
+@import './components/input/index.less';
+@import './components/label_badge/index.less';
+@import './components/modal/index.less';
+@import './components/notification/index.less';
+@import './components/pannel/index.less';
+@import './components/spinner/index.less';
+@import './components/tab_step/index.less';
+@import './components/table/index.less';
+@import './components/toast/index.less';
+@import './components/toggle/index.less';
+@import './components/tooltip/index.less';
+@import './components/wizard/index.less';
+
+//==============================================================================

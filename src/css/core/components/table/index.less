@@ -1,0 +1,132 @@
+.table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 1.2em;
+    border-collapse: separate;
+    text-align: left;
+
+    .left {
+        text-align: left;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    thead {
+        display: table-header-group;
+        overflow: hidden;
+
+        th,
+        td {
+            height: 3.6em;
+        }
+
+        th {
+            border-bottom: 1px solid rgba(0, 0, 0, .125);
+        }
+
+        tr:first-child {
+            th,
+            td {
+                .box-shadow(0 2px 2px -1px rgba(255, 255, 255, .75) inset);
+            }
+        }
+    }
+
+    tbody {
+        tr:fist-child {
+            th,
+            td {
+                .box-shadow(0 2px 2px -1px rgba(0, 0, 0, .1) inset);
+            }
+        }
+
+        tr:last-child {
+            th,
+            td {
+                border-bottom: none;
+            }
+        }
+    }
+
+    th,
+    td {
+        height: 2.4em;
+        padding: .6em 1.6em;
+        border-right: 1px solid rgba(0, 0, 0, .1);
+        border-left: 1px solid rgba(255, 255, 255, .6);
+        border-bottom: 1px solid @color-silver;
+        vertical-align: middle;
+        line-height: 1.4;
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+
+    th {
+        font-weight: 600;
+        background-color: @color-normal-bg;
+    }
+
+    &.table-bordered {
+        border: 1px solid @color-dark-silver
+    }
+
+    &.table-auto {
+        table-layout: auto;
+    }
+
+    &.table-layout thead th
+    &.table-layout thead td,
+    &.table-layout tbody th,
+    &.table-layout tbody td {
+        border: none;
+    }
+
+    &.table-layout tbody tr:first-child td {
+        .box-shadow(none);
+    }
+
+    &.table-classic thead tr th,
+    &.table-classic thead tr td,
+    &.table-classic tbody tr th,
+    &.table-classic tbody tr td {
+        background-color: @color-normal-bg;
+        border-left-color: @color-light-gray;
+        border-right-color: @color-silver;
+        border-top-color: @color-light-gray;
+        border-bottom-color: @color-silver;
+    }
+
+    &.table-classic tr > *:last-child {
+        border-right-color: @color-light-gray;
+    }
+
+    &.table-classic tr:last-child {
+        border-bottom-color: @color-light-gray;
+
+    }
+
+    &.table-striped tbody tr th,
+    &.table-striped tbody tr td {
+        background-color: rgba(255, 255, 255, .05);
+    }
+
+    &.table-hover tbody tr:hover th,
+    &.table-hover tbody tr:hover td,
+    &.table-striped tbody tr:nth-child(2n) th,
+    &.table-striped tbody tr:nth-child(2n) td {
+        background-color: rgba(0, 0, 0, .05);
+    }
+
+    &.table-click tbody tr {
+        cursor: pointer;
+    }
+}

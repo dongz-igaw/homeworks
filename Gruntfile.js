@@ -233,7 +233,7 @@ module.exports = function(grunt) {
     less: {
       dist: {
         files: {
-          'build/css/homeworks.css': 'src/css/core/index.less'
+          'build/css/homeworks.css': 'src/css/main.less'
         }
       }
     },

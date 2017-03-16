@@ -1,0 +1,68 @@
+.dropdown {
+    position: absolute;
+}
+
+.dropdown {
+    max-height: 13em;
+    padding: .4em 0;
+    text-align: center;
+    background-color: @base-white-color;
+    border-radius: 2px;
+    opacity: 0;
+    border: 1px solid @color-dark-silver;
+    overflow: hidden;
+    overflow-y: auto;
+    z-index: 100002;
+    .transition(opacity .3s ease-in);
+    .box-shadow(0 3px 8px rgba(0, 0, 0, .375));
+
+    &::-webkit-scrollbar {
+        height: 3px;
+        width: 3px;
+        background: @color-white;
+        border: none
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: @color-gray;
+    }
+}
+
+.dropdown.anim-start {
+    opacity: 1;
+}
+
+.dropdown .dropdown-menu {
+    display: block;
+    min-width: 4em;
+    padding: .8em 1.6em;
+    color: @font-normal-color;
+    white-space: nowrap;
+    text-align: left;
+    @complex-transition: background-color .2s ease, color .2s ease;
+    .transition(@complex-transition);
+}
+
+.dropdown .dropdown-menu i,
+.dropdown .dropdown-menu span {
+    vertical-align: middle;
+}
+
+.dropdown .dropdown-menu i {
+    width: 1.2em;
+    margin-right: .6em;
+    font-size: 100%;
+    text-align: left;
+}
+
+.dropdown .dropdown-menu:hover {
+    background-color: @color-dark-silver;
+    color: @font-default-color;
+}
+
+.dropdown .dropdown-divider {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: @color-silver;
+}

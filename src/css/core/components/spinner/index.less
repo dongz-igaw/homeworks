@@ -1,0 +1,121 @@
+.spinner {
+    display: inline-block;
+    height: 2.4em;
+    line-height: 2.2em;
+    padding: 0 .6em;
+    margin: 0 .2em;
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    border-bottom: 1px solid @color-light-gray;
+    overflow: hidden;
+    .transition(box-shadow .3s ease);
+    .box-sizing(border-box);
+}
+
+.spinner.spinner-disabled,
+.spinner.spinner-readonly {
+    color: @font-light-color;
+    background-color: rgba(0, 0, 0, .125);
+    cursor: not-allowed;
+    .box-shadow(0 2px 4px rgba(0, 0, 0, .125) inset);
+}
+
+.spinner.spinner-disabled:hover,
+.spinner.spinner-readonly:hover {
+    color: @font-extra-light-color;
+    background-color: rgba(0, 0, 0, .15);
+    .box-shadow(0 2px 4px rgba(0, 0, 0, .15) inset);
+}
+
+.spinner.spinner-disabled:focus,
+.spinner.spinner-readonly:focus {
+    color: @font-light-color;
+}
+
+.spinner:hover {
+    .box-shadow(0 2px 6px  rgba(0, 0, 0, .25));
+}
+
+.spinner:hover,
+.spinner:focus {
+    color: inherit;
+}
+
+.spinner .spinner-arrow,
+.spinner .spinner-txt {
+    vertical-align: middle;
+}
+
+.spinner .spinner-arrow {
+    font-size: 130%;
+}
+
+.spinner .spinner-txt {
+    margin-right: 1.2em;
+}
+
+.spinner-wrapper {
+    max-height: 13em;
+    padding: .4em 0;
+    text-align: center;
+    background-color: @base-white-color;
+    border-radius: 2px;
+    opacity: 0;
+    border: 1px solid @color-dark-silver;
+    overflow: hidden;
+    overflow-y: auto;
+    z-index: 100002;
+    .transition(opacity .3s ease-in);
+    .box-shadow(0 3px 8px rgba(0, 0, 0, .375));
+
+    &::-webkit-scrollbar {
+        height: 3px;
+        width: 3px;
+        background: @color-white;
+        border: none
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: @color-gray;
+    }
+}
+
+.spinner-wrapper.anim-start {
+    opacity: 1;
+}
+
+.spinner-wrapper .spinner-option {
+    display: block;
+    min-width: 4em;
+    padding: .8em 1.6em;
+    color: @font-normal-color;
+    white-space: nowrap;
+    text-align: left;
+    @complex-transition: background-color .2s ease, color .2s ease;
+    .transition(@complex-transition);
+}
+
+.spinner-wrapper .spinner-option i,
+.spinner-wrapper .spinner-option span {
+    vertical-align: middle;
+}
+
+.spinner-wrapper .spinner-option i {
+    width: 1.2em;
+    margin-right: .6em;
+    font-size: 100%;
+    text-align: left;
+}
+
+.spinner-wrapper .spinner-option:hover {
+    background-color: @color-dark-silver;
+    color: @font-default-color;
+}
+
+.spinner-wrapper .spinner-option.spinner-selected {
+    background-color: @color-dark-silver;
+    color: @font-default-color;
+    font-weight: 600;
+}

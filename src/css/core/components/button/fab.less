@@ -1,0 +1,100 @@
+.floating {
+    display: block;
+    width: 4.2em;
+    height: 4.2em;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 4.2em;
+    background-color: @color-light-bg;
+    outline: none;
+    @complex-transition: box-shadow .3s ease, background-color .3s ease;
+    @complex-shadow: 0 4px 12px rgba(0, 0, 0, .75), 0 1px 0 rgba(255, 255, 255, .25) inset;
+    .transition(@complex-transition);
+    .box-shadow(@complex-shadow);
+
+    i {
+        font-size: 130%;
+        color: @font-default-color;
+    }
+
+    &:hover {
+        .box-shadow(0 4px 12px rgba(0, 0, 0, 1));
+    }
+
+    &.floating-default {
+        background-color: @base-default-color;
+    }
+
+    &.floating-default:hover {
+        background-color: lighten(@base-default-color, 5%);
+    }
+
+    &.floating-primary {
+        background-color: @base-primary-color;
+    }
+
+    &.floating-primary:hover {
+        background-color: lighten(@base-primary-color, 5%);
+    }
+
+    &.floating-cobalt {
+        background-color: @base-cobalt-color;
+    }
+
+    &.floating-cobalt:hover {
+        background-color: lighten(@base-cobalt-color, 5%);
+    }
+
+
+    &.floating-success {
+        background-color: @base-success-color;
+    }
+
+    &.floating-success:hover {
+        background-color: lighten(@base-success-color, 5%);
+    }
+
+    &.floating-danger {
+        background-color: @base-danger-color;
+    }
+
+    &.floating-danger:hover {
+        background-color: lighten(@base-danger-color, 5%);
+    }
+
+    &.floating-alert {
+        background-color: @base-alert-color;
+    }
+
+    &.floating-alert:hover {
+        background-color: lighten(@base-alert-color, 5%);
+    }
+
+    &.floating-notice {
+        background-color: @base-notice-color;
+    }
+
+    &.floating-notice:hover {
+        background-color: lighten(@base-notice-color, 5%);
+    }
+
+    &.floating-force {
+        background-color: @base-force-color;
+        color: @base-white-color;
+    }
+
+    &.floating-force:hover {
+        background-color: lighten(@base-force-color, 5%);
+    }
+
+    &.floating-default i,
+    &.floating-primary i,
+    &.floating-cobalt i,
+    &.floating-success i,
+    &.floating-danger i,
+    &.floating-alert i,
+    &.floating-notice i,
+    &.floating-force i {
+        color: @base-white-color;
+    }
+}

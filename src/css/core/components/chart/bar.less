@@ -1,0 +1,47 @@
+.chart-bar {
+    display: inline-block;
+    width: 100%;
+    height: .4em;
+    background-color: @color-semi-light-silver;
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-bar .chart-bar-inner {
+    display: inline-block;
+    background-color: @color-dark-gray;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    .transition(width .3s ease);
+}
+
+.chart-bar.chart-primary .chart-bar-inner {
+    background-color: @base-primary-color;
+}
+
+.chart-bar.chart-cobalt .chart-bar-inner {
+    background-color: @base-cobalt-color;
+}
+
+.chart-bar.chart-success .chart-bar-inner {
+    background-color: @base-success-color;
+}
+
+.chart-bar.chart-danger .chart-bar-inner {
+    background-color: @base-danger-color;
+}
+
+.chart-bar.chart-alert .chart-bar-inner {
+    background-color: @base-alert-color;
+}
+
+.chart-bar.chart-notice .chart-bar-inner {
+    background-color: @base-notice-color;
+}
+
+.chart-bar.chart-force .chart-bar-inner {
+    background-color: @base-force-color;
+}

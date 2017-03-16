@@ -1,0 +1,174 @@
+@import 'anim.less';
+
+.toggle-wrapper .toggle-label {
+    font-size: @font-default-size;
+    color: @color-light-gray;
+}
+
+.toggle-wrapper .toggle-label:first-child {
+    margin-right: .6em;
+}
+
+.toggle-wrapper .toggle-label:last-child {
+    margin-left: .6em;
+}
+
+.toggle {
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.toggle input {
+    display: none;
+}
+
+.toggle span,
+.toggle input {
+    vertical-align: bottom;
+}
+
+.toggle input + .switch {
+    display: inline-block;
+    width: ceil(@font-default-size * 3.6);
+    height: ceil(@font-default-size * 2.4);
+    background-color: @color-normal-bg;
+    border: 1px solid @color-silver;
+    border-radius: ceil(@font-default-size * 1.2);
+    position: relative;
+    .box-sizing(border-box);
+}
+
+.toggle input + .switch .switch-ball {
+    position: absolute;
+    top: ceil(@font-default-size * .1);
+    left: ceil(@font-default-size * .2);
+    z-index: 5;
+    display: inline-block;
+    width: ceil(@font-default-size * 2);
+    height: ceil(@font-default-size * 2);
+    background-color: @base-white-color;
+    border-radius: @font-default-size;
+    .animation-name(toggle-shuffle-out);
+    .animation-duration(.6s);
+    .animation-timing-function(ease-out);
+    .animation-fill-mode(both);
+    .animation-direction(alternate);
+    .box-shadow(0 3px 8px 0 rgba(0, 0, 0, .75));
+    .box-sizing(border-box);
+}
+
+.toggle input + .switch .switch-bg {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: ceil(@font-default-size * 1.2);
+    background-color: @base-white-color;
+    .transition(background-color .4s ease);
+}
+
+.toggle input:checked + .switch .switch-bg {
+    background-color: @color-light-gray;
+}
+
+.toggle input:checked + .switch .switch-ball {
+    border-color: @color-semi-light-gray;
+    .animation-name(toggle-shuffle-in);
+    .animation-duration(.6s);
+    .animation-timing-function(ease-out);
+    .animation-fill-mode(both);
+    .animation-direction(alternate);
+    .transform(translate3d(ceil(@font-default-size * 1.25), 0, 0));
+}
+
+.toggle-label.toggle-label-active {
+    color: @font-normal-color;
+}
+
+.works-primary .toggle input:checked + .switch .switch-bg {
+    background-color: @base-primary-color;
+}
+
+.works-primary .toggle input:checked + .switch .switch-ball {
+    border-color: @base-primary-color;
+
+}
+
+.works-primary .toggle-label.toggle-label-active {
+    color: @base-primary-color;
+}
+
+.works-cobalt .toggle input:checked + .switch .switch-bg {
+    background-color: @base-cobalt-color;
+}
+
+.works-cobalt .toggle input:checked + .switch .switch-ball {
+    border-color: @base-cobalt-color;
+}
+
+.works-cobalt .toggle-label.toggle-label-active {
+    color: @base-cobalt-color;
+}
+
+.works-success .toggle input:checked + .switch .switch-bg {
+    background-color: @base-success-color;
+}
+
+.works-success .toggle input:checked + .switch .switch-ball {
+    border-color: @base-success-color;
+}
+
+.works-success .toggle-label.toggle-label-active {
+    color: @base-success-color;
+}
+
+.works-danger .toggle input:checked + .switch .switch-bg {
+    background-color: @base-danger-color;
+}
+
+.works-danger .toggle.toggle-danger input:checked + .switch .switch-ball {
+    border-color: @base-danger-color;
+}
+
+.works-danger .toggle-label.toggle-label-active {
+    color: @base-danger-color;
+}
+
+.works-alert .toggle input:checked + .switch .switch-bg {
+    background-color: @base-alert-color;
+}
+
+.works-alert .toggle input:checked + .switch .switch-ball {
+    border-color: @base-alert-color;
+}
+
+.works-alert .toggle-label.toggle-label-active {
+    color: @base-alert-color;
+}
+
+.works-notice .toggle input:checked + .switch .switch-bg {
+    background-color: @base-notice-color;
+}
+
+.works-notice .toggle input:checked + .switch .switch-ball {
+    border-color: @base-notice-color;
+}
+
+.works-notice .toggle-label.toggle-label-active {
+    color: @base-notice-color;
+}
+
+.works-force .toggle input:checked + .switch .switch-bg {
+    background-color: @base-force-color;
+}
+
+.works-force .toggle input:checked + .switch .switch-ball {
+    border-color: @base-force-color;
+}
+
+.works-force .toggle-label.toggle-label-active {
+    color: @base-force-color;
+}
