@@ -26,7 +26,7 @@ define([
                 /* @DATE 2016. 06. 28 */
                 /* @USER Kenneth */
                 /* @NOTE dataset에서 받아오는 boolean 타입 보정 !!구문 유효성문제로 인해 escape 처리. */
-                if (!!options.validation.disable !== true) {
+                if (typeof options.validation !== 'options' || !!options.validation.disable !== true) {
                     validation = true;
                 }
                 /* jshint ignore:end */
@@ -86,12 +86,13 @@ define([
                     }
                 });
 
-                var extracted_classes = element.attr('class').match(/input-(\w+)/gi);
-                if (typeof element.attr('class') !== 'undefined' && extracted_classes !== null && extracted_classes.length > 0) {
-                    var class_names = element.attr('class').match(/input-(\w+)/gi);
-                    for (var idx in class_names) {
-                        var class_name = class_names[idx];
-                        $label.addClass('works-' + class_name);
+                if (typeof element.attr('class') !== 'undefined') {
+                    var extracted_classes = element.attr('class').match(/input-(\w+)/gi);
+                    if(extracted_classes !== null && extracted_classes.length > 0) {
+                        for (let idx in extracted_classes) {
+                            var class_name = extracted_classes[idx];
+                            $label.addClass('works-' + class_name);
+                        }
                     }
                 }
 

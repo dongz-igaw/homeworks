@@ -1087,7 +1087,7 @@ define('core/utils/prototype',['../models/index'], function (model) {
   *= NOTE - Component biding feature.
   *= DATE - 2016-01-19
   *================================================*/
-	Function.prototype.hook = function (component, args) {
+	Function.prototype.hook = function (component, args, callback) {
 		var context = this;
 
 		try {
@@ -1112,9 +1112,17 @@ define('core/utils/prototype',['../models/index'], function (model) {
 						}
 					}
 				});
+
+				if (typeof callback === 'function') {
+					callback.call();
+				}
 			});
 		} catch (e) {
 			console.trace(e.stack);
+
+			if (typeof callback === 'function') {
+				callback(e);
+			}
 		}
 	};
 });
@@ -1531,7 +1539,7 @@ define('components/input/core',['../../core/utils/data', '../../core/utils/helpe
                 /* @DATE 2016. 06. 28 */
                 /* @USER Kenneth */
                 /* @NOTE dataset에서 받아오는 boolean 타입 보정 !!구문 유효성문제로 인해 escape 처리. */
-                if (!!options.validation.disable !== true) {
+                if (typeof options.validation !== 'options' || !!options.validation.disable !== true) {
                     validation = true;
                 }
                 /* jshint ignore:end */
@@ -1591,12 +1599,13 @@ define('components/input/core',['../../core/utils/data', '../../core/utils/helpe
                     }
                 });
 
-                var extracted_classes = element.attr('class').match(/input-(\w+)/gi);
-                if (typeof element.attr('class') !== 'undefined' && extracted_classes !== null && extracted_classes.length > 0) {
-                    var class_names = element.attr('class').match(/input-(\w+)/gi);
-                    for (var idx in class_names) {
-                        var class_name = class_names[idx];
-                        $label.addClass('works-' + class_name);
+                if (typeof element.attr('class') !== 'undefined') {
+                    var extracted_classes = element.attr('class').match(/input-(\w+)/gi);
+                    if (extracted_classes !== null && extracted_classes.length > 0) {
+                        for (var idx in extracted_classes) {
+                            var class_name = extracted_classes[idx];
+                            $label.addClass('works-' + class_name);
+                        }
                     }
                 }
 
@@ -2174,13 +2183,28 @@ define('components/spinner/core',['../../core/utils/data', '../../core/utils/hel
                     option: $selected.length > 0 ? $selected.text() : this.global.empty
                 }));
 
-                var attrs = element.prop("attributes");
+                var attrs = element.prop('attributes');
                 for (var idx in attrs) {
                     var attr = attrs[idx];
                     if (attr.name !== 'class' && attr.name !== 'style') {
                         $spinner.attr(attr.name, attr.value);
                     }
                 }
+
+                if (typeof element.attr('class') !== 'undefined') {
+                    var regex = /input-(\w+)/gi;
+                    var class_full_name = element.attr('class');
+                    var extracted_classes = class_full_name.match();
+                    if (extracted_classes !== null && extracted_classes.length > 0) {
+                        var match = regex.exec(class_full_name);
+                        while (match !== null) {
+                            var class_name = match[1];
+                            $spinner.addClass('spinner-' + class_name);
+                            match = regex.exec(class_full_name);
+                        }
+                    }
+                }
+
                 $spinner.insertAfter(element);
                 $spinner.ripple({
                     theme: 'dark'
@@ -2230,7 +2254,6 @@ define('components/spinner/core',['../../core/utils/data', '../../core/utils/hel
                     }
                     var $spinnerWrapper = $(context.$helper.parseTemplate('spinnerWrapper'));
 
-                    console.log('test', element, element.find('option'), $spinner, context);
                     element.find('option').each(function () {
                         var $this = $(this);
                         var $option = $(context.$helper.parseTemplate('spinnerOptions', {

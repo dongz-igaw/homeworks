@@ -18,13 +18,28 @@ define([
                     option: $selected.length > 0 ? $selected.text() : this.global.empty
                 }));
 
-                var attrs = element.prop("attributes");
-                for (var idx in attrs) {
+                var attrs = element.prop('attributes');
+                for (let idx in attrs) {
                     var attr = attrs[idx];
                     if (attr.name !== 'class' && attr.name !== 'style') {
                         $spinner.attr(attr.name, attr.value);
                     }
                 }
+
+                if (typeof element.attr('class') !== 'undefined') {
+                    let regex = /input-(\w+)/gi;
+                    let class_full_name = element.attr('class');
+                    let extracted_classes = class_full_name.match();
+                    if(extracted_classes !== null && extracted_classes.length > 0) {
+                        let match = regex.exec(class_full_name);
+                        while(match !== null) {
+                            let class_name = match[1];
+                            $spinner.addClass('spinner-' + class_name);
+                            match = regex.exec(class_full_name);
+                        }
+                    }
+                }
+
                 $spinner.insertAfter(element);
                 $spinner.ripple({
                     theme: 'dark'
@@ -74,7 +89,6 @@ define([
                     }
                     var $spinnerWrapper = $(context.$helper.parseTemplate('spinnerWrapper'));
 
-                    console.log('test', element, element.find('option'), $spinner, context);
                     element.find('option').each(function () {
                         var $this = $(this);
                         var $option = $(context.$helper.parseTemplate('spinnerOptions', {

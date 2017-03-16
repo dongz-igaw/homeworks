@@ -4851,6 +4851,10 @@ textarea[readonly].input {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.spinner.spinner-block {
+  display: block;
+  width: 100%;
+}
 .spinner.spinner-disabled,
 .spinner.spinner-readonly {
   color: #777777;

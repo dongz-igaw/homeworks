@@ -262,6 +262,9 @@ var targets = [
         id: 'tables-hover-table'
     },
     {
+    	id: 'tables-fixed-size'
+    },
+    {
         id: 'pagination-default',
         action: {
             type: 'click',
