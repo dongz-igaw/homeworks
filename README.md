@@ -41,17 +41,9 @@ But also as many issues can be found.
 
  ```bash
 $ git clone git@github.com:IGAWorksDev/homeworks.git
-$ cd homeworks
 ```
 
-2. You can open `HOMEWORKS` page in your browser easily by typing code below.
-
- ```bash
-$ npm install
-$ npm start
-```
-
-3. If you want to use `HOMEWORKS` to submodule of Git, Type the command like below.
+2. If you want to use `HOMEWORKS` to submodule of Git, Type the command like below.
 
  ```bash
 $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
