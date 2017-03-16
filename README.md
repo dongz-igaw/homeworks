@@ -112,12 +112,30 @@ $ yarn install homeworks
 
 ----
 
-### Update
+### Update the latest version
 
-- Type this code on your current path of HOMEWORKS.
+- **Using Git**
 
- ```shell
+ ```bash
 $ git pull origin master
+```
+
+- **Using NPM**
+
+ ```bash
+$ npm upgrade homeworks
+```
+
+- **Using Bower**
+
+ ```bash
+$ bower update homeworks
+```
+
+- **Using Yarn**
+
+ ```bash
+$ yarn upgrade homeworks
 ```
 
 ----
@@ -160,10 +178,6 @@ $ git pull origin master
       ├─ jquery-1.12.2.min.js
       └─ jquery-3.1.1.min.js
 ```
-
-----
-
-## [Deployment](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/DEPLOY.html)
 
 ----
 
