@@ -67,6 +67,7 @@ h6:hover i {
     padding: 1.6em;
     margin-bottom: 2em;
     line-height: 2.4;
+    word-break: break-word;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
@@ -83,6 +84,7 @@ h6:hover i {
     width: 100%;
     margin-top: 1.6em;
     font-size: 110%;
+    text-align: center;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
@@ -110,7 +112,7 @@ h6:hover i {
 }
 
 .preview [class^="col"] .btn {
-    width: 95%;
+    width: 100%;
 }
 
 .preview [class^="col"] .btn-group .btn {
@@ -147,16 +149,8 @@ h6:hover i {
     border-bottom: none;
 }
 
-.preview [class^="col-"] {
-    text-align: left;
-}
-
 .preview .row.row-table [class^="col-"] {
     height: 56px;
-}
-
-.preview > :last-child {
-    margin-bottom: 0;
 }
 
 .preview .floating {
@@ -184,6 +178,8 @@ h6:hover i {
 .preview .works-body {
     padding: 0;
     text-align: left;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
 }
 
 .preview .preview-color {
@@ -217,7 +213,7 @@ h6:hover i {
 
 .preview .preview-color .color-group .color .color-title {
     display: inline-block;
-    min-width: 10em;
+    min-width: 5em;
     font-weight: 600;
 }
 
@@ -244,6 +240,25 @@ h6:hover i {
     margin: auto;
 }
 
+.preview .row [class^="col"] label,
+.preview .row [class^="col"] .panel,
+.preview .row [class^="col"] .btn,
+.preview .row [class^="col"] .label,
+.preview .row [class^="col"] .badge,
+.preview .row [class^="col"] .works-input-label,
+.preview .row [class^="col"] .works-checkbox-wrapper,
+.preview .row [class^="col"] .spinner,
+.preview .row [class^="col"] .works-section,
+.preview .row [class^="col"] .preview-description {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 20px;
+}
+
+.preview .row [class^="col"] label.toggle {
+    margin-bottom: 0;
+}
+
 .view-source {
     display: block;
     width: 100%;
@@ -260,11 +275,12 @@ h6:hover i {
     position: absolute;
     content: '\e688';
     font-family: 'Pe-icon-7-stroke';
+    top: -.8em;
     left: 50%;
     font-size: 160%;
     width: 1.6em;
     height: 1.6em;
-    top: -.8em;
+    margin-left: -.8em;
     z-index: 5;
     font-weight: 600;
     line-height: 1.6em;
@@ -354,7 +370,7 @@ pre code .token.punctuation {
 .layout {
     max-width: 840px;
     height: 640px;
-    width: 80%;
+    width: 100%;
     background-color: #f1f1f1;
     position: relative;
     overflow: hidden;
@@ -540,4 +556,22 @@ pre code .token.punctuation {
 
 .layout-row > :last-child {
     border-right: none;
+}
+
+@media (max-width: 1200px) {
+    .row-compact > .col-md-6.col-pd {
+        padding: 0 !important;
+        margin-bottom: 40px;
+    }
+
+    .row-compact > .col-md-6.col-pd:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 540px) {
+    .view-source:after {
+        display: none;
+        content: none;
+    }
 }

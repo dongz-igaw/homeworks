@@ -244,12 +244,9 @@ module.exports = function(grunt) {
       files: [
           'src/**/**.js',
           'src/**/**.less',
+          'Gruntfile.js',
           '!src/js/homeworks.js',
-          '!src/css/homeworks.css',
-          '!build/**',
-          '!build',
-          '!dist',
-          'Gruntfile.js'
+          '!src/css/homeworks.css'
       ],
       tasks: ['default']
     }
