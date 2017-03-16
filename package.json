@@ -1,8 +1,8 @@
 {
   "name": "homeworks",
   "version": "1.0.0",
-  "description": "IGAWorks Inc, Front End framework.",
-  "main": "src/js/homeworks.js",
+  "description": "Front End framework that supported view binding.",
+  "main": "src/js/main.js",
   "scripts": {
     "test": "grunt test & mocha --require jsdom-global/register --reporter mochawesome src/js/**/test/*.js",
     "start": "lite-server -c configs/lite-server.json",
@@ -24,7 +24,7 @@
     "PIGNOSE"
   ],
   "author": "PIGNOSE <https://github.com/KennethanCeyer>",
-  "license": "Check the LICENSE file",
+  "license": "apache 2.0",
   "bugs": {
     "url": "https://github.com/IGAWorksDev/homeworks/issues"
   },
