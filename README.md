@@ -64,7 +64,7 @@ $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 1. Just type the command as follows.
 
  ```bash
-npm install homeworks
+$ npm install homeworks
 ```
 
 2. Drink some tee :coffee: , Yay!
@@ -76,7 +76,7 @@ npm install homeworks
 1. Just type the command as follows.
 
  ```bash
-bower install homeworks
+$ bower install homeworks
 ```
 
 2. Play Overwatch on the sly :unamused:, Yay!
@@ -88,7 +88,7 @@ bower install homeworks
 1. Just type the command as follows.
 
  ```bash
-yarn install homeworks
+$ yarn install homeworks
 ```
 
 2. Now postpone work to tomorrow and watch YouTube :arrow_forward:, Yay!
