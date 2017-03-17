@@ -35,6 +35,33 @@ define(['../models/index'], (model) => {
             return randomString.join('');
         };
 
+        this.replaceElement = function(oldElement, replaceElement) {
+            var newElement = $(replaceElement);
+            var attrs = oldElement.prop('attributes');
+
+            for (let idx in attrs) {
+                let attr = attrs[idx];
+                if (typeof attr === 'object' && typeof attr.name !== 'undefined') {
+                    if(attr === 'class') {
+                        newElement.addClass(attr.value);
+                    } else {
+                        newElement.attr(attr.name, attr.value);                        
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            let html = oldElement.html();
+            oldElement.replaceWith(newElement);
+
+            if (typeof html !== 'undefined' && html !== '') {
+                newElement.html(html);
+            }
+
+            return newElement;
+        };
+
         /**
          * @function
          * @description Promiss is helping to make a schedule, It is similar like setTimeout.

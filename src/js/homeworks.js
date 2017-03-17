@@ -20,7 +20,7 @@
 //
 //==========================================================
 //
-// @ UPDATE  2017.03.16
+// @ UPDATE  2017.03.17
 // @ AUTHOR  Kenneth
 //
 //=========================================================
@@ -539,6 +539,33 @@ define('core/utils/helper',['../models/index'], function (model) {
             return randomString.join('');
         };
 
+        this.replaceElement = function (oldElement, replaceElement) {
+            var newElement = $(replaceElement);
+            var attrs = oldElement.prop('attributes');
+
+            for (var idx in attrs) {
+                var attr = attrs[idx];
+                if ((typeof attr === 'undefined' ? 'undefined' : _typeof(attr)) === 'object' && typeof attr.name !== 'undefined') {
+                    if (attr === 'class') {
+                        newElement.addClass(attr.value);
+                    } else {
+                        newElement.attr(attr.name, attr.value);
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            var html = oldElement.html();
+            oldElement.replaceWith(newElement);
+
+            if (typeof html !== 'undefined' && html !== '') {
+                newElement.html(html);
+            }
+
+            return newElement;
+        };
+
         /**
          * @function
          * @description Promiss is helping to make a schedule, It is similar like setTimeout.
@@ -1048,83 +1075,161 @@ define('core/utils/method',['../models/index', './data'], function (model, data)
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-define('core/utils/prototype',['../models/index'], function (model) {
-	/*=================================================
-  *= NOTE - String mapper.
-  *= DATE - 2016-01-19
-  *================================================*/
-	String.prototype.mapping = function (data) {
-		var string = this;
-		for (var idx in data) {
-			var value = data[idx];
-			idx = idx.replace(/\\/gi, '\\\\').replace(/-/gi, '\\-');
-			var regexp = new RegExp("\\{" + idx + "\\}", "gi");
-			string = string.replace(regexp, value);
-		}
-		return string.toString();
-	};
+define('core/utils/prototype',['../models/index', './helper'], function (model, helper) {
+    /*=================================================
+     *= NOTE - String mapper.
+     *= DATE - 2016-01-19
+     *================================================*/
+    String.prototype.mapping = function (data) {
+        var string = this;
+        for (var idx in data) {
+            var value = data[idx];
+            idx = idx.replace(/\\/gi, '\\\\').replace(/-/gi, '\\-');
+            var regexp = new RegExp("\\{" + idx + "\\}", "gi");
+            string = string.replace(regexp, value);
+        }
+        return string.toString();
+    };
 
-	/*=================================================
-  *= NOTE - String formatter.
-  *= DATE - 2017-01-23
-  *================================================*/
-	String.prototype.format = function (data) {
-		var string = this;
+    /*=================================================
+     *= NOTE - String formatter.
+     *= DATE - 2017-01-23
+     *================================================*/
+    String.prototype.format = function (data) {
+        var string = this;
 
-		if (typeof data !== 'undefined' && typeof data !== null && (typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== 'object') {
-			data = [data];
-		}
+        if (typeof data !== 'undefined' && typeof data !== null && (typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== 'object') {
+            data = [data];
+        }
 
-		for (var idx in data) {
-			var value = data[idx];
-			var regexp = new RegExp("\\{" + idx + "\\}", "g");
-			string = string.replace(regexp, value);
-		}
-		return string.toString();
-	};
+        for (var idx in data) {
+            var value = data[idx];
+            var regexp = new RegExp("\\{" + idx + "\\}", "g");
+            string = string.replace(regexp, value);
+        }
+        return string.toString();
+    };
 
-	/*=================================================
-  *= NOTE - Component biding feature.
-  *= DATE - 2016-01-19
-  *================================================*/
-	Function.prototype.hook = function (component, args, callback) {
-		var context = this;
+    /*=================================================
+     *= NOTE - Component biding feature.
+     *= DATE - 2016-01-19
+     *================================================*/
+    var deniedKeywords = ['target', 'value'];
 
-		try {
-			jQuery(document).ready(function () {
-				var format = '{prefix}-{component}, [{component}], [data-{component}]';
+    Function.prototype.hook = function (component, args, config) {
+        var context = this;
 
-				jQuery(format.mapping({
-					prefix: model.PARAMS.prefix,
-					component: component
-				})).each(function () {
-					var element = $(this);
-					var target = element.data('pen');
-					var plugin = element.data(component);
+        config = config || {};
 
-					if (plugin === false) return true;
+        try {
+            jQuery(document).ready(function () {
+                var format = '{prefix}-{component}, [{component}], [data-{component}]';
 
-					if (typeof context === 'function') {
-						if (typeof target === 'undefined') {
-							context.call(element, null, plugin, args);
-						} else {
-							context.call(element, $(target), plugin, args);
-						}
-					}
-				});
+                jQuery(format.mapping({
+                    prefix: model.PARAMS.prefix,
+                    component: component
+                })).each(function () {
+                    var element = $(this);
+                    var target = element.attr('pen');
+                    var value = element.attr(component);
+                    var index;
+                    var options;
 
-				if (typeof callback === 'function') {
-					callback.call();
-				}
-			});
-		} catch (e) {
-			console.trace(e.stack);
+                    if (typeof target === 'undefined' || target === 'null' || target === 'false' || target === '') {
+                        if (element.data('pen') !== 'undefined') {
+                            // # DEPRECATED START
+                            // # SINCE v1.0.1
+                            var deprecatedPen = element.data('pen');
+                            if (typeof deprecatedPen !== 'undefined') {
+                                target = deprecatedPen;
+                                console.warn('`data-pen` attribute is deprecated usage, Use `pen` attribute.');
+                            }
+                            // # DEPRECATED END
+                        } else {
+                            target = null;
+                        }
+                    }
 
-			if (typeof callback === 'function') {
-				callback(e);
-			}
-		}
-	};
+                    if (typeof value === 'undefined' || value === 'null' || value === 'false' || value === '') {
+                        if (element.data(component) !== 'undefined') {
+                            // # DEPRECATED START
+                            // # SINCE v1.0.1
+                            var deprecatedValue = element.data(component);
+                            if (typeof deprecatedValue !== 'undefined') {
+                                value = deprecatedValue;
+                                console.warn('`data-' + component + '` attribute is deprecated usage, Use `' + component + '` attribute.');
+                            }
+                            // # DEPRECATED END
+                        } else {
+                            value = null;
+                        }
+                    }
+
+                    if (typeof value === 'string') {
+                        switch (value.toUpperCase()) {
+                            case 'TRUE':
+                                value = true;
+                                break;
+                            case 'FALSE':
+                                value = false;
+                                break;
+                            case 'NULL':
+                                value = null;
+                                break;
+                            case 'UNDEFINED':
+                                value = null;
+                                break;
+                            case 'NAN':
+                                value = NaN;
+                                break;
+                            case 'INFINITY':
+                                value = Infinity;
+                                break;
+                        }
+                    }
+
+                    if (value === false) return true;
+
+                    options = {
+                        target: $(target),
+                        value: value
+                    };
+
+                    if (typeof config.nativeElement === 'string' && element.is('{prefix}-{component}'.mapping({
+                        prefix: model.PARAMS.prefix,
+                        component: component
+                    })) === true) {
+                        element = new helper().replaceElement(element, config.nativeElement);
+                    }
+
+                    if ((typeof args === 'undefined' ? 'undefined' : _typeof(args)) === 'object') {
+                        for (var idx in args) {
+                            var keywordIndex = deniedKeywords.indexOf(args[idx]);
+                            if (keywordIndex !== -1) {
+                                throw new Exception('The `' + deniedKeywords[keywordIndex] + '` is the reserved keyword, Please choose other keyword.');
+                            } else {
+                                options[args[idx]] = element.attr(args[idx]) || null;
+                            }
+                        }
+                    }
+
+                    if (typeof context === 'function') {
+                        context.call(element, options);
+                    }
+                });
+
+                if (typeof callback === 'function') {
+                    callback.call();
+                }
+            });
+        } catch (e) {
+            console.trace(e.stack);
+
+            if (typeof callback === 'function') {
+                callback(e);
+            }
+        }
+    };
 });
 //# sourceMappingURL=prototype.js.map
 ;
@@ -1283,7 +1388,9 @@ define('components/checkbox/core',['../../core/utils/data', '../../core/utils/he
 define('components/checkbox/hook',[],function () {
     (function () {
         this.checkbox();
-    }).hook('checkbox');
+    }).hook('checkbox', null, {
+        nativeElement: '<input type="checkbox" class="input" value="" />'
+    });
 });
 //# sourceMappingURL=hook.js.map
 ;
@@ -1498,14 +1605,11 @@ define('components/dropdown/core',['../../core/utils/data', '../../core/utils/he
 
 
 define('components/dropdown/hook',[],function () {
-    (function (target) {
-        var direction = this.data('direction');
-
-        this.dropdown({
-            target: target,
-            direction: direction
-        });
-    }).hook('dropdown');
+    (function (options) {
+        this.dropdown(options);
+    }).hook('dropdown', ['direction'], {
+        nativeElement: '<span></span>'
+    });
 });
 //# sourceMappingURL=hook.js.map
 ;
@@ -1683,7 +1787,9 @@ define('components/input/core',['../../core/utils/data', '../../core/utils/helpe
 define('components/input/hook',[],function () {
     (function () {
         this.input();
-    }).hook('input');
+    }).hook('input', null, {
+        nativeElement: '<input text="text" class="input" />'
+    });
 });
 //# sourceMappingURL=hook.js.map
 ;
@@ -1720,7 +1826,9 @@ define('components/menu/hook',[],function () {
                 });
             }
         });
-    }).hook('menu');
+    }).hook('menu', null, {
+        nativeElement: '<button></button>'
+    });
 });
 //# sourceMappingURL=hook.js.map
 ;
@@ -1896,10 +2004,10 @@ define('components/modal/core',['../../core/utils/data', '../../core/utils/helpe
 
 
 define('components/modal/hook',[],function () {
-    (function (target) {
+    (function (options) {
         this.bind('click', function (event) {
             event.preventDefault();
-            target.modal('toggle');
+            options.target.modal('toggle');
         });
     }).hook('modal');
 });
@@ -2153,11 +2261,13 @@ define('components/ripple/core',['../../core/utils/data', '../../core/utils/help
 
 
 define('components/ripple/hook',[],function () {
-    (function (target, value) {
+    (function (options) {
         this.ripple({
-            theme: value
+            theme: options.value || options.theme
         });
-    }).hook('ripple');
+    }).hook('ripple', ['theme'], {
+        nativeElement: '<button class="btn btn-material"></button>'
+    });
 });
 //# sourceMappingURL=hook.js.map
 ;
@@ -2335,7 +2445,9 @@ define('components/spinner/core',['../../core/utils/data', '../../core/utils/hel
 define('components/spinner/hook',[],function () {
     (function () {
         this.spinner();
-    }).hook('spinner');
+    }).hook('spinner', [], {
+        nativeElement: '<select class="input"></select>'
+    });
 });
 //# sourceMappingURL=hook.js.map
 ;
@@ -2407,11 +2519,15 @@ define('components/tab/core',['../../core/utils/data', '../../core/utils/helper'
 define('components/tab/hook',[],function () {
     (function () {
         this.tab();
-    }).hook('tab');
+    }).hook('tab', null, {
+        nativeElement: '<div></div>'
+    });
 
     (function () {
         this.step();
-    }).hook('step');
+    }).hook('step', {
+        nativeElement: '<div></div>'
+    });
 });
 //# sourceMappingURL=hook.js.map
 ;
@@ -2602,24 +2718,27 @@ define('components/toggle/core',['../../core/utils/data', '../../core/utils/help
 
 
 define('components/toggle/hook',[],function () {
-    (function () {
-        var placeholder = this.data('toggleplaceholder');
+    (function (options) {
+        if (typeof options.value === 'string' && options.placeholder === null) {
+            options.placeholder = options.value;
+        }
+
         try {
-            if (typeof placeholder !== 'undefined' && placeholder !== null && placeholder !== '') {
-                placeholder = placeholder.replace(/\'/gi, "\"");
-                placeholder = JSON.parse(placeholder);
+            if (options.placeholder !== null && options.placeholder !== '') {
+                options.placeholder = options.placeholder.replace(/\'/gi, "\"");
+                options.placeholder = JSON.parse(options.placeholder);
             } else {
-                placeholder = null;
+                options.placeholder = null;
             }
         } catch (e) {
-            placeholder = null;
+            options.placeholder = null;
             console.trace(e.stack);
         }
 
-        this.toggle({
-            placeholder: placeholder
-        });
-    }).hook('toggle');
+        this.toggle(options);
+    }).hook('toggle', ['placeholder'], {
+        nativeElement: '<input type="radio" class="input" value="" />'
+    });
 });
 //# sourceMappingURL=hook.js.map
 ;
@@ -2692,14 +2811,14 @@ define('components/tooltip/core',['../../core/utils/data', '../../core/utils/hel
 
 
 define('components/tooltip/hook',[],function () {
-    (function (target, value) {
-        var direction = this.data('tooltip-direction');
-
+    (function (options) {
         this.tooltip({
-            value: value,
-            direction: direction
+            value: options.value,
+            direction: options.direction
         });
-    }).hook('tooltip');
+    }).hook('tooltip', ['direction'], {
+        nativeElement: '<span></span>'
+    });
 });
 //# sourceMappingURL=hook.js.map
 ;

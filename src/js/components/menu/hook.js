@@ -24,5 +24,7 @@ define(() => {
                 });
             }
         });
-    }).hook('menu');
+    }).hook('menu', null, {
+        nativeElement: '<button></button>'
+    });
 });

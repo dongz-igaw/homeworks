@@ -10,7 +10,7 @@ describe('[core/utils/method] TEST', () => {
         var $ = global.$ = global.jQuery = require('jquery');
 
         $('body').html(`
-            <div data-component="true" data-pen="#pen">COMPONENT</div>
+            <works-component pen="#pen">COMPONENT</div>
             <div id="pen">PEN ELEMENT</div>
         `);
 
@@ -87,9 +87,9 @@ describe('[core/utils/method] TEST', () => {
                 }
             });
 
-            (function(target, value) {
+            (function(options) {
                 var args = {
-                    target: target,
+                    target: options.target,
                     key: 'value'
                 };          
                 this.component(args);

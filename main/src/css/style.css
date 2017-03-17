@@ -254,8 +254,6 @@ h6:hover i {
 .preview .row [class^="col"] .spinner,
 .preview .row [class^="col"] .works-section,
 .preview .row [class^="col"] .preview-description {
-    margin-left: 0;
-    margin-right: 0;
     margin-bottom: 20px;
 }
 

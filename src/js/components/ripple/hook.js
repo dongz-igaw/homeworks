@@ -1,7 +1,11 @@
 define(() => {
-    (function (target, value) {
+    (function (options) {
         this.ripple({
-            theme: value
+            theme: options.value || options.theme
         });
-    }).hook('ripple');
+    }).hook('ripple', [
+        'theme'
+    ], {
+        nativeElement: '<button class="btn btn-material"></button>'
+    });
 });

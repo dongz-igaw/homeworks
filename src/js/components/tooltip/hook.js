@@ -1,10 +1,12 @@
 define(() => {
-    (function (target, value) {
-        var direction = this.data('tooltip-direction');
-
+    (function (options) {
         this.tooltip({
-            value: value,
-            direction: direction
+            value: options.value,
+            direction: options.direction
         });
-    }).hook('tooltip');
+    }).hook('tooltip', [
+        'direction'
+    ], {
+        nativeElement: '<span></span>'
+    });
 });

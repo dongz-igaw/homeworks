@@ -1,8 +1,8 @@
 define(() => {
-    (function (target) {
+    (function (options) {
         this.bind('click', function (event) {
             event.preventDefault();
-            target.modal('toggle');
+            options.target.modal('toggle');
         });
     }).hook('modal');
 });

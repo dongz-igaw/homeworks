@@ -8,8 +8,8 @@ describe('[core/utils/prototype] TEST', () => {
         var $ = global.$ = global.jQuery = require('jquery');
 
         $('body').html(`
-            <div id="test" data-test="true" data-pen="#target">TEST</div>
-            <div id="test2" data-test2="false">TEST2</div>
+            <works-test id="test" pen="#target" test="true">TEST</works-test>
+            <div id="test2" test2="false">TEST2</div>
             <div id="target">TARGET</div>
         `);
     
@@ -52,7 +52,7 @@ describe('[core/utils/prototype] TEST', () => {
 
     describe('#3 Function.prototype.hook() TEST', () => {
         it('@1 BINDED ELEMENT ID MUST BE `test`.', (done) => {
-            (function(target, value) {
+            (function(options) {
                 var elementID = this.attr('id');
                 try {
                     assert.equal(elementID, 'test');
@@ -65,8 +65,8 @@ describe('[core/utils/prototype] TEST', () => {
         });
 
         it('@2 TARGETED ELEMENT ID MUST BE `target`.', (done) => {
-            (function(target, value) {
-                var targetID = target.attr('id');
+            (function(options) {
+                var targetID = options.target.attr('id');
                 try {
                     assert.equal(targetID, 'target');
                 } catch(error) {
@@ -78,35 +78,15 @@ describe('[core/utils/prototype] TEST', () => {
         });
 
         it('@3 BINDED VALUE MUST BE `true`.', (done) => {
-            (function(target, value) {
+            (function(options) {
                 try {
-                    assert.equal(value, true);
+                    assert.equal(options.value, true);
                 } catch(error) {
                     return done(error);
                 }                    
 
                 done();
             }).hook('test');
-        });
-
-        it('@4 HOOK CALLBACK MUST NOT BE CALLED.', (done) => {
-            let error = false;
-
-            (function(target, value) {
-                if (error === false) {
-                    done('Component that own data be gave `false` must not be called.');
-                }
-                error = true;
-            }).hook('test2', null, (err) => {
-                if (error === false) {
-                    if(err) {
-                        error = true;
-                        done(err);
-                    } else {
-                        done();
-                    }
-                }
-            });
         });
     });
 });

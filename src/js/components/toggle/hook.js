@@ -1,20 +1,25 @@
 define(() => {
-    (function () {
-        var placeholder = this.data('toggleplaceholder');
+    (function (options) {
+        if (typeof options.value === 'string' && options.placeholder === null) {
+            options.placeholder = options.value;
+        }
+
         try {
-            if (typeof placeholder !== 'undefined' && placeholder !== null && placeholder !== '') {
-                placeholder = placeholder.replace(/\'/gi, "\"");
-                placeholder = JSON.parse(placeholder);
+            if (options.placeholder !== null && options.placeholder !== '') {
+                options.placeholder = options.placeholder.replace(/\'/gi, "\"");
+                options.placeholder = JSON.parse(options.placeholder);
             } else {
-                placeholder = null;
+                options.placeholder = null;
             }
         } catch (e) {
-            placeholder = null;
+            options.placeholder = null;
             console.trace(e.stack);
         }
 
-        this.toggle({
-            placeholder: placeholder
-        });
-    }).hook('toggle');
+        this.toggle(options);
+    }).hook('toggle', [
+        'placeholder'
+    ], {
+        nativeElement: '<input type="radio" class="input" value="" />'
+    });
 });

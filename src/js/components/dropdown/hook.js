@@ -1,10 +1,9 @@
 define(() => {
-    (function (target) {
-        var direction = this.data('direction');
-
-        this.dropdown({
-            target: target,
-            direction: direction
-        });
-    }).hook('dropdown');
+    (function (options) {
+        this.dropdown(options);
+    }).hook('dropdown', [
+        'direction',
+    ], {
+        nativeElement: '<span></span>'
+    });
 });
