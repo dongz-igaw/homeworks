@@ -62,7 +62,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/homeworks.min.js': [
+          'dist/js/homeworks.min.js': [
           'build/js/homeworks.js'
           ]
         }
@@ -137,9 +137,14 @@ module.exports = function(grunt) {
         }
     },
     clean: {
-      dist: {
+      build: {
         src: [
             'build'
+        ]
+      },
+      dist: {
+        src: [
+            'dist'
         ]
       }
     },
@@ -165,7 +170,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/homeworks.min.css': [
+          'dist/css/homeworks.min.css': [
             'build/css/homeworks.css'
           ]
         }
@@ -273,7 +278,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-banner');
   grunt.loadNpmTasks('grunt-babel');
 
-  grunt.registerTask('default', ['less', 'jshint', 'csslint', 'build', 'replace', 'strip_code', 'uglify', 'cssmin', 'usebanner', 'copy', 'clean']);
+  grunt.registerTask('default', ['clean:dist', 'less', 'jshint', 'csslint', 'build', 'replace', 'strip_code', 'uglify', 'cssmin', 'usebanner', 'copy', 'clean:build']);
   grunt.registerTask('build', ['babel', 'requirejs']);
   grunt.registerTask('replacement', ['replace']);
   grunt.registerTask('test', ['jshint', 'csslint']);
