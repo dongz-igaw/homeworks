@@ -1,6 +1,6 @@
 {
   "name": "homeworks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Front End framework that supported view binding.",
   "main": "src/js/main.js",
   "scripts": {
