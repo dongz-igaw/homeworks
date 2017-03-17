@@ -1,6 +1,7 @@
 # HOMEWORKS FRAMEWORK
 
 [![Build Status](https://travis-ci.org/IGAWorksDev/homeworks.svg?branch=master)](https://travis-ci.org/IGAWorksDev/homeworks)
+[![npm version](https://badge.fury.io/js/homeworks.svg)](https://badge.fury.io/js/homeworks)
 [![Coverage Status](https://coveralls.io/repos/github/IGAWorksDev/homeworks/badge.svg?branch=master)](https://coveralls.io/github/IGAWorksDev/homeworks?branch=master)
 [![codecov](https://codecov.io/gh/IGAWorksDev/homeworks/branch/master/graph/badge.svg?token=viTgpBkL7A)](https://codecov.io/gh/IGAWorksDev/homeworks)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -40,21 +41,49 @@ But also as many issues can be found.
 
  ```bash
 $ git clone git@github.com:IGAWorksDev/homeworks.git
-$ cd homeworks
 ```
 
-2. You can open `HOMEWORKS` page in your browser easily by typing code below.
-
- ```bash
-$ npm install
-$ npm start
-```
-
-3. If you want to use `HOMEWORKS` to submodule of Git, Type the command like below.
+2. If you want to use `HOMEWORKS` to submodule of Git, Type the command like below.
 
  ```bash
 $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 ```
+
+----
+
+### Install using NPM
+
+1. Just type the command as follows.
+
+ ```bash
+$ npm install homeworks
+```
+
+2. Drink some tee :coffee: , Yay!
+
+----
+
+### Install using Bower
+
+1. Just type the command as follows.
+
+ ```bash
+$ bower install homeworks
+```
+
+2. Play Overwatch on the sly :unamused:, Yay!
+
+----
+
+### Install using Yarn
+
+1. Just type the command as follows.
+
+ ```bash
+$ yarn install homeworks
+```
+
+2. Now postpone work to tomorrow and watch YouTube :arrow_forward:, Yay!
 
 ----
 
@@ -64,7 +93,15 @@ $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 >
 > Download the file that you want, And unzip it.
 
-#### Add html snippets.
+----
+
+## Quick Start
+
+- Run homeworks on your browser by using NPM
+
+ ```bash
+$ npm start
+```
 
 - Add this spinnet in `head` tag of your html file.
 
@@ -75,12 +112,30 @@ $ git submodule add git@github.com:IGAWorksDev/homeworks.git /path/of/homeworks
 
 ----
 
-### Update
+### Update the latest version
 
-- Type this code on your current path of HOMEWORKS.
+- **Using Git**
 
- ```shell
+ ```bash
 $ git pull origin master
+```
+
+- **Using NPM**
+
+ ```bash
+$ npm upgrade homeworks
+```
+
+- **Using Bower**
+
+ ```bash
+$ bower update homeworks
+```
+
+- **Using Yarn**
+
+ ```bash
+$ yarn upgrade homeworks
 ```
 
 ----
@@ -123,10 +178,6 @@ $ git pull origin master
       ├─ jquery-1.12.2.min.js
       └─ jquery-3.1.1.min.js
 ```
-
-----
-
-## [Deployment](https://kennethanceyer.gitbooks.io/homeworks-framework-wiki/content/DEVELOPMENT/DEPLOY.html)
 
 ----
 
